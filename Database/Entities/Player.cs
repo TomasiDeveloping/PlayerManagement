@@ -6,7 +6,11 @@ public class Player : BaseEntity
 
     public required Rank Rank { get; set; }
 
+    public Guid RankId { get; set; }
+
     public Alliance Alliance { get; set; }
+
+    public Guid AllianceId { get; set; }
 
     public required string Level { get; set; }
 

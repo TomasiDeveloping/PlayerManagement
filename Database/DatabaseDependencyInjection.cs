@@ -1,4 +1,5 @@
-﻿using Database.Entities;
+﻿using System.Reflection;
+using Database.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -10,6 +11,8 @@ public static class DatabaseDependencyInjection
 {
     public static IServiceCollection AddDatabase(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddDataProtection();
+
         services.AddDbContext<ApplicationContext>(options =>
         {
             options.UseSqlServer(configuration.GetConnectionString("ApplicationDbConnection"));
@@ -34,7 +37,6 @@ public static class DatabaseDependencyInjection
         {
             options.TokenLifespan = TimeSpan.FromHours(2);
         });
-
 
         return services;
     }

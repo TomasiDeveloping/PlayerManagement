@@ -11,8 +11,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
         builder.Property(user => user.PlayerName).IsRequired().HasMaxLength(200);
 
         builder.HasOne(user => user.Alliance)
-            .WithOne(alliance => alliance.User)
-            .HasForeignKey<Alliance>(alliance => alliance.UserId)
+            .WithMany(alliance => alliance.Users)
+            .HasForeignKey(user => user.AllianceId)
             .OnDelete(DeleteBehavior.NoAction);
     }
 }

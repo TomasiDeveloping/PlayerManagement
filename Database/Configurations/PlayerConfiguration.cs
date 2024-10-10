@@ -14,8 +14,8 @@ public class PlayerConfiguration : IEntityTypeConfiguration<Player>
         builder.Property(player => player.Level).IsRequired().HasMaxLength(3);
 
         builder.HasOne(player => player.Rank)
-            .WithOne(rank => rank.Player)
-            .HasForeignKey<Rank>(rank => rank.PlayerId)
+            .WithMany(rank => rank.Players)
+            .HasForeignKey(player => player.RankId)
             .OnDelete(DeleteBehavior.Cascade);
 
         builder.HasMany(player => player.VsDuels)

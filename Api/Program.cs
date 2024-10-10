@@ -1,22 +1,70 @@
-var builder = WebApplication.CreateBuilder(args);
+// Configure Serilog logger
 
-// Add services to the container.
+using Api.Configurations;
+using Application;
+using Database;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Serilog;
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+Log.Logger = new LoggerConfiguration()
+    .WriteTo.Console()
+    .CreateBootstrapLogger();
 
-var app = builder.Build();
+try
+{
+    Log.Information("Starting API . . . ");
+    var builder = WebApplication.CreateBuilder(args);
+
+    builder.Services.AddSerilog(options =>
+    {
+        options.ReadFrom.Configuration(builder.Configuration);
+    });
+
+    builder.Services.AddDatabase(builder.Configuration);
+    builder.Services.AddApplication();
+
+    builder.Services.AddControllers();
+    builder.Services.AddEndpointsApiExplorer();
+
+    builder.Services.ConfigureAndApiVersioning();
+    builder.Services.ConfigureAndAddSwagger();
+    builder.Services.ConfigureAndAddCors();
+    builder.Services.ConfigureAndAddHealthChecks(builder.Configuration);
+
+    var jwtSection = builder.Configuration.GetRequiredSection("Jwt");
+    builder.Services.ConfigureAndAddAuthentication(jwtSection);
+
+    var app = builder.Build();
 
 
-app.UseSwagger();
-app.UseSwaggerUI();
+    app.UseSwagger();
+    app.UseSwaggerUI();
 
-app.UseHttpsRedirection();
+    app.UseCors("AllowAll");
 
-app.UseAuthorization();
+    app.UseSerilogRequestLogging();
 
-app.MapControllers();
+    app.UseHttpsRedirection();
 
-app.Run();
+    app.UseAuthentication();
+    app.UseAuthorization();
+
+    app.MapControllers();
+
+    app.MapHealthChecks("/health", new HealthCheckOptions()
+    {
+        ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+    });
+
+    app.Run();
+}
+catch (Exception e)
+{
+    Log.Fatal(e, e.Message);
+}
+finally
+{
+    Log.CloseAndFlush();
+}
+
