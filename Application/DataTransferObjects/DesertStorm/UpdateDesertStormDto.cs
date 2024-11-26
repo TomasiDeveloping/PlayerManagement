@@ -1,16 +1,23 @@
-﻿namespace Application.DataTransferObjects.DesertStorm;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Application.DataTransferObjects.DesertStorm;
 
 public class UpdateDesertStormDto
 {
     public Guid Id { get; set; }
 
-    public Guid PlayerId { get; set; }
+    [Required] 
+    public bool Won { get; set; }
 
-    public bool Registered { get; set; }
+    [Required] 
+    public int OpposingParticipants { get; set; }
 
-    public bool Participated { get; set; }
+    [Required] 
+    public int OpponentServer { get; set; }
 
-    public int Year { get; set; }
+    public DateTime EventDate { get; set; } = DateTime.Now;
 
-    public int CalendarWeek { get; set; }
+    [Required]
+    [MaxLength(150)] 
+    public required string OpponentName { get; set; }
 }

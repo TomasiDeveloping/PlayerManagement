@@ -1,0 +1,82 @@
+@if (player) {
+  <div class="modal-header" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+    <h4 class="modal-title">Notes for {{player.playerName}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+  </div>
+
+  <div class="modal-body">
+    @if (!isCreateMode && !isEditMode) {
+      <div class="d-grid gap-2 col-6 mx-auto mb-5">
+        <button (click)="onInsertNewNote()" class="btn btn-primary" type="button">Insert new Note</button>
+      </div>
+    }
+
+    @if (playerNotes.length <= 0 && (!isCreateMode && !isEditMode)) {
+      <p class="text-center mt-5">No Notes</p>
+    } @else if (!isCreateMode && !isEditMode) {
+
+      <div ngbAccordion [closeOthers]="true">
+        @for (note of playerNotes; track note.id; let i = $index) {
+          <div ngbAccordionItem [collapsed]="i !== 0">
+            <h2 ngbAccordionHeader>
+              <button ngbAccordionButton>{{note.createdOn | date: 'dd.MM.yyy HH:mm'}}</button>
+            </h2>
+            <div ngbAccordionCollapse>
+              <div ngbAccordionBody>
+                <ng-template>
+                  <div class="alert alert-secondary" role="alert">
+                    <small>Creator: <span class="text-primary">{{note.createdBy}}</span></small>
+                    @if (note.modifiedOn) {
+                      <br>
+                      <small>Edited: <span class="text-primary">{{note.modifiedOn | date: 'dd.MM.yyyy HH:mm'}}</span> by
+                        <span class="text-primary">{{note.modifiedBy}}</span></small>
+                    }
+                  </div>
+                  <hr>
+                  {{note.playerNote}}
+                  <hr>
+                  <div class="d-flex justify-content-between mt-3">
+                    <button (click)="onEditNote(note)" class="btn btn-sm bg-info">Edit</button>
+                    <button (click)="deleteNote(note)" class="btn btn-sm bg-danger">Delete</button>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+    @if (isCreateMode || isEditMode) {
+
+        <form [formGroup]="noteForm" (ngSubmit)="onSubmit()">
+          <div class="form-floating mb-3">
+            <textarea [ngClass]="{
+            'is-valid': noteForm.controls['playerNote'].valid,
+            'is-invalid': noteForm.controls['playerNote'].invalid && (noteForm.controls['playerNote'].touched || noteForm.controls['playerNote'].dirty)
+            }" class="form-control" maxlength="501" formControlName="playerNote" placeholder="playerNote" id="playerNote" style="height: 100px"></textarea>
+            <label for="playerNote">Note</label>
+            @if (noteForm.controls['playerNote'].invalid && (noteForm.controls['playerNote'].touched || noteForm.controls['playerNote'].dirty)) {
+              <div class="invalid-feedback">
+                @if (noteForm.controls['playerNote'].hasError('required')) {
+                  <p>Note is required</p>
+                }
+                @if (noteForm.controls['playerNote'].hasError('maxlength')) {
+                  <p>Maximum 500 characters allowed</p>
+                }
+              </div>
+            }
+          </div>
+          <div class="d-flex justify-content-between">
+            <button (click)="onCancel()" type="button" class="btn btn-warning">Cancel</button>
+            <button [disabled]="noteForm.invalid" type="submit" class="btn btn-success">{{isEditMode ? 'Update' : 'Submit'}}</button>
+          </div>
+        </form>
+
+    }
+
+  </div>
+
+}
+
+

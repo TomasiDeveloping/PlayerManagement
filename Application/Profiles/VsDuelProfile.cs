@@ -10,10 +10,14 @@ public class VsDuelProfile : Profile
     {
         CreateMap<VsDuel, VsDuelDto>();
 
-        CreateMap<UpdateVsDuelDto, VsDuel>();
+        CreateMap<VsDuel, VsDuelDetailDto>();
+
+        CreateMap<UpdateVsDuelDto, VsDuel>()
+            .ForMember(des => des.ModifiedOn, opt => opt.MapFrom(src => DateTime.Now))
+            .ForMember(des => des.EventDate, opt => opt.MapFrom(src => DateTime.Parse(src.EventDate)));
 
         CreateMap<CreateVsDuelDto, VsDuel>()
-            .ForMember(des => des.Year, opt => opt.MapFrom(src => DateTime.Now.Year))
-            .ForMember(des => des.CalendarWeek, opt => opt.MapFrom(src => DateTime.Now.DayOfWeek));
+            .ForMember(des => des.Id, opt => opt.MapFrom(src => Guid.CreateVersion7()))
+            .ForMember(des => des.EventDate, opt => opt.MapFrom(src => DateTime.Parse(src.EventDate)));
     }
 }

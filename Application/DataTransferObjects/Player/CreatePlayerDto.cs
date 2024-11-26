@@ -15,6 +15,5 @@ public class CreatePlayerDto
     public Guid AllianceId { get; set; }
 
     [Required]
-    [MaxLength(3)]
-    public required string Level { get; set; }
+    public int Level { get; set; }
 }

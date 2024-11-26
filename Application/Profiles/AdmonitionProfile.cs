@@ -10,8 +10,11 @@ public class AdmonitionProfile : Profile
     {
         CreateMap<Admonition, AdmonitionDto>();
 
-        CreateMap<CreateAdmonitionDto, Admonition>();
+        CreateMap<CreateAdmonitionDto, Admonition>()
+            .ForMember(des => des.Id, opt => opt.MapFrom(src => Guid.CreateVersion7()))
+            .ForMember(des => des.CreatedOn, opt => opt.MapFrom(src => DateTime.Now));
 
-        CreateMap<UpdateAdmonitionDto, Admonition>();
+        CreateMap<UpdateAdmonitionDto, Admonition>()
+            .ForMember(des => des.ModifiedOn, opt => opt.MapFrom(src => DateTime.Now));
     }
 }

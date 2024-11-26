@@ -1,0 +1,176 @@
+<div class="container mt-3">
+  <h2 class="text-center">Sign up</h2>
+  @if (!isSignUpSuccess) {
+    <form [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
+      <div class="form-floating mb-3 is-invalid">
+        <input [ngClass]="{
+        'is-invalid': f['playerName'].invalid && (f['playerName'].dirty || f['playerName'].touched),
+        'is-valid': f['playerName'].valid}"
+               type="text" class="form-control" id="playerName" placeholder="Player" formControlName="playerName">
+        <label for="playerName">Player name</label>
+        @if (f['playerName'].invalid && (f['playerName'].dirty || f['playerName'].touched)) {
+          <div class="invalid-feedback">
+            @if (f['playerName'].hasError('required')) {
+              <p>Player name is required</p>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="form-floating mb-3 is-invalid">
+        <input [ngClass]="{
+        'is-invalid': f['email'].invalid && (f['email'].dirty || f['email'].touched),
+        'is-valid': f['email'].valid}"
+               type="email" class="form-control" id="email" placeholder="email" formControlName="email">
+        <label for="email">Email</label>
+        @if (f['email'].invalid && (f['email'].dirty || f['email'].touched)) {
+          <div class="invalid-feedback">
+            @if (f['email'].hasError('required')) {
+              <p>Email is required</p>
+            }
+            @if (f['email'].hasError('email')) {
+              <p>Invalid email format</p>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="form-floating mb-3 is-invalid">
+        <input [ngClass]="{
+        'is-invalid': f['allianceServer'].invalid && (f['allianceServer'].dirty || f['allianceServer'].touched),
+        'is-valid': f['allianceServer'].valid}"
+               type="number" class="form-control" id="allianceServer" placeholder="allianceServer" formControlName="allianceServer">
+        <label for="allianceServer">Server</label>
+        @if (f['allianceServer'].invalid && (f['allianceServer'].dirty || f['allianceServer'].touched)) {
+          <div class="invalid-feedback">
+            @if (f['allianceServer'].hasError('required')) {
+              <p>Server is required</p>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="form-floating mb-3 is-invalid">
+        <input [ngClass]="{
+        'is-invalid': f['allianceName'].invalid && (f['allianceName'].dirty || f['allianceName'].touched),
+        'is-valid': f['allianceName'].valid}"
+               type="text" class="form-control" id="allianceName" placeholder="allianceName" formControlName="allianceName">
+        <label for="allianceName">Alliance name</label>
+        @if (f['allianceName'].invalid && (f['allianceName'].dirty || f['allianceName'].touched)) {
+          <div class="invalid-feedback">
+            @if (f['allianceName'].hasError('required')) {
+              <p>Alliance name is required</p>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="form-floating mb-3 is-invalid">
+        <input [ngClass]="{
+        'is-invalid': f['allianceAbbreviation'].invalid && (f['allianceAbbreviation'].dirty || f['allianceAbbreviation'].touched),
+        'is-valid': f['allianceAbbreviation'].valid}"
+               type="text" class="form-control" id="allianceAbbreviation" placeholder="allianceAbbreviation" formControlName="allianceAbbreviation">
+        <label for="allianceAbbreviation">Alliance abbreviation</label>
+        @if (f['allianceAbbreviation'].invalid && (f['allianceAbbreviation'].dirty || f['allianceAbbreviation'].touched)) {
+          <div class="invalid-feedback">
+            @if (f['allianceAbbreviation'].hasError('required')) {
+              <p>Alliance abbreviation is required</p>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="input-group has-validation mb-3">
+        <div class="form-floating is-invalid">
+          <!-- Password Input  -->
+          <input
+            [ngClass]="{'is-invalid': f['password'].invalid && (f['password'].dirty || f['password'].touched),'is-valid': f['password'].valid}"
+            [type]="isInputText ? 'text' : 'password'" autocomplete="on" class="form-control"
+            formControlName="password"
+            id="password" placeholder="password">
+          <!-- Email Label  -->
+          <label for="password">Password</label>
+        </div>
+        <!-- Password Icon  -->
+        <span class="input-group-text">
+                <i (click)="isInputText = !isInputText"
+                   [ngClass]="isInputText ? 'bi-eye-slash-fill' : 'bi bi-eye-fill'"
+                   class="input-group-text eye-icon bi"></i>
+            </span>
+        <!-- Password Invalid Feedback  -->
+        <div *ngIf="f['password'].invalid && (f['password'].dirty || f['password'].touched )"
+             class="invalid-feedback">
+          <p *ngIf="f['password'].hasError('required')">Required</p>
+          <div *ngIf="!f['password'].hasError('required')">
+            <div [ngClass]="f['password'].hasError('hasNumber') ? 'text-danger': 'text-success'">
+              <i
+                [ngClass]="f['password'].hasError('hasNumber') ? 'bi bi-x-square-fill' : 'bi bi-check-square-fill'"></i>
+              Number
+            </div>
+            <div [ngClass]="f['password'].hasError('minlength') ? 'text-danger': 'text-success'">
+              <i
+                [ngClass]="f['password'].hasError('minlength') ? 'bi bi-x-square-fill' : 'bi bi-check-square-fill'"></i>
+              Min length
+            </div>
+            <div [ngClass]="f['password'].hasError('hasCapitalCase') ? 'text-danger': 'text-success'">
+              <i
+                [ngClass]="f['password'].hasError('hasCapitalCase') ? 'bi bi-x-square-fill' : 'bi bi-check-square-fill'"></i>
+              capital
+            </div>
+            <div [ngClass]="f['password'].hasError('hasSmallCase') ? 'text-danger': 'text-success'">
+              <i
+                [ngClass]="f['password'].hasError('hasSmallCase') ? 'bi bi-x-square-fill' : 'bi bi-check-square-fill'"></i>
+              lower case
+            </div>
+            <div [ngClass]="f['password'].hasError('hasSpecialCharacters') ? 'text-danger': 'text-success'">
+              <i
+                [ngClass]="f['password'].hasError('hasSpecialCharacters') ? 'bi bi-x-square-fill' : 'bi bi-check-square-fill'"></i>
+              special
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-floating is-invalid mb-3">
+        <!-- Confirm Password Input  -->
+        <input [ngClass]="{'is-invalid': f['confirmPassword'].invalid && (f['confirmPassword'].dirty || f['confirmPassword'].touched),'is-valid': f['confirmPassword'].valid}"
+               type="password" autocomplete="on" class="form-control"
+               formControlName="confirmPassword"
+               id="confirmPassword" placeholder="confirmPassword">
+        <!-- Confirm Password Label  -->
+        <label for="confirmPassword">Confirm Password</label>
+      </div>
+      <!-- Confirm Password Invalid Feedback  -->
+      <div *ngIf="f['confirmPassword'].invalid && (f['confirmPassword'].dirty || f['confirmPassword'].touched )"
+           class="invalid-feedback">
+        <p *ngIf="f['confirmPassword'].hasError('required')">Confirmation password is required</p>
+        <p
+          *ngIf="f['confirmPassword'].hasError('passwordMismatch')">Passwords do not match</p>
+      </div>
+
+      <div class="d-flex justify-content-between">
+        <button type="button" (click)="onCancel()" class="btn btn-warning">Cancel</button>
+        <button [disabled]="signUpForm.invalid" type="submit" class="btn btn-success">Sign Up</button>
+      </div>
+    </form>
+  } @else {
+    <div class="card border-success mt-5">
+      <div class="card-header text-center">
+        Alliance Successfully Registered!
+      </div>
+      <div class="card-body text-success">
+        <h5 class="card-title">Welcome, {{ playerName }}!</h5>
+        <p class="card-text">
+          Your alliance <strong>{{ allianceName }}</strong> has been successfully registered.
+        </p>
+        <p class="card-text">
+          A confirmation email has been sent to the email address you provided. Please check your inbox and confirm the email to complete the registration.
+        </p>
+        <p class="card-text">
+          If you can't find the email in your inbox, please also check your spam folder.
+        </p>
+      </div>
+    </div>
+  }
+</div>
+

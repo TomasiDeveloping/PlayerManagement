@@ -1,0 +1,81 @@
+@if (player) {
+  <div class="modal-header" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+    <h4 class="modal-title">Admonitions for {{player.playerName}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+  </div>
+
+  <div class="modal-body">
+    @if (!isCreateMode && !isEditMode) {
+      <div class="d-grid gap-2 col-6 mx-auto mb-5">
+        <button (click)="onInsertNewAdmonition()" class="btn btn-primary" type="button">Insert new Admonition</button>
+      </div>
+    }
+
+    @if (playerAdmonitions.length <= 0 && (!isCreateMode && !isEditMode)) {
+      <p class="text-center mt-5">No Admonitions</p>
+    } @else if (!isCreateMode && !isEditMode) {
+
+      <div ngbAccordion [closeOthers]="true">
+        @for (admonition of playerAdmonitions; track admonition.id; let i = $index) {
+          <div ngbAccordionItem [collapsed]="i !== 0">
+            <h2 ngbAccordionHeader>
+              <button ngbAccordionButton>{{admonition.createdOn | date: 'dd.MM.yyy HH:mm'}}</button>
+            </h2>
+            <div ngbAccordionCollapse>
+              <div ngbAccordionBody>
+                <ng-template>
+                  <div class="alert alert-secondary" role="alert">
+                    <small>Creator: <span class="text-primary">{{admonition.createdBy}}</span></small>
+                    @if (admonition.modifiedOn) {
+                      <br>
+                      <small>Edited: <span class="text-primary">{{admonition.modifiedOn | date: 'dd.MM.yyyy HH:mm'}}</span> by
+                        <span class="text-primary">{{admonition.modifiedBy}}</span></small>
+                    }
+                  </div>
+                  <hr>
+                  {{admonition.reason}}
+                  <hr>
+                  <div class="d-flex justify-content-between mt-3">
+                    <button (click)="onEditAdmonition(admonition)" class="btn btn-sm bg-info">Edit</button>
+                    <button (click)="onDeleteAdmonition(admonition)" class="btn btn-sm bg-danger">Delete</button>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    }
+
+    @if (isCreateMode || isEditMode) {
+
+      <form [formGroup]="admonitionForm" (ngSubmit)="onSubmit()">
+        <div class="form-floating mb-3">
+          <textarea [ngClass]="{
+          'is-valid': admonitionForm.controls['reason'].valid,
+          'is-invalid': admonitionForm.controls['reason'].invalid && (admonitionForm.controls['reason'].touched || admonitionForm.controls['reason'].dirty)
+          }" class="form-control" maxlength="251" formControlName="reason" placeholder="reason" id="reason" style="height: 100px"></textarea>
+          <label for="reason">Reason</label>
+          @if (admonitionForm.controls['reason'].invalid && (admonitionForm.controls['reason'].touched || admonitionForm.controls['reason'].dirty)) {
+            <div class="invalid-feedback">
+              @if (admonitionForm.controls['reason'].hasError('required')) {
+                <p>Reason is required</p>
+              }
+              @if (admonitionForm.controls['reason'].hasError('maxlength')) {
+                <p>Maximum 250 characters allowed</p>
+              }
+            </div>
+          }
+        </div>
+        <div class="d-flex justify-content-between">
+          <button (click)="onCancel()" type="button" class="btn btn-warning">Cancel</button>
+          <button [disabled]="admonitionForm.invalid" type="submit" class="btn btn-success">{{isEditMode ? 'Update' : 'Submit'}}</button>
+        </div>
+      </form>
+
+    }
+
+  </div>
+
+}
+

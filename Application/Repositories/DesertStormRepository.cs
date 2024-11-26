@@ -25,20 +25,35 @@ public class DesertStormRepository(ApplicationContext context, IMapper mapper, I
             : Result.Success(desertStormById);
     }
 
-    public async Task<Result<List<DesertStormDto>>> GetPlayerDesertStormsAsync(Guid playerId, CancellationToken cancellationToken)
+    public async Task<Result<List<DesertStormDto>>> GetAllianceDesertStormsAsync(Guid allianceId, int take, CancellationToken cancellationToken)
     {
-        var playerDesertStorms = await context.DesertStorms
-            .Where(desertStorm => desertStorm.PlayerId == playerId)
+        var allianceDesertStorms = await context.DesertStorms
+            .Where(desertStorm => desertStorm.AllianceId == allianceId)
             .ProjectTo<DesertStormDto>(mapper.ConfigurationProvider)
             .AsNoTracking()
+            .OrderByDescending(desertStorm => desertStorm.EventDate)
+            .Take(take)
             .ToListAsync(cancellationToken);
 
-        return Result.Success(playerDesertStorms);
+        return Result.Success(allianceDesertStorms);
     }
 
-    public async Task<Result<DesertStormDto>> CreateDesertStormAsync(CreateDesertStormDto createDesertStormDto, CancellationToken cancellationToken)
+    public async Task<Result<DesertStormDetailDto>> GetDesertStormDetailAsync(Guid desertStormId, CancellationToken cancellationToken)
+    {
+        var desertStormDetail = await context.DesertStorms
+            .ProjectTo<DesertStormDetailDto>(mapper.ConfigurationProvider)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(desertStorm => desertStorm.Id == desertStormId, cancellationToken);
+
+        return desertStormDetail is null
+            ? Result.Failure<DesertStormDetailDto>(DesertStormErrors.NotFound)
+            : Result.Success(desertStormDetail);
+    }
+
+    public async Task<Result<DesertStormDto>> CreateDesertStormAsync(CreateDesertStormDto createDesertStormDto, string createdBy, CancellationToken cancellationToken)
     {
         var newDesertStorm = mapper.Map<DesertStorm>(createDesertStormDto);
+        newDesertStorm.CreatedBy = createdBy;
 
         await context.DesertStorms.AddAsync(newDesertStorm, cancellationToken);
 
@@ -54,7 +69,7 @@ public class DesertStormRepository(ApplicationContext context, IMapper mapper, I
         }
     }
 
-    public async Task<Result<DesertStormDto>> UpdateDesertStormAsync(UpdateDesertStormDto updateDesertStormDto, CancellationToken cancellationToken)
+    public async Task<Result<DesertStormDto>> UpdateDesertStormAsync(UpdateDesertStormDto updateDesertStormDto, string modifiedBy, CancellationToken cancellationToken)
     {
         var desertStormToUpdate = await context.DesertStorms
             .FirstOrDefaultAsync(desertStorm => desertStorm.Id == updateDesertStormDto.Id, cancellationToken);
@@ -62,6 +77,7 @@ public class DesertStormRepository(ApplicationContext context, IMapper mapper, I
         if (desertStormToUpdate is null) return Result.Failure<DesertStormDto>(DesertStormErrors.NotFound);
 
         mapper.Map(updateDesertStormDto, desertStormToUpdate);
+        desertStormToUpdate.ModifiedBy = modifiedBy;
 
         try
         {

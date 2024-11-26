@@ -1,0 +1,83 @@
+@if (vsDuelForm) {
+  <div class="modal-header" xmlns="http://www.w3.org/1999/html">
+    <h4 class="modal-title">{{isUpdate ? 'Update VS-Duel ' : 'Create VS-Duel'}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="vsDuelForm">
+      <div class="form-floating mb-3 is-invalid">
+        <input type="date" class="form-control" id="eventDate" placeholder="eventDate" formControlName="eventDate">
+        <label for="eventDate">Event date</label>
+      </div>
+      <div class="form-floating mb-3 is-invalid">
+        <input [ngClass]="{
+        'is-invalid': f['opponentName'].invalid && (f['opponentName'].dirty || f['opponentName'].touched),
+        'is-valid': f['opponentName'].valid}"
+               type="text" class="form-control" id="opponentName" placeholder="opponentName" formControlName="opponentName">
+        <label for="opponentName">Opponent name</label>
+        @if (f['opponentName'].invalid && (f['opponentName'].dirty || f['opponentName'].touched)) {
+          <div class="invalid-feedback">
+            @if (f['opponentName'].hasError('required')) {
+              <p>Opponent name is required</p>
+            }
+          </div>
+        }
+      </div>
+      <div class="form-floating mb-3 is-invalid">
+        <input [ngClass]="{
+        'is-invalid': f['opponentServer'].invalid && (f['opponentServer'].dirty || f['opponentServer'].touched),
+        'is-valid': f['opponentServer'].valid}"
+               type="number" class="form-control" id="opponentServer" placeholder="opponentServer" formControlName="opponentServer">
+        <label for="opponentServer">opponentServer</label>
+        @if (f['opponentServer'].invalid && (f['opponentServer'].dirty || f['opponentServer'].touched)) {
+          <div class="invalid-feedback">
+            @if (f['opponentServer'].hasError('required')) {
+              <p>opponentServer is required</p>
+            }
+          </div>
+        }
+      </div>
+      <div class="form-floating mb-3 is-invalid">
+        <input [ngClass]="{
+        'is-invalid': f['opponentPower'].invalid && (f['opponentPower'].dirty || f['opponentPower'].touched),
+        'is-valid': f['opponentPower'].valid}"
+               type="number" class="form-control" id="opponentPower" placeholder="opponentPower" formControlName="opponentPower">
+        <label for="opponentPower">opponentPower</label>
+        @if (f['opponentPower'].invalid && (f['opponentPower'].dirty || f['opponentPower'].touched)) {
+          <div class="invalid-feedback">
+            @if (f['opponentPower'].hasError('required')) {
+              <p>opponentPower is required</p>
+            }
+          </div>
+        }
+      </div>
+      <div class="form-floating mb-3 is-invalid">
+        <input [ngClass]="{
+        'is-invalid': f['opponentSize'].invalid && (f['opponentSize'].dirty || f['opponentSize'].touched),
+        'is-valid': f['opponentSize'].valid}"
+               type="number" class="form-control" id="opponentSize" placeholder="opponentSize" formControlName="opponentSize">
+        <label for="opponentSize">opponentSize</label>
+        @if (f['opponentSize'].invalid && (f['opponentSize'].dirty || f['opponentSize'].touched)) {
+          <div class="invalid-feedback">
+            @if (f['opponentSize'].hasError('required')) {
+              <p>opponentSize is required</p>
+            }
+          </div>
+        }
+      </div>
+      <div class="form-check mb-3">
+        <input class="form-check-input" type="checkbox" formControlName="won" id="won">
+        <label class="form-check-label" for="won">
+          Won
+        </label>
+      </div>
+    </form>
+  </div>
+
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-warning" (click)="activeModal.dismiss()">Close</button>
+    <button [disabled]="vsDuelForm.invalid" (click)="onSubmit()" type="submit" class=" btn btn-success">{{isUpdate ? 'Update' : 'Create'}} VS-Duel</button>
+  </div>
+}

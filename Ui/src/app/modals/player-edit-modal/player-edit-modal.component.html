@@ -1,0 +1,66 @@
+@if (playerForm) {
+  <div class="modal-header" xmlns="http://www.w3.org/1999/html">
+    <h4 class="modal-title">{{isUpdate ? 'Update Player ' + currentPlayer.playerName : 'Insert new Player'}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="playerForm">
+      <div class="form-floating mb-3 is-invalid">
+        <input [ngClass]="{
+        'is-invalid': f['playerName'].invalid && (f['playerName'].dirty || f['playerName'].touched),
+        'is-valid': f['playerName'].valid}"
+               type="text" maxlength="251" class="form-control" id="playerName" placeholder="Player" formControlName="playerName">
+        <label for="playerName">Player name</label>
+        @if (f['playerName'].invalid && (f['playerName'].dirty || f['playerName'].touched)) {
+          <div class="invalid-feedback">
+            @if (f['playerName'].hasError('required')) {
+              <p>Player name is required</p>
+            }
+            @if (f['playerName'].hasError('maxlength')) {
+              <p>Maximum 250 characters allowed</p>
+            }
+          </div>
+        }
+      </div>
+      <div class="form-floating mb-3 is-invalid">
+        <input [ngClass]="{
+        'is-invalid': f['level'].invalid && (f['level'].dirty || f['level'].touched),
+        'is-valid': f['level'].valid}"
+               type="number" class="form-control" id="level" placeholder="level" formControlName="level">
+        <label for="level">Level</label>
+        @if (f['level'].invalid && (f['level'].dirty || f['level'].touched)) {
+          <div class="invalid-feedback">
+            @if (f['level'].hasError('required')) {
+              <p>Level is required</p>
+            }
+          </div>
+        }
+      </div>
+      <div class="form-floating mb-3 is-invalid">
+        <select [ngClass]="{
+        'is-invalid': f['rankId'].invalid && (f['rankId'].dirty || f['level'].touched),
+        'is-valid': f['rankId'].valid}" class="form-select" id="rankId"  formControlName="rankId">
+          @for (rank of ranks; track rank.id) {
+            <option [ngValue]="rank.id">{{rank.name}}</option>
+          }
+        </select>
+        <label for="rankId">Rank</label>
+        @if (f['rankId'].invalid && (f['rankId'].dirty || f['rankId'].touched)) {
+          <div class="invalid-feedback">
+            @if (f['rankId'].hasError('required')) {
+              <p>Rank is required</p>
+            }
+          </div>
+        }
+      </div>
+    </form>
+  </div>
+
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-warning" (click)="activeModal.dismiss()">Close</button>
+    <button [disabled]="playerForm.invalid" (click)="onSubmit()" type="submit" class=" btn btn-success">{{isUpdate ? 'Update' : 'Insert'}} Player</button>
+  </div>
+}
+

@@ -1,4 +1,6 @@
-﻿namespace Application.DataTransferObjects.Alliance;
+﻿using System.Dynamic;
+
+namespace Application.DataTransferObjects.Alliance;
 
 public class AllianceDto
 {
@@ -9,4 +11,10 @@ public class AllianceDto
     public required string Name { get; set; }
 
     public required string Abbreviation { get; set; }
+
+    public DateTime CreatedOn { get; set; }
+
+    public DateTime? ModifiedOn { get; set; }
+
+    public string? ModifiedBy { get; set; }
 }

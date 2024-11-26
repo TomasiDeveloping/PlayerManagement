@@ -2,6 +2,7 @@
 using Application.Errors;
 using Application.Interfaces;
 using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers.v1
@@ -9,8 +10,8 @@ namespace Api.Controllers.v1
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
-    //[Authorize]
-    public class VsDuelsController(IVsDuelRepository vsDuelRepository, ILogger<VsDuelsController> logger) : ControllerBase
+    [Authorize]
+    public class VsDuelsController(IVsDuelRepository vsDuelRepository, IClaimTypeService claimTypeService, ILogger<VsDuelsController> logger) : ControllerBase
     {
         [HttpGet("{vsDuelId:guid}")]
         public async Task<ActionResult<VsDuelDto>> GetVsDuel(Guid vsDuelId, CancellationToken cancellationToken)
@@ -30,18 +31,19 @@ namespace Api.Controllers.v1
             }
         }
 
-        [HttpGet("Player/{playerId:guid}")]
-        public async Task<ActionResult<List<VsDuelDto>>> GetPlayerVsDuels(Guid playerId,
+        [HttpGet("Alliance/{allianceId:guid}")]
+        public async Task<ActionResult<List<VsDuelDto>>> GetAllianceVsDuels(Guid allianceId, [FromQuery] int take,
             CancellationToken cancellationToken)
         {
             try
             {
-                var playerVsDuelsResult = await vsDuelRepository.GetPlayerVsDuelsAsync(playerId, cancellationToken);
+                var allianceVsDuelsResult =
+                    await vsDuelRepository.GetAllianceVsDuelsAsync(allianceId, take, cancellationToken);
 
-                if (playerVsDuelsResult.IsFailure) return BadRequest(playerVsDuelsResult.Error);
+                if (allianceVsDuelsResult.IsFailure) return BadRequest(allianceVsDuelsResult.Error);
 
-                return playerVsDuelsResult.Value.Count > 0
-                    ? Ok(playerVsDuelsResult.Value)
+                return allianceVsDuelsResult.Value.Count > 0
+                    ? Ok(allianceVsDuelsResult.Value)
                     : NoContent();
             }
             catch (Exception e)
@@ -51,6 +53,25 @@ namespace Api.Controllers.v1
             }
         }
 
+        [HttpGet("[action]/{vsDuelId:guid}")]
+        public async Task<ActionResult<VsDuelDetailDto>> GetDetailVsDuel(Guid vsDuelId, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var vsDuelDetailResult = await vsDuelRepository.GetVsDuelDetailAsync(vsDuelId, cancellationToken);
+
+                return vsDuelDetailResult.IsFailure
+                    ? BadRequest(vsDuelDetailResult.Error)
+                    : Ok(vsDuelDetailResult.Value);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+
         [HttpPost]
         public async Task<ActionResult<VsDuelDto>> CreateVsDuel(CreateVsDuelDto createVsDuelDto,
             CancellationToken cancellationToken)
@@ -59,7 +80,7 @@ namespace Api.Controllers.v1
             {
                 if (!ModelState.IsValid) return UnprocessableEntity(ModelState);
 
-                var createResult = await vsDuelRepository.CreateVsDuelAsync(createVsDuelDto, cancellationToken);
+                var createResult = await vsDuelRepository.CreateVsDuelAsync(createVsDuelDto, claimTypeService.GetFullName(User), cancellationToken);
 
                 return createResult.IsFailure
                     ? BadRequest(createResult.Error)
@@ -82,7 +103,7 @@ namespace Api.Controllers.v1
 
                 if (vsDuelId != updateVsDuelDto.Id) return Conflict(VsDuelErrors.IdConflict);
 
-                var updateResult = await vsDuelRepository.UpdateVsDuelAsync(updateVsDuelDto, cancellationToken);
+                var updateResult = await vsDuelRepository.UpdateVsDuelAsync(updateVsDuelDto, claimTypeService.GetFullName(User), cancellationToken);
 
                 return updateResult.IsFailure
                     ? BadRequest(updateResult.Error)

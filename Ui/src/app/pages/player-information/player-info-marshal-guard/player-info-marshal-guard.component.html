@@ -1,0 +1,19 @@
+@if (playerGuardsLoaded) {
+  <p class="text-center">Participated <span class="text-primary fw-bold">{{ playerGuards }}</span> Marshal Guards of
+    last <span class="text-primary fw-bold">{{ totalMarshalGuards }}</span></p>
+  <ngb-progressbar class="mb-3" [type]="marshalType" [value]="progressValue" [showValue]="true"/>
+}
+<form class="d-flex gap-2 align-items-center justify-content-center">
+  <div>
+    <label for="inputField" class="col-form-label">Last:</label>
+  </div>
+  <div>
+    <input [ngModelOptions]="{standalone: true}" type="number" id="inputField" class="form-control" placeholder="Input"
+           [(ngModel)]="numberOfLoadMarshalGuards">
+  </div>
+  <div>
+    <button (click)="onReloadMarshalGuards()" type="submit"
+            class="btn btn-primary">{{ playerGuardsLoaded ? 'Reload' : 'load' }}
+    </button>
+  </div>
+</form>

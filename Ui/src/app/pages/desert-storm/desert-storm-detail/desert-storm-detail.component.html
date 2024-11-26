@@ -1,0 +1,65 @@
+<div class="container mt-3 pb-5">
+  <!--  Back button-->
+  <div class="d-grid gap-2 col-6 mx-auto">
+    <button routerLink="/desert-storm" class="btn btn-primary" type="button"><i class="bi bi-arrow-left"></i> Back</button>
+  </div>
+
+  @if (desertStormDetail) {
+    <div class="card mt-5" [ngClass]="desertStormDetail.won ? 'border-success' : 'border-danger'">
+      <h5 class="card-header d-flex justify-content-between">
+        <div>Week {{desertStormDetail.eventDate | week}} / {{desertStormDetail.eventDate | date: 'yyyy'}}</div>
+        <div [ngClass]="desertStormDetail.won ? 'text-success' : 'text-danger'">{{desertStormDetail.won ? 'VICTORY' : 'DEFEAT'}}</div>
+      </h5>
+      <div class="card-body">
+        <h5 class="card-title">Opponent: <span class="text-primary">{{desertStormDetail.opponentName}}</span></h5>
+        <p class="card-text">Server: <span class="text-primary">{{desertStormDetail.opponentServer}}</span></p>
+        <p class="card-text">Opponent participants: <span class="text-primary">{{desertStormDetail.opposingParticipants}}</span></p>
+        <p class="card-text">Allianz participants: <span class="text-primary">{{desertStormDetail.participants | number}}</span></p>
+        <hr>
+        <div>
+          <p class="card-text">Creator: <span class="text-primary">{{desertStormDetail.createdBy}}</span></p>
+          @if (desertStormDetail.modifiedOn) {
+            <p class="card-text">Modified: <span class="text-primary">{{desertStormDetail.modifiedOn | date: 'dd.MM.yyyy HH:mm'}}</span>
+              by <span class="text-primary">{{desertStormDetail.modifiedBy}}</span></p>
+          }
+        </div>
+        <hr>
+        <div class="d-flex justify-content-between">
+          <p>Registered: <span class="text-primary">{{registeredPlayers}}</span></p>
+          <p>Start player: <span class="text-primary">{{startedPlayers}}</span></p>
+          <p>Participated: <span class="text-primary">{{participatedPlayers}}</span></p>
+        </div>
+        <hr>
+        <p class="card-text text-center">Players</p>
+        <div ngbScrollSpy class="bg-light p-3 rounded-2 mb-3" style="height: 200px">
+          <div class="row">
+            @for (player of desertStormDetail.desertStormParticipants; track player.id; let i = $index) {
+              @if (player.registered) {
+                <div class="col-12 col-md-6 mb-4">
+                  <div class="d-flex flex-column align-items-center border p-3"
+                       [ngClass]="player.participated ? 'border-success' : (player.startPlayer && !player.participated) ? 'border-danger' : 'border-warning'">
+                    <h6 class="mb-4 text-color">{{player.playerName}}</h6>
+                    <div class="d-flex flex-wrap justify-content-center">
+                      <div class="form-check mx-2 mb-2">
+                        <input [disabled]="true" class="form-check-input" type="checkbox" id="registered{{i}}" [checked]="player.registered">
+                        <label class="form-check-label" for="registered{{i}}">Registered</label>
+                      </div>
+                      <div class="form-check mx-2 mb-2">
+                        <input [disabled]="true" class="form-check-input" type="checkbox" id="startPlayer{{i}}" [checked]="player.startPlayer">
+                        <label class="form-check-label" for="startPlayer{{i}}">Start player</label>
+                      </div>
+                      <div class="form-check mx-2 mb-2">
+                        <input [disabled]="true" class="form-check-input" type="checkbox" id="participated{{i}}" [checked]="player.participated">
+                        <label class="form-check-label" for="participated{{i}}">Participated</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

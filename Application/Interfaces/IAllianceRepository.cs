@@ -9,9 +9,7 @@ public interface IAllianceRepository
 
     Task<Result<AllianceDto>> GetAllianceAsync(Guid allianceId, CancellationToken cancellationToken);
 
-    Task<Result<AllianceDto>> CreateAllianceAsync(CreateAllianceDto createAllianceDto, CancellationToken cancellationToken);
-
-    Task<Result<AllianceDto>> UpdateAllianceAsync(UpdateAllianceDto updateAllianceDto, CancellationToken cancellationToken);
+    Task<Result<AllianceDto>> UpdateAllianceAsync(UpdateAllianceDto updateAllianceDto, string modifiedBy, CancellationToken cancellationToken);
 
     Task<Result<bool>> DeleteAllianceAsync(Guid  allianceId, CancellationToken cancellationToken);
 }

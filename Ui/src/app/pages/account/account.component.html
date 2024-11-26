@@ -1,0 +1,44 @@
+<div class="container mt-3">
+  <h2 class="text-center">Account</h2>
+
+  @if (userForm) {
+    <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+      <div class="form-floating mb-3 is-invalid">
+        <input [ngClass]="{
+        'is-invalid': f['playerName'].invalid && (f['playerName'].dirty || f['playerName'].touched),
+        'is-valid': f['playerName'].valid}"
+               type="text" maxlength="251" class="form-control" id="playerName" placeholder="Player" formControlName="playerName">
+        <label for="playerName">Player name</label>
+        @if (f['playerName'].invalid && (f['playerName'].dirty || f['playerName'].touched)) {
+          <div class="invalid-feedback">
+            @if (f['playerName'].hasError('required')) {
+              <p>Player name is required</p>
+            }
+            @if (f['playerName'].hasError('maxlength')) {
+              <p>Maximum 250 characters allowed</p>
+            }
+          </div>
+        }
+      </div>
+      <div class="form-floating mb-3 is-invalid">
+        <input type="email" class="form-control" id="email" placeholder="email" formControlName="email">
+        <label for="email">Email</label>
+      </div>
+      <div class="form-floating mb-3 is-invalid">
+        <input type="text" maxlength="251" class="form-control" id="role" placeholder="role" formControlName="role">
+        <label for="role">Role</label>
+      </div>
+      @if (isEditMode) {
+        <div class="d-flex justify-content-between">
+          <button (click)="onCancel()" type="button" class="btn btn-warning">Cancel</button>
+          <button [disabled]="userForm.invalid || !userForm.dirty" type="submit" class="btn btn-success">Update</button>
+        </div>
+      } @else {
+        <div class="d-flex justify-content-between">
+          <button type="button" (click)="onEdit()" class="btn btn-primary">Edit</button>
+          <button type="button" [disabled]="true" class="btn btn-secondary">Change email</button>
+        </div>
+      }
+    </form>
+  }
+</div>

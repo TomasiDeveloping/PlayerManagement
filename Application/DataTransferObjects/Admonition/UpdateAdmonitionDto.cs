@@ -11,4 +11,7 @@ public class UpdateAdmonitionDto
     [Required]
     [MaxLength(250)]
     public required string Reason { get; set; }
+
+    [Required]
+    public Guid PlayerId { get; set; }
 }

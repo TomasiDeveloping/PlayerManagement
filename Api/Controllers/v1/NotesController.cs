@@ -2,6 +2,7 @@
 using Application.Errors;
 using Application.Interfaces;
 using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers.v1
@@ -9,8 +10,8 @@ namespace Api.Controllers.v1
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
-    //[Authorize]
-    public class NotesController(INoteRepository noteRepository, ILogger<NotesController> logger) : ControllerBase
+    [Authorize]
+    public class NotesController(INoteRepository noteRepository, IClaimTypeService claimTypeService, ILogger<NotesController> logger) : ControllerBase
     {
         [HttpGet("{noteId:guid}")]
         public async Task<ActionResult<NoteDto>> GetNote(Guid noteId, CancellationToken cancellationToken)
@@ -59,7 +60,7 @@ namespace Api.Controllers.v1
             {
                 if (!ModelState.IsValid) return UnprocessableEntity(ModelState);
 
-                var createResult = await noteRepository.CreateNoteAsync(createNoteDto, cancellationToken);
+                var createResult = await noteRepository.CreateNoteAsync(createNoteDto, claimTypeService.GetFullName(User), cancellationToken);
 
                 return createResult.IsFailure
                     ? BadRequest(createResult.Error)
@@ -82,7 +83,7 @@ namespace Api.Controllers.v1
 
                 if (noteId != updateNoteDto.Id) return Conflict(NoteErrors.IdConflict);
 
-                var updateResult = await noteRepository.UpdateNoteAsync(updateNoteDto, cancellationToken);
+                var updateResult = await noteRepository.UpdateNoteAsync(updateNoteDto, claimTypeService.GetFullName(User), cancellationToken);
 
                 return updateResult.IsFailure
                     ? BadRequest(updateResult.Error)

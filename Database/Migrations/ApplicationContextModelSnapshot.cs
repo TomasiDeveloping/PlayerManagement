@@ -18,7 +18,7 @@ namespace Database.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasDefaultSchema("dbo")
-                .HasAnnotation("ProductVersion", "8.0.8")
+                .HasAnnotation("ProductVersion", "9.0.0")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -28,6 +28,21 @@ namespace Database.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("PlayerId")
                         .HasColumnType("uniqueidentifier");
@@ -55,6 +70,18 @@ namespace Database.Migrations
                         .HasMaxLength(5)
                         .HasColumnType("nvarchar(5)");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2024, 11, 20, 10, 20, 41, 211, DateTimeKind.Local).AddTicks(7279));
+
+                    b.Property<string>("ModifiedBy")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -68,14 +95,133 @@ namespace Database.Migrations
                     b.ToTable("Alliances", "dbo");
                 });
 
+            modelBuilder.Entity("Database.Entities.CustomEvent", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AllianceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("nvarchar(500)");
+
+                    b.Property<DateTime>("EventDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsParticipationEvent")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("IsPointsEvent")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AllianceId");
+
+                    b.ToTable("CustomEvents", "dbo");
+                });
+
+            modelBuilder.Entity("Database.Entities.CustomEventParticipant", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<long?>("AchievedPoints")
+                        .HasColumnType("bigint");
+
+                    b.Property<Guid>("CustomEventId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool?>("Participated")
+                        .HasColumnType("bit");
+
+                    b.Property<Guid>("PlayerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomEventId");
+
+                    b.HasIndex("PlayerId");
+
+                    b.ToTable("CustomEventParticipants", "dbo");
+                });
+
             modelBuilder.Entity("Database.Entities.DesertStorm", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("CalendarWeek")
+                    b.Property<Guid>("AllianceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime>("EventDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("OpponentName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<int>("OpponentServer")
                         .HasColumnType("int");
+
+                    b.Property<int>("OpposingParticipants")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Won")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AllianceId");
+
+                    b.ToTable("DesertStorms", "dbo");
+                });
+
+            modelBuilder.Entity("Database.Entities.DesertStormParticipant", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("DesertStormId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Participated")
                         .HasColumnType("bit");
@@ -86,14 +232,16 @@ namespace Database.Migrations
                     b.Property<bool>("Registered")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Year")
-                        .HasColumnType("int");
+                    b.Property<bool>("StartPlayer")
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("DesertStormId");
+
                     b.HasIndex("PlayerId");
 
-                    b.ToTable("DesertStorms", "dbo");
+                    b.ToTable("DesertStormParticipants", "dbo");
                 });
 
             modelBuilder.Entity("Database.Entities.MarshalGuard", b =>
@@ -102,11 +250,48 @@ namespace Database.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Day")
+                    b.Property<Guid>("AllianceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("AllianceSize")
                         .HasColumnType("int");
 
-                    b.Property<int>("Month")
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime>("EventDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("Level")
                         .HasColumnType("int");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("RewardPhase")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AllianceId");
+
+                    b.ToTable("MarshalGuards", "dbo");
+                });
+
+            modelBuilder.Entity("Database.Entities.MarshalGuardParticipant", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("MarshalGuardId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Participated")
                         .HasColumnType("bit");
@@ -114,14 +299,13 @@ namespace Database.Migrations
                     b.Property<Guid>("PlayerId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Year")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
+
+                    b.HasIndex("MarshalGuardId");
 
                     b.HasIndex("PlayerId");
 
-                    b.ToTable("MarshalGuards", "dbo");
+                    b.ToTable("MarshalGuardParticipants", "dbo");
                 });
 
             modelBuilder.Entity("Database.Entities.Note", b =>
@@ -129,6 +313,23 @@ namespace Database.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2024, 11, 20, 10, 20, 41, 225, DateTimeKind.Local).AddTicks(5440));
+
+                    b.Property<string>("ModifiedBy")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("PlayerId")
                         .HasColumnType("uniqueidentifier");
@@ -154,10 +355,25 @@ namespace Database.Migrations
                     b.Property<Guid>("AllianceId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Level")
+                    b.Property<string>("CreatedBy")
                         .IsRequired()
-                        .HasMaxLength(3)
-                        .HasColumnType("nvarchar(3)");
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("datetime2")
+                        .HasDefaultValue(new DateTime(2024, 11, 20, 10, 20, 41, 226, DateTimeKind.Local).AddTicks(9868));
+
+                    b.Property<int>("Level")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("PlayerName")
                         .IsRequired()
@@ -301,23 +517,70 @@ namespace Database.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("CalendarWeek")
+                    b.Property<Guid>("AllianceId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("CreatedBy")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime>("EventDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("OpponentName")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<long>("OpponentPower")
+                        .HasColumnType("bigint");
+
+                    b.Property<int>("OpponentServer")
                         .HasColumnType("int");
+
+                    b.Property<int>("OpponentSize")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("Won")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AllianceId");
+
+                    b.ToTable("VsDuels", "dbo");
+                });
+
+            modelBuilder.Entity("Database.Entities.VsDuelParticipant", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("PlayerId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("WeeklyPoints")
-                        .HasColumnType("int");
+                    b.Property<Guid>("VsDuelId")
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Year")
-                        .HasColumnType("int");
+                    b.Property<long>("WeeklyPoints")
+                        .HasColumnType("bigint");
 
                     b.HasKey("Id");
 
                     b.HasIndex("PlayerId");
 
-                    b.ToTable("VsDuels", "dbo");
+                    b.HasIndex("VsDuelId");
+
+                    b.ToTable("VsDuelParticipants", "dbo");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<System.Guid>", b =>
@@ -488,24 +751,92 @@ namespace Database.Migrations
                     b.Navigation("Player");
                 });
 
-            modelBuilder.Entity("Database.Entities.DesertStorm", b =>
+            modelBuilder.Entity("Database.Entities.CustomEvent", b =>
                 {
-                    b.HasOne("Database.Entities.Player", "Player")
-                        .WithMany("DesertStorms")
-                        .HasForeignKey("PlayerId")
+                    b.HasOne("Database.Entities.Alliance", "Alliance")
+                        .WithMany("CustomEvents")
+                        .HasForeignKey("AllianceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Alliance");
+                });
+
+            modelBuilder.Entity("Database.Entities.CustomEventParticipant", b =>
+                {
+                    b.HasOne("Database.Entities.CustomEvent", "CustomEvent")
+                        .WithMany("CustomEventParticipants")
+                        .HasForeignKey("CustomEventId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Database.Entities.Player", "Player")
+                        .WithMany("CustomEventParticipants")
+                        .HasForeignKey("PlayerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("CustomEvent");
+
+                    b.Navigation("Player");
+                });
+
+            modelBuilder.Entity("Database.Entities.DesertStorm", b =>
+                {
+                    b.HasOne("Database.Entities.Alliance", "Alliance")
+                        .WithMany("DesertStorms")
+                        .HasForeignKey("AllianceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Alliance");
+                });
+
+            modelBuilder.Entity("Database.Entities.DesertStormParticipant", b =>
+                {
+                    b.HasOne("Database.Entities.DesertStorm", "DesertStorm")
+                        .WithMany("DesertStormParticipants")
+                        .HasForeignKey("DesertStormId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Database.Entities.Player", "Player")
+                        .WithMany("DesertStormParticipants")
+                        .HasForeignKey("PlayerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("DesertStorm");
 
                     b.Navigation("Player");
                 });
 
             modelBuilder.Entity("Database.Entities.MarshalGuard", b =>
                 {
-                    b.HasOne("Database.Entities.Player", "Player")
+                    b.HasOne("Database.Entities.Alliance", "Alliance")
                         .WithMany("MarshalGuards")
-                        .HasForeignKey("PlayerId")
+                        .HasForeignKey("AllianceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Alliance");
+                });
+
+            modelBuilder.Entity("Database.Entities.MarshalGuardParticipant", b =>
+                {
+                    b.HasOne("Database.Entities.MarshalGuard", "MarshalGuard")
+                        .WithMany("MarshalGuardParticipants")
+                        .HasForeignKey("MarshalGuardId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Database.Entities.Player", "Player")
+                        .WithMany("MarshalGuardParticipants")
+                        .HasForeignKey("PlayerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("MarshalGuard");
 
                     b.Navigation("Player");
                 });
@@ -553,13 +884,32 @@ namespace Database.Migrations
 
             modelBuilder.Entity("Database.Entities.VsDuel", b =>
                 {
-                    b.HasOne("Database.Entities.Player", "Player")
+                    b.HasOne("Database.Entities.Alliance", "Alliance")
                         .WithMany("VsDuels")
+                        .HasForeignKey("AllianceId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Alliance");
+                });
+
+            modelBuilder.Entity("Database.Entities.VsDuelParticipant", b =>
+                {
+                    b.HasOne("Database.Entities.Player", "Player")
+                        .WithMany("VsDuelParticipants")
                         .HasForeignKey("PlayerId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Database.Entities.VsDuel", "VsDuel")
+                        .WithMany("VsDuelParticipants")
+                        .HasForeignKey("VsDuelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Player");
+
+                    b.Navigation("VsDuel");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -615,27 +965,57 @@ namespace Database.Migrations
 
             modelBuilder.Entity("Database.Entities.Alliance", b =>
                 {
+                    b.Navigation("CustomEvents");
+
+                    b.Navigation("DesertStorms");
+
+                    b.Navigation("MarshalGuards");
+
                     b.Navigation("Players");
 
                     b.Navigation("Users");
+
+                    b.Navigation("VsDuels");
+                });
+
+            modelBuilder.Entity("Database.Entities.CustomEvent", b =>
+                {
+                    b.Navigation("CustomEventParticipants");
+                });
+
+            modelBuilder.Entity("Database.Entities.DesertStorm", b =>
+                {
+                    b.Navigation("DesertStormParticipants");
+                });
+
+            modelBuilder.Entity("Database.Entities.MarshalGuard", b =>
+                {
+                    b.Navigation("MarshalGuardParticipants");
                 });
 
             modelBuilder.Entity("Database.Entities.Player", b =>
                 {
                     b.Navigation("Admonitions");
 
-                    b.Navigation("DesertStorms");
+                    b.Navigation("CustomEventParticipants");
 
-                    b.Navigation("MarshalGuards");
+                    b.Navigation("DesertStormParticipants");
+
+                    b.Navigation("MarshalGuardParticipants");
 
                     b.Navigation("Notes");
 
-                    b.Navigation("VsDuels");
+                    b.Navigation("VsDuelParticipants");
                 });
 
             modelBuilder.Entity("Database.Entities.Rank", b =>
                 {
                     b.Navigation("Players");
+                });
+
+            modelBuilder.Entity("Database.Entities.VsDuel", b =>
+                {
+                    b.Navigation("VsDuelParticipants");
                 });
 #pragma warning restore 612, 618
         }

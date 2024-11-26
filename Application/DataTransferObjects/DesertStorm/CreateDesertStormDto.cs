@@ -1,10 +1,25 @@
-﻿namespace Application.DataTransferObjects.DesertStorm;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Application.DataTransferObjects.DesertStorm;
 
 public class CreateDesertStormDto
 {
-    public Guid PlayerId { get; set; }
+    [Required]
+    public Guid AllianceId { get; set; }
 
-    public bool Registered { get; set; }
+    [Required]
+    public bool Won { get; set; }
 
-    public bool Participated { get; set; }
+    [Required]
+    public int OpposingParticipants { get; set; }
+
+    [Required]
+    public int OpponentServer { get; set; }
+
+    [Required]
+    public required string EventDate { get; set; }
+
+    [Required]
+    [MaxLength(150)]
+    public required string OpponentName { get; set; }
 }

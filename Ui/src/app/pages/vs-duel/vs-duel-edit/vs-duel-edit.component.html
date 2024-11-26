@@ -1,0 +1,133 @@
+<div class="container mt-3">
+  <h2 class="text-center">Edit VS-Duel</h2>
+  <!--  Back button-->
+  <div class="d-grid gap-2 col-6 mx-auto">
+    <button routerLink="/vs-duel" class="btn btn-primary" type="button"><i class="bi bi-arrow-left"></i> Back</button>
+  </div>
+
+  @if (vsDuelForm) {
+    <div ngbAccordion #accordion="ngbAccordion" class="mt-5 pb-5">
+      <div ngbAccordionItem="first">
+        <h2 ngbAccordionHeader>
+          <button ngbAccordionButton>Edit VS-Duel</button>
+        </h2>
+        <div ngbAccordionCollapse>
+          <div ngbAccordionBody>
+            <ng-template>
+              <form [formGroup]="vsDuelForm">
+                <div class="form-floating mb-3 is-invalid">
+                  <input [ngClass]="{
+        'is-invalid': df['opponentName'].invalid && (df['opponentName'].dirty || df['opponentName'].touched),
+        'is-valid': df['opponentName'].valid}"
+                         type="text" maxlength="151" class="form-control" id="opponentName" placeholder="opponentName" formControlName="opponentName">
+                  <label for="opponentName">Opponent name</label>
+                  @if (df['opponentName'].invalid && (df['opponentName'].dirty || df['opponentName'].touched)) {
+                    <div class="invalid-feedback">
+                      @if (df['opponentName'].hasError('required')) {
+                        <p>Opponent Name is required</p>
+                      }
+                      @if (df['opponentName'].hasError('maxlength')) {
+                        <p>Maximum 150 characters allowed</p>
+                      }
+                    </div>
+                  }
+                </div>
+                <div class="form-floating mb-3 is-invalid">
+                  <input [ngClass]="{
+        'is-invalid': df['opponentServer'].invalid && (df['opponentServer'].dirty || df['opponentServer'].touched),
+        'is-valid': df['opponentServer'].valid}"
+                         type="number" min="0" class="form-control" id="opponentServer" placeholder="opponentServer" formControlName="opponentServer">
+                  <label for="opponentServer">Opponent server</label>
+                  @if (df['opponentServer'].invalid && (df['opponentServer'].dirty || df['opponentServer'].touched)) {
+                    <div class="invalid-feedback">
+                      @if (df['opponentServer'].hasError('required')) {
+                        <p>Opponent server is required</p>
+                      }
+                    </div>
+                  }
+                </div>
+                <div class="form-floating mb-3 is-invalid">
+                  <input [ngClass]="{
+        'is-invalid': df['opponentPower'].invalid && (df['opponentPower'].dirty || df['opponentPower'].touched),
+        'is-valid': df['opponentPower'].valid}"
+                         type="number" min="0" class="form-control" id="opponentPower" placeholder="opponentPower" formControlName="opponentPower">
+                  <label for="opponentPower">Opponent power</label>
+                  @if (df['opponentPower'].invalid && (df['opponentPower'].dirty || df['opponentPower'].touched)) {
+                    <div class="invalid-feedback">
+                      @if (df['opponentPower'].hasError('required')) {
+                        <p>Opponent power is required</p>
+                      }
+                    </div>
+                  }
+                </div>
+                <div class="form-floating mb-3 is-invalid">
+                  <input [ngClass]="{
+        'is-invalid': df['opponentSize'].invalid && (df['opponentSize'].dirty || df['opponentSize'].touched),
+        'is-valid': df['opponentSize'].valid}"
+                         type="number" min="0" class="form-control" id="opponentSize" placeholder="opponentSize" formControlName="opponentSize">
+                  <label for="opponentSize">Opponent size</label>
+                  @if (df['opponentSize'].invalid && (df['opponentSize'].dirty || df['opponentSize'].touched)) {
+                    <div class="invalid-feedback">
+                      @if (df['opponentSize'].hasError('required')) {
+                        <p>Opponent size is required</p>
+                      }
+                    </div>
+                  }
+                </div>
+                <div class="form-check mb-3">
+                  <input class="form-check-input" type="checkbox" formControlName="won" id="won">
+                  <label class="form-check-label" for="won">
+                    Won
+                  </label>
+                </div>
+              </form>
+              <div class="d-grid gap-2 col-6 mx-auto mt-5">
+                <button [disabled]="vsDuelForm.invalid || !vsDuelForm.dirty" (click)="onUpdateEvent()" class="btn btn-primary" type="button">Update Event</button>
+              </div>
+            </ng-template>
+          </div>
+        </div>
+      </div>
+      <div ngbAccordionItem="second">
+        <h2 ngbAccordionHeader>
+          <button ngbAccordionButton>Edit Weekly points</button>
+        </h2>
+        <div ngbAccordionCollapse>
+          <div ngbAccordionBody>
+              <ng-template>
+                <form [formGroup]="vsDuelParticipantsForm" class="row g-3">
+                  <ng-container formArrayName="vsDuelParticipants">
+                    @for (participant of vsDuelParticipants.controls; track participant; let i=$index) {
+                      <ng-container [formGroupName]="i">
+                        <div class="col-md-4">
+                          <label for="player{{i}}">{{participant.get('playerName')?.value}}</label>
+                          <input [ngClass]="{
+                          'is-valid': participant.get('weeklyPoints')?.valid,
+                          'is-invalid': participant.get('weeklyPoints')?.invalid && (participant.get('weeklyPoints')?.touched || participant.get('weeklyPoints')?.dirty)
+                          }" type="number" min="0" class="form-control form-control-sm" id="player{{i}}" formControlName="weeklyPoints">
+                          @if (participant.get('weeklyPoints')?.invalid && (participant.get('weeklyPoints')?.touched || participant.get('weeklyPoints')?.dirty)) {
+                            <div class="invalid-feedback">
+                              @if (participant.get('weeklyPoints')?.hasError('required')){
+                                <p>Weekly points is required</p>
+                              }
+                              @if (participant.get('weeklyPoints')?.hasError('pattern')){
+                                <p>Weekly points must not be less than 0</p>
+                              }
+                            </div>
+                          }
+                        </div>
+                      </ng-container>
+                    }
+                  </ng-container>
+                </form>
+                <div class="d-grid gap-2 col-6 mx-auto mt-5">
+                  <button [disabled]="vsDuelParticipantsForm.invalid || !vsDuelParticipantsForm.dirty" (click)="onUpdatePlayers()" class="btn btn-primary" type="button">Update Players</button>
+                </div>
+              </ng-template>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
+</div>

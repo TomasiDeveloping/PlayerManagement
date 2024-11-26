@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using Database.Entities;
+﻿using Database.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;

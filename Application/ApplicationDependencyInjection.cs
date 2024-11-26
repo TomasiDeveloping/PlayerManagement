@@ -3,6 +3,8 @@ using Application.Interfaces;
 using Application.Repositories;
 using Application.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Utilities.Interfaces;
+using Utilities.Services;
 
 namespace Application;
 
@@ -20,8 +22,17 @@ public static class ApplicationDependencyInjection
         services.AddScoped<IPlayerRepository, PlayerRepository>();
         services.AddScoped<IVsDuelRepository, VsDuelRepository>();
         services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
+        services.AddScoped<IRankRepository, RankRepository>();
+        services.AddScoped<ICustomEventRepository, CustomEventRepository>();
+        services.AddScoped<IMarshalGuardParticipantRepository, MarshalGuardParticipantRepository>();
+        services.AddScoped<IVsDuelParticipantRepository, VsDuelParticipantRepository>();
+        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IDesertStormParticipantRepository, DesertStormParticipantRepository>();
+
 
         services.AddTransient<IJwtService, JwtService>();
+        services.AddTransient<IClaimTypeService, ClaimTypeService>();
+        services.AddTransient<IEmailService, EmailService>();
 
         return services;
     }

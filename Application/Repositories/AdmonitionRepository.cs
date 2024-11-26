@@ -29,6 +29,7 @@ public class AdmonitionRepository(ApplicationContext context, IMapper mapper, IL
             .Where(admonition => admonition.PlayerId == playerId)
             .ProjectTo<AdmonitionDto>(mapper.ConfigurationProvider)
             .AsNoTracking()
+            .OrderByDescending(admonition => admonition.CreatedOn)
             .ToListAsync(cancellationToken);
 
         return Result.Success(playerAdmonitions);
@@ -46,9 +47,10 @@ public class AdmonitionRepository(ApplicationContext context, IMapper mapper, IL
             : Result.Success(admonitionById);
     }
 
-    public async Task<Result<AdmonitionDto>> CreateAdmonitionAsync(CreateAdmonitionDto createAdmonitionDto, CancellationToken cancellationToken)
+    public async Task<Result<AdmonitionDto>> CreateAdmonitionAsync(CreateAdmonitionDto createAdmonitionDto, string createdBy, CancellationToken cancellationToken)
     {
         var newAdmonition = mapper.Map<Admonition>(createAdmonitionDto);
+        newAdmonition.CreatedBy = createdBy;
 
         await context.Admonitions.AddAsync(newAdmonition, cancellationToken);
 
@@ -65,7 +67,7 @@ public class AdmonitionRepository(ApplicationContext context, IMapper mapper, IL
         }
     }
 
-    public async Task<Result<AdmonitionDto>> UpdateAdmonitionAsync(UpdateAdmonitionDto updateAdmonitionDto, CancellationToken cancellationToken)
+    public async Task<Result<AdmonitionDto>> UpdateAdmonitionAsync(UpdateAdmonitionDto updateAdmonitionDto, string modifiedBy, CancellationToken cancellationToken)
     {
         var admonitionToUpdate = await context.Admonitions
             .FirstOrDefaultAsync(admonition => admonition.Id == updateAdmonitionDto.Id, cancellationToken);
@@ -73,6 +75,7 @@ public class AdmonitionRepository(ApplicationContext context, IMapper mapper, IL
         if (admonitionToUpdate is null) return Result.Failure<AdmonitionDto>(AdmonitionErrors.NotFound);
 
         mapper.Map(updateAdmonitionDto, admonitionToUpdate);
+        admonitionToUpdate.ModifiedBy = modifiedBy;
 
         try
         {

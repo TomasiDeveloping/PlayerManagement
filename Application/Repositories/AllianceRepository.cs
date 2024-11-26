@@ -34,17 +34,7 @@ public class AllianceRepository(ApplicationContext context, IMapper mapper) : IA
             : Result.Success(allianceById);
     }
 
-    public async Task<Result<AllianceDto>> CreateAllianceAsync(CreateAllianceDto createAllianceDto, CancellationToken cancellationToken)
-    {
-        var newAlliance = mapper.Map<Alliance>(createAllianceDto);
-
-        await context.Alliances.AddAsync(newAlliance, cancellationToken);
-        await context.SaveChangesAsync(cancellationToken);
-
-        return Result.Success(mapper.Map<AllianceDto>(newAlliance));
-    }
-
-    public async Task<Result<AllianceDto>> UpdateAllianceAsync(UpdateAllianceDto updateAllianceDto, CancellationToken cancellationToken)
+    public async Task<Result<AllianceDto>> UpdateAllianceAsync(UpdateAllianceDto updateAllianceDto, string modifiedBy, CancellationToken cancellationToken)
     {
         var allianceToUpdate = await context.Alliances
             .FirstOrDefaultAsync(alliance => alliance.Id == updateAllianceDto.Id, cancellationToken);
@@ -52,6 +42,7 @@ public class AllianceRepository(ApplicationContext context, IMapper mapper) : IA
         if (allianceToUpdate is null) return Result.Failure<AllianceDto>(AllianceErrors.NotFound);
 
         mapper.Map(updateAllianceDto, allianceToUpdate);
+        allianceToUpdate.ModifiedBy = modifiedBy;
 
         await context.SaveChangesAsync(cancellationToken);
 

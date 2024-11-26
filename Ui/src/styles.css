@@ -1,6 +1,31 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+
 html, body {
   width: 100%;
   height: 100%;
   margin: 0;
   font-family: 'Poppins', sans-serif;
+}
+
+.custom-edit-icon {
+  cursor: pointer;
+  color: blueviolet;
+}
+
+.custom-delete-icon {
+  cursor: pointer;
+  color: orangered;
+}
+
+.custom-info-icon {
+  cursor: pointer;
+  color: #2ea805;
+}
+
+.custom-pagination .ngx-pagination li a{
+  color: white;
+}
+
+.custom-pagination .ngx-pagination li a:hover{
+  color: black;
 }

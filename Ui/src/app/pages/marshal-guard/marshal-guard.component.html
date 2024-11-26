@@ -1,0 +1,124 @@
+<div class="container mt-3 pb-5">
+  <h2 class="text-center">Marshal Guard</h2>
+
+  @if (!isCreateMarshalGuard) {
+    <div class="d-grid gap-2 col-6 mx-auto">
+      <button (click)="onCreateEvent()" class="btn btn-primary" type="button">Create new Event</button>
+    </div>
+  }
+
+  @if (isCreateMarshalGuard) {
+      <form [formGroup]="marshalGuardForm">
+        <div class="form-floating mb-3 is-invalid">
+          <input [ngClass]="{
+        'is-invalid': f['eventDate'].invalid && (f['eventDate'].dirty || f['eventDate'].touched),
+        'is-valid': f['eventDate'].valid}"
+                 type="date" class="form-control" id="eventDate" placeholder="eventDate" formControlName="eventDate">
+          <label for="level">eventDate</label>
+          @if (f['eventDate'].invalid && (f['eventDate'].dirty || f['eventDate'].touched)) {
+            <div class="invalid-feedback">
+              @if (f['eventDate'].hasError('required')) {
+                <p>eventDate is required</p>
+              }
+            </div>
+          }
+        </div>
+        <div class="form-floating mb-3 is-invalid">
+          <input [ngClass]="{
+        'is-invalid': f['level'].invalid && (f['level'].dirty || f['level'].touched),
+        'is-valid': f['level'].valid}"
+                 type="number" class="form-control" id="level" placeholder="level" formControlName="level">
+          <label for="level">Level</label>
+          @if (f['level'].invalid && (f['level'].dirty || f['level'].touched)) {
+            <div class="invalid-feedback">
+              @if (f['level'].hasError('required')) {
+                <p>Level is required</p>
+              }
+            </div>
+          }
+        </div>
+        <div class="form-floating mb-3 is-invalid">
+          <select class="form-select" formControlName="rewardPhase" id="rewardPhase">
+            <option [ngValue]="1">1</option>
+            <option [ngValue]="2">2</option>
+            <option [ngValue]="3">3</option>
+            <option [ngValue]="4">4</option>
+            <option [ngValue]="5">5</option>
+          </select>
+          <label for="rewardPhase">Reward phase</label>
+        </div>
+        <div class="form-floating mb-3 is-invalid">
+          <input type="number" class="form-control" id="allianceSize" placeholder="allianceSize" formControlName="allianceSize">
+          <label for="level">allianceSize</label>
+        </div>
+
+        @if (playerSelected) {
+          <div class="d-flex justify-content-between">
+            <p>{{participatedPlayer}} players participated</p>
+            <p>{{notParticipatedPlayer}} player did not participated</p>
+          </div>
+        } @else {
+          <div class="d-flex justify-content-center">
+            <p class="text-warning">Please add participants</p>
+          </div>
+        }
+
+        <div class="d-grid gap-2 col-6 mx-auto">
+          <button (click)="onAddParticipants()" class="btn btn-primary" type="button">{{isUpdate ? 'Update Participants' : 'Add Participants'}}</button>
+        </div>
+        <div class="d-flex justify-content-between">
+          <button (click)="onCancel()" type="button" class="btn btn-warning">Cancel</button>
+          <button [disabled]="marshalGuardForm.invalid || playerParticipated.length <= 0" (click)="onSubmit()" type="submit" class="btn btn-success">{{isUpdate ? 'Update': 'Create'}}</button>
+        </div>
+      </form>
+  }
+
+  @if(!isCreateMarshalGuard) {
+    @if (marshalGuards.length > 0) {
+      <div class="table-responsive mt-5">
+        <table class="table table-striped table-bordered">
+          <thead>
+          <tr>
+            <th scope="col">Event Date</th>
+            <th scope="col">Level</th>
+            <th scope="col">Reward Phase</th>
+            <th scope="col">Alliance Size</th>
+            <th scope="col">Participating players</th>
+            <th scope="col">Creator</th>
+            <th scope="col">Action</th>
+          </tr>
+          </thead>
+          <tbody>
+            @for (marshalGuard of marshalGuards; track marshalGuard.id) {
+              <tr>
+                <td>{{marshalGuard.eventDate | date: 'dd.MM.yyyy'}}</td>
+                <td>{{marshalGuard.level}}</td>
+                <td>
+                  <ngb-rating [(rate)]="marshalGuard.rewardPhase" [max]="5" [readonly]="true">
+                    <ng-template let-fill="fill" let-index="index">
+                      <i class="bi-star{{ fill === 100 ? '-fill' : '' }} custom-rating" [class.filled]="fill === 100" [class.low]="index < 3"></i>
+                    </ng-template>
+                  </ngb-rating>
+                </td>
+                <td>{{marshalGuard.allianceSize}}</td>
+                <td>{{marshalGuard.participants}}</td>
+                <td>{{marshalGuard.createdBy}}</td>
+                <td>
+                  <div class="d-flex gap-3 justify-content-around">
+                    <i (click)="onGoToMarshalGuardDetail(marshalGuard)" class="bi custom-info-icon bi-info-circle-fill"></i>
+                    <i (click)="onEditMarshalGuard(marshalGuard)" class="bi custom-edit-icon bi-pencil-fill"></i>
+                    <i (click)="onDeleteMarshalGuard(marshalGuard)" class="bi custom-delete-icon bi-trash3"></i>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    } @else {
+      <div class="alert alert-secondary text-center mt-5" role="alert">
+        No saved marshal guards
+      </div>
+    }
+  }
+</div>

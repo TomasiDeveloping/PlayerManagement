@@ -2,14 +2,16 @@
 using System.Security.Claims;
 using System.Text;
 using Application.Interfaces;
+using Database;
 using Database.Entities;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Application.Services;
 
-public class JwtService(IConfiguration configuration, UserManager<User> userManager) : IJwtService
+public class JwtService(IConfiguration configuration, UserManager<User> userManager, ApplicationContext context) : IJwtService
 {
     private readonly IConfigurationSection _jwtSection = configuration.GetSection("Jwt");
     public SigningCredentials GetSigningCredentials()
@@ -27,11 +29,13 @@ public class JwtService(IConfiguration configuration, UserManager<User> userMana
             new("email", user.Email!),
             new("playerName", user.PlayerName),
             new("userId", user.Id.ToString()),
-            new("allianceId", user.AllianceId.ToString())
+            new("allianceId", user.AllianceId.ToString()),
         };
 
         var roles = await userManager.GetRolesAsync(user);
         claims.AddRange(roles.Select(role => new Claim(ClaimTypes.Role, role)));
+        var userAlliance = await context.Alliances.FirstOrDefaultAsync(alliance => alliance.Id == user.AllianceId);
+        claims.Add(new("allianceName", userAlliance!.Name));
         return claims;
     }
 

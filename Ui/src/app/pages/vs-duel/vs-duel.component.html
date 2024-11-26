@@ -1,0 +1,64 @@
+<div class="container mt-3 pb-5">
+  <h2 class="text-center">VS - Duel</h2>
+
+  <div class="d-flex justify-content-center">
+    <div class="alert alert-secondary w-auto text-center" role="alert">
+      Current week <span class="fw-bold text-primary">{{currentDate | week}}</span>
+    </div>
+  </div>
+
+  @if (!currentWeekDuelExists) {
+    <div class="d-grid gap-2 col-6 mx-auto">
+      <button (click)="onCreateEvent()" class="btn btn-primary" type="button">Create new VS-Duel Event</button>
+    </div>
+  } @else {
+    <div class="d-flex justify-content-center">
+    <div class="alert alert-primary text-center w-auto" role="alert">
+      One event has already been recorded for this week. You can edit or delete the event
+    </div>
+    </div>
+  }
+
+  @if (vsDuels.length > 0) {
+    <div class="mt-5 table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+          <th scope="col">Year</th>
+          <th scope="col">Week</th>
+          <th scope="col">Opponent name</th>
+          <th scope="col">Opponent server</th>
+          <th scope="col">Opponent power</th>
+          <th scope="col">Opponent size</th>
+          <th scope="col">Won</th>
+          <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (vsDuel of vsDuels | paginate: { itemsPerPage: 10, currentPage: page, id: 'vsDuelTable'}; track vsDuel.id) {
+            <tr>
+              <td>{{vsDuel.eventDate | date: 'yyyy'}}</td>
+              <td>{{vsDuel.eventDate | week}}</td>
+              <td>{{vsDuel.opponentName}}</td>
+              <td>{{vsDuel.opponentServer}}</td>
+              <td>{{vsDuel.opponentPower}}</td>
+              <td>{{vsDuel.opponentSize}}</td>
+              <td>
+                <i class="bi " [ngClass]="vsDuel.won ? 'bi-check-lg text-success' : 'bi-x-lg text-danger'"></i>
+              </td>
+              <td>
+                <div class="d-flex gap-3 justify-content-around">
+                  <i (click)="onGoToVsDuelInformation(vsDuel)" class="bi custom-info-icon bi-info-circle-fill"></i>
+                  <i (click)="onEditVsDuel(vsDuel)" class="bi custom-edit-icon bi-pencil-fill"></i>
+                  <i (click)="onDeleteVsDuel(vsDuel)" class="bi custom-delete-icon bi-trash3"></i>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+      <pagination-controls class="custom-pagination" [responsive]="true" [id]="'vsDuelTable'" (pageChange)="page = $event"></pagination-controls>
+    </div>
+  }
+
+</div>

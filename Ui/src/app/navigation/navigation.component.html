@@ -1,0 +1,86 @@
+@if (loggedInUser) {
+  <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+    <div class="container-fluid">
+
+      <!-- Brand link leading to the home page -->
+      <a class="navbar-brand" routerLink="/">{{loggedInUser.allianceName}}</a>
+
+      <!-- Displaying the application version -->
+      <span class="version">v.{{version}}</span>
+
+      <!-- Toggle button for collapsed navigation on smaller screens -->
+      <button (click)="isShown = !isShown" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"
+              class="navbar-toggler" data-bs-target="#navbar" data-bs-toggle="collapse"
+              type="button">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Collapsible navigation links -->
+      <div [ngClass]="{'show': isShown}" class="collapse navbar-collapse" id="navbar">
+        <ul class="navbar-nav me-auto">
+
+          <!-- Home link -->
+          <li class="nav-item">
+            <a (click)="isShown = false" class="nav-link" routerLink="/players" routerLinkActive="active">Players
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a (click)="isShown = false" class="nav-link" routerLink="/marshal-guard" routerLinkActive="active">Marshal Guard
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a (click)="isShown = false" class="nav-link" routerLink="/vs-duel" routerLinkActive="active">VS - Duel
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a (click)="isShown = false" class="nav-link" routerLink="/desert-storm" routerLinkActive="active">Dessert Storm
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a (click)="isShown = false" class="nav-link" routerLink="/custom-event" routerLinkActive="active">Custom Event
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a (click)="isShown = false" class="nav-link" routerLink="/alliance" routerLinkActive="active">Alliance
+            </a>
+          </li>
+
+        </ul>
+
+        <!-- User menu (visible only when user is logged in) -->
+        <div *ngIf="loggedInUser" class="login">
+          <ul class="navbar-nav me-auto">
+            <li ngbDropdown display="dynamic" class="nav-item" role="presentation">
+              <button type="button" class="nav-link" ngbDropdownToggle>
+                <i class="bi bi-person-circle"></i>
+                {{loggedInUser.userName}}
+              </button>
+              <div ngbDropdownMenu>
+                <button (click)="isShown = false" routerLink="/account" ngbDropdownItem>Account</button>
+                <button (click)="isShown = false" routerLink="/change-password" ngbDropdownItem>Change password</button>
+                <div class="dropdown-divider"></div>
+                <button (click)="onLogout()" ngbDropdownItem>Logout</button>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Login button (visible only when user is not logged in) -->
+        <div *ngIf="!loggedInUser" class="d-flex login" routerLink="/login">
+          <button (click)="isShown = false" class="btn btn-secondary" routerLink="/login"><i
+            class="bi bi-box-arrow-right"></i> Login
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+}
+
+
+<!-- Router outlet for displaying routed components -->
+<router-outlet></router-outlet>

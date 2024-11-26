@@ -10,8 +10,8 @@ namespace Api.Controllers.v1
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
-    //[Authorize]
-    public class AdmonitionsController(IAdmonitionRepository admonitionRepository, ILogger<AdmonitionsController> logger) : ControllerBase
+    [Authorize]
+    public class AdmonitionsController(IAdmonitionRepository admonitionRepository, IClaimTypeService claimTypeService, ILogger<AdmonitionsController> logger) : ControllerBase
     {
         [HttpGet]
         public async Task<ActionResult<List<AdmonitionDto>>> GetAdmonitions(CancellationToken cancellationToken)
@@ -80,7 +80,7 @@ namespace Api.Controllers.v1
                 if (!ModelState.IsValid) return UnprocessableEntity(ModelState);
 
                 var createResult =
-                    await admonitionRepository.CreateAdmonitionAsync(createAdmonitionDto, cancellationToken);
+                    await admonitionRepository.CreateAdmonitionAsync(createAdmonitionDto, claimTypeService.GetFullName(User), cancellationToken);
 
                 return createResult.IsFailure
                     ? BadRequest(createResult.Error)
@@ -104,7 +104,7 @@ namespace Api.Controllers.v1
                 if (admonitionId != updateAdmonitionDto.Id) return Conflict(AdmonitionErrors.IdConflict);
 
                 var updateResult =
-                    await admonitionRepository.UpdateAdmonitionAsync(updateAdmonitionDto, cancellationToken);
+                    await admonitionRepository.UpdateAdmonitionAsync(updateAdmonitionDto, claimTypeService.GetFullName(User), cancellationToken);
 
                 return updateResult.IsFailure
                     ? BadRequest(updateResult.Error)

@@ -8,17 +8,17 @@ public class UpdateMarshalGuardDto
     public Guid Id { get; set; }
 
     [Required]
-    public Guid PlayerId { get; set; }
+    public Guid AllianceId { get; set; }
 
     [Required]
-    public bool Participated { get; set; }
+    public int Participants { get; set; }
 
     [Required]
-    public int Year { get; set; }
+    public int Level { get; set; }
 
     [Required]
-    public int Month { get; set; }
+    public int RewardPhase { get; set; }
 
     [Required]
-    public int Day { get; set; }
+    public required string EventDate { get; set; }
 }

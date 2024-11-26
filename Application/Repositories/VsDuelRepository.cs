@@ -25,27 +25,47 @@ public class VsDuelRepository(ApplicationContext context, IMapper mapper, ILogge
             : Result.Success(vsDuelById);
     }
 
-    public async Task<Result<List<VsDuelDto>>> GetPlayerVsDuelsAsync(Guid playerId, CancellationToken cancellationToken)
+    public async Task<Result<VsDuelDetailDto>> GetVsDuelDetailAsync(Guid vsDuelId, CancellationToken cancellationToken)
     {
-        var playerVsDuels = await context.VsDuels
-            .Where(vsDuel => vsDuel.PlayerId == playerId)
+        var vsDuelDetail = await context.VsDuels
+            .ProjectTo<VsDuelDetailDto>(mapper.ConfigurationProvider)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(vsDuel => vsDuel.Id == vsDuelId, cancellationToken);
+
+        return vsDuelDetail is null
+            ? Result.Failure<VsDuelDetailDto>(VsDuelErrors.NotFound)
+            : Result.Success(vsDuelDetail);
+    }
+
+    public async Task<Result<List<VsDuelDto>>> GetAllianceVsDuelsAsync(Guid allianceId, int take, CancellationToken cancellationToken)
+    {
+        var allianceVsDuels = await context.VsDuels
+            .Where(vsDuel => vsDuel.AllianceId == allianceId)
             .ProjectTo<VsDuelDto>(mapper.ConfigurationProvider)
+            .OrderByDescending(vsDuel => vsDuel.EventDate)
+            .Take(take)
             .AsNoTracking()
             .ToListAsync(cancellationToken);
 
-        return Result.Success(playerVsDuels);
+        return Result.Success(allianceVsDuels);
     }
 
-    public async Task<Result<VsDuelDto>> CreateVsDuelAsync(CreateVsDuelDto createVsDuelDto, CancellationToken cancellationToken)
+    public async Task<Result<VsDuelDto>> CreateVsDuelAsync(CreateVsDuelDto createVsDuelDto, string createdBy, CancellationToken cancellationToken)
     {
         var newVsDuel = mapper.Map<VsDuel>(createVsDuelDto);
+        newVsDuel.CreatedBy = createdBy;
 
         await context.VsDuels.AddAsync(newVsDuel, cancellationToken);
 
         try
         {
             await context.SaveChangesAsync(cancellationToken);
-            return Result.Success(mapper.Map<VsDuelDto>(newVsDuel));
+            var vsDuelParticipantsResult =
+                await InsertPlayersAsync(newVsDuel.Id, newVsDuel.AllianceId, cancellationToken);
+
+            return vsDuelParticipantsResult.IsFailure
+                ? Result.Failure<VsDuelDto>(vsDuelParticipantsResult.Error)
+                : Result.Success(mapper.Map<VsDuelDto>(newVsDuel));
         }
         catch (Exception e)
         {
@@ -54,7 +74,7 @@ public class VsDuelRepository(ApplicationContext context, IMapper mapper, ILogge
         }
     }
 
-    public async Task<Result<VsDuelDto>> UpdateVsDuelAsync(UpdateVsDuelDto updateVsDuelDto, CancellationToken cancellationToken)
+    public async Task<Result<VsDuelDto>> UpdateVsDuelAsync(UpdateVsDuelDto updateVsDuelDto, string modifiedBy, CancellationToken cancellationToken)
     {
         var vsDuelToUpdate = await context.VsDuels
             .FirstOrDefaultAsync(vsDuel => vsDuel.Id == updateVsDuelDto.Id, cancellationToken);
@@ -62,6 +82,7 @@ public class VsDuelRepository(ApplicationContext context, IMapper mapper, ILogge
         if (vsDuelToUpdate is null) return Result.Failure<VsDuelDto>(VsDuelErrors.NotFound);
 
         mapper.Map(updateVsDuelDto, vsDuelToUpdate);
+        vsDuelToUpdate.ModifiedBy = modifiedBy;
 
         try
         {
@@ -93,6 +114,28 @@ public class VsDuelRepository(ApplicationContext context, IMapper mapper, ILogge
         {
             logger.LogError(e, e.Message);
             return Result.Failure<bool>(GeneralErrors.DatabaseError);
+        }
+    }
+
+    private async Task<Result> InsertPlayersAsync(Guid vsDuelId, Guid allianceId, CancellationToken cancellationToken)
+    {
+        var alliancePlayers = await context.Players
+            .Where(player => player.AllianceId == allianceId)
+            .AsNoTracking()
+            .ToListAsync(cancellationToken);
+
+        var vsDuelParticipants = alliancePlayers.Select(player => new VsDuelParticipant() { Id = Guid.CreateVersion7(), PlayerId = player.Id, VsDuelId = vsDuelId, WeeklyPoints = 0 }).ToList();
+
+        try
+        {
+            await context.VsDuelParticipants.AddRangeAsync(vsDuelParticipants, cancellationToken);
+            await context.SaveChangesAsync(cancellationToken);
+            return Result.Success(true);
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, e.Message);
+            return Result.Failure(GeneralErrors.DatabaseError);
         }
     }
 }

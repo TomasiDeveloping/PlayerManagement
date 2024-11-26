@@ -13,4 +13,7 @@ public class UpdateAllianceDto
     [Required]
     [MaxLength(5)]
     public required string Abbreviation { get; set; }
+
+    [Required]
+    public int Server { get; set; }
 }

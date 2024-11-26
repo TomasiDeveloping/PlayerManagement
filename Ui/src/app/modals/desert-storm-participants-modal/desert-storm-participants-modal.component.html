@@ -1,0 +1,39 @@
+<div class="modal-header flex-column" xmlns="http://www.w3.org/1999/html">
+  <div class="d-flex justify-content-between align-items-center w-100">
+    <h4 class="modal-title">Select Player for Desert storm</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+  </div>
+</div>
+
+<div class="modal-body">
+  <div class="row">
+    @for (player of playerParticipated; track player.playerId; let i = $index) {
+      <div class="col-12 col-md-6 mb-4">
+        <div class="d-flex flex-column align-items-center border p-3">
+          <h6 class="mb-4 text-color">{{player.playerName}}</h6>
+          <div class="d-flex justify-content-between">
+            <div class="form-check mx-2">
+              <input class="form-check-input" type="checkbox" id="registered{{i}}" [checked]="player.registered" (change)="onRegisterChange(player)">
+              <label class="form-check-label" for="registered{{i}}"><span class="text-small">Registered</span></label>
+            </div>
+            <div class="form-check mx-2">
+              <input [disabled]="!player.registered" class="form-check-input" type="checkbox" id="startPlayer{{i}}" [checked]="player.startPlayer" (change)="player.startPlayer = !player.startPlayer">
+              <label class="form-check-label" for="startPlayer{{i}}"><span class="text-small">Start player</span></label>
+            </div>
+            <div class="form-check mx-2">
+              <input [disabled]="!player.registered" class="form-check-input" type="checkbox" id="participated{{i}}" [checked]="player.participated" (change)="player.participated = !player.participated">
+              <label class="form-check-label" for="participated{{i}}"><span class="text-small">Participated</span></label>
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>
+
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-warning" (click)="activeModal.dismiss()">Close</button>
+  <button type="submit" (click)="activeModal.close(playerParticipated)" class=" btn btn-success">Add to event</button>
+</div>
+

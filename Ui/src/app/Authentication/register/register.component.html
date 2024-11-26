@@ -1,0 +1,149 @@
+<div class="container mt-3">
+  <h2 class="text-center">Register</h2>
+
+  @if (showError) {
+    <div class="card border-danger mt-5">
+      <div class="card-header text-center">
+        Registration Failed!
+      </div>
+      <div class="card-body text-danger">
+        <h5 class="card-title">An Error Occurred</h5>
+        <p class="card-text">
+          The registration could not be completed. Some required information is missing, or a technical issue has occurred.
+        </p>
+        <p class="card-text">
+          Please check the registration link or contact support if the issue persists.
+        </p>
+      </div>
+    </div>
+  }
+
+  @if (showSuccess) {
+    <div class="card border-success mt-5">
+      <div class="card-header text-center">
+        Successfully Registered!
+      </div>
+      <div class="card-body text-success">
+        <h5 class="card-title">Welcome, {{playerName}}!</h5>
+        <p class="card-text">
+          You have successfully registered.
+        </p>
+        <p class="card-text">
+          A confirmation email has been sent to the email address you provided. Please check your inbox and confirm the email to complete the registration process.
+        </p>
+        <p class="card-text">
+          If you don't find the email in your inbox, please also check your spam folder.
+        </p>
+      </div>
+    </div>
+  }
+
+  @if (registerForm && !showSuccess) {
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="form-floating mb-3 is-invalid">
+        <input [ngClass]="{
+        'is-invalid': f['playerName'].invalid && (f['playerName'].dirty || f['playerName'].touched),
+        'is-valid': f['playerName'].valid}"
+               type="text" class="form-control" id="playerName" placeholder="Player" formControlName="playerName">
+        <label for="playerName">Player Name</label>
+        @if (f['playerName'].invalid && (f['playerName'].dirty || f['playerName'].touched)) {
+          <div class="invalid-feedback">
+            @if (f['playerName'].hasError('required')) {
+              <p>Player name is required</p>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="form-floating mb-3 is-invalid">
+        <input [ngClass]="{
+        'is-invalid': f['email'].invalid && (f['email'].dirty || f['email'].touched),
+        'is-valid': f['email'].valid}"
+               type="email" class="form-control" id="email" placeholder="email" formControlName="email">
+        <label for="email">Email</label>
+        @if (f['email'].invalid && (f['email'].dirty || f['email'].touched)) {
+          <div class="invalid-feedback">
+            @if (f['email'].hasError('required')) {
+              <p>Email is required</p>
+            }
+            @if (f['email'].hasError('email')) {
+              <p>Invalid email address</p>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="input-group has-validation mb-3">
+        <div class="form-floating is-invalid">
+          <!-- Password Input  -->
+          <input
+            [ngClass]="{'is-invalid': f['password'].invalid && (f['password'].dirty || f['password'].touched),'is-valid': f['password'].valid}"
+            [type]="isInputText ? 'text' : 'password'" autocomplete="on" class="form-control"
+            formControlName="password"
+            id="password" placeholder="password">
+          <!-- Email Label  -->
+          <label for="password">Password</label>
+        </div>
+        <!-- Password Icon  -->
+        <span class="input-group-text">
+                <i (click)="isInputText = !isInputText"
+                   [ngClass]="isInputText ? 'bi-eye-slash-fill' : 'bi bi-eye-fill'"
+                   class="input-group-text eye-icon bi"></i>
+            </span>
+        <!-- Password Invalid Feedback  -->
+        <div *ngIf="f['password'].invalid && (f['password'].dirty || f['password'].touched )"
+             class="invalid-feedback">
+          <p *ngIf="f['password'].hasError('required')">Password is required</p>
+          <div *ngIf="!f['password'].hasError('required')">
+            <div [ngClass]="f['password'].hasError('hasNumber') ? 'text-danger': 'text-success'">
+              <i
+                [ngClass]="f['password'].hasError('hasNumber') ? 'bi bi-x-square-fill' : 'bi bi-check-square-fill'"></i>
+              Must contain a number
+            </div>
+            <div [ngClass]="f['password'].hasError('minlength') ? 'text-danger': 'text-success'">
+              <i
+                [ngClass]="f['password'].hasError('minlength') ? 'bi bi-x-square-fill' : 'bi bi-check-square-fill'"></i>
+              Minimum length required
+            </div>
+            <div [ngClass]="f['password'].hasError('hasCapitalCase') ? 'text-danger': 'text-success'">
+              <i
+                [ngClass]="f['password'].hasError('hasCapitalCase') ? 'bi bi-x-square-fill' : 'bi bi-check-square-fill'"></i>
+              Must contain a capital letter
+            </div>
+            <div [ngClass]="f['password'].hasError('hasSmallCase') ? 'text-danger': 'text-success'">
+              <i
+                [ngClass]="f['password'].hasError('hasSmallCase') ? 'bi bi-x-square-fill' : 'bi bi-check-square-fill'"></i>
+              Must contain a lowercase letter
+            </div>
+            <div [ngClass]="f['password'].hasError('hasSpecialCharacters') ? 'text-danger': 'text-success'">
+              <i
+                [ngClass]="f['password'].hasError('hasSpecialCharacters') ? 'bi bi-x-square-fill' : 'bi bi-check-square-fill'"></i>
+              Must contain special characters
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-floating is-invalid mb-3">
+        <!-- Confirm Password Input  -->
+        <input [ngClass]="{'is-invalid': f['confirmPassword'].invalid && (f['confirmPassword'].dirty || f['confirmPassword'].touched),'is-valid': f['confirmPassword'].valid}"
+               type="password" autocomplete="on" class="form-control"
+               formControlName="confirmPassword"
+               id="confirmPassword" placeholder="confirmPassword">
+        <!-- Confirm Password Label  -->
+        <label for="confirmPassword">Confirm Password</label>
+      </div>
+      <!-- Confirm Password Invalid Feedback  -->
+      <div *ngIf="f['confirmPassword'].invalid && (f['confirmPassword'].dirty || f['confirmPassword'].touched )"
+           class="invalid-feedback">
+        <p *ngIf="f['confirmPassword'].hasError('required')">Confirmation is required</p>
+        <p
+          *ngIf="f['confirmPassword'].hasError('passwordMismatch')">Passwords do not match</p>
+      </div>
+
+      <div class="d-grid gap-2 col-6 mx-auto">
+        <button [disabled]="registerForm.invalid" type="submit" class="btn btn-success">Register</button>
+      </div>
+    </form>
+  }
+</div>

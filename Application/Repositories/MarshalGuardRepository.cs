@@ -25,20 +25,36 @@ public class MarshalGuardRepository(ApplicationContext context, IMapper mapper, 
             : Result.Success(marshalGuardById);
     }
 
-    public async Task<Result<List<MarshalGuardDto>>> GetPlayerMarshalGuardsAsync(Guid playerId, CancellationToken cancellationToken)
+    public async Task<Result<MarshalGuardDetailDto>> GetMarshalGuardDetailAsync(Guid marshalGuardId, CancellationToken cancellationToken)
     {
-        var playerMarshalGuards = await context.MarshalGuards
-            .Where(marshalGuard => marshalGuard.PlayerId == playerId)
-            .ProjectTo<MarshalGuardDto>(mapper.ConfigurationProvider)
+        var detailMarshalGuard = await context.MarshalGuards
+            .ProjectTo<MarshalGuardDetailDto>(mapper.ConfigurationProvider)
             .AsNoTracking()
-            .ToListAsync(cancellationToken);
+            .FirstOrDefaultAsync(marshalGuard => marshalGuard.Id == marshalGuardId, cancellationToken);
 
-        return Result.Success(playerMarshalGuards);
+        return detailMarshalGuard is null
+            ? Result.Failure<MarshalGuardDetailDto>(MarshalGuardErrors.NotFound)
+            : Result.Success(detailMarshalGuard);
     }
 
-    public async Task<Result<MarshalGuardDto>> CreateMarshalGuardAsync(CreateMarshalGuardDto createMarshalGuardDto, CancellationToken cancellationToken)
+    public async Task<Result<List<MarshalGuardDto>>> GetAllianceMarshalGuardsAsync(Guid allianceId, int take, CancellationToken cancellationToken)
+    {
+        var allianceMarshalGuards = await context.MarshalGuards
+            .Where(marshalGuard => marshalGuard.AllianceId == allianceId)
+            .OrderByDescending(marshalGuard => marshalGuard.EventDate)
+            .ProjectTo<MarshalGuardDto>(mapper.ConfigurationProvider)
+            .AsNoTracking()
+            .Take(take)
+            .ToListAsync(cancellationToken);
+
+        return Result.Success(allianceMarshalGuards);
+    }
+
+
+    public async Task<Result<MarshalGuardDto>> CreateMarshalGuardsAsync(CreateMarshalGuardDto createMarshalGuardDto, string createdBy, CancellationToken cancellationToken)
     {
         var newMarshalGuard = mapper.Map<MarshalGuard>(createMarshalGuardDto);
+        newMarshalGuard.CreatedBy = createdBy;
 
         await context.MarshalGuards.AddAsync(newMarshalGuard, cancellationToken);
 
@@ -54,7 +70,7 @@ public class MarshalGuardRepository(ApplicationContext context, IMapper mapper, 
         }
     }
 
-    public async Task<Result<MarshalGuardDto>> UpdateMarshalGuardAsync(UpdateMarshalGuardDto updateMarshalGuardDto, CancellationToken cancellationToken)
+    public async Task<Result<MarshalGuardDto>> UpdateMarshalGuardAsync(UpdateMarshalGuardDto updateMarshalGuardDto, string modifiedBy, CancellationToken cancellationToken)
     {
         var marshalGuardToUpdate = await context.MarshalGuards
             .FirstOrDefaultAsync(marshalGuard => marshalGuard.Id == updateMarshalGuardDto.Id, cancellationToken);
@@ -62,6 +78,7 @@ public class MarshalGuardRepository(ApplicationContext context, IMapper mapper, 
         if (marshalGuardToUpdate is null) return Result.Failure<MarshalGuardDto>(MarshalGuardErrors.NotFound);
 
         mapper.Map(updateMarshalGuardDto, marshalGuardToUpdate);
+        marshalGuardToUpdate.ModifiedBy = modifiedBy;
 
         try
         {

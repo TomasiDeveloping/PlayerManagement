@@ -2,6 +2,7 @@
 using Application.Errors;
 using Application.Interfaces;
 using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers.v1
@@ -9,8 +10,8 @@ namespace Api.Controllers.v1
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
-    //[Authorize]
-    public class DesertStormsController(IDesertStormRepository desertStormRepository, ILogger<DesertStormsController> logger) : ControllerBase
+    [Authorize]
+    public class DesertStormsController(IDesertStormRepository desertStormRepository, IClaimTypeService claimTypeService, ILogger<DesertStormsController> logger) : ControllerBase
     {
         [HttpGet("{desertStormId:guid}")]
         public async Task<ActionResult<DesertStormDto>> GetDesertStorm(Guid desertStormId,
@@ -32,20 +33,40 @@ namespace Api.Controllers.v1
             }
         }
 
-        [HttpGet("Player/{playerId:guid}")]
-        public async Task<ActionResult<List<DesertStormDto>>> GetPlayerDesertStorms(Guid playerId,
+        [HttpGet("Alliance/{allianceId:guid}")]
+        public async Task<ActionResult<List<DesertStormDto>>> GetAllianceDesertStorms(Guid allianceId,
+            [FromQuery] int take, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var allianceDesertStormsResult =
+                    await desertStormRepository.GetAllianceDesertStormsAsync(allianceId, take, cancellationToken);
+
+                if (allianceDesertStormsResult.IsFailure) return BadRequest(allianceDesertStormsResult.Error);
+
+                return allianceDesertStormsResult.Value.Count > 0
+                    ? Ok(allianceDesertStormsResult.Value)
+                    : NoContent();
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpGet("[action]/{desertStormId:guid}")]
+        public async Task<ActionResult<DesertStormDetailDto>> GetDesertStormDetail(Guid desertStormId,
             CancellationToken cancellationToken)
         {
             try
             {
-                var playerDesertStormsResult =
-                    await desertStormRepository.GetPlayerDesertStormsAsync(playerId, cancellationToken);
+                var desertStormDetailResult =
+                    await desertStormRepository.GetDesertStormDetailAsync(desertStormId, cancellationToken);
 
-                if (playerDesertStormsResult.IsFailure) return BadRequest(playerDesertStormsResult.Error);
-
-                return playerDesertStormsResult.Value.Count > 0
-                    ? Ok(playerDesertStormsResult.Value)
-                    : NoContent();
+                return desertStormDetailResult.IsFailure
+                    ? BadRequest(desertStormDetailResult.Error)
+                    : Ok(desertStormDetailResult.Value);
             }
             catch (Exception e)
             {
@@ -63,7 +84,7 @@ namespace Api.Controllers.v1
                 if (!ModelState.IsValid) return UnprocessableEntity(ModelState);
 
                 var createResult =
-                    await desertStormRepository.CreateDesertStormAsync(createDesertStormDto, cancellationToken);
+                    await desertStormRepository.CreateDesertStormAsync(createDesertStormDto, claimTypeService.GetFullName(User), cancellationToken);
 
                 return createResult.IsFailure
                     ? BadRequest(createResult.Error)
@@ -88,7 +109,7 @@ namespace Api.Controllers.v1
                 if (desertStormId != updateDesertStormDto.Id) return Conflict(DesertStormErrors.IdConflict);
 
                 var updateResult =
-                    await desertStormRepository.UpdateDesertStormAsync(updateDesertStormDto, cancellationToken);
+                    await desertStormRepository.UpdateDesertStormAsync(updateDesertStormDto, claimTypeService.GetFullName(User), cancellationToken);
 
                 return updateResult.IsFailure
                     ? BadRequest(updateResult.Error)

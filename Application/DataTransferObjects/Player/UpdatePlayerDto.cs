@@ -13,6 +13,5 @@ public class UpdatePlayerDto
     public Guid RankId { get; set; }
 
     [Required]
-    [MaxLength(3)]
-    public required string Level { get; set; }
+    public int Level { get; set; }
 }

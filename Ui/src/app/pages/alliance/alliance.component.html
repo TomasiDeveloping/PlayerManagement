@@ -1,0 +1,118 @@
+<div class="container mt-3">
+  <h2 class="text-center">Alliance</h2>
+  <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
+    <li [ngbNavItem]="1">
+      <button ngbNavLink>Alliance data</button>
+      <ng-template ngbNavContent>
+        @if (allianceForm) {
+          <div class="mt-3">
+            <div class="alert alert-secondary d-flex justify-content-between" role="alert">
+              <div>Created: <span class="text-primary">{{ currentAlliance?.createdOn | date: 'dd.MM.yyyy' }}</span></div>
+              @if (currentAlliance?.modifiedOn) {
+                <div>Modified: <span class="text-primary">{{ currentAlliance?.modifiedOn | date: 'dd.MM.yyyy HH:mm' }}</span>
+                  by <span class="text-primary">{{ currentAlliance?.modifiedBy }}</span></div>
+              }
+            </div>
+          </div>
+          <form [formGroup]="allianceForm" (ngSubmit)="onSubmit()">
+            <div class="form-floating mb-3">
+              <input [ngClass]="{
+        'is-valid': f['server'].valid,
+        'is-invalid': f['server'].invalid && (f['server'].touched || f['server'].dirty )
+        }" type="number" min="0" formControlName="server" class="form-control" id="server" placeholder="469">
+              <label for="server">Server</label>
+              @if (f['server'].invalid && (f['server'].touched || f['server'].dirty)) {
+                <div class="invalid-feedback">
+                  @if (f['server'].hasError('required')) {
+                    <p>Server is required</p>
+                  }
+                </div>
+              }
+            </div>
+
+            <div class="form-floating mb-3">
+              <input [ngClass]="{
+        'is-valid': f['name'].valid,
+        'is-invalid': f['name'].invalid && (f['name'].touched || f['name'].dirty )
+        }" type="text" formControlName="name" maxlength="201" class="form-control" id="name" placeholder="Old Vikings">
+              <label for="name">Name</label>
+              @if (f['name'].invalid && (f['name'].touched || f['name'].dirty)) {
+                <div class="invalid-feedback">
+                  @if (f['name'].hasError('required')) {
+                    <p>Name is required</p>
+                  }
+                  @if (f['name'].hasError('maxlength')) {
+                    <p>Maximum 200 characters allowed</p>
+                  }
+                </div>
+              }
+            </div>
+
+            <div class="form-floating mb-3">
+              <input [ngClass]="{
+        'is-valid': f['abbreviation'].valid,
+        'is-invalid': f['abbreviation'].invalid && (f['abbreviation'].touched || f['abbreviation'].dirty )
+        }" type="text" formControlName="abbreviation" maxlength="5" class="form-control" id="abbreviation"
+                     placeholder="vis">
+              <label for="abbreviation">Abbreviation</label>
+              @if (f['abbreviation'].invalid && (f['abbreviation'].touched || f['abbreviation'].dirty)) {
+                <div class="invalid-feedback">
+                  @if (f['abbreviation'].hasError('required')) {
+                    <p>Abbreviation is required</p>
+                  }
+                  @if (f['abbreviation'].hasError('maxlength')) {
+                    <p>Maximum 4 characters allowed</p>
+                  }
+                </div>
+              }
+            </div>
+            <div class="d-grid gap-2 col-6 mx-auto">
+              <button [disabled]="allianceForm.invalid || !allianceForm.dirty" class="btn btn-success" type="submit">Update
+              </button>
+            </div>
+          </form>
+        }
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="2">
+      <button ngbNavLink>User administration</button>
+      <ng-template ngbNavContent>
+        <div class="d-grid gap-2 col-6 mx-auto mt-3">
+          <button (click)="onInviteUser()" class="btn btn-primary" type="button">Invite user</button>
+        </div>
+        <div class="table-responsive mt-3">
+          <table class="table table-striped table-bordered">
+            <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th scope="col">Role</th>
+              <th scope="col">Action</th>
+            </tr>
+            </thead>
+            <tbody>
+              @for (user of users | paginate: { itemsPerPage: 10, currentPage: page, id: 'userTable'}; track user.id) {
+                <tr>
+                  <td>{{user.playerName}}</td>
+                  <td>{{user.email}}</td>
+                  <td>{{user.role}}</td>
+                  <td>
+                    <div class="d-flex justify-content-around">
+                      <i (click)="onEditUser(user)" class="bi custom-edit-icon bi-pencil-fill"></i>
+                      <i (click)="onDeleteUser(user)" class="bi custom-delete-icon bi-trash3"></i>
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+        </div>
+        <pagination-controls class="custom-pagination" [responsive]="true" [id]="'userTable'" (pageChange)="page = $event"></pagination-controls>
+
+      </ng-template>
+    </li>
+  </ul>
+
+  <div [ngbNavOutlet]="nav" class="mt-2"></div>
+
+</div>

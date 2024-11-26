@@ -1,0 +1,41 @@
+<div class="container mt-3 pb-5">
+  <!--  Back button-->
+  <div class="d-grid gap-2 col-6 mx-auto">
+    <button routerLink="/vs-duel" class="btn btn-primary" type="button"><i class="bi bi-arrow-left"></i> Back</button>
+  </div>
+
+  @if (vsDuelDetail) {
+      <div class="card mt-5" [ngClass]="vsDuelDetail.won ? 'border-success' : 'border-danger'">
+          <h5 class="card-header d-flex justify-content-between">
+            <div>Week {{vsDuelDetail.eventDate | week}} / {{vsDuelDetail.eventDate | date: 'yyyy'}}</div>
+            <div [ngClass]="vsDuelDetail.won ? 'text-success' : 'text-danger'">{{vsDuelDetail.won ? 'VICTORY' : 'DEFEAT'}}</div>
+          </h5>
+        <div class="card-body">
+          <h5 class="card-title">Opponent: <span class="text-primary">{{vsDuelDetail.opponentName}}</span></h5>
+          <p class="card-text">Server: <span class="text-primary">{{vsDuelDetail.opponentServer}}</span></p>
+          <p class="card-text">Size: <span class="text-primary">{{vsDuelDetail.opponentSize}}</span></p>
+          <p class="card-text">Power: <span class="text-primary">{{vsDuelDetail.opponentPower | number}}</span></p>
+          <hr>
+          <div>
+            <p class="card-text">Creator: <span class="text-primary">{{vsDuelDetail.createdBy}}</span></p>
+            @if (vsDuelDetail.modifiedOn) {
+              <p class="card-text">Modified: <span class="text-primary">{{vsDuelDetail.modifiedOn | date: 'dd.MM.yyyy HH:mm'}}</span>
+                by <span class="text-primary">{{vsDuelDetail.modifiedBy}}</span></p>
+            }
+          </div>
+          <hr>
+          <p class="card-text text-center">Players</p>
+          <div ngbScrollSpy class="bg-light p-3 rounded-2 mb-3" style="height: 200px">
+            <div class="row">
+            @for (player of vsDuelDetail.vsDuelParticipants; track player.id) {
+
+                <div class="col-12 col-md-6">
+                  <p><span class="fw-bold text-primary">{{player.playerName}}</span> - Weekly points: <span class="text-info">{{player.weeklyPoints | number}}</span></p>
+                </div>
+            }
+            </div>
+          </div>
+        </div>
+      </div>
+    }
+</div>

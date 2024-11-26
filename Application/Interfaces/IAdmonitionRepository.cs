@@ -11,9 +11,9 @@ public interface IAdmonitionRepository
 
     Task<Result<AdmonitionDto>> GetAdmonitionAsync(Guid admonitionId, CancellationToken cancellationToken);
 
-    Task<Result<AdmonitionDto>> CreateAdmonitionAsync(CreateAdmonitionDto createAdmonitionDto, CancellationToken cancellationToken);
+    Task<Result<AdmonitionDto>> CreateAdmonitionAsync(CreateAdmonitionDto createAdmonitionDto, string createdBy, CancellationToken cancellationToken);
 
-    Task<Result<AdmonitionDto>> UpdateAdmonitionAsync(UpdateAdmonitionDto updateAdmonitionDto, CancellationToken cancellationToken);
+    Task<Result<AdmonitionDto>> UpdateAdmonitionAsync(UpdateAdmonitionDto updateAdmonitionDto, string modifiedBy, CancellationToken cancellationToken);
 
     Task<Result<bool>> DeleteAdmonitionAsync(Guid admonitionId, CancellationToken cancellationToken);
 }

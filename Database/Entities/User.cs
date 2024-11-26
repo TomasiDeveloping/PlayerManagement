@@ -4,7 +4,7 @@ namespace Database.Entities;
 
 public class User : IdentityUser<Guid>
 {
-    public required Alliance Alliance { get; set; }
+    public Alliance Alliance { get; set; } = null!;
 
     public Guid AllianceId { get; set; }
 

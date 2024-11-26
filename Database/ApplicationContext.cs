@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 
 namespace Database;
 
@@ -24,6 +25,23 @@ public class ApplicationContext(DbContextOptions<ApplicationContext> options) : 
     public DbSet<Rank> Ranks { get; set; }
 
     public DbSet<VsDuel> VsDuels { get; set; }
+
+    public DbSet<CustomEvent> CustomEvents { get; set; }
+
+    public DbSet<MarshalGuardParticipant> MarshalGuardParticipants { get; set; }
+
+    public DbSet<VsDuelParticipant> VsDuelParticipants { get; set; }
+
+    public DbSet<CustomEventParticipant> CustomEventParticipants { get; set; }
+
+    public DbSet<DesertStormParticipant> DesertStormParticipants { get; set; }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        base.OnConfiguring(optionsBuilder);
+        optionsBuilder.ConfigureWarnings(warnings => warnings.Ignore(RelationalEventId.PendingModelChangesWarning));
+
+    }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

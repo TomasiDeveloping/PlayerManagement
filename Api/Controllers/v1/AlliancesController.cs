@@ -11,7 +11,7 @@ namespace Api.Controllers.v1
     [ApiController]
     [ApiVersion("1.0")]
     [Authorize]
-    public class AlliancesController(IAllianceRepository allianceRepository, ILogger<AlliancesController> logger) : ControllerBase
+    public class AlliancesController(IAllianceRepository allianceRepository, IClaimTypeService claimTypeService, ILogger<AlliancesController> logger) : ControllerBase
     {
         [HttpGet]
         public async Task<ActionResult<List<AllianceDto>>> GetAlliances(CancellationToken cancellationToken)
@@ -51,28 +51,6 @@ namespace Api.Controllers.v1
             }
         }
 
-
-        [HttpPost]
-        public async Task<ActionResult<AllianceDto>> CreateAlliance(CreateAllianceDto createAllianceDto,
-            CancellationToken cancellationToken)
-        {
-            try
-            {
-                if (!ModelState.IsValid) return UnprocessableEntity(ModelState);
-
-                var createResult = await allianceRepository.CreateAllianceAsync(createAllianceDto, cancellationToken);
-
-                return createResult.IsFailure
-                    ? BadRequest(createResult.Error)
-                    : CreatedAtAction(nameof(GetAlliance), new { allianceId = createResult.Value.Id }, createResult.Value);
-            }
-            catch (Exception e)
-            {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
-            }
-        }
-
         [HttpPut("{allianceId:guid}")]
         public async Task<ActionResult<AllianceDto>> UpdateAlliance(Guid allianceId, UpdateAllianceDto updateAllianceDto, CancellationToken cancellationToken)
         {
@@ -82,7 +60,7 @@ namespace Api.Controllers.v1
 
                 if (allianceId != updateAllianceDto.Id) return Conflict(AllianceErrors.IdConflict);
 
-                var updateResult = await allianceRepository.UpdateAllianceAsync(updateAllianceDto, cancellationToken);
+                var updateResult = await allianceRepository.UpdateAllianceAsync(updateAllianceDto, claimTypeService.GetFullName(User), cancellationToken);
 
                 return updateResult.IsFailure
                     ? BadRequest(updateResult.Error)

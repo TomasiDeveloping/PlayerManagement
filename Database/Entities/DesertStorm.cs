@@ -2,16 +2,25 @@
 
 public class DesertStorm : BaseEntity
 {
-    public bool Registered { get; set; }
+    public Guid AllianceId { get; set; }
 
-    public bool Participated { get; set; }
+    public Alliance Alliance { get; set; } = null!;
 
-    public int Year { get; set; }
+    public DateTime EventDate { get; set; }
 
-    public int CalendarWeek { get; set; }
+    public required string CreatedBy { get; set; }
 
+    public DateTime? ModifiedOn { get; set; }
 
-    public Guid PlayerId { get; set; }
+    public string? ModifiedBy { get; set; }
 
-    public required Player Player { get; set; }
+    public bool Won { get; set; }
+
+    public required string OpponentName { get; set; }
+
+    public int OpponentServer { get; set; }
+
+    public int OpposingParticipants { get; set; }
+
+    public ICollection<DesertStormParticipant> DesertStormParticipants { get; set; } = [];
 }

@@ -2,6 +2,7 @@
 using Application.Errors;
 using Application.Interfaces;
 using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 
@@ -10,8 +11,8 @@ namespace Api.Controllers.v1
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
-    //[Authorize]
-    public class PlayersController(IPlayerRepository playerRepository, ILogger<PlayersController> logger) : ControllerBase
+    [Authorize]
+    public class PlayersController(IPlayerRepository playerRepository, IClaimTypeService claimTypeService, ILogger<PlayersController> logger) : ControllerBase
     {
         [HttpGet("{playerId:guid}")]
         public async Task<ActionResult<PlayerDto>> GetPlayer(Guid playerId, CancellationToken cancellationToken)
@@ -61,7 +62,7 @@ namespace Api.Controllers.v1
             {
                 if (!ModelState.IsValid) return UnprocessableEntity(ModelState);
 
-                var createResult = await playerRepository.CreatePlayerAsync(createPlayerDto, cancellationToken);
+                var createResult = await playerRepository.CreatePlayerAsync(createPlayerDto, claimTypeService.GetFullName(User), cancellationToken);
 
                 return createResult.IsFailure
                     ? BadRequest(createResult.Error)
@@ -83,7 +84,7 @@ namespace Api.Controllers.v1
 
                 if (playerId != updatePlayerDto.Id) return Conflict(PlayerErrors.IdConflict);
 
-                var updateResult = await playerRepository.UpdatePlayerAsync(updatePlayerDto, cancellationToken);
+                var updateResult = await playerRepository.UpdatePlayerAsync(updatePlayerDto, claimTypeService.GetFullName(User), cancellationToken);
 
                 return updateResult.IsFailure
                     ? BadRequest(updateResult.Error)

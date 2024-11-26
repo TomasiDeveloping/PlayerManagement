@@ -2,15 +2,23 @@
 
 public class MarshalGuard : BaseEntity
 {
-    public bool Participated { get; set; }
+    public Guid AllianceId { get; set; }
 
-    public int Year { get; set; }
+    public Alliance Alliance { get; set; } = null!;
 
-    public int Month { get; set; }
+    public DateTime EventDate { get; set; }
 
-    public int Day { get; set; }
+    public required string CreatedBy { get; set; }
 
-    public Guid PlayerId { get; set; }
+    public DateTime? ModifiedOn { get; set; }
 
-    public required Player Player { get; set; }
+    public string? ModifiedBy { get; set; }
+
+    public int Level { get; set; }
+
+    public int RewardPhase { get; set; }
+
+    public int AllianceSize { get; set; }
+
+    public ICollection<MarshalGuardParticipant> MarshalGuardParticipants { get; set; } = [];
 }

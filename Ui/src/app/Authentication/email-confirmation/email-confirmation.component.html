@@ -1,0 +1,58 @@
+<div class="container mt-3">
+  <h2 class="text-center">Email confirmation</h2>
+
+  @if (showSuccess) {
+    <div class="card border-success mt-5">
+      <div class="card-header text-center">
+        Confirmation Successful!
+      </div>
+      <div class="card-body text-success">
+        <h5 class="card-title">Email Successfully Confirmed</h5>
+        <p class="card-text">
+          Thank you for confirming your email address. Your registration is now complete, and you can log in.
+        </p>
+        <a routerLink="/login" class="btn btn-success mt-3">
+          Go to Login
+        </a>
+      </div>
+    </div>
+  }
+
+  @if (showError) {
+    <div class="card border-danger mt-5">
+      <div class="card-header text-center">
+        Confirmation Failed!
+      </div>
+      <div class="card-body text-danger">
+        <h5 class="card-title">Email Confirmation Unsuccessful</h5>
+        <p class="card-text">
+          Unfortunately, the confirmation of your email address has failed. The link may have expired or is invalid.
+        </p>
+        <p class="card-text">
+          Please request a new confirmation email to complete the process.
+        </p>
+        <button (click)="onSendNewConfirmationEmail()" class="btn btn-danger mt-3" id="resend-email-btn">
+          Send New Confirmation Email
+        </button>
+      </div>
+    </div>
+  }
+
+  @if (showResendSuccess) {
+    <div class="card border-success mt-5">
+      <div class="card-header text-center">
+        Confirmation Email Sent!
+      </div>
+      <div class="card-body text-success">
+        <h5 class="card-title">New Email Confirmation Sent</h5>
+        <p class="card-text">
+          A new confirmation email has been successfully sent to your email address. Please check your inbox and follow the link to complete the confirmation.
+        </p>
+        <p class="card-text">
+          If the email does not arrive within a few minutes, please also check your spam folder.
+        </p>
+      </div>
+    </div>
+  }
+
+</div>

@@ -1,0 +1,131 @@
+.background {
+  position: relative;
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.background::before {
+  content: "";
+  background-image: url('../../../assets/images/background.jpg');
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.8;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: -1;
+}
+
+.title {
+  text-align: center;
+  padding-top: 50px;
+  font-size: 3em;
+  color: #ffffff;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+
+.login-box {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 20px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 500px;
+  margin: 100px auto 0;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+
+.login-box h2 {
+  text-align: center;
+  font-size: 2em;
+  color: #ffffff;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.login-box .custom-link {
+  color: #a5a5f6;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+
+.login-box button {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #0275d8;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.login-box button:hover {
+  background-color: #025aa5;
+}
+
+.login-box .form-control {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.login-box .form-control::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.login-box .form-control.is-invalid {
+  border-color: #ff3860;
+}
+
+.login-box .invalid-feedback {
+  color: #ff3860;
+}
+
+/* Footer-Styling */
+.footer {
+  display: flex;
+  justify-content: space-between; /* Platz zwischen den Elementen */
+  align-items: center; /* Vertikale Ausrichtung */
+  width: 100%;
+  padding: 10px 20px;
+  background-color: #090909; /* Hellgrauer Hintergrund */
+  color: #ffffff; /* Dezente Textfarbe */
+  font-size: 0.9em;
+  position: absolute; /* Absolute Position */
+  bottom: 0; /* Fixiert am unteren Rand */
+  left: 0;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Schatteneffekt */
+}
+
+/* Link-Styling */
+.footer a {
+  text-decoration: none;
+  color: #007bff; /* Blau für Links */
+  margin-left: 10px;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+
+@media (max-width: 768px) {
+  .login-box {
+    width: 90%;
+    margin-top: 50px;
+  }
+
+  .title {
+    font-size: 2em;
+    padding-top: 30px;
+  }
+}

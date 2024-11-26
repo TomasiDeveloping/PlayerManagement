@@ -31,14 +31,16 @@ public class NoteRepository(ApplicationContext context, IMapper mapper, ILogger<
             .Where(note => note.PlayerId == playerId)
             .ProjectTo<NoteDto>(mapper.ConfigurationProvider)
             .AsNoTracking()
+            .OrderByDescending(note => note.CreatedOn)
             .ToListAsync(cancellationToken);
 
         return Result.Success(playerNotes);
     }
 
-    public async Task<Result<NoteDto>> CreateNoteAsync(CreateNoteDto createNoteDto, CancellationToken cancellationToken)
+    public async Task<Result<NoteDto>> CreateNoteAsync(CreateNoteDto createNoteDto, string createdBy, CancellationToken cancellationToken)
     {
         var newNote = mapper.Map<Note>(createNoteDto);
+        newNote.CreatedBy = createdBy;
 
         await context.Notes.AddAsync(newNote, cancellationToken);
 
@@ -54,7 +56,7 @@ public class NoteRepository(ApplicationContext context, IMapper mapper, ILogger<
         }
     }
 
-    public async Task<Result<NoteDto>> UpdateNoteAsync(UpdateNoteDto updateNoteDto, CancellationToken cancellationToken)
+    public async Task<Result<NoteDto>> UpdateNoteAsync(UpdateNoteDto updateNoteDto, string modifiedBy, CancellationToken cancellationToken)
     {
         var noteToUpdate = await context.Notes
             .FirstOrDefaultAsync(note => note.Id == updateNoteDto.Id, cancellationToken);
@@ -62,6 +64,7 @@ public class NoteRepository(ApplicationContext context, IMapper mapper, ILogger<
         if (noteToUpdate is null) return Result.Failure<NoteDto>(NoteErrors.NotFound);
 
         mapper.Map(updateNoteDto, noteToUpdate);
+        noteToUpdate.ModifiedBy = modifiedBy;
 
         try
         {

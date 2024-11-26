@@ -6,6 +6,7 @@ using Database;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Serilog;
+using Utilities.Classes;
 
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
@@ -32,11 +33,18 @@ try
     builder.Services.ConfigureAndAddCors();
     builder.Services.ConfigureAndAddHealthChecks(builder.Configuration);
 
+    builder.Services.AddOptions<EmailConfiguration>()
+        .BindConfiguration("EmailSettings")
+        .ValidateDataAnnotations()
+        .ValidateOnStart();
+
     var jwtSection = builder.Configuration.GetRequiredSection("Jwt");
     builder.Services.ConfigureAndAddAuthentication(jwtSection);
 
     var app = builder.Build();
 
+    app.UseStaticFiles();
+    app.UseDefaultFiles();
 
     app.UseSwagger();
     app.UseSwaggerUI();
@@ -56,6 +64,8 @@ try
     {
         ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
     });
+
+    app.MapFallbackToFile("index.html");
 
     app.Run();
 }

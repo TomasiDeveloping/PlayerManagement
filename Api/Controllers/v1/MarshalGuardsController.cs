@@ -2,6 +2,7 @@
 using Application.Errors;
 using Application.Interfaces;
 using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers.v1
@@ -9,8 +10,8 @@ namespace Api.Controllers.v1
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
-    //[Authorize]
-    public class MarshalGuardsController(IMarshalGuardRepository marshalGuardRepository, ILogger<MarshalGuardsController> logger) : ControllerBase
+    [Authorize]
+    public class MarshalGuardsController(IMarshalGuardRepository marshalGuardRepository, IClaimTypeService claimTypeService, ILogger<MarshalGuardsController> logger) : ControllerBase
     {
         [HttpGet("{marshalGuardId:guid}")]
         public async Task<ActionResult<MarshalGuardDto>> GetMarshalGuard(Guid marshalGuardId,
@@ -32,19 +33,19 @@ namespace Api.Controllers.v1
             }
         }
 
-        [HttpGet("Player/{playerId:guid}")]
-        public async Task<ActionResult<List<MarshalGuardDto>>> GetPlayerMarshalGuards(Guid playerId,
+        [HttpGet("Alliance/{allianceId:guid}")]
+        public async Task<ActionResult<List<MarshalGuardDto>>> GetAllianceMarshalGuards(Guid allianceId, [FromQuery] int take,
             CancellationToken cancellationToken)
         {
             try
             {
-                var playerMarshalGuardsResult =
-                    await marshalGuardRepository.GetPlayerMarshalGuardsAsync(playerId, cancellationToken);
+                var allianceMarshalGuardsResult =
+                    await marshalGuardRepository.GetAllianceMarshalGuardsAsync(allianceId, take, cancellationToken);
 
-                if (playerMarshalGuardsResult.IsFailure) return BadRequest(playerMarshalGuardsResult.Error);
+                if (allianceMarshalGuardsResult.IsFailure) return BadRequest(allianceMarshalGuardsResult.Error);
 
-                return playerMarshalGuardsResult.Value.Count > 0
-                    ? Ok(playerMarshalGuardsResult.Value)
+                return allianceMarshalGuardsResult.Value.Count > 0
+                    ? Ok(allianceMarshalGuardsResult.Value)
                     : NoContent();
             }
             catch (Exception e)
@@ -53,6 +54,27 @@ namespace Api.Controllers.v1
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
+
+        [HttpGet("[action]/{marshalGuardId:guid}")]
+        public async Task<ActionResult<MarshalGuardDetailDto>> GetMarshalGuardDetail(Guid marshalGuardId,
+            CancellationToken cancellationToken)
+        {
+            try
+            {
+                var marshalGuardDetailResult =
+                    await marshalGuardRepository.GetMarshalGuardDetailAsync(marshalGuardId, cancellationToken);
+
+                return marshalGuardDetailResult.IsFailure 
+                    ? BadRequest(marshalGuardDetailResult.Error)
+                    : Ok(marshalGuardDetailResult.Value);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
 
         [HttpPost]
         public async Task<ActionResult<MarshalGuardDto>> CreateMarshalGuard(CreateMarshalGuardDto createMarshalGuardDto,
@@ -63,17 +85,17 @@ namespace Api.Controllers.v1
                 if (!ModelState.IsValid) return UnprocessableEntity(ModelState);
 
                 var createResult =
-                    await marshalGuardRepository.CreateMarshalGuardAsync(createMarshalGuardDto, cancellationToken);
+                    await marshalGuardRepository.CreateMarshalGuardsAsync(createMarshalGuardDto, claimTypeService.GetFullName(User), cancellationToken);
 
                 return createResult.IsFailure
                     ? BadRequest(createResult.Error)
-                    : CreatedAtAction(nameof(GetMarshalGuard), new { marshalGuardId = createResult.Value.Id },
-                        createResult.Value);
+                    : CreatedAtAction(nameof(GetMarshalGuard),
+                        new { marshalGuardId = createResult.Value.Id}, createResult.Value);
             }
             catch (Exception e)
             {
                 logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError); ;
+                return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
 
@@ -83,12 +105,12 @@ namespace Api.Controllers.v1
         {
             try
             {
-                if (ModelState.IsValid) return UnprocessableEntity(ModelState);
+                if (!ModelState.IsValid) return UnprocessableEntity(ModelState);
 
                 if (marshalGuardId != updateMarshalGuardDto.Id) return Conflict(MarshalGuardErrors.IdConflict);
 
                 var updateResult =
-                    await marshalGuardRepository.UpdateMarshalGuardAsync(updateMarshalGuardDto, cancellationToken);
+                    await marshalGuardRepository.UpdateMarshalGuardAsync(updateMarshalGuardDto, claimTypeService.GetFullName(User), cancellationToken);
 
                 return updateResult.IsFailure
                     ? BadRequest(updateResult.Error)

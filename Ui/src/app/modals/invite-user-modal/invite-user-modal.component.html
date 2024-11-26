@@ -1,0 +1,53 @@
+@if (inviteUserForm) {
+  <div class="modal-header" xmlns="http://www.w3.org/1999/html">
+    <h4 class="modal-title">Invite new user</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="inviteUserForm">
+      <div class="form-floating mb-3 is-invalid">
+        <input [ngClass]="{
+        'is-invalid': f['email'].invalid && (f['email'].dirty || f['email'].touched),
+        'is-valid': f['email'].valid}"
+               type="email" class="form-control" id="email" placeholder="email" formControlName="email">
+        <label for="email">Email</label>
+        @if (f['email'].invalid && (f['email'].dirty || f['email'].touched)) {
+          <div class="invalid-feedback">
+            @if (f['email'].hasError('required')) {
+              <p>Email is required</p>
+            }
+            @if (f['email'].hasError('email')) {
+              <p>Invalid email</p>
+            }
+          </div>
+        }
+      </div>
+      <div class="form-floating mb-3 is-invalid">
+        <select [ngClass]="{
+        'is-invalid': f['role'].invalid && (f['role'].dirty || f['role'].touched),
+        'is-valid': f['role'].valid}" class="form-select" id="role"  formControlName="role">
+          @for (role of roles; track role) {
+            <option [ngValue]="role">{{role}}</option>
+          }
+        </select>
+        <label for="role">Role</label>
+        @if (f['role'].invalid && (f['role'].dirty || f['role'].touched)) {
+          <div class="invalid-feedback">
+            @if (f['role'].hasError('required')) {
+              <p>Role is required</p>
+            }
+          </div>
+        }
+      </div>
+    </form>
+  </div>
+
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-warning" (click)="activeModal.dismiss()">Close</button>
+    <button [disabled]="inviteUserForm.invalid" (click)="onSubmit()" type="submit" class=" btn btn-success">Invite</button>
+  </div>
+}
+
+

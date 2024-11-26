@@ -36,9 +36,10 @@ public class PlayerRepository(ApplicationContext context, IMapper mapper, ILogge
         return Result.Success(alliancePlayers);
     }
 
-    public async Task<Result<PlayerDto>> CreatePlayerAsync(CreatePlayerDto createPlayerDto, CancellationToken cancellationToken)
+    public async Task<Result<PlayerDto>> CreatePlayerAsync(CreatePlayerDto createPlayerDto, string createdBy, CancellationToken cancellationToken)
     {
         var newPlayer = mapper.Map<Player>(createPlayerDto);
+        newPlayer.CreatedBy = createdBy;
 
         await context.Players.AddAsync(newPlayer, cancellationToken);
 
@@ -54,7 +55,7 @@ public class PlayerRepository(ApplicationContext context, IMapper mapper, ILogge
         }
     }
 
-    public async Task<Result<PlayerDto>> UpdatePlayerAsync(UpdatePlayerDto updatePlayerDto, CancellationToken cancellationToken)
+    public async Task<Result<PlayerDto>> UpdatePlayerAsync(UpdatePlayerDto updatePlayerDto, string modifiedBy, CancellationToken cancellationToken)
     {
         var playerToUpdate = await context.Players
             .FirstOrDefaultAsync(player => player.Id == updatePlayerDto.Id, cancellationToken);
@@ -62,6 +63,7 @@ public class PlayerRepository(ApplicationContext context, IMapper mapper, ILogge
         if (playerToUpdate is null) return Result.Failure<PlayerDto>(PlayerErrors.NotFound);
 
         mapper.Map(updatePlayerDto, playerToUpdate);
+        playerToUpdate.ModifiedBy = modifiedBy;
 
         try
         {
@@ -81,6 +83,30 @@ public class PlayerRepository(ApplicationContext context, IMapper mapper, ILogge
             .FirstOrDefaultAsync(player => player.Id == playerIId, cancellationToken);
 
         if (playerToDelete is null) return Result.Failure<bool>(PlayerErrors.NotFound);
+
+        var customEvents = await context.CustomEventParticipants
+            .Where(customEvent => customEvent.PlayerId == playerToDelete.Id)
+            .ToListAsync(cancellationToken);
+
+        if (customEvents.Count > 0) context.CustomEventParticipants.RemoveRange(customEvents);
+
+        var desertStorms = await context.DesertStormParticipants
+            .Where(desertStorm => desertStorm.PlayerId == playerToDelete.Id)
+            .ToListAsync(cancellationToken);
+
+        if (desertStorms.Count > 0) context.DesertStormParticipants.RemoveRange(desertStorms);
+
+        var vsDuels = await context.VsDuelParticipants
+            .Where(vsDuel => vsDuel.PlayerId == playerToDelete.Id)
+            .ToListAsync(cancellationToken);
+
+        if (vsDuels.Count > 0) context.VsDuelParticipants.RemoveRange(vsDuels);
+
+        var marshalGuards = await context.MarshalGuardParticipants
+            .Where(marshalGuard => marshalGuard.PlayerId == playerToDelete.Id)
+            .ToListAsync(cancellationToken);
+
+        if (vsDuels.Count > 0) context.MarshalGuardParticipants.RemoveRange(marshalGuards);
 
         context.Players.Remove(playerToDelete);
 
