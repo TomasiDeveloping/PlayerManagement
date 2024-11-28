@@ -30,7 +30,7 @@ export class PlayerComponent implements OnInit {
   private allianceId = this._tokenService.getAllianceId();
 
   public players: PlayerModel[] = [];
-  public tempPlayers: PlayerModel[] = [];
+  public activePlayers: PlayerModel[] = [];
   public r1Players: PlayerModel[] = [];
   public r2Players: PlayerModel[] = [];
   public r3Players: PlayerModel[] = [];
@@ -45,8 +45,8 @@ export class PlayerComponent implements OnInit {
     this.filter.valueChanges.subscribe({
       next: ((value) => {
         const term = value.toLowerCase();
-          this.filteredPlayers = this.tempPlayers.filter(player => {
-            return player.playerName.toLowerCase().includes(term.toLowerCase());
+          this.filteredPlayers = this.activePlayers.filter(player => {
+            return player.playerName.toLowerCase().includes(term);
           })
       })
     });
@@ -55,20 +55,27 @@ export class PlayerComponent implements OnInit {
   }
 
   getPlayers(allianceId: string) {
-    this.filteredPlayers = [];
     this.players = [];
     this.r1Players = [];
     this.r2Players = [];
     this.r3Players = [];
     this.r4Players = [];
-    this.tempPlayers = [];
+    this.filteredPlayers = [];
+    this.activePlayers = [];
+
     this._playerService.getAlliancePlayer(allianceId).subscribe({
       next: ((response: PlayerModel[]): void => {
         if (response) {
-          this.tempPlayers = response;
+          response.sort((a, b) => {
+            const numA = parseInt(a.rankName.substring(1));
+            const numB = parseInt(b.rankName.substring(1));
+            return numB - numA;
+          })
           this.players = response;
-          this.filteredPlayers = response;
-          response.filter((player: PlayerModel) => {
+          this.activePlayers = [...this.players];
+          this.filteredPlayers = [...this.players];
+
+          response.forEach((player: PlayerModel) => {
             if (player.rankName === "R1") {
               this.r1Players.push(player);
             } else if (player.rankName === "R2") {
@@ -163,36 +170,29 @@ export class PlayerComponent implements OnInit {
   }
 
   onRankFilterChange(event: any) {
-    switch (event.target.value) {
+    const rank = event.target.value;
+    this.filter.patchValue('');
+
+    switch (rank) {
       case 'R1': {
-        this.filter.patchValue('');
-        this.filteredPlayers = this.r1Players;
-        this.tempPlayers = this.r1Players;
+        this.activePlayers = [...this.r1Players];
       } break;
       case 'R2': {
-        this.filter.patchValue('');
-
-        this.filteredPlayers = this.r2Players;
-        this.tempPlayers = this.r2Players;
+        this.activePlayers = [...this.r2Players];
         break;
       }
       case 'R3': {
-        this.filter.patchValue('');
-        this.filteredPlayers = this.r3Players;
-        this.tempPlayers = this.r3Players;
+        this.activePlayers = [...this.r3Players];
         break;
       }
       case 'R4': {
-        this.filter.patchValue('');
-        this.filteredPlayers = this.r4Players;
-        this.tempPlayers = this.r4Players;
+        this.activePlayers = [...this.r4Players];
       } break;
       default: {
-        this.filter.patchValue('');
-        this.filteredPlayers = this.players;
-        this.tempPlayers = this.players;
+        this.activePlayers = [...this.players];
         break;
       }
     }
+    this.filteredPlayers = [...this.activePlayers];
   }
 }

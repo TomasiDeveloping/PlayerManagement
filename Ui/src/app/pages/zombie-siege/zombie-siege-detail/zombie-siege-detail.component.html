@@ -1,0 +1,41 @@
+<div class="container mt-3 pb-5">
+  <!--  Back button-->
+  <div class="d-grid gap-2 col-6 mx-auto">
+    <button routerLink="/zombie-siege" class="btn btn-primary" type="button"><i class="bi bi-arrow-left"></i> Back</button>
+  </div>
+
+  @if (zombieSiegeDetail) {
+    <div class="card mt-5" [ngClass]="zombieSiegeDetail.totalLevel20Players >= 20 ? 'border-success' : 'border-danger'">
+      <h5 class="card-header d-flex justify-content-between">
+        <div>Event Date: {{zombieSiegeDetail.eventDate | date: 'dd.MM.yyyy'}}</div>
+        <div [ngClass]="zombieSiegeDetail.totalLevel20Players >= 20 ? 'text-success' : 'text-danger'">{{zombieSiegeDetail.totalLevel20Players >= 20 ? 'COMPLETED' : 'INCOMPLETE'}}</div>
+      </h5>
+      <div class="card-body">
+        <h5 class="card-title">Level: <span class="text-primary">{{zombieSiegeDetail.level}}</span></h5>
+        <p class="card-text">Alliance size: <span class="text-primary">{{zombieSiegeDetail.allianceSize}}</span></p>
+        <p class="card-text">Wave 20 Survivor: <span class="text-primary">{{zombieSiegeDetail.totalLevel20Players}}</span></p>
+        <hr>
+        <div>
+          <p class="card-text">Creator: <span class="text-primary">{{zombieSiegeDetail.createdBy}}</span></p>
+          @if (zombieSiegeDetail.modifiedOn) {
+            <p class="card-text">Modified: <span class="text-primary">{{zombieSiegeDetail.modifiedOn | date: 'dd.MM.yyyy HH:mm'}}</span>
+              by <span class="text-primary">{{zombieSiegeDetail.modifiedBy}}</span></p>
+          }
+        </div>
+        <hr>
+        <p class="card-text text-center">Players</p>
+        <div ngbScrollSpy class="bg-light p-3 rounded-2 mb-3" style="height: 200px">
+          <div class="row">
+            @for (player of zombieSiegeDetail.zombieSiegeParticipants; track player.id) {
+
+              <div class="col-12 col-md-6">
+                <p><span class="fw-bold text-primary">{{player.playerName}}</span> - Surviving waves: <span class="text-info">{{player.survivedWaves}}</span></p>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>
+

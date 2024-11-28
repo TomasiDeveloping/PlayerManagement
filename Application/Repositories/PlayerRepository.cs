@@ -108,6 +108,12 @@ public class PlayerRepository(ApplicationContext context, IMapper mapper, ILogge
 
         if (vsDuels.Count > 0) context.MarshalGuardParticipants.RemoveRange(marshalGuards);
 
+        var zombieSieges = await context.ZombieSiegeParticipants
+            .Where(zombieSiege => zombieSiege.PlayerId == playerToDelete.Id)
+            .ToListAsync(cancellationToken);
+
+        if (zombieSieges.Count > 0) context.ZombieSiegeParticipants.RemoveRange(zombieSieges);
+
         context.Players.Remove(playerToDelete);
 
         try

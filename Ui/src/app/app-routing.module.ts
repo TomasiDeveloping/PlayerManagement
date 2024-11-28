@@ -19,6 +19,8 @@ import {ChangePasswordComponent} from "./pages/change-password/change-password.c
 import {DesertStormDetailComponent} from "./pages/desert-storm/desert-storm-detail/desert-storm-detail.component";
 import {ResetPasswordComponent} from "./Authentication/reset-password/reset-password.component";
 import {CustomEventComponent} from "./pages/custom-event/custom-event.component";
+import {ZombieSiegeComponent} from "./pages/zombie-siege/zombie-siege.component";
+import {ZombieSiegeDetailComponent} from "./pages/zombie-siege/zombie-siege-detail/zombie-siege-detail.component";
 
 const routes: Routes = [
   {path: 'players', component: PlayerComponent, canActivate: [authGuard]},
@@ -34,6 +36,8 @@ const routes: Routes = [
   {path: 'account', component: AccountComponent, canActivate: [authGuard]},
   {path: 'change-password', component: ChangePasswordComponent, canActivate: [authGuard]},
   {path: 'custom-event', component: CustomEventComponent, canActivate: [authGuard]},
+  {path: 'zombie-siege', component: ZombieSiegeComponent, canActivate: [authGuard]},
+  {path: 'zombie-siege-detail/:id', component: ZombieSiegeDetailComponent, canActivate: [authGuard]},
   {path: 'login', component: LoginComponent},
   {path: 'confirm-email', component: EmailConfirmationComponent},
   {path: 'sign-up', component: SignUpComponent},

@@ -12,21 +12,3 @@
 .text-color {
   color: #43c315;
 }
-
-.custom-rating-icon {
-  font-size: 1.0rem;
-  padding-right: 0.1rem;
-  color: #b0c4de;
-}
-
-.green {
-  color: #28a745;
-}
-
-.yellow {
-  color: #ffc107;
-}
-
-.red {
-  color: #dc3545;
-}

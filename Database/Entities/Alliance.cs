@@ -25,4 +25,6 @@ public class Alliance : BaseEntity
     public ICollection<MarshalGuard> MarshalGuards { get; set; } = [];
 
     public ICollection<VsDuel> VsDuels { get; set; } = [];
+
+    public ICollection<ZombieSiege> ZombieSieges { get; set; } = [];
 }

@@ -1,14 +1,17 @@
 .custom-rating-icon {
   font-size: 1.5rem;
   padding-right: 0.1rem;
-  color: #b0c4de;
+  color: #b0c4de; /* Standardfarbe */
 }
-.filled {
-  color: #1e90ff;
+
+.green {
+  color: #28a745; /* Grün für Bewertung 5 */
 }
-.low {
-  color: #deb0b0;
+
+.yellow {
+  color: #ffc107; /* Gelb für Bewertung 4 */
 }
-.filled.low {
-  color: #ff1e1e;
+
+.red {
+  color: #dc3545; /* Rot für Bewertung < 4 */
 }

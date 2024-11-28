@@ -1,0 +1,29 @@
+<div class="modal-header flex-column" xmlns="http://www.w3.org/1999/html">
+  <div class="d-flex justify-content-between align-items-center w-100">
+    <h4 class="modal-title">Select Number of Survived Waves</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+  </div>
+</div>
+
+<div class="modal-body">
+  <div class="check-box-container d-flex flex-wrap">
+    @for (player of playerParticipated; track player.playerId) {
+      <div class="form-check flex-item">
+        <label class="form-check-label" for="{{player.playerId}}">
+          <span class="text-color">{{player.playerName}}</span>
+        </label>
+        <select class="form-select" [(ngModel)]="player.survivedWaves">
+          @for (wave of waves; track wave) {
+            <option [ngValue]="wave">{{wave}}</option>
+          }
+        </select>
+      </div>
+    }
+  </div>
+</div>
+
+
+<div class="modal-footer">
+  <button type="button" class="btn btn-warning" (click)="activeModal.dismiss()">Close</button>
+  <button type="submit" (click)="activeModal.close(playerParticipated)" class=" btn btn-success">{{isUpdate ? 'Update Participants' : 'Add to event'}}</button>
+</div>

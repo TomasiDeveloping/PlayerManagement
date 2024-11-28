@@ -47,6 +47,9 @@ import { ForgotPasswordComponent } from './Authentication/forgot-password/forgot
 import { ResetPasswordComponent } from './Authentication/reset-password/reset-password.component';
 import { CustomEventComponent } from './pages/custom-event/custom-event.component';
 import { UnderDevelopmentComponent } from './helpers/under-development/under-development.component';
+import { ZombieSiegeComponent } from './pages/zombie-siege/zombie-siege.component';
+import { ZombieSiegeParticipantsModalComponent } from './modals/zombie-siege-participants-modal/zombie-siege-participants-modal.component';
+import { ZombieSiegeDetailComponent } from './pages/zombie-siege/zombie-siege-detail/zombie-siege-detail.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +87,10 @@ import { UnderDevelopmentComponent } from './helpers/under-development/under-dev
     ForgotPasswordComponent,
     ResetPasswordComponent,
     CustomEventComponent,
-    UnderDevelopmentComponent
+    UnderDevelopmentComponent,
+    ZombieSiegeComponent,
+    ZombieSiegeParticipantsModalComponent,
+    ZombieSiegeDetailComponent
   ],
   imports: [
     BrowserModule,

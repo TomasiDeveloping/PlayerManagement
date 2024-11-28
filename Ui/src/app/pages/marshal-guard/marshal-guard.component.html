@@ -96,7 +96,12 @@
                 <td>
                   <ngb-rating [(rate)]="marshalGuard.rewardPhase" [max]="5" [readonly]="true">
                     <ng-template let-fill="fill" let-index="index">
-                      <i class="bi-star{{ fill === 100 ? '-fill' : '' }} custom-rating" [class.filled]="fill === 100" [class.low]="index < 3"></i>
+                      <i
+                        class="bi-star{{ fill === 100 ? '-fill' : '' }} custom-rating-icon"
+                        [class.green]="marshalGuard.rewardPhase === 5"
+                        [class.yellow]="marshalGuard.rewardPhase === 4"
+                        [class.red]="marshalGuard.rewardPhase < 4">
+                      </i>
                     </ng-template>
                   </ngb-rating>
                 </td>

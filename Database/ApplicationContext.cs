@@ -36,6 +36,10 @@ public class ApplicationContext(DbContextOptions<ApplicationContext> options) : 
 
     public DbSet<DesertStormParticipant> DesertStormParticipants { get; set; }
 
+    public DbSet<ZombieSiege> ZombieSieges { get; set; }
+
+    public DbSet<ZombieSiegeParticipant> ZombieSiegeParticipants { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);

@@ -12,12 +12,16 @@
       <div class="card-body">
         <h5 class="card-title">Level: <span class="text-primary">{{marshalGuardDetail.level}}</span></h5>
         <p class="card-text">Participation rate: <ngb-progressbar class="mb-3" type="success" [value]="marshalGuardDetail.participants" [max]="marshalGuardDetail.allianceSize" [showValue]="true" /></p>
-        <p class="card-text">Reward phase: <br>
-          <ngb-rating [(rate)]="marshalGuardDetail.rewardPhase" [max]="5" [readonly]="true">
-            <ng-template let-fill="fill" let-index="index">
-              <i class="bi-star{{ fill === 100 ? '-fill' : '' }} custom-rating-icon" [class.filled]="fill === 100" [class.low]="index < 3"></i>
-            </ng-template>
-          </ngb-rating>
+        <p class="card-text">Reward phase: <br><ngb-rating [(rate)]="marshalGuardDetail.rewardPhase" [max]="5" [readonly]="true">
+          <ng-template let-fill="fill" let-index="index">
+            <i
+              class="bi-star{{ fill === 100 ? '-fill' : '' }} custom-rating-icon"
+              [class.green]="marshalGuardDetail.rewardPhase === 5"
+              [class.yellow]="marshalGuardDetail.rewardPhase === 4"
+              [class.red]="marshalGuardDetail.rewardPhase < 4">
+            </i>
+          </ng-template>
+        </ngb-rating>
         </p>
         <hr>
         <div>
