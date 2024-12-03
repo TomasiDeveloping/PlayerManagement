@@ -66,10 +66,36 @@
           </div>
         }
       </div>
+      <div class="form-floating mb-3 is-invalid">
+        <select [ngClass]="{
+        'is-invalid': f['vsDuelLeagueId'].invalid && (f['vsDuelLeagueId'].dirty || f['vsDuelLeagueId'].touched),
+        'is-valid': f['vsDuelLeagueId'].valid}" class="form-select" id="vsDuelLeagueId" formControlName="vsDuelLeagueId">
+          @for (vsDuelLeague of vsDuelLeagues; track vsDuelLeague.id) {
+            <option [ngValue]="vsDuelLeague.id">{{vsDuelLeague.name}}</option>
+          }
+        </select>
+        <label for="vsDuelLeagueId">Vs Duel League</label>
+        @if (f['vsDuelLeagueId'].invalid && (f['vsDuelLeagueId'].dirty || f['vsDuelLeagueId'].touched)) {
+          <div class="invalid-feedback">
+            @if (f['vsDuelLeagueId'].hasError('required')) {
+              <p>Vs Duel League is required</p>
+            }
+          </div>
+        }
+      </div>
+      @if (f['isInProgress'].value === false) {
+        <div class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" formControlName="won" id="won">
+          <label class="form-check-label" for="won">
+            Won
+          </label>
+        </div>
+      }
+
       <div class="form-check mb-3">
-        <input class="form-check-input" type="checkbox" formControlName="won" id="won">
-        <label class="form-check-label" for="won">
-          Won
+        <input class="form-check-input" type="checkbox" formControlName="isInProgress" id="isInProgress">
+        <label class="form-check-label" for="isInProgress">
+          In Progress
         </label>
       </div>
     </form>

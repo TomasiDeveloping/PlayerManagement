@@ -114,6 +114,7 @@ export class MarshalGuardComponent implements OnInit {
   }
 
   onCancel() {
+    this.isUpdate = false;
     this.isCreateMarshalGuard = false;
   }
 

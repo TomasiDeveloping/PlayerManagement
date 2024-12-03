@@ -12,6 +12,7 @@ export interface DesertStormModel {
   eventDate: Date;
   opponentName: string;
   participants: number;
+  isInProgress: boolean;
 }
 
 export interface DesertStormDetailModel extends DesertStormModel {
@@ -25,4 +26,5 @@ export interface CreateDesertStormModel {
   opponentServer: number;
   eventDate: string;
   opponentName: string;
+  isInProgress: boolean;
 }

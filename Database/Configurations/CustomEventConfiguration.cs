@@ -16,6 +16,7 @@ public class CustomEventConfiguration : IEntityTypeConfiguration<CustomEvent>
         builder.Property(customEvent => customEvent.EventDate).IsRequired();
         builder.Property(customEvent => customEvent.IsParticipationEvent).IsRequired();
         builder.Property(customEvent => customEvent.IsPointsEvent).IsRequired();
+        builder.Property(customEvent => customEvent.IsInProgress).IsRequired();
         builder.Property(customEvent => customEvent.CreatedBy).IsRequired().HasMaxLength(150);
         builder.Property(customEvent => customEvent.ModifiedBy).IsRequired(false).HasMaxLength(150);
         builder.Property(customEvent => customEvent.ModifiedOn).IsRequired(false);

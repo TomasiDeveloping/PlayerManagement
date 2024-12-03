@@ -74,12 +74,37 @@
                     </div>
                   }
                 </div>
+                <div class="form-floating mb-3 is-invalid">
+                  <select [ngClass]="{
+        'is-invalid': df['vsDuelLeagueId'].invalid && (df['vsDuelLeagueId'].dirty || df['vsDuelLeagueId'].touched),
+        'is-valid': df['vsDuelLeagueId'].valid}" class="form-control" id="vsDuelLeagueId" formControlName="vsDuelLeagueId">
+                    @for (vsDuelLeague of vsDuelLeagues; track vsDuelLeague.id) {
+                      <option [ngValue]="vsDuelLeague.id">{{vsDuelLeague.name}}</option>
+                    }
+                  </select>
+                  <label for="opponentSize">Opponent size</label>
+                  @if (df['opponentSize'].invalid && (df['opponentSize'].dirty || df['opponentSize'].touched)) {
+                    <div class="invalid-feedback">
+                      @if (df['opponentSize'].hasError('required')) {
+                        <p>Opponent size is required</p>
+                      }
+                    </div>
+                  }
+                </div>
                 <div class="form-check mb-3">
                   <input class="form-check-input" type="checkbox" formControlName="won" id="won">
                   <label class="form-check-label" for="won">
                     Won
                   </label>
                 </div>
+
+                <div class="form-check mb-3">
+                  <input class="form-check-input" type="checkbox" formControlName="isInProgress" id="isInProgress">
+                  <label class="form-check-label" for="isInProgress">
+                    In Progress
+                  </label>
+                </div>
+
               </form>
               <div class="d-grid gap-2 col-6 mx-auto mt-5">
                 <button [disabled]="vsDuelForm.invalid || !vsDuelForm.dirty" (click)="onUpdateEvent()" class="btn btn-primary" type="button">Update Event</button>

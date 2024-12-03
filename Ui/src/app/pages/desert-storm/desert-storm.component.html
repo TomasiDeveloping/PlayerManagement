@@ -73,10 +73,20 @@
         }
       </div>
 
+      @if (f['isInProgress'].value === false) {
+        <div class="form-check mb-3">
+          <input class="form-check-input" type="checkbox" formControlName="won" id="won">
+          <label class="form-check-label" for="won">
+            Won
+          </label>
+        </div>
+      }
+
+
       <div class="form-check mb-3">
-        <input class="form-check-input" type="checkbox" formControlName="won" id="won">
-        <label class="form-check-label" for="won">
-          Won
+        <input class="form-check-input" type="checkbox" formControlName="isInProgress" id="isInProgress">
+        <label class="form-check-label" for="isInProgress">
+          In Progress
         </label>
       </div>
 
@@ -125,7 +135,11 @@
                 <td>{{desertStorm.opposingParticipants}}</td>
                 <td>{{desertStorm.participants}}</td>
                 <td>
-                  <i class="bi " [ngClass]="desertStorm.won ? 'bi-check-lg text-success' : 'bi-x-lg text-danger'"></i>
+                  @if (desertStorm.isInProgress) {
+                    <i class="bi bi-hourglass-split"></i> In Progress
+                  } @else {
+                    <i class="bi " [ngClass]="desertStorm.won ? 'bi-check-lg text-success' : 'bi-x-lg text-danger'"></i>
+                  }
                 </td>
                 <td>
                   <div class="d-flex gap-3 justify-content-around">

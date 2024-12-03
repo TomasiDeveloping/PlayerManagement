@@ -24,4 +24,7 @@ public class UpdateCustomEventDto
     [Required]
     public required string EventDateString { get; set; }
 
+    [Required]
+    public bool IsInProgress { get; set; }
+
 }

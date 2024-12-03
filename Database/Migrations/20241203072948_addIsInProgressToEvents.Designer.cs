@@ -4,6 +4,7 @@ using Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Database.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20241203072948_addIsInProgressToEvents")]
+    partial class addIsInProgressToEvents
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -561,9 +564,6 @@ namespace Database.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Code")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(150)
@@ -576,20 +576,17 @@ namespace Database.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("01938bf2-cf1b-742f-b3d6-824dbed7bf25"),
-                            Code = 1,
+                            Id = new Guid("01938b6c-dd30-7182-9fe6-9df201e0586d"),
                             Name = "Silver League"
                         },
                         new
                         {
-                            Id = new Guid("01938bf2-cf1b-7a69-8607-87b1987a19b0"),
-                            Code = 2,
+                            Id = new Guid("01938b6c-dd30-7a97-9bfc-e4f49c245b7a"),
                             Name = "Gold League"
                         },
                         new
                         {
-                            Id = new Guid("01938bf2-cf1b-7cde-961e-e8cb35890551"),
-                            Code = 3,
+                            Id = new Guid("01938b6c-dd30-7b55-8254-12337beebc73"),
                             Name = "Diamond League"
                         });
                 });

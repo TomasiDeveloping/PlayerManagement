@@ -22,5 +22,7 @@ public class DesertStorm : BaseEntity
 
     public int OpposingParticipants { get; set; }
 
+    public bool IsInProgress { get; set; }
+
     public ICollection<DesertStormParticipant> DesertStormParticipants { get; set; } = [];
 }

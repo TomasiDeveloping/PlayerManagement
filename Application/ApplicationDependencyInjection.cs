@@ -30,6 +30,7 @@ public static class ApplicationDependencyInjection
         services.AddScoped<IDesertStormParticipantRepository, DesertStormParticipantRepository>();
         services.AddScoped<IZombieSiegeRepository, ZombieSiegeRepository>();
         services.AddScoped<IZombieSiegeParticipantRepository, ZombieSiegeParticipantRepository>();
+        services.AddScoped<IVsDuelLeagueRepository, VsDuelLeagueRepository>();
 
 
         services.AddTransient<IJwtService, JwtService>();

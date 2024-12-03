@@ -4,6 +4,7 @@ using Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Database.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20241203065528_AddVsDuelLeague")]
+    partial class AddVsDuelLeague
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -112,9 +115,6 @@ namespace Database.Migrations
                     b.Property<DateTime>("EventDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsInProgress")
-                        .HasColumnType("bit");
-
                     b.Property<bool>("IsParticipationEvent")
                         .HasColumnType("bit");
 
@@ -181,9 +181,6 @@ namespace Database.Migrations
 
                     b.Property<DateTime>("EventDate")
                         .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsInProgress")
-                        .HasColumnType("bit");
 
                     b.Property<string>("ModifiedBy")
                         .HasMaxLength(150)
@@ -517,9 +514,6 @@ namespace Database.Migrations
                     b.Property<DateTime>("EventDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsInProgress")
-                        .HasColumnType("bit");
-
                     b.Property<string>("ModifiedBy")
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
@@ -561,9 +555,6 @@ namespace Database.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Code")
-                        .HasColumnType("int");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(150)
@@ -576,20 +567,17 @@ namespace Database.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("01938bf2-cf1b-742f-b3d6-824dbed7bf25"),
-                            Code = 1,
+                            Id = new Guid("01938b4d-6cb9-7e61-b46b-781659ca5694"),
                             Name = "Silver League"
                         },
                         new
                         {
-                            Id = new Guid("01938bf2-cf1b-7a69-8607-87b1987a19b0"),
-                            Code = 2,
+                            Id = new Guid("01938b4d-6cb9-7813-a409-475c9338f970"),
                             Name = "Gold League"
                         },
                         new
                         {
-                            Id = new Guid("01938bf2-cf1b-7cde-961e-e8cb35890551"),
-                            Code = 3,
+                            Id = new Guid("01938b4d-6cb9-7c03-afef-5767a2132543"),
                             Name = "Diamond League"
                         });
                 });

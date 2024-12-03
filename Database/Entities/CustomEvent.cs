@@ -14,6 +14,8 @@ public class CustomEvent : BaseEntity
 
     public bool IsParticipationEvent { get; set; }
 
+    public bool IsInProgress { get; set; }
+
     public DateTime EventDate { get; set; }
 
     public required string CreatedBy { get; set; }

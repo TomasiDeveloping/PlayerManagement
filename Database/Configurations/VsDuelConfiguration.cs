@@ -13,6 +13,7 @@ public class VsDuelConfiguration : IEntityTypeConfiguration<VsDuel>
 
         builder.Property(vsDuel => vsDuel.EventDate).IsRequired();
         builder.Property(vsDuel => vsDuel.Won).IsRequired();
+        builder.Property(vsDuel => vsDuel.IsInProgress).IsRequired();
         builder.Property(vsDuel => vsDuel.OpponentName).IsRequired().HasMaxLength(150);
         builder.Property(vsDuel => vsDuel.OpponentServer).IsRequired();
         builder.Property(vsDuel => vsDuel.OpponentPower).IsRequired();
@@ -24,6 +25,11 @@ public class VsDuelConfiguration : IEntityTypeConfiguration<VsDuel>
         builder.HasOne(vsDuel => vsDuel.Alliance)
             .WithMany(alliance => alliance.VsDuels)
             .HasForeignKey(vsDuel => vsDuel.AllianceId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(vsDuel => vsDuel.VsDuelLeague)
+            .WithMany(vsDuelLeague => vsDuelLeague.VsDuels)
+            .HasForeignKey(vsDuel => vsDuel.VsDuelLeagueId)
             .OnDelete(DeleteBehavior.Cascade);
     }
 }

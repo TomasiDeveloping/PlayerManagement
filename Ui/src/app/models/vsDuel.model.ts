@@ -3,6 +3,8 @@ import {VsDuelParticipantModel} from "./vsDuelParticipant.model";
 export interface VsDuelModel {
   id: string;
   allianceId: string;
+  vsDuelLeagueId: string;
+  vsDuelLeague: string;
   eventDate: Date;
   won: boolean;
   opponentName: string;
@@ -12,6 +14,7 @@ export interface VsDuelModel {
   createdBy: string;
   modifiedOn?: Date;
   modifiedBy?: string;
+  isInProgress: boolean;
 }
 
 export interface VsDuelDetailModel extends VsDuelModel {

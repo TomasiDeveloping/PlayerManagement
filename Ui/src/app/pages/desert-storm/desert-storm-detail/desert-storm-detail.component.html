@@ -5,10 +5,14 @@
   </div>
 
   @if (desertStormDetail) {
-    <div class="card mt-5" [ngClass]="desertStormDetail.won ? 'border-success' : 'border-danger'">
+    <div class="card mt-5" [ngClass]="desertStormDetail.isInProgress ? '' : desertStormDetail.won ? 'border-success' : 'border-danger'">
       <h5 class="card-header d-flex justify-content-between">
         <div>Week {{desertStormDetail.eventDate | week}} / {{desertStormDetail.eventDate | date: 'yyyy'}}</div>
-        <div [ngClass]="desertStormDetail.won ? 'text-success' : 'text-danger'">{{desertStormDetail.won ? 'VICTORY' : 'DEFEAT'}}</div>
+        @if (desertStormDetail.isInProgress) {
+          <div><i class="bi bi-hourglass-split"></i> In Progress</div>
+        } @else {
+          <div [ngClass]="desertStormDetail.won ? 'text-success' : 'text-danger'">{{desertStormDetail.won ? 'VICTORY' : 'DEFEAT'}}</div>
+        }
       </h5>
       <div class="card-body">
         <h5 class="card-title">Opponent: <span class="text-primary">{{desertStormDetail.opponentName}}</span></h5>
@@ -37,7 +41,7 @@
               @if (player.registered) {
                 <div class="col-12 col-md-6 mb-4">
                   <div class="d-flex flex-column align-items-center border p-3"
-                       [ngClass]="player.participated ? 'border-success' : (player.startPlayer && !player.participated) ? 'border-danger' : 'border-warning'">
+                       [ngClass]="desertStormDetail.isInProgress ? '' : player.participated ? 'border-success' : (player.startPlayer && !player.participated) ? 'border-danger' : 'border-warning'">
                     <h6 class="mb-4 text-color">{{player.playerName}}</h6>
                     <div class="d-flex flex-wrap justify-content-center">
                       <div class="form-check mx-2 mb-2">

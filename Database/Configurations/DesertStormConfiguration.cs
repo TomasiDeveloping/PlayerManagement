@@ -14,6 +14,7 @@ public class DesertStormConfiguration : IEntityTypeConfiguration<DesertStorm>
         builder.Property(desertStorm => desertStorm.EventDate).IsRequired();
         builder.Property(desertStorm => desertStorm.OpponentServer).IsRequired();
         builder.Property(desertStorm => desertStorm.Won).IsRequired();
+        builder.Property(desertStorm => desertStorm.IsInProgress).IsRequired();
         builder.Property(desertStorm => desertStorm.OpposingParticipants).IsRequired();
         builder.Property(desertStorm => desertStorm.CreatedBy).IsRequired().HasMaxLength(150);
         builder.Property(desertStorm => desertStorm.OpponentName).IsRequired().HasMaxLength(150);

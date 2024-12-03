@@ -8,6 +8,9 @@ public class CreateVsDuelDto
     public Guid AllianceId { get; set; }
 
     [Required]
+    public Guid VsDuelLeagueId { get; set; }
+
+    [Required]
     public required string EventDate { get; set; }
 
     [Required]
@@ -25,5 +28,7 @@ public class CreateVsDuelDto
 
     [Required]
     public int OpponentSize { get; set; }
+
+    public bool IsInProgress { get; set; }
 
 }

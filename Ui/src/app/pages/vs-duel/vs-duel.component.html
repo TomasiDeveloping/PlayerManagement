@@ -31,6 +31,7 @@
           <th scope="col">Opponent power</th>
           <th scope="col">Opponent size</th>
           <th scope="col">Won</th>
+          <th scope="col">League</th>
           <th scope="col">Action</th>
         </tr>
         </thead>
@@ -44,8 +45,23 @@
               <td>{{vsDuel.opponentPower}}</td>
               <td>{{vsDuel.opponentSize}}</td>
               <td>
-                <i class="bi " [ngClass]="vsDuel.won ? 'bi-check-lg text-success' : 'bi-x-lg text-danger'"></i>
+                @if (vsDuel.isInProgress) {
+                  <i class="bi bi-hourglass-split"></i> In Progress
+                } @else {
+                  <i class="bi " [ngClass]="vsDuel.won ? 'bi-check-lg text-success' : 'bi-x-lg text-danger'"></i>
+                }
               </td>
+              <td>@switch (vsDuel.vsDuelLeague) {
+                @case ('Silver League') {
+                  <i class="bi bi-star text-white"> Silver</i>
+                }
+                @case ('Gold League'){
+                  <i class="bi bi-trophy-fill text-warning"> Gold</i>
+                }
+                @case ('Diamond League') {
+                  <i class="bi bi-gem text-primary"> Diamond</i>
+                }
+              }</td>
               <td>
                 <div class="d-flex gap-3 justify-content-around">
                   <i (click)="onGoToVsDuelInformation(vsDuel)" class="bi custom-info-icon bi-info-circle-fill"></i>

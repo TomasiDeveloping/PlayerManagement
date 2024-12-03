@@ -4,7 +4,11 @@ public class VsDuel : BaseEntity
 {
     public Guid AllianceId { get; set; }
 
+    public Guid? VsDuelLeagueId { get; set; }
+
     public Alliance Alliance { get; set; } = null!;
+
+    public VsDuelLeague? VsDuelLeague { get; set; }
 
     public DateTime EventDate { get; set; }
 
@@ -23,6 +27,8 @@ public class VsDuel : BaseEntity
     public long OpponentPower { get; set; }
 
     public int OpponentSize { get; set; }
+
+    public bool IsInProgress { get; set; }
 
     public ICollection<VsDuelParticipant> VsDuelParticipants { get; set; } = [];
 }

@@ -22,4 +22,6 @@ public class CustomEventDto
 
     public string? ModifiedBy { get; set; }
 
+    public bool IsInProgress { get; set; }
+
 }

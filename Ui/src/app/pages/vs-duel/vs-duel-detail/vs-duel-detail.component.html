@@ -5,10 +5,25 @@
   </div>
 
   @if (vsDuelDetail) {
-      <div class="card mt-5" [ngClass]="vsDuelDetail.won ? 'border-success' : 'border-danger'">
-          <h5 class="card-header d-flex justify-content-between">
+      <div class="card mt-5" [ngClass]="vsDuelDetail.isInProgress ? '' : vsDuelDetail.won ? 'border-success' : 'border-danger'">
+          <h5 class="card-header d-flex justify-content-between" [ngClass]="vsDuelDetail.vsDuelLeague === 'Gold League' ? 'bg-warning text-black' : vsDuelDetail.vsDuelLeague === 'Silver League' ? 'bg-white text-black' : 'bg-primary text-white'">
             <div>Week {{vsDuelDetail.eventDate | week}} / {{vsDuelDetail.eventDate | date: 'yyyy'}}</div>
-            <div [ngClass]="vsDuelDetail.won ? 'text-success' : 'text-danger'">{{vsDuelDetail.won ? 'VICTORY' : 'DEFEAT'}}</div>
+            @switch (vsDuelDetail.vsDuelLeague) {
+              @case ('Gold League') {
+                <div><i class="bi bi-trophy-fill text-black"></i> Gold</div>
+              }
+              @case ('Diamond League') {
+                <i class="bi bi-gem text-white"> Diamond</i>
+              }
+              @case ('Silver League') {
+                <i class="bi bi-star text-black"> Silver</i>
+              }
+            }
+            @if (vsDuelDetail.isInProgress) {
+              <div><i class="bi bi-hourglass-split"></i> In Progress</div>
+            } @else {
+              <div>{{vsDuelDetail.won ? 'VICTORY' : 'DEFEAT'}}</div>
+            }
           </h5>
         <div class="card-body">
           <h5 class="card-title">Opponent: <span class="text-primary">{{vsDuelDetail.opponentName}}</span></h5>

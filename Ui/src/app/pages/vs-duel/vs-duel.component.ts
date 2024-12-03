@@ -41,7 +41,10 @@ export class VsDuelComponent implements OnInit {
       opponentPower: 0,
       opponentServer: 0,
       opponentSize: 0,
-      createdBy: ''
+      createdBy: '',
+      isInProgress: true,
+      vsDuelLeagueId: '',
+      vsDuelLeague: ''
     };
     this.openVsDuelEditModal(vsDuel, false);
   }

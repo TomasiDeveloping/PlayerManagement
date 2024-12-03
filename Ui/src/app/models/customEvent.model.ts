@@ -8,6 +8,7 @@ export interface CustomEventModel {
   isPointsEvent?: boolean;
   isParticipationEvent?: boolean;
   eventDate: Date;
+  isInProgress: boolean;
 }
 
 export interface CustomEventDetailModel extends CustomEventModel {

@@ -23,4 +23,6 @@ public class DesertStormDto
     public required string CreatedBy { get; set; }
 
     public int Participants { get; set; }
+
+    public bool IsInProgress { get; set; }
 }

@@ -8,9 +8,11 @@ public class VsDuelProfile : Profile
 {
     public VsDuelProfile()
     {
-        CreateMap<VsDuel, VsDuelDto>();
+        CreateMap<VsDuel, VsDuelDto>()
+            .ForMember(des => des.VsDuelLeague, opt => opt.MapFrom(src => src.VsDuelLeague.Name));
 
-        CreateMap<VsDuel, VsDuelDetailDto>();
+        CreateMap<VsDuel, VsDuelDetailDto>()
+            .ForMember(des => des.VsDuelLeague, opt => opt.MapFrom(src => src.VsDuelLeague.Name));
 
         CreateMap<UpdateVsDuelDto, VsDuel>()
             .ForMember(des => des.ModifiedOn, opt => opt.MapFrom(src => DateTime.Now))

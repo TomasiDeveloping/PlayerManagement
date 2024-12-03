@@ -7,6 +7,8 @@ import {VsDuelParticipantService} from "../../../services/vs-duel-participant.se
 import {VsDuelParticipantModel} from "../../../models/vsDuelParticipant.model";
 import {forkJoin, Observable} from "rxjs";
 import {ToastrService} from "ngx-toastr";
+import {VsDuelLeagueService} from "../../../services/vs-duel-league.service";
+import {VsDuelLeagueModel} from "../../../models/vsDuelLeague.model";
 
 @Component({
   selector: 'app-vs-duel-edit',
@@ -18,10 +20,12 @@ export class VsDuelEditComponent implements OnInit {
   private readonly _activatedRote: ActivatedRoute = inject(ActivatedRoute);
   private readonly _vsDuelService: VsDuelService = inject(VsDuelService);
   private readonly _vsDuelParticipantService: VsDuelParticipantService = inject(VsDuelParticipantService);
+  private readonly _vsDuelLeagueService = inject(VsDuelLeagueService);
   private readonly _toastr: ToastrService = inject(ToastrService);
 
   private vsDuelId!: string;
   private vsDuelDetail!: VsDuelDetailModel;
+  public vsDuelLeagues: VsDuelLeagueModel[] = [];
 
   public vsDuelParticipantsForm: FormGroup = new FormGroup({});
   public vsDuelForm: FormGroup = new FormGroup({});
@@ -38,6 +42,21 @@ export class VsDuelEditComponent implements OnInit {
   ngOnInit() {
     this.vsDuelId = this._activatedRote.snapshot.params['id'];
     this.getVsDuelDetail(this.vsDuelId);
+    this.getVsDuelLeagues();
+  }
+
+  getVsDuelLeagues() {
+    this._vsDuelLeagueService.getVsDuelLeagues().subscribe({
+      next: ((response) => {
+        if (response) {
+          this.vsDuelLeagues = response;
+        }
+      }),
+      error: (error) => {
+        console.log(error);
+        this._toastr.error('Could not load vs duel leagues', 'Load VS duel leagues');
+      }
+    });
   }
 
   getVsDuelDetail(vsDuelId: string) {
@@ -55,8 +74,10 @@ export class VsDuelEditComponent implements OnInit {
     this.vsDuelForm = new FormGroup({
       id: new FormControl<string>(vsDuelDetail.id),
       allianceId: new FormControl<string>(vsDuelDetail.allianceId),
+      vsDuelLeagueId: new FormControl<string>(vsDuelDetail.vsDuelLeagueId, [Validators.required]),
       eventDate: new FormControl<string>(new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate())).toISOString().substring(0, 10)),
       won: new FormControl<boolean>(vsDuelDetail.won),
+      isInProgress: new FormControl<boolean>(vsDuelDetail.isInProgress),
       opponentName: new FormControl<string>(vsDuelDetail.opponentName, [Validators.required, Validators.maxLength(150)]),
       opponentServer: new FormControl<number>(vsDuelDetail.opponentServer, [Validators.required]),
       opponentPower: new FormControl<number>(vsDuelDetail.opponentPower, [Validators.required]),

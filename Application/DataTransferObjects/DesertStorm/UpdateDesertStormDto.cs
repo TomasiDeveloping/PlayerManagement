@@ -20,4 +20,7 @@ public class UpdateDesertStormDto
     [Required]
     [MaxLength(150)] 
     public required string OpponentName { get; set; }
+
+    [Required]
+    public bool IsInProgress { get; set; }
 }

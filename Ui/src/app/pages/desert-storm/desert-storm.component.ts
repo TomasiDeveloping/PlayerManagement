@@ -81,6 +81,7 @@ export class DesertStormComponent implements OnInit {
       allianceId: new FormControl<string>(desertStormModel ? desertStormModel.allianceId : this._tokenService.getAllianceId()!, [Validators.required]),
       eventDate: new FormControl<string>(new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate())).toISOString().substring(0, 10)),
       won: new FormControl<boolean>(desertStormModel ? desertStormModel.won : false),
+      isInProgress: new FormControl(desertStormModel ? desertStormModel.isInProgress : true),
       opponentName: new FormControl<string>(desertStormModel ? desertStormModel.opponentName : ''),
       opponentServer: new FormControl<number | null>(desertStormModel ? desertStormModel.opponentServer : null),
       OpposingParticipants: new FormControl<number | null>(desertStormModel ? desertStormModel.opposingParticipants : null),
@@ -163,6 +164,7 @@ export class DesertStormComponent implements OnInit {
   }
 
   onCancel() {
+    this.isUpdate = false;
     this.isCreateDessertStorm = false;
     this.selectedPlayers = 0;
     this.desertStormPlayers = [];

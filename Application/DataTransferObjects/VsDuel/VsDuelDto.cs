@@ -12,6 +12,10 @@ public class VsDuelDto
 
     public required string CreatedBy { get; set; }
 
+    public Guid VsDuelLeagueId { get; set; }
+
+    public required string VsDuelLeague { get; set; }
+
     public bool Won { get; set; }
 
     public required string OpponentName { get; set; }
@@ -25,5 +29,7 @@ public class VsDuelDto
     public DateTime? ModifiedOn { get; set; }
 
     public string? ModifiedBy { get; set; }
+
+    public bool IsInProgress { get; set; }
 
 }
