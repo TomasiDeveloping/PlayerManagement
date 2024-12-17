@@ -50,6 +50,8 @@ import { UnderDevelopmentComponent } from './helpers/under-development/under-dev
 import { ZombieSiegeComponent } from './pages/zombie-siege/zombie-siege.component';
 import { ZombieSiegeParticipantsModalComponent } from './modals/zombie-siege-participants-modal/zombie-siege-participants-modal.component';
 import { ZombieSiegeDetailComponent } from './pages/zombie-siege/zombie-siege-detail/zombie-siege-detail.component';
+import { CustomEventParticipantsModelComponent } from './modals/custom-event-participants-model/custom-event-participants-model.component';
+import { CustomEventDetailComponent } from './pages/custom-event/custom-event-detail/custom-event-detail.component';
 
 @NgModule({
   declarations: [
@@ -90,7 +92,9 @@ import { ZombieSiegeDetailComponent } from './pages/zombie-siege/zombie-siege-de
     UnderDevelopmentComponent,
     ZombieSiegeComponent,
     ZombieSiegeParticipantsModalComponent,
-    ZombieSiegeDetailComponent
+    ZombieSiegeDetailComponent,
+    CustomEventParticipantsModelComponent,
+    CustomEventDetailComponent
   ],
   imports: [
     BrowserModule,

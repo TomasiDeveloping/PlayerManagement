@@ -10,7 +10,6 @@
     <Folder Include="DataTransferObjects\Alliance\" />
     <Folder Include="Classes\" />
     <Folder Include="DataTransferObjects\MarshalGuardParticipant\" />
-    <Folder Include="DataTransferObjects\CustomEventParticipant\" />
     <Folder Include="DataTransferObjects\ZombieSiegeParticipant\" />
     <Folder Include="DataTransferObjects\Rank\" />
     <Folder Include="DataTransferObjects\Note\" />

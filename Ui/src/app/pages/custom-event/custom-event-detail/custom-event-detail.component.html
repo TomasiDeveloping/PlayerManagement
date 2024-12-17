@@ -1,0 +1,67 @@
+<div class="container mt-3 pb-5">
+  <!--  Back button-->
+  <div class="d-grid gap-2 col-6 mx-auto">
+    <button routerLink="/custom-event" class="btn btn-primary" type="button"><i class="bi bi-arrow-left"></i> Back</button>
+  </div>
+
+  @if (customEventDetail) {
+    <div class="card mt-5">
+      <h5 class="card-header text-center">
+        <div>{{customEventDetail.eventDate | date: 'dd.MM.yyyy'}}</div>
+      </h5>
+      <div class="card-body">
+        <h5 class="card-title">Name: <span class="text-primary">{{customEventDetail.name}}</span></h5>
+        <p class="card-text">Description: <span class="text-primary">{{customEventDetail.description}}</span></p>
+        <p class="card-text">Point event:
+          <i class="bi " [ngClass]="customEventDetail.isPointsEvent ? 'bi-check-lg text-success' : 'bi-x-lg text-danger'"></i>
+        </p>
+        <p class="card-text">Participation event:
+          <i class="bi " [ngClass]="customEventDetail.isParticipationEvent ? 'bi-check-lg text-success' : 'bi-x-lg text-danger'"></i>
+        </p>
+        @if (customEventDetail.isParticipationEvent) {
+          <p class="card-text">Participation rate: <ngb-progressbar class="mb-3" type="success" [value]="participatedPlayers" [max]="customEventDetail.customEventParticipants.length" [showValue]="true" /></p>
+
+        }
+        <p class="card-text">Status:
+          @if (customEventDetail.isInProgress) {
+            <span class="text-primary"> In Progress</span>
+          } @else {
+            <span class="text-primary"> Done</span>
+          }
+        </p>
+        <hr>
+        <div>
+          <p class="card-text">Creator: <span class="text-primary">{{customEventDetail.createdBy}}</span></p>
+          @if (customEventDetail.modifiedOn) {
+            <p class="card-text">Modified: <span class="text-primary">{{customEventDetail.modifiedOn | date: 'dd.MM.yyyy HH:mm'}}</span>
+              by <span class="text-primary">{{customEventDetail.modifiedBy}}</span></p>
+          }
+        </div>
+        <hr>
+        <p class="card-text text-center">Participants</p>
+        <div ngbScrollSpy class="bg-light p-3 rounded-2 mb-3" style="height: 200px">
+          <div class="row">
+            @for (player of customEventDetail.customEventParticipants; track player.id) {
+
+              <div class="col-12 col-md-6 mb-4">
+                <div class="d-flex flex-column border p-3">
+                  <h6 class="mb-1 text-success">{{player.playerName}}</h6>
+                  @if (customEventDetail.isPointsEvent) {
+                    <div class="col mb-1">
+                      Achieved Points: <span class="text-primary">{{player.achievedPoints}}</span>
+                    </div>
+                      }
+                  @if (customEventDetail.isParticipationEvent) {
+                    <div class="col">
+                      Participated: <i class="bi " [ngClass]="player.participated ? 'bi-check-lg text-success' : 'bi-x-lg text-danger'"></i>
+                    </div>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

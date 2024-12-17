@@ -24,6 +24,7 @@ public static class ApplicationDependencyInjection
         services.AddScoped<IAuthenticationRepository, AuthenticationRepository>();
         services.AddScoped<IRankRepository, RankRepository>();
         services.AddScoped<ICustomEventRepository, CustomEventRepository>();
+        services.AddScoped<ICustomEventParticipantRepository, CustomEventParticipantRepository>();
         services.AddScoped<IMarshalGuardParticipantRepository, MarshalGuardParticipantRepository>();
         services.AddScoped<IVsDuelParticipantRepository, VsDuelParticipantRepository>();
         services.AddScoped<IUserRepository, UserRepository>();

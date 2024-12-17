@@ -22,7 +22,7 @@ public class CreateCustomEventDto
     public Guid AllianceId { get; set; }
 
     [Required]
-    public required string EventDateString { get; set; }
+    public required string EventDate { get; set; }
 
     public bool IsInProgress { get; set; }
 }

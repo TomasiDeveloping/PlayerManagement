@@ -22,7 +22,7 @@ public class UpdateCustomEventDto
     public required string Description { get; set; }
 
     [Required]
-    public required string EventDateString { get; set; }
+    public required string EventDate { get; set; }
 
     [Required]
     public bool IsInProgress { get; set; }

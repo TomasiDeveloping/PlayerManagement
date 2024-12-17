@@ -21,6 +21,7 @@ import {ResetPasswordComponent} from "./Authentication/reset-password/reset-pass
 import {CustomEventComponent} from "./pages/custom-event/custom-event.component";
 import {ZombieSiegeComponent} from "./pages/zombie-siege/zombie-siege.component";
 import {ZombieSiegeDetailComponent} from "./pages/zombie-siege/zombie-siege-detail/zombie-siege-detail.component";
+import {CustomEventDetailComponent} from "./pages/custom-event/custom-event-detail/custom-event-detail.component";
 
 const routes: Routes = [
   {path: 'players', component: PlayerComponent, canActivate: [authGuard]},
@@ -36,6 +37,7 @@ const routes: Routes = [
   {path: 'account', component: AccountComponent, canActivate: [authGuard]},
   {path: 'change-password', component: ChangePasswordComponent, canActivate: [authGuard]},
   {path: 'custom-event', component: CustomEventComponent, canActivate: [authGuard]},
+  {path: 'custom-event-detail/:id', component: CustomEventDetailComponent, canActivate: [authGuard]},
   {path: 'zombie-siege', component: ZombieSiegeComponent, canActivate: [authGuard]},
   {path: 'zombie-siege-detail/:id', component: ZombieSiegeDetailComponent, canActivate: [authGuard]},
   {path: 'login', component: LoginComponent},

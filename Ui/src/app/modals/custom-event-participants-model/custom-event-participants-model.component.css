@@ -1,0 +1,9 @@
+.check-box-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.text-color {
+  color: #43c315;
+}

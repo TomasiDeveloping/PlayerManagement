@@ -1,0 +1,68 @@
+<div class="modal-header flex-column" xmlns="http://www.w3.org/1999/html">
+  <div class="d-flex justify-content-between align-items-center w-100">
+    <h4 class="modal-title">Select Player for Custom event</h4>
+    <button (click)="activeModal.dismiss()" aria-label="Close" class="btn-close" type="button"></button>
+  </div>
+</div>
+
+<div class="modal-body">
+  <div class="row">
+    @if (!isParticipationEvent && !isPointEvent) {
+      <p class="text-danger">Please choose an event type like points, participation or both</p>
+    } @else {
+      @if (participantsForm) {
+        <form [formGroup]="participantsForm" class="row g-3">
+          <ng-container formArrayName="customEventParticipants">
+            @for (participant of customEventParticipants.controls; track participant; let i=$index) {
+              <ng-container [formGroupName]="i">
+                <div class="col-12 col-md-6 mb-4">
+                  <div class="d-flex flex-column border p-3">
+                    <h6 class="mb-2 text-color">{{participant.get('playerName')?.value}}</h6>
+                    @if (isPointEvent) {
+                      <div class="col mb-2">
+                        <label for="point{{i}}">Achieved Points</label>
+                        <input [ngClass]="{
+                          'is-valid': participant.get('achievedPoints')?.valid,
+                          'is-invalid': participant.get('achievedPoints')?.invalid && (participant.get('achievedPoints')?.touched || participant.get('achievedPoints')?.dirty)
+                          }" type="number" min="0" class="form-control form-control-sm" id="point{{i}}" formControlName="achievedPoints">
+                        @if (participant.get('achievedPoints')?.invalid && (participant.get('achievedPoints')?.touched || participant.get('achievedPoints')?.dirty)) {
+                          <div class="invalid-feedback">
+                            @if (participant.get('achievedPoints')?.hasError('required')){
+                              <p>points is required</p>
+                            }
+                            @if (participant.get('achievedPoints')?.hasError('pattern')){
+                              <p>points must not be less than 0</p>
+                            }
+                          </div>
+                        }
+                      </div>
+                    }
+                    @if (isParticipationEvent) {
+                      <div class="col">
+                        <input class="form-check-input" id="participated{{i}}" formControlName="participated" type="checkbox">
+                        <label class="form-check-label ps-2" for="participated{{i}}"> Participated</label>
+                      </div>
+                    }
+                  </div>
+                </div>
+              </ng-container>
+            }
+          </ng-container>
+        </form>
+      }
+    }
+  </div>
+</div>
+
+
+@if (participantsForm) {
+  <div class="modal-footer">
+    <button (click)="activeModal.dismiss()" class="btn btn-warning" type="button">Close</button>
+    <button (click)="onSubmit()" [disabled]="!isPointEvent && !isParticipationEvent || participantsForm.invalid"
+            class=" btn btn-success" type="submit">{{isUpdate ? 'Update Participants' : 'Add to event'}}
+    </button>
+  </div>
+}
+
+
+
