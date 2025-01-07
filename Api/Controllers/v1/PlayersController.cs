@@ -54,6 +54,29 @@ namespace Api.Controllers.v1
             }
         }
 
+        [AllowAnonymous]
+        [HttpGet("[action]/{allianceId:guid}")]
+        public async Task<ActionResult<List<PlayerMvpDto>>> GetAllianceMvpPlayers(Guid allianceId,
+            CancellationToken cancellationToken)
+        {
+            try
+            {
+                var alliancePlayersResult =
+                    await playerRepository.GetAlliancePlayersMvp(allianceId, cancellationToken);
+
+                if (alliancePlayersResult.IsFailure) return BadRequest(alliancePlayersResult.Error);
+
+                return alliancePlayersResult.Value.Count > 0
+                    ? Ok(alliancePlayersResult.Value)
+                    : NoContent();
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
         [HttpPost]
         public async Task<ActionResult<PlayerDto>> CreatePlayer(CreatePlayerDto createPlayerDto,
             CancellationToken cancellationToken)

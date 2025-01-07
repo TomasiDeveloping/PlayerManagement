@@ -36,6 +36,53 @@ public class PlayerRepository(ApplicationContext context, IMapper mapper, ILogge
         return Result.Success(alliancePlayers);
     }
 
+    public async Task<Result<List<PlayerMvpDto>>> GetAlliancePlayersMvp(Guid allianceId, CancellationToken cancellationToken)
+    {
+        var currentDate = DateTime.Now;
+        var threeWeeksAgo = currentDate.AddDays(-21);
+
+        var playerMvps = await context.Players
+            .Where(p => p.AllianceId == allianceId && p.Rank.Name != "R4" && p.Rank.Name != "R5")
+            .Select(p => new
+            {
+                p.Id,
+                p.PlayerName,
+                Rank = p.Rank.Name,
+
+                VsDuels = context.VsDuelParticipants
+                    .Where(vp => vp.PlayerId == p.Id && vp.VsDuel.EventDate <= currentDate && !vp.VsDuel.IsInProgress)
+                    .OrderByDescending(vp => vp.VsDuel.EventDate)
+                    .Take(3)
+                    .Sum(vp => vp.WeeklyPoints),
+
+                MarshalGuardParticipationCount = context.MarshalGuardParticipants
+                    .Count(mpg => mpg.PlayerId == p.Id && mpg.Participated && mpg.MarshalGuard.EventDate > threeWeeksAgo),
+
+                DessertStormParticipationCount = context.DesertStormParticipants
+                    .Count(dsp => dsp.PlayerId == p.Id && dsp.Participated && dsp.DesertStorm.EventDate > threeWeeksAgo)
+            })
+            .Select(p => new PlayerMvpDto()
+            {
+                PlayerName = p.PlayerName,
+                Rank = p.Rank,
+                TotalVsDuelPoints = p.VsDuels,
+                MarshalGuardParticipationCount = p.MarshalGuardParticipationCount,
+                DesertStormParticipationCount = p.DessertStormParticipationCount,
+                MvpPoints = Math.Round(
+                    (decimal)((p.VsDuels / 1000000.0 * 0.7) +
+                              (p.MarshalGuardParticipationCount * 15) +
+                              (p.DessertStormParticipationCount * 10))
+                )
+            })
+            .OrderByDescending(p => p.MvpPoints)
+            .ThenByDescending(p => p.TotalVsDuelPoints)
+            .ThenByDescending(p => p.MarshalGuardParticipationCount)
+            .ThenBy(p => p.PlayerName)
+            .ToListAsync(cancellationToken);
+
+        return playerMvps;
+    }
+
     public async Task<Result<PlayerDto>> CreatePlayerAsync(CreatePlayerDto createPlayerDto, string createdBy, CancellationToken cancellationToken)
     {
         var newPlayer = mapper.Map<Player>(createPlayerDto);
