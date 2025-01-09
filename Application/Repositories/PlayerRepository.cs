@@ -55,6 +55,13 @@ public class PlayerRepository(ApplicationContext context, IMapper mapper, ILogge
                     .Take(3)
                     .Sum(vp => vp.WeeklyPoints),
 
+                IsOldestVsDuelParticipated = context.VsDuelParticipants
+                    .Where(vp => vp.PlayerId == p.Id && vp.VsDuel.EventDate <= currentDate && !vp.VsDuel.IsInProgress)
+                    .OrderByDescending(vp => vp.VsDuel.EventDate)
+                    .Skip(2) 
+                    .Take(1)
+                    .Any(), 
+
                 MarshalGuardParticipationCount = context.MarshalGuardParticipants
                     .Count(mpg => mpg.PlayerId == p.Id && mpg.Participated && mpg.MarshalGuard.EventDate > threeWeeksAgo),
 
@@ -68,11 +75,10 @@ public class PlayerRepository(ApplicationContext context, IMapper mapper, ILogge
                 TotalVsDuelPoints = p.VsDuels,
                 MarshalGuardParticipationCount = p.MarshalGuardParticipationCount,
                 DesertStormParticipationCount = p.DessertStormParticipationCount,
+                IsOldestVsDuelParticipated = p.IsOldestVsDuelParticipated,
                 MvpPoints = Math.Round(
-                    (decimal)((p.VsDuels / 1000000.0 * 0.7) +
-                              (p.MarshalGuardParticipationCount * 15) +
-                              (p.DessertStormParticipationCount * 10))
-                )
+                    (decimal)((p.VsDuels / 1000000.0 * 0.8) +
+                              ((p.MarshalGuardParticipationCount * 20 + p.DessertStormParticipationCount * 40) * 0.2)),2)
             })
             .OrderByDescending(p => p.MvpPoints)
             .ThenByDescending(p => p.TotalVsDuelPoints)
@@ -116,10 +122,8 @@ public class PlayerRepository(ApplicationContext context, IMapper mapper, ILogge
                 MarshalGuardParticipationCount = p.MarshalGuardParticipationCount,
                 DesertStormParticipationCount = p.DessertStormParticipationCount,
                 MvpPoints = Math.Round(
-                    (decimal)((p.VsDuels / 1000000.0 * 0.7) +
-                              (p.MarshalGuardParticipationCount * 15) +
-                              (p.DessertStormParticipationCount * 10))
-                )
+                    (decimal)((p.VsDuels / 1000000.0 * 0.8) +
+                              ((p.MarshalGuardParticipationCount * 20 + p.DessertStormParticipationCount * 40) * 0.2)), 2)
             })
             .OrderByDescending(p => p.MvpPoints)
             .ThenByDescending(p => p.TotalVsDuelPoints)

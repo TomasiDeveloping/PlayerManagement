@@ -7,5 +7,6 @@ public class PlayerMvpDto
     public long TotalVsDuelPoints { get; set; }
     public int MarshalGuardParticipationCount { get; set; }
     public int DesertStormParticipationCount { get; set; }
+    public bool IsOldestVsDuelParticipated { get; set; }
     public decimal MvpPoints { get; set; }
 }
