@@ -36,6 +36,18 @@ public class PlayerRepository(ApplicationContext context, IMapper mapper, ILogge
         return Result.Success(alliancePlayers);
     }
 
+    public async Task<Result<List<PlayerDto>>> GetAllianceDismissPlayersAsync(Guid allianceId, CancellationToken cancellationToken)
+    {
+        var dismissAlliancePlayers = await context.Players
+            .IgnoreQueryFilters()
+            .ProjectTo<PlayerDto>(mapper.ConfigurationProvider)
+            .AsNoTracking()
+            .Where(player => player.AllianceId == allianceId && player.IsDismissed)
+            .ToListAsync(cancellationToken);
+
+        return Result.Success(dismissAlliancePlayers);
+    }
+
     public async Task<Result<List<PlayerMvpDto>>> GetAlliancePlayersMvp(Guid allianceId, CancellationToken cancellationToken)
     {
         var currentDate = DateTime.Now;
@@ -133,6 +145,7 @@ public class PlayerRepository(ApplicationContext context, IMapper mapper, ILogge
 
         return playerMvps;
     }
+
     public async Task<Result<PlayerDto>> CreatePlayerAsync(CreatePlayerDto createPlayerDto, string createdBy, CancellationToken cancellationToken)
     {
         var newPlayer = mapper.Map<Player>(createPlayerDto);
@@ -174,9 +187,78 @@ public class PlayerRepository(ApplicationContext context, IMapper mapper, ILogge
         }
     }
 
+    public async Task<Result<PlayerDto>> DismissPlayerAsync(DismissPlayerDto dismissPlayerDto, string modifiedBy, CancellationToken cancellationToken)
+    {
+        var playerToDismiss = await context.Players
+            .FirstOrDefaultAsync(player => player.Id == dismissPlayerDto.Id, cancellationToken);
+
+        if (playerToDismiss is null) return Result.Failure<PlayerDto>(PlayerErrors.NotFound);
+
+        playerToDismiss.IsDismissed = true;
+        playerToDismiss.DismissedAt = DateTime.Now;
+        playerToDismiss.DismissalReason = dismissPlayerDto.DismissalReason;
+        playerToDismiss.ModifiedOn = DateTime.Now;
+        playerToDismiss.ModifiedBy = modifiedBy;
+
+        playerToDismiss.Admonitions.Add(new Admonition()
+        {
+            CreatedBy = modifiedBy,
+            Reason = $"Player was dismiss from the alliance by {modifiedBy}. Reason: {dismissPlayerDto.DismissalReason}",
+            CreatedOn = DateTime.Now,
+            PlayerId = playerToDismiss.Id,
+            Id = Guid.CreateVersion7()
+        });
+
+        try
+        {
+            await context.SaveChangesAsync(cancellationToken);
+            return Result.Success(mapper.Map<PlayerDto>(playerToDismiss));
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, e.Message);
+            return Result.Failure<PlayerDto>(GeneralErrors.DatabaseError);
+        }
+    }
+
+    public async Task<Result<PlayerDto>> ReactivatePlayerAsync(ReactivatePlayerDto reactivatePlayerDto, string modifiedBy, CancellationToken cancellationToken)
+    {
+        var playerToReactivate = await context.Players
+            .IgnoreQueryFilters()
+            .FirstOrDefaultAsync(player => player.Id == reactivatePlayerDto.Id, cancellationToken);
+
+        if (playerToReactivate is null) return Result.Failure<PlayerDto>(PlayerErrors.NotFound);
+
+        playerToReactivate.IsDismissed = false;
+        playerToReactivate.DismissedAt = null;
+        playerToReactivate.DismissalReason = null;
+        playerToReactivate.ModifiedOn = DateTime.Now;
+        playerToReactivate.ModifiedBy = modifiedBy;
+
+        playerToReactivate.Notes.Add(new Note()
+        {
+            CreatedBy = modifiedBy,
+            PlayerNote = $"Player was accepted back into the alliance by {modifiedBy}",
+            CreatedOn = DateTime.Now,
+            Id = Guid.CreateVersion7()
+        });
+
+        try
+        {
+            await context.SaveChangesAsync(cancellationToken);
+            return Result.Success(mapper.Map<PlayerDto>(playerToReactivate));
+        }
+        catch (Exception e)
+        {
+            logger.LogError(e, e.Message);
+            return Result.Failure<PlayerDto>(GeneralErrors.DatabaseError);
+        }
+    }
+
     public async Task<Result<bool>> DeletePlayerAsync(Guid playerIId, CancellationToken cancellationToken)
     {
         var playerToDelete = await context.Players
+            .IgnoreQueryFilters()
             .FirstOrDefaultAsync(player => player.Id == playerIId, cancellationToken);
 
         if (playerToDelete is null) return Result.Failure<bool>(PlayerErrors.NotFound);

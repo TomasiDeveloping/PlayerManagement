@@ -17,6 +17,11 @@ public class PlayerConfiguration : IEntityTypeConfiguration<Player>
         builder.Property(player => player.CreatedBy).IsRequired().HasMaxLength(150);
         builder.Property(player => player.ModifiedOn).IsRequired(false);
         builder.Property(player => player.ModifiedBy).IsRequired(false).HasMaxLength(150);
+        builder.Property(player => player.IsDismissed).IsRequired().HasDefaultValue(false);
+        builder.Property(player => player.DismissedAt).IsRequired(false);
+        builder.Property(player => player.DismissalReason).IsRequired(false).HasMaxLength(255);
+
+        builder.HasQueryFilter(player => !player.IsDismissed);
 
         builder.HasOne(player => player.Alliance)
             .WithMany(alliance => alliance.Players)

@@ -33,8 +33,7 @@ namespace Api.Controllers.v1
         }
 
         [HttpGet("Alliance/{allianceId:guid}")]
-        public async Task<ActionResult<List<PlayerDto>>> GetAlliancePlayers(Guid allianceId,
-            CancellationToken cancellationToken)
+        public async Task<ActionResult<List<PlayerDto>>> GetAlliancePlayers(Guid allianceId, CancellationToken cancellationToken)
         {
             try
             {
@@ -45,6 +44,27 @@ namespace Api.Controllers.v1
 
                 return alliancePlayersResult.Value.Count > 0
                     ? Ok(alliancePlayersResult.Value)
+                    : NoContent();
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpGet("Alliance/dismiss/{allianceId:guid}")]
+        public async Task<ActionResult<List<PlayerDto>>> GetAllianceDismissPlayers(Guid allianceId, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var allianceDismissPlayersResult =
+                    await playerRepository.GetAllianceDismissPlayersAsync(allianceId, cancellationToken);
+
+                if (allianceDismissPlayersResult.IsFailure) return BadRequest(allianceDismissPlayersResult.Error);
+
+                return allianceDismissPlayersResult.Value.Count > 0
+                    ? Ok(allianceDismissPlayersResult.Value)
                     : NoContent();
             }
             catch (Exception e)
@@ -101,8 +121,7 @@ namespace Api.Controllers.v1
         }
 
         [HttpPost]
-        public async Task<ActionResult<PlayerDto>> CreatePlayer(CreatePlayerDto createPlayerDto,
-            CancellationToken cancellationToken)
+        public async Task<ActionResult<PlayerDto>> CreatePlayer(CreatePlayerDto createPlayerDto, CancellationToken cancellationToken)
         {
             try
             {
@@ -135,6 +154,51 @@ namespace Api.Controllers.v1
                 return updateResult.IsFailure
                     ? BadRequest(updateResult.Error)
                     : Ok(updateResult.Value);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpPut("{playerId:guid}/dismiss")]
+        public async Task<ActionResult<PlayerDto>> DismissPlayer(Guid playerId, DismissPlayerDto dismissPlayerDto,
+            CancellationToken cancellationToken)
+        {
+            try
+            {
+                if (!ModelState.IsValid) return UnprocessableEntity(ModelState);
+
+                if (playerId != dismissPlayerDto.Id) return Conflict(PlayerErrors.IdConflict);
+
+                var dismissResult = await playerRepository.DismissPlayerAsync(dismissPlayerDto, claimTypeService.GetFullName(User), cancellationToken);
+
+                return dismissResult.IsFailure
+                    ? BadRequest(dismissResult.Error)
+                    : Ok(dismissResult.Value);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpPut("{playerId:guid}/reactive")]
+        public async Task<ActionResult<PlayerDto>> ReactivePlayer(Guid playerId, ReactivatePlayerDto reactivatePlayerDto, CancellationToken cancellationToken)
+        {
+            try
+            {
+                if (!ModelState.IsValid) return UnprocessableEntity(ModelState);
+
+                if (playerId != reactivatePlayerDto.Id) return Conflict(PlayerErrors.IdConflict);
+
+                var reactiveResult = await playerRepository.ReactivatePlayerAsync(reactivatePlayerDto, claimTypeService.GetFullName(User), cancellationToken);
+
+                return reactiveResult.IsFailure
+                    ? BadRequest(reactiveResult.Error)
+                    : Ok(reactiveResult.Value);
             }
             catch (Exception e)
             {

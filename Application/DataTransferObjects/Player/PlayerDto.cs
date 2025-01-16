@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices.JavaScript;
-
-namespace Application.DataTransferObjects.Player;
+﻿namespace Application.DataTransferObjects.Player;
 
 public class PlayerDto
 {
@@ -27,4 +25,10 @@ public class PlayerDto
     public DateTime? ModifiedOn  { get; set; }
 
     public string? ModifiedBy { get; set; }
+
+    public bool IsDismissed { get; set; }
+
+    public DateTime? DismissedAt { get; set; }
+
+    public string? DismissalReason { get; set; }
 }

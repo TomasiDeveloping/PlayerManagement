@@ -22,6 +22,12 @@ public class Player : BaseEntity
 
     public string? ModifiedBy { get; set; }
 
+    public bool IsDismissed { get; set; }
+
+    public DateTime? DismissedAt { get; set; }
+
+    public string? DismissalReason { get; set; }
+
     public ICollection<DesertStormParticipant> DesertStormParticipants { get; set; } = [];
 
     public ICollection<VsDuelParticipant> VsDuelParticipants { get; set; } = [];

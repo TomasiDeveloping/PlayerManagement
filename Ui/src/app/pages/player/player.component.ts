@@ -109,23 +109,32 @@ export class PlayerComponent implements OnInit {
     })
   }
 
-  onDeletePlayer(player: PlayerModel) {
+  onDismissPlayer(player: PlayerModel) {
     Swal.fire({
-      title: "Delete Player ?",
-      text: `Do you really want to delete the player ${player.playerName}`,
+      title: `Dismiss Player ${player.playerName}?`,
+      text: `The player will not be permanently deleted but will instead be moved to the "Dismissed Players" section for further reference.`,
       icon: "warning",
+      input: "textarea",
+      inputPlaceholder:"Enter the reason for dismissal...",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
+      confirmButtonText: "Yes, dismiss it!",
+      preConfirm: (reason: string) => {
+        if (!reason) {
+          Swal.showValidationMessage("Please provide a reason for dismissal.")
+        }
+        return reason;
+      }
     }).then((result) => {
       if (result.isConfirmed) {
-        this._playerService.deletePlayer(player.id).subscribe({
+        const reason = result.value;
+        this._playerService.dismissPlayer(player.id, reason).subscribe({
           next: ((response) => {
             if (response) {
               Swal.fire({
-                title: "Deleted!",
-                text: "Player has been deleted",
+                title: "Dismissed!",
+                text: `Player has been dismissed for the following reason: "${reason}"`,
                 icon: "success"
               }).then(_ => this.getPlayers(this.allianceId!));
             }

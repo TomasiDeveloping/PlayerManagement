@@ -24,6 +24,14 @@ export class PlayerService {
     return this._httpClient.put<PlayerModel>(this._serviceUrl + playerId, player);
   }
 
+  public dismissPlayer(playerId: string, reason: string): Observable<PlayerModel> {
+    const dismissRequest = {
+      id: playerId,
+      dismissalReason: reason
+    };
+    return this._httpClient.put<PlayerModel>(this._serviceUrl + playerId + '/dismiss', dismissRequest);
+  }
+
   public insertPlayer(player: CreatePlayerModel): Observable<PlayerModel> {
     return this._httpClient.post<PlayerModel>(this._serviceUrl, player);
   }
