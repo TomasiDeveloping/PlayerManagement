@@ -74,6 +74,25 @@ namespace Api.Controllers.v1
             }
         }
 
+        [HttpGet("DismissInformation/{playerId:guid}")]
+        public async Task<ActionResult<DismissPlayerInformationDto>> GetDismissPlayerInformation(Guid playerId, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var playerDismissInformationResult =
+                    await playerRepository.GetDismissPlayerInformationAsync(playerId, cancellationToken);
+
+                return playerDismissInformationResult.IsFailure
+                    ? BadRequest(playerDismissInformationResult.Error)
+                    : Ok(playerDismissInformationResult.Value);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
         [AllowAnonymous]
         [HttpGet("[action]/{allianceId:guid}")]
         public async Task<ActionResult<List<PlayerMvpDto>>> GetAllianceMvpPlayers(Guid allianceId,

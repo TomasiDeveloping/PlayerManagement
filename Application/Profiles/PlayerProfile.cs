@@ -20,5 +20,27 @@ public class PlayerProfile : Profile
 
         CreateMap<UpdatePlayerDto, Player>()
             .ForMember(des => des.ModifiedOn, opt => opt.MapFrom(src => DateTime.Now));
+
+        CreateMap<Player, DismissPlayerInformationDto>()
+            .ForMember(des => des.VsDuelParticipants,
+                opt => opt.MapFrom(src =>
+                    src.VsDuelParticipants
+                        .OrderByDescending(x => x.VsDuel.EventDate)
+                        .Take(3)
+                        .Select(x => new DismissVsDuelParticipant(x.VsDuel.EventDate, x.WeeklyPoints))))
+            .ForMember(des => des.MarshalGuardParticipants,
+                opt => opt.MapFrom(src => 
+                    src.MarshalGuardParticipants
+                        .OrderByDescending(x => x.MarshalGuard.EventDate)
+                        .Take(3)
+                        .Select(x => new DismissMarshalParticipant(x.MarshalGuard.EventDate, x.Participated))))
+                .ForMember(des => des.DesertStormParticipants,
+                    opt => opt.MapFrom(src =>
+                        src.DesertStormParticipants
+                            .OrderByDescending(x => x.DesertStorm.EventDate)
+                            .Take(3)
+                            .Select(x => new DismissDesertStormParticipant(x.DesertStorm.EventDate, x.Participated))))
+            .ForMember(des => des.Notes, opt => opt.MapFrom(src => src.Notes))
+            .ForMember(des => des.Admonitions, opt => opt.MapFrom(src => src.Admonitions));
     }
 }

@@ -2,7 +2,12 @@ import {inject, Injectable} from '@angular/core';
 import {environment} from "../../environments/environment";
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
-import {CreatePlayerModel, PlayerModel, UpdatePlayerModel} from "../models/player.model";
+import {
+  CreatePlayerModel,
+  DismissPlayerInformationModel,
+  PlayerModel,
+  UpdatePlayerModel
+} from "../models/player.model";
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +25,14 @@ export class PlayerService {
     return this._httpClient.get<PlayerModel[]>(this._serviceUrl + 'Alliance/' + allianceId);
   }
 
+  public getDismissedPlayers(allianceId: string): Observable<PlayerModel[]> {
+    return this._httpClient.get<PlayerModel[]>(this._serviceUrl + 'Alliance/dismiss/' + allianceId);
+  }
+
+  public getDismissPlayerInformation(playerId: string): Observable<DismissPlayerInformationModel> {
+    return this._httpClient.get<DismissPlayerInformationModel>(this._serviceUrl + 'DismissInformation/' + playerId);
+  }
+
   public updatePlayer(playerId: string, player: UpdatePlayerModel): Observable<PlayerModel> {
     return this._httpClient.put<PlayerModel>(this._serviceUrl + playerId, player);
   }
@@ -30,6 +43,13 @@ export class PlayerService {
       dismissalReason: reason
     };
     return this._httpClient.put<PlayerModel>(this._serviceUrl + playerId + '/dismiss', dismissRequest);
+  }
+
+  public reactivePlayer(playerId: string): Observable<PlayerModel> {
+    const reactiveRequest = {
+      id: playerId,
+    };
+    return this._httpClient.put<PlayerModel>(this._serviceUrl + playerId + '/reactive', reactiveRequest);
   }
 
   public insertPlayer(player: CreatePlayerModel): Observable<PlayerModel> {

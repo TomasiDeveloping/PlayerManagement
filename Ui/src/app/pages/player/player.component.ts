@@ -158,7 +158,8 @@ export class PlayerComponent implements OnInit {
       rankId: '',
       createdOn: new Date(),
       rankName: '',
-      createdBy: ''
+      createdBy: '',
+      isDismissed: false,
     }
     const modalRef = this._modalService.open(PlayerEditModalComponent,
       {animation: true, backdrop: 'static', centered: true, size: 'lg'});

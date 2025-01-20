@@ -53,6 +53,7 @@ import { ZombieSiegeDetailComponent } from './pages/zombie-siege/zombie-siege-de
 import { CustomEventParticipantsModelComponent } from './modals/custom-event-participants-model/custom-event-participants-model.component';
 import { CustomEventDetailComponent } from './pages/custom-event/custom-event-detail/custom-event-detail.component';
 import { DismissPlayerComponent } from './pages/dismiss-player/dismiss-player.component';
+import { PlayerDismissInformationModalComponent } from './modals/player-dismiss-information-modal/player-dismiss-information-modal.component';
 
 @NgModule({
   declarations: [
@@ -96,7 +97,8 @@ import { DismissPlayerComponent } from './pages/dismiss-player/dismiss-player.co
     ZombieSiegeDetailComponent,
     CustomEventParticipantsModelComponent,
     CustomEventDetailComponent,
-    DismissPlayerComponent
+    DismissPlayerComponent,
+    PlayerDismissInformationModalComponent
   ],
   imports: [
     BrowserModule,

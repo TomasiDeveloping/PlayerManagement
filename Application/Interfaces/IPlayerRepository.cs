@@ -15,6 +15,8 @@ public interface IPlayerRepository
 
     Task<Result<List<PlayerMvpDto>>> GetAllianceLeadershipMvp(Guid allianceId, CancellationToken cancellationToken);
 
+    Task<Result<DismissPlayerInformationDto>> GetDismissPlayerInformationAsync(Guid playerId, CancellationToken cancellationToken);
+
     Task<Result<PlayerDto>> CreatePlayerAsync(CreatePlayerDto createPlayerDto, string createdBy, CancellationToken cancellationToken);
 
     Task<Result<PlayerDto>> UpdatePlayerAsync(UpdatePlayerDto updatePlayerDto, string modifiedBy, CancellationToken cancellationToken);

@@ -146,6 +146,19 @@ public class PlayerRepository(ApplicationContext context, IMapper mapper, ILogge
         return playerMvps;
     }
 
+    public async Task<Result<DismissPlayerInformationDto>> GetDismissPlayerInformationAsync(Guid playerId, CancellationToken cancellationToken)
+    {
+        var dismissPlayerInformation = await context.Players
+            .IgnoreQueryFilters()
+            .ProjectTo<DismissPlayerInformationDto>(mapper.ConfigurationProvider)
+            .AsNoTracking()
+            .FirstOrDefaultAsync(player => player.Id == playerId, cancellationToken);
+
+        return dismissPlayerInformation is null
+            ? Result.Failure<DismissPlayerInformationDto>(PlayerErrors.NotFound)
+            : Result.Success(dismissPlayerInformation);
+    }
+
     public async Task<Result<PlayerDto>> CreatePlayerAsync(CreatePlayerDto createPlayerDto, string createdBy, CancellationToken cancellationToken)
     {
         var newPlayer = mapper.Map<Player>(createPlayerDto);

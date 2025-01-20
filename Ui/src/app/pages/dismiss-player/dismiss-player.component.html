@@ -1,5 +1,42 @@
 <div class="container mt-3 pb-5">
   <h2 class="text-center">Dismissed Players</h2>
 
-  <app-under-development></app-under-development>
+  @if (dismissedPlayers.length > 0) {
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+          <th scope="col">Player</th>
+          <th scope="col">Dismissed on</th>
+          <th scope="col">Dismissed by</th>
+          <th scope="col">Reason</th>
+          <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (player of dismissedPlayers | paginate: { itemsPerPage: itemsPerPage, currentPage: page, id: 'dismissedTable'}; track player.id) {
+            <tr>
+              <td>{{player.playerName}}</td>
+              <td>{{player.dismissedAt | date: 'dd.MM.yyyy'}}</td>
+              <td>{{player.modifiedBy}}</td>
+              <td>{{player.dismissalReason}}</td>
+              <td>
+                <div class="d-flex gap-3 justify-content-around">
+                  <i (click)="onPlayerInformation(player)" class="bi custom-info-icon bi-info-circle-fill"></i>
+                  <i (click)="onReactivePlayer(player)" class="bi custom-edit-icon bi-bootstrap-reboot"></i>
+                  <i (click)="onDeletePlayer(player)" class="bi custom-delete-icon bi bi-trash3"></i>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <pagination-controls class="custom-pagination" [responsive]="true" [id]="'dismissedTable'" (pageChange)="page = $event"></pagination-controls>
+  } @else {
+    <div class="alert alert-secondary text-center mt-5" role="alert">
+      No dismissed players
+    </div>
+  }
 </div>

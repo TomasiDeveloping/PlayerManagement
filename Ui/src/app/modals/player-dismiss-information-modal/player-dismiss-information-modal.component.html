@@ -1,0 +1,99 @@
+@if (dismissPlayerInformation) {
+  <div class="modal-header" xmlns="http://www.w3.org/1999/html" xmlns="http://www.w3.org/1999/html">
+    <h4 class="modal-title">Information for player {{dismissPlayerInformation.playerName}}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+  </div>
+
+  <div class="modal-body">
+    <p><b class="text-primary">Dismissed at:</b> {{dismissPlayerInformation.dismissedAt | date: 'dd.MM.yyyy'}}</p>
+    <p><b class="text-primary">Reason:</b> {{dismissPlayerInformation.dismissalReason}}</p>
+    <hr>
+    <h5 class="text-primary">Admonitions:</h5>
+    @for (admonition of dismissPlayerInformation.admonitions; track admonition.id) {
+      <ul>
+        <li><small>({{admonition.createdOn | date: 'dd.MM.yyyy'}})</small> {{admonition.reason}}</li>
+      </ul>
+    }
+    <hr>
+    <h5 class="text-primary">Notes:</h5>
+    @for (note of dismissPlayerInformation.notes; track note.id) {
+      <ul>
+        <li><small>({{note.createdOn | date: 'dd.MM.yyyy'}})</small> {{note.playerNote}}</li>
+      </ul>
+    }
+    <hr>
+    <div class="d-flex flex-row align-items-center">
+      <h5 class="text-primary">Marshal: </h5>
+      <small class="ps-2">(Player's last 3 available events)</small>
+    </div>
+
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+          <thead>
+          <tr>
+            <th scope="col">Event date</th>
+            <th scope="col">Participated</th>
+          </tr>
+          </thead>
+          <tbody>
+            @for (marshal of dismissPlayerInformation.marshalGuardParticipants; track marshal.eventDate) {
+              <tr>
+              <td>{{marshal.eventDate | date: 'dd.MM.yyyy'}}</td>
+              <td><i class="bi " [ngClass]="marshal.participated ? 'bi-check-lg text-success' : 'bi-x-lg text-danger'"></i></td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+    <hr>
+    <div class="d-flex flex-row align-items-center">
+      <h5 class="text-primary">VS Duel: </h5>
+      <small class="ps-2">(Player's last 3 available events)</small>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+          <th scope="col">Event date</th>
+          <th scope="col">Weekly points</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (vsDuel of dismissPlayerInformation.vsDuelParticipants; track vsDuel.eventDate) {
+            <tr>
+              <td>{{vsDuel.eventDate | date: 'dd.MM.yyyy'}}</td>
+              <td>{{vsDuel.weeklyPoints | number}}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <hr>
+    <div class="d-flex flex-row align-items-center">
+      <h5 class="text-primary">Desert storm: </h5>
+      <small class="ps-2">(Player's last 3 available events)</small>
+    </div>
+    <div class="table-responsive">
+      <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+          <th scope="col">Event date</th>
+          <th scope="col">Participated</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (desertStorm of dismissPlayerInformation.desertStormParticipants; track desertStorm.eventDate) {
+            <tr>
+              <td>{{desertStorm.eventDate | date: 'dd.MM.yyyy'}}</td>
+              <td><i class="bi " [ngClass]="desertStorm.participated ? 'bi-check-lg text-success' : 'bi-x-lg text-danger'"></i></td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+}
+
+
