@@ -1,0 +1,60 @@
+ <div class="modal-header" xmlns="http://www.w3.org/1999/html">
+    <h4 class="modal-title">Import players from Excel</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+  </div>
+
+  <div class="modal-body">
+    <!-- Description -->
+    <div class="alert alert-secondary" role="alert">
+      <p>
+        This feature allows you to upload an Excel file to add players. Please follow the guidelines below:
+      </p>
+      <ul>
+        <li>The Excel file must have <strong>headers in the first row</strong> (the first row of your Excel sheet).</li>
+        <li>Players with already existing names will <strong>not be imported</strong>.</li>
+        <li>The file must include the following headers (order does not matter):
+          <ul>
+            <li><strong>Name</strong>: The player's name</li>
+            <li><strong>Rank</strong>: The player's rank (R1 - R5)</li>
+            <li><strong>Level</strong>: The player's headquarters level</li>
+          </ul>
+        </li>
+        <li>Additional headers in the file will be <strong>ignored</strong>.</li>
+      </ul>
+    </div>
+
+    <!-- Upload Area -->
+    <div class="upload-area text-center p-5 border border-primary rounded">
+      @if (!selectedFile) {
+        <div>
+          <i class="bi bi-file-earmark-excel-fill display-3 text-primary"></i>
+          <p class="mt-3">Choose an Excel file (.xlsx or .xls)</p>
+          <input
+            type="file"
+            class="form-control d-none"
+            id="fileInput"
+            (change)="onFileSelected($event)"
+            accept=".xlsx, .xls"
+            #fileInput
+          />
+          <button class="btn btn-primary mt-3" (click)="fileInput.click()">Select File</button>
+        </div>
+      } @else {
+        <div>
+          <i class="bi bi-file-earmark-check-fill display-3 text-success"></i>
+          <p class="mt-3"><strong>{{ selectedFile.name }}</strong></p>
+          <button class="btn btn-danger mt-3" (click)="removeFile()">Remove File</button>
+        </div>
+      }
+
+    </div>
+  </div>
+
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-warning" (click)="activeModal.dismiss()">Close</button>
+    <button (click)="onFileUpload()" [disabled]="!selectedFile" type="submit" class=" btn btn-success">Upload</button>
+  </div>
+
+
+

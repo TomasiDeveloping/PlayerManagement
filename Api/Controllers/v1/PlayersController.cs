@@ -1,4 +1,5 @@
-﻿using Application.DataTransferObjects.Player;
+﻿using Application.DataTransferObjects.ExcelImport;
+using Application.DataTransferObjects.Player;
 using Application.Errors;
 using Application.Interfaces;
 using Asp.Versioning;
@@ -12,7 +13,7 @@ namespace Api.Controllers.v1
     [ApiController]
     [ApiVersion("1.0")]
     [Authorize]
-    public class PlayersController(IPlayerRepository playerRepository, IClaimTypeService claimTypeService, ILogger<PlayersController> logger) : ControllerBase
+    public class PlayersController(IPlayerRepository playerRepository, IClaimTypeService claimTypeService, IExcelService excelService, ILogger<PlayersController> logger) : ControllerBase
     {
         [HttpGet("{playerId:guid}")]
         public async Task<ActionResult<PlayerDto>> GetPlayer(Guid playerId, CancellationToken cancellationToken)
@@ -151,6 +152,39 @@ namespace Api.Controllers.v1
                 return createResult.IsFailure
                     ? BadRequest(createResult.Error)
                     : CreatedAtAction(nameof(GetPlayer), new { playerId = createResult.Value.Id }, createResult.Value);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpPost("ExcelImport")]
+        public async Task<ActionResult<ExcelImportResponse>> ImportPlayersFromExcel(
+            [FromForm] ExcelImportRequest excelImportRequest, CancellationToken cancellationToken)
+        {
+            try
+            {
+                if (excelImportRequest.ExcelFile.Length == 0)
+                {
+                    return BadRequest(new Error("", "No excel file upload"));
+                }
+
+                var allowedExtensions = new[] { ".xlsx", ".xls" };
+                var fileExtension = Path.GetExtension(excelImportRequest.ExcelFile.FileName);
+
+                if (!allowedExtensions.Contains(fileExtension))
+                {
+                    return BadRequest(new Error("", "No supported excel file"));
+                }
+
+                var excelImportResult = await excelService.ImportPlayersFromExcelAsync(excelImportRequest,
+                    claimTypeService.GetFullName(User), cancellationToken);
+
+                return excelImportResult.IsFailure
+                    ? BadRequest(excelImportResult.Error)
+                    : Ok(excelImportResult.Value);
             }
             catch (Exception e)
             {

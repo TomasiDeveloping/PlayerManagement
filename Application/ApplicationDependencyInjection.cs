@@ -32,6 +32,7 @@ public static class ApplicationDependencyInjection
         services.AddScoped<IZombieSiegeRepository, ZombieSiegeRepository>();
         services.AddScoped<IZombieSiegeParticipantRepository, ZombieSiegeParticipantRepository>();
         services.AddScoped<IVsDuelLeagueRepository, VsDuelLeagueRepository>();
+        services.AddScoped<IExcelService, ExcelService>();
 
 
         services.AddTransient<IJwtService, JwtService>();

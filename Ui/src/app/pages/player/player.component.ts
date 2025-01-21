@@ -11,6 +11,9 @@ import {PlayerEditModalComponent} from "../../modals/player-edit-modal/player-ed
 import Swal from 'sweetalert2'
 import {Router} from "@angular/router";
 import {JwtTokenService} from "../../services/jwt-token.service";
+import {
+  PlayerExcelImportModalComponent
+} from "../../modals/player-excel-import-modal/player-excel-import-modal.component";
 
 
 
@@ -204,5 +207,18 @@ export class PlayerComponent implements OnInit {
       }
     }
     this.filteredPlayers = [...this.activePlayers];
+  }
+
+  onAddImportFromExcel() {
+    const modalRef = this._modalService.open(PlayerExcelImportModalComponent,
+      {animation: true, backdrop: 'static', centered: true, size: 'lg'});
+    modalRef.closed.subscribe({
+      next: ((response: boolean) => {
+        if (response) {
+          this.filter.patchValue('');
+          this.getPlayers(this.allianceId!);
+        }
+      })
+    })
   }
 }

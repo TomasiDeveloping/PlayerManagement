@@ -1,7 +1,8 @@
 <div class="container mt-3 pb-5">
 <h2 class="text-center">Alliance Players</h2>
   <div class="d-flex justify-content-end">
-    <button (click)="onAddNewPlayer()" class="btn btn-info mb-3">Add new Player</button>
+    <button (click)="onAddNewPlayer()" class="btn btn-info mb-3"> <i class="bi bi-person-plus"></i> Add new Player</button>
+    <button (click)="onAddImportFromExcel()" class="btn btn-info mb-3 ms-3"><i class="bi bi-filetype-xlsx"></i> Import from Excel</button>
   </div>
 
   <h5 class="mb-3"><span class="badge text-bg-dark">Members: {{players.length}}/100</span></h5>

@@ -54,6 +54,7 @@ import { CustomEventParticipantsModelComponent } from './modals/custom-event-par
 import { CustomEventDetailComponent } from './pages/custom-event/custom-event-detail/custom-event-detail.component';
 import { DismissPlayerComponent } from './pages/dismiss-player/dismiss-player.component';
 import { PlayerDismissInformationModalComponent } from './modals/player-dismiss-information-modal/player-dismiss-information-modal.component';
+import { PlayerExcelImportModalComponent } from './modals/player-excel-import-modal/player-excel-import-modal.component';
 
 @NgModule({
   declarations: [
@@ -98,7 +99,8 @@ import { PlayerDismissInformationModalComponent } from './modals/player-dismiss-
     CustomEventParticipantsModelComponent,
     CustomEventDetailComponent,
     DismissPlayerComponent,
-    PlayerDismissInformationModalComponent
+    PlayerDismissInformationModalComponent,
+    PlayerExcelImportModalComponent
   ],
   imports: [
     BrowserModule,

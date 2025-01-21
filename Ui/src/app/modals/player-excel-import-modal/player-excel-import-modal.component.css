@@ -1,0 +1,33 @@
+/* app.component.css */
+.upload-area {
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  padding: 30px;
+  transition: background-color 0.3s ease;
+}
+
+.upload-area:hover {
+  background-color: #e9ecef;
+}
+
+.upload-area i {
+  font-size: 4rem;
+}
+
+.upload-area p {
+  font-size: 1.2rem;
+  margin: 10px 0;
+}
+
+.alert-info {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+button {
+  font-size: 1rem;
+}
+
+.text-success {
+  color: #198754 !important;
+}

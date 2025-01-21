@@ -8,6 +8,7 @@ import {
   PlayerModel,
   UpdatePlayerModel
 } from "../models/player.model";
+import {ExcelImportResponseModel} from "../models/excelImportResponse.model";
 
 @Injectable({
   providedIn: 'root'
@@ -54,6 +55,14 @@ export class PlayerService {
 
   public insertPlayer(player: CreatePlayerModel): Observable<PlayerModel> {
     return this._httpClient.post<PlayerModel>(this._serviceUrl, player);
+  }
+
+  public uploadPlayerFromExcel(allianceId: string, excelFile: File): Observable<ExcelImportResponseModel> {
+    const formData = new FormData();
+    formData.append('excelFile', excelFile);
+    formData.append('allianceId', allianceId);
+
+    return this._httpClient.post<ExcelImportResponseModel>(this._serviceUrl + 'ExcelImport', formData);
   }
 
   public deletePlayer(playerId: string): Observable<boolean> {
