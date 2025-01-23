@@ -27,7 +27,6 @@ import {jwtInterceptor} from "./interceptors/jwt.interceptor";
 import { PlayerNoteModalComponent } from './modals/player-note-modal/player-note-modal.component';
 import { PlayerAdmonitionModalComponent } from './modals/player-admonition-modal/player-admonition-modal.component';
 import { PlayerInfoMarshalGuardComponent } from './pages/player-information/player-info-marshal-guard/player-info-marshal-guard.component';
-import { PlayerInfoVsDuelComponent } from './pages/player-information/player-info-vs-duel/player-info-vs-duel.component';
 import { WeekPipe } from './helpers/week.pipe';
 import { PlayerInfoDesertStormComponent } from './pages/player-information/player-info-desert-storm/player-info-desert-storm.component';
 import { PlayerInfoCustomEventComponent } from './pages/player-information/player-info-custom-event/player-info-custom-event.component';
@@ -55,6 +54,8 @@ import { CustomEventDetailComponent } from './pages/custom-event/custom-event-de
 import { DismissPlayerComponent } from './pages/dismiss-player/dismiss-player.component';
 import { PlayerDismissInformationModalComponent } from './modals/player-dismiss-information-modal/player-dismiss-information-modal.component';
 import { PlayerExcelImportModalComponent } from './modals/player-excel-import-modal/player-excel-import-modal.component';
+import {AgCharts} from "ag-charts-angular";
+import {PlayerInfoVsDuelComponent} from "./pages/player-information/player-info-vs-duel/player-info-vs-duel.component";
 
 @NgModule({
   declarations: [
@@ -73,10 +74,10 @@ import { PlayerExcelImportModalComponent } from './modals/player-excel-import-mo
     PlayerNoteModalComponent,
     PlayerAdmonitionModalComponent,
     PlayerInfoMarshalGuardComponent,
-    PlayerInfoVsDuelComponent,
     WeekPipe,
     PlayerInfoDesertStormComponent,
     PlayerInfoCustomEventComponent,
+    PlayerInfoVsDuelComponent,
     VsDuelCreateModalComponent,
     VsDuelDetailComponent,
     VsDuelEditComponent,
@@ -102,25 +103,26 @@ import { PlayerExcelImportModalComponent } from './modals/player-excel-import-mo
     PlayerDismissInformationModalComponent,
     PlayerExcelImportModalComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    NgbModule,
-    FormsModule,
-    NgxPaginationModule,
-    ReactiveFormsModule,
-    NgxSpinnerModule,
-    NgbRatingModule,
-    ToastrModule.forRoot({
-      positionClass: 'toast-bottom-right',
-    }),
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: () => localStorage.getItem(''),
-      }
-    })
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        NgbModule,
+        FormsModule,
+        NgxPaginationModule,
+        ReactiveFormsModule,
+        NgxSpinnerModule,
+        NgbRatingModule,
+        ToastrModule.forRoot({
+            positionClass: 'toast-bottom-right',
+        }),
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: () => localStorage.getItem(''),
+            }
+        }),
+        AgCharts
+    ],
   providers: [
     provideHttpClient(withInterceptors([spinnerInterceptor, jwtInterceptor]))
   ],

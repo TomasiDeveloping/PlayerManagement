@@ -98,8 +98,8 @@
                   <td>{{user.role}}</td>
                   <td>
                     <div class="d-flex justify-content-around">
-                      <i (click)="onEditUser(user)" class="bi custom-edit-icon bi-pencil-fill"></i>
-                      <i (click)="onDeleteUser(user)" class="bi custom-delete-icon bi-trash3"></i>
+                      <i ngbTooltip="Edit" placement="auto" (click)="onEditUser(user)" class="bi custom-edit-icon bi-pencil-fill"></i>
+                      <i ngbTooltip="Delete" placement="auto" (click)="onDeleteUser(user)" class="bi custom-delete-icon bi-trash3"></i>
                     </div>
                   </td>
                 </tr>

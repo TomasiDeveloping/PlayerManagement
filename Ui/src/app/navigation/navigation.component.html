@@ -6,7 +6,7 @@
       <a class="navbar-brand" routerLink="/">{{loggedInUser.allianceName}}</a>
 
       <!-- Displaying the application version -->
-      <span class="version">v.{{version}}</span>
+      <span ngbTooltip="Changelog" placement="auto" (click)="onVersion()" class="version">v.{{version}}</span>
 
       <!-- Toggle button for collapsed navigation on smaller screens -->
       <button (click)="isShown = !isShown" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"

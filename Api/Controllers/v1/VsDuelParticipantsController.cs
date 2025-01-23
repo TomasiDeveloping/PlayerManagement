@@ -3,7 +3,6 @@ using Application.Errors;
 using Application.Interfaces;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers.v1
@@ -29,6 +28,26 @@ namespace Api.Controllers.v1
                 return updateResult.IsFailure
                     ? BadRequest(updateResult.Error)
                     : Ok(updateResult.Value);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpGet("Player/{playerId:guid}")]
+        public async Task<ActionResult<List<VsDuelParticipantDetailDto>>> GetPlayerVsDuelParticipants(Guid playerId, [FromQuery] int last,
+            CancellationToken cancellationToken)
+        {
+            try
+            {
+                var numberOfParticipationResult =
+                    await vsDuelParticipantRepository.GetVsDuelParticipantDetailsAsync(playerId, last,
+                        cancellationToken);
+                return numberOfParticipationResult.IsFailure
+                    ? BadRequest(numberOfParticipationResult.Error)
+                    : Ok(numberOfParticipationResult.Value);
             }
             catch (Exception e)
             {

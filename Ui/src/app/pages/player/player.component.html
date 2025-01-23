@@ -58,7 +58,7 @@
                     {{player.playerName}}
                   </div>
                   <div class="col">
-                    <i (click)="onGoToPlayerInformation(player)" class="bi custom-info-icon bi-info-circle-fill"></i>
+                    <i ngbTooltip="Show information" placement="auto" (click)="onGoToPlayerInformation(player)" class="bi custom-info-icon bi-info-circle-fill"></i>
                   </div>
                 </div>
               </td>
@@ -66,8 +66,8 @@
               <td>{{player.rankName}}</td>
               <td>
                 <div class="d-flex gap-3 justify-content-around">
-                  <i (click)="onEditPlayer(player)" class="bi custom-edit-icon bi-pencil-fill"></i>
-                  <i (click)="onDismissPlayer(player)" class="bi custom-delete-icon bi-person-dash"></i>
+                  <i ngbTooltip="Edit" placement="auto" (click)="onEditPlayer(player)" class="bi custom-edit-icon bi-pencil-fill"></i>
+                  <i ngbTooltip="Dismiss" placement="auto" (click)="onDismissPlayer(player)" class="bi custom-delete-icon bi-person-dash"></i>
                 </div>
               </td>
             </tr>

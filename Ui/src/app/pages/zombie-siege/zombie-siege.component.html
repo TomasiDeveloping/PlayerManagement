@@ -92,9 +92,9 @@
                 <td>{{zombieSiege.createdBy}}</td>
                 <td>
                   <div class="d-flex gap-3 justify-content-around">
-                    <i (click)="onGoToZombieSiegeDetail(zombieSiege)" class="bi custom-info-icon bi-info-circle-fill"></i>
-                    <i (click)="onEditZombieSiege(zombieSiege)" class="bi custom-edit-icon bi-pencil-fill"></i>
-                    <i (click)="onDeleteZombieSiege(zombieSiege)" class="bi custom-delete-icon bi-trash3"></i>
+                    <i ngbTooltip="Show details" placement="auto" (click)="onGoToZombieSiegeDetail(zombieSiege)" class="bi custom-info-icon bi-info-circle-fill"></i>
+                    <i ngbTooltip="Edit" placement="auto" (click)="onEditZombieSiege(zombieSiege)" class="bi custom-edit-icon bi-pencil-fill"></i>
+                    <i ngbTooltip="Delete" placement="auto" (click)="onDeleteZombieSiege(zombieSiege)" class="bi custom-delete-icon bi-trash3"></i>
                   </div>
                 </td>
               </tr>

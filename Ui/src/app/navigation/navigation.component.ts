@@ -41,4 +41,8 @@ export class NavigationComponent implements OnInit, OnDestroy {
       this._authStateChange$.unsubscribe();
     }
   }
+
+  onVersion() {
+    window.open('https://github.com/TomasiDeveloping/PlayerManagement', '_blank');
+  }
 }

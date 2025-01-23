@@ -22,9 +22,9 @@
               <td>{{player.dismissalReason}}</td>
               <td>
                 <div class="d-flex gap-3 justify-content-around">
-                  <i (click)="onPlayerInformation(player)" class="bi custom-info-icon bi-info-circle-fill"></i>
-                  <i (click)="onReactivePlayer(player)" class="bi custom-edit-icon bi-bootstrap-reboot"></i>
-                  <i (click)="onDeletePlayer(player)" class="bi custom-delete-icon bi bi-trash3"></i>
+                  <i ngbTooltip="Show information" placement="auto" (click)="onPlayerInformation(player)" class="bi custom-info-icon bi-info-circle-fill"></i>
+                  <i ngbTooltip="Rejoining" placement="auto" (click)="onReactivePlayer(player)" class="bi custom-edit-icon bi-bootstrap-reboot"></i>
+                  <i ngbTooltip="Delete" placement="auto" (click)="onDeletePlayer(player)" class="bi custom-delete-icon bi bi-trash3"></i>
                 </div>
               </td>
             </tr>

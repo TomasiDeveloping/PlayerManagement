@@ -110,9 +110,9 @@
                 <td>{{marshalGuard.createdBy}}</td>
                 <td>
                   <div class="d-flex gap-3 justify-content-around">
-                    <i (click)="onGoToMarshalGuardDetail(marshalGuard)" class="bi custom-info-icon bi-info-circle-fill"></i>
-                    <i (click)="onEditMarshalGuard(marshalGuard)" class="bi custom-edit-icon bi-pencil-fill"></i>
-                    <i (click)="onDeleteMarshalGuard(marshalGuard)" class="bi custom-delete-icon bi-trash3"></i>
+                    <i ngbTooltip="Show details" placement="auto" (click)="onGoToMarshalGuardDetail(marshalGuard)" class="bi custom-info-icon bi-info-circle-fill"></i>
+                    <i ngbTooltip="Edit" placement="auto" (click)="onEditMarshalGuard(marshalGuard)" class="bi custom-edit-icon bi-pencil-fill"></i>
+                    <i ngbTooltip="Delete" placement="auto" (click)="onDeleteMarshalGuard(marshalGuard)" class="bi custom-delete-icon bi-trash3"></i>
                   </div>
                 </td>
               </tr>

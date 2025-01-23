@@ -12,5 +12,8 @@ public class VsDuelParticipantProfile : Profile
             .ForMember(des => des.PlayerName, opt => opt.MapFrom(src => src.Player.PlayerName));
 
         CreateMap<VsDuelParticipantDto, VsDuelParticipant>();
+
+        CreateMap<VsDuelParticipant, VsDuelParticipantDetailDto>()
+            .ForMember(des => des.EventDate, opt => opt.MapFrom(src => src.VsDuel.EventDate));
     }
 }
