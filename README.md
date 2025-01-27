@@ -6,6 +6,15 @@ This project is currently in the **Beta Phase**.
 
 ---
 
+### **[0.5.1-beta]** - *2025-01-27*  
+#### ✨ Added  
+- *(N/A)*
+
+#### 🛠️ Fixed  
+- *Zombie siege**: Smile customised for exactly 20 waves
+
+---
+
 ### **[0.5.0-beta]** - *2025-01-21*  
 #### ✨ Added  
 - **Player VS Duel**: In the player detail view, the VS points can now be viewed as a bar chart.

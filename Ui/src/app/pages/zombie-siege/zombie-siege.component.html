@@ -83,7 +83,7 @@
                 <td>{{zombieSiege.level}}</td>
                 <td>{{zombieSiege.allianceSize}}</td>
                 <td>{{zombieSiege.totalLevel20Players}}
-                  @if (zombieSiege.totalLevel20Players <= 20) {
+                  @if (zombieSiege.totalLevel20Players < 20) {
                     <i class="ps-3 bi bi-emoji-frown-fill text-danger"></i>
                   } @else {
                     <i class="ps-3 bi bi-emoji-smile-fill text-success"></i>
