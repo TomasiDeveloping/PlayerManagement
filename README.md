@@ -6,6 +6,15 @@ This project is currently in the **Beta Phase**.
 
 ---
 
+### **[0.6.1]** - *2025-01-28*  
+#### ✨ Added  
+- *(N/A)*  
+
+#### 🛠️ Fixed  
+- **VS Table**: Resolved a bug that caused incorrect data display.
+
+---
+
 ### **[0.6.0-beta]** - *2025-01-28*  
 #### ✨ Added  
 - **Pagination**: Implemented and adjusted for all tables.  
@@ -13,6 +22,8 @@ This project is currently in the **Beta Phase**.
 
 #### 🛠️ Fixed  
 - *(N/A)* 
+
+---
 
 ### **[0.5.1-beta]** - *2025-01-27*  
 #### ✨ Added  
