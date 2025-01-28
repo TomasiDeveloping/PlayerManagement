@@ -1,4 +1,5 @@
 ﻿using Application.Classes;
+using Application.DataTransferObjects;
 using Application.DataTransferObjects.Player;
 using Application.Errors;
 using Application.Interfaces;
@@ -36,16 +37,30 @@ public class PlayerRepository(ApplicationContext context, IMapper mapper, ILogge
         return Result.Success(alliancePlayers);
     }
 
-    public async Task<Result<List<PlayerDto>>> GetAllianceDismissPlayersAsync(Guid allianceId, CancellationToken cancellationToken)
+    public async Task<Result<PagedResponseDto<PlayerDto>>> GetAllianceDismissPlayersAsync(Guid allianceId, int pageNumber, int pageSize, CancellationToken cancellationToken)
     {
-        var dismissAlliancePlayers = await context.Players
+        var query = context.Players
             .IgnoreQueryFilters()
-            .ProjectTo<PlayerDto>(mapper.ConfigurationProvider)
-            .AsNoTracking()
             .Where(player => player.AllianceId == allianceId && player.IsDismissed)
+            .OrderByDescending(player => player.DismissedAt)
+            .AsNoTracking();
+
+        var totalRecord = await query.CountAsync(cancellationToken);
+
+        var pagedDismissPlayers = await query
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ProjectTo<PlayerDto>(mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);
 
-        return Result.Success(dismissAlliancePlayers);
+
+        return Result.Success(new PagedResponseDto<PlayerDto>
+        {
+            Data = pagedDismissPlayers,
+            TotalRecords = totalRecord,
+            PageSize = pageSize,
+            PageNumber = pageNumber
+        });
     }
 
     public async Task<Result<List<PlayerMvpDto>>> GetAlliancePlayersMvp(Guid allianceId, CancellationToken cancellationToken)

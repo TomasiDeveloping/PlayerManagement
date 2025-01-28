@@ -10,6 +10,7 @@ export interface ZombieSiegeModel {
   allianceSize: number;
   level: number;
   totalLevel20Players: number;
+  totalWavesSurvived: number;
 }
 
 export interface ZombieSiegeDetailModel extends ZombieSiegeModel{

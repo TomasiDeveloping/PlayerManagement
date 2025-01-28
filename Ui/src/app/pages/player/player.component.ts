@@ -39,8 +39,9 @@ export class PlayerComponent implements OnInit {
   public r3Players: PlayerModel[] = [];
   public r4Players: PlayerModel[] = [];
   public filteredPlayers: PlayerModel[] = [];
-  public page: number = 1;
-  public itemsPerPage: number = 10;
+
+  public pageNumber: number = 1;
+  public pageSize: number = 10;
   public filter = new FormControl('', { nonNullable: true });
 
 

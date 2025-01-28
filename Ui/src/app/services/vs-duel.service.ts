@@ -3,6 +3,7 @@ import {environment} from "../../environments/environment";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {VsDuelDetailModel, VsDuelModel} from "../models/vsDuel.model";
+import {PagedResponseModel} from "../models/pagedResponse.model";
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +17,11 @@ export class VsDuelService {
     return this._httpClient.get<VsDuelModel>(this._serviceUrl + vsDuelId);
   }
 
-  public getAllianceVsDuels(allianceId: string, take: number): Observable<VsDuelModel[]> {
+  public getAllianceVsDuels(allianceId: string, pageNumber: number, pageSize: number): Observable<PagedResponseModel<VsDuelModel>> {
     let params = new HttpParams();
-    params = params.append('take', take);
-    return this._httpClient.get<VsDuelModel[]>(this._serviceUrl + 'Alliance/' + allianceId, {params: params});
+    params = params.append('pageNumber', pageNumber);
+    params = params.append('pageSize', pageSize);
+    return this._httpClient.get<PagedResponseModel<VsDuelModel>>(this._serviceUrl + 'Alliance/' + allianceId, {params: params});
   }
 
   public getVsDuelDetail(vsDuelId: string): Observable<VsDuelDetailModel> {

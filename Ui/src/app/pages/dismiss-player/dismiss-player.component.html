@@ -14,7 +14,7 @@
         </tr>
         </thead>
         <tbody>
-          @for (player of dismissedPlayers | paginate: { itemsPerPage: itemsPerPage, currentPage: page, id: 'dismissedTable'}; track player.id) {
+          @for (player of dismissedPlayers | paginate: { totalItems: totalRecord, itemsPerPage: pageSize, currentPage: pageNumber, id: 'dismissedTable'}; track player.id) {
             <tr>
               <td>{{player.playerName}}</td>
               <td>{{player.dismissedAt | date: 'dd.MM.yyyy'}}</td>
@@ -32,8 +32,20 @@
         </tbody>
       </table>
     </div>
+    <!-- Pagination Controls -->
+    <div class="d-flex justify-content-between mt-3 flex-column flex-md-row">
+      <pagination-controls class="custom-pagination" [id]="'dismissedTable'" [responsive]="true" [autoHide]=" true"
+                           (pageChange)="pageChanged($event)"></pagination-controls>
 
-    <pagination-controls class="custom-pagination" [responsive]="true" [id]="'dismissedTable'" (pageChange)="page = $event"></pagination-controls>
+      <!-- Showing total results with improved styling -->
+      <div class="align-self-center text-muted mt-2 mt-md-0">
+        <small>
+          Showing
+          <strong>{{ (pageNumber - 1) * pageSize + 1 }} - {{ pageNumber * pageSize > totalRecord ? totalRecord : pageNumber * pageSize }}</strong>
+          of <strong>{{ totalRecord }}</strong> results
+        </small>
+      </div>
+    </div>
   } @else {
     <div class="alert alert-secondary text-center mt-5" role="alert">
       No dismissed players

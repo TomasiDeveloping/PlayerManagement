@@ -1,4 +1,5 @@
-﻿using Application.DataTransferObjects.ZombieSiege;
+﻿using Application.DataTransferObjects;
+using Application.DataTransferObjects.ZombieSiege;
 using Application.Errors;
 using Application.Interfaces;
 using Asp.Versioning;
@@ -34,17 +35,17 @@ namespace Api.Controllers.v1
         }
 
         [HttpGet("Alliance/{allianceId:guid}")]
-        public async Task<ActionResult<List<ZombieSiegeDto>>> GetAllianceZombieSieges(Guid allianceId, [FromQuery] int take,
-            CancellationToken cancellationToken)
+        public async Task<ActionResult<PagedResponseDto<ZombieSiegeDto>>> GetAllianceZombieSieges(Guid allianceId, CancellationToken cancellationToken, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             try
             {
                 var allianceZombieSiegesResult =
-                    await zombieSiegeRepository.GetAllianceZombieSiegesAsync(allianceId, take, cancellationToken);
+                    await zombieSiegeRepository.GetAllianceZombieSiegesAsync(allianceId, pageNumber, pageSize,
+                        cancellationToken);
 
                 if (allianceZombieSiegesResult.IsFailure) return BadRequest(allianceZombieSiegesResult.Error);
 
-                return allianceZombieSiegesResult.Value.Count > 0
+                return allianceZombieSiegesResult.Value.TotalRecords > 0
                     ? Ok(allianceZombieSiegesResult.Value)
                     : NoContent();
             }

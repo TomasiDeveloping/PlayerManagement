@@ -6,6 +6,14 @@ This project is currently in the **Beta Phase**.
 
 ---
 
+### **[0.6.0-beta]** - *2025-01-28*  
+#### ✨ Added  
+- **Pagination**: Implemented and adjusted for all tables.  
+- **Zombie Siege**: Expanded the table to display all waves survived by the entire alliance.  
+
+#### 🛠️ Fixed  
+- *(N/A)* 
+
 ### **[0.5.1-beta]** - *2025-01-27*  
 #### ✨ Added  
 - *(N/A)*

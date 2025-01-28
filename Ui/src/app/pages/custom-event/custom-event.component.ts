@@ -37,20 +37,25 @@ export class CustomEventComponent implements OnInit {
   private readonly _toastr: ToastrService = inject(ToastrService);
   private allianceId: string = this._tokenService.getAllianceId()!;
 
+  public totalRecord: number = 0;
+  public pageNumber: number = 1;
+  public pageSize: number = 10
+
   get f() {
     return this.customEventForm.controls;
   }
 
   ngOnInit() {
-    this.getCustomEvents(10);
+    this.getCustomEvents();
   }
 
-  getCustomEvents(take: number) {
+  getCustomEvents() {
     this.customEvents = [];
-    this._customEventService.getAllianceCustomEvents(this.allianceId, take).subscribe({
-      next: ((response: CustomEventModel[]) => {
+    this._customEventService.getAllianceCustomEvents(this.allianceId, this.pageNumber, this.pageSize).subscribe({
+      next: ((response) => {
         if (response) {
-          this.customEvents = response;
+          this.customEvents = response.data;
+          this.totalRecord = response.totalRecords;
         }
       }),
       error: (error) => {
@@ -150,7 +155,7 @@ export class CustomEventComponent implements OnInit {
       next: (() => {
         this.playerParticipated = [];
         this.onCancel();
-        this.getCustomEvents(10);
+        this.resetAndGetCustomEvents();
       }),
       error: (error) => {
         console.log(error);
@@ -194,7 +199,7 @@ export class CustomEventComponent implements OnInit {
                 title: "Deleted!",
                 text: "Custom event has been deleted",
                 icon: "success"
-              }).then(_ => this.getCustomEvents(10));
+              }).then(_ => this.resetAndGetCustomEvents());
             }
           }),
           error: (error: Error) => {
@@ -235,7 +240,7 @@ export class CustomEventComponent implements OnInit {
     if (participantsToUpdate.length <= 0) {
       this._toastr.success('Successfully updated!', 'Successfully');
       this.onCancel();
-      this.getCustomEvents(10);
+      this.resetAndGetCustomEvents();
       return;
     }
 
@@ -249,9 +254,19 @@ export class CustomEventComponent implements OnInit {
         if (response) {
           this._toastr.success('Successfully updated!', 'Successfully');
           this.onCancel();
-          this.getCustomEvents(10);
+          this.resetAndGetCustomEvents();
         }
       })
     })
+  }
+
+  pageChanged(event: number) {
+    this.pageNumber = event;
+    this.getCustomEvents();
+  }
+
+  resetAndGetCustomEvents() {
+    this.pageNumber = 1;
+    this.getCustomEvents();
   }
 }

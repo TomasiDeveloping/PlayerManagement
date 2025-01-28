@@ -1,6 +1,6 @@
 import {inject, Injectable} from '@angular/core';
 import {environment} from "../../environments/environment";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {
   CreatePlayerModel,
@@ -9,6 +9,7 @@ import {
   UpdatePlayerModel
 } from "../models/player.model";
 import {ExcelImportResponseModel} from "../models/excelImportResponse.model";
+import {PagedResponseModel} from "../models/pagedResponse.model";
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +27,11 @@ export class PlayerService {
     return this._httpClient.get<PlayerModel[]>(this._serviceUrl + 'Alliance/' + allianceId);
   }
 
-  public getDismissedPlayers(allianceId: string): Observable<PlayerModel[]> {
-    return this._httpClient.get<PlayerModel[]>(this._serviceUrl + 'Alliance/dismiss/' + allianceId);
+  public getDismissedPlayers(allianceId: string, pageNumber: number, pageSize: number): Observable<PagedResponseModel<PlayerModel>> {
+    let params = new HttpParams();
+    params = params.append('pageNumber', pageNumber);
+    params = params.append('pageSize', pageSize);
+    return this._httpClient.get<PagedResponseModel<PlayerModel>>(this._serviceUrl + 'Alliance/dismiss/' + allianceId, {params: params});
   }
 
   public getDismissPlayerInformation(playerId: string): Observable<DismissPlayerInformationModel> {

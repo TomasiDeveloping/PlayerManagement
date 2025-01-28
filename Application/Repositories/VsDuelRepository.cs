@@ -1,4 +1,5 @@
 ﻿using Application.Classes;
+using Application.DataTransferObjects;
 using Application.DataTransferObjects.VsDuel;
 using Application.Errors;
 using Application.Interfaces;
@@ -37,17 +38,28 @@ public class VsDuelRepository(ApplicationContext context, IMapper mapper, ILogge
             : Result.Success(vsDuelDetail);
     }
 
-    public async Task<Result<List<VsDuelDto>>> GetAllianceVsDuelsAsync(Guid allianceId, int take, CancellationToken cancellationToken)
+    public async Task<Result<PagedResponseDto<VsDuelDto>>> GetAllianceVsDuelsAsync(Guid allianceId, int pageNumber, int pageSize, CancellationToken cancellationToken)
     {
-        var allianceVsDuels = await context.VsDuels
+        var query = context.VsDuels
             .Where(vsDuel => vsDuel.AllianceId == allianceId)
-            .ProjectTo<VsDuelDto>(mapper.ConfigurationProvider)
             .OrderByDescending(vsDuel => vsDuel.EventDate)
-            .Take(take)
-            .AsNoTracking()
+            .AsNoTracking();
+
+        var totalRecord = await query.CountAsync(cancellationToken);
+
+        var pagedVsDuels = await query
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ProjectTo<VsDuelDto>(mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);
 
-        return Result.Success(allianceVsDuels);
+        return Result.Success(new PagedResponseDto<VsDuelDto>
+        {
+            Data = pagedVsDuels,
+            TotalRecords = totalRecord,
+            PageSize = pageSize,
+            PageNumber = pageNumber
+        });
     }
 
     public async Task<Result<VsDuelDto>> CreateVsDuelAsync(CreateVsDuelDto createVsDuelDto, string createdBy, CancellationToken cancellationToken)

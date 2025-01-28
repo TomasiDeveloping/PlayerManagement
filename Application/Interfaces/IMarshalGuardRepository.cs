@@ -1,4 +1,5 @@
 ﻿using Application.Classes;
+using Application.DataTransferObjects;
 using Application.DataTransferObjects.MarshalGuard;
 
 namespace Application.Interfaces;
@@ -9,7 +10,7 @@ public interface IMarshalGuardRepository
 
     Task<Result<MarshalGuardDetailDto>> GetMarshalGuardDetailAsync(Guid marshalGuardId, CancellationToken cancellationToken);
 
-    Task<Result<List<MarshalGuardDto>>> GetAllianceMarshalGuardsAsync(Guid allianceId, int take, CancellationToken cancellationToken);
+    Task<Result<PagedResponseDto<MarshalGuardDto>>> GetAllianceMarshalGuardsAsync(Guid allianceId, int pageNumber, int pageSize, CancellationToken cancellationToken);
 
     Task<Result<MarshalGuardDto>> CreateMarshalGuardsAsync(CreateMarshalGuardDto createMarshalGuardDto, string createdBy, CancellationToken cancellationToken);
 

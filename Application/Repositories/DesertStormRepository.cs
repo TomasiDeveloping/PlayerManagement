@@ -1,4 +1,5 @@
 ﻿using Application.Classes;
+using Application.DataTransferObjects;
 using Application.DataTransferObjects.DesertStorm;
 using Application.Errors;
 using Application.Interfaces;
@@ -25,17 +26,28 @@ public class DesertStormRepository(ApplicationContext context, IMapper mapper, I
             : Result.Success(desertStormById);
     }
 
-    public async Task<Result<List<DesertStormDto>>> GetAllianceDesertStormsAsync(Guid allianceId, int take, CancellationToken cancellationToken)
+    public async Task<Result<PagedResponseDto<DesertStormDto>>> GetAllianceDesertStormsAsync(Guid allianceId, int pageNumber, int pageSize, CancellationToken cancellationToken)
     {
-        var allianceDesertStorms = await context.DesertStorms
+        var query = context.DesertStorms
             .Where(desertStorm => desertStorm.AllianceId == allianceId)
-            .ProjectTo<DesertStormDto>(mapper.ConfigurationProvider)
-            .AsNoTracking()
             .OrderByDescending(desertStorm => desertStorm.EventDate)
-            .Take(take)
+            .AsNoTracking();
+
+        var totalRecord = await query.CountAsync(cancellationToken);
+
+        var pagedDesertStorms = await query
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ProjectTo<DesertStormDto>(mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);
 
-        return Result.Success(allianceDesertStorms);
+        return Result.Success(new PagedResponseDto<DesertStormDto>
+        {
+            Data = pagedDesertStorms,
+            TotalRecords = totalRecord,
+            PageSize = pageSize,
+            PageNumber = pageNumber
+        });
     }
 
     public async Task<Result<DesertStormDetailDto>> GetDesertStormDetailAsync(Guid desertStormId, CancellationToken cancellationToken)

@@ -22,6 +22,16 @@ html, body {
   color: #2ea805;
 }
 
+
+
+.custom-pagination .ngx-pagination .current {
+  background: #6175d5;
+}
+
+.custom-pagination .ngx-pagination li {
+  color: white;
+}
+
 .custom-pagination .ngx-pagination li a{
   color: white;
 }

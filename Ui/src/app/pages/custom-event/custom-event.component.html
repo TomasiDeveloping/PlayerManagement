@@ -115,7 +115,7 @@
           </tr>
           </thead>
           <tbody>
-            @for (customEvent of customEvents; track customEvent.id) {
+            @for (customEvent of customEvents | paginate: { id: 'customEventTable', itemsPerPage: pageSize, totalItems: totalRecord, currentPage: pageNumber}; track customEvent.id) {
               <tr>
                 <td>{{customEvent.eventDate | date: 'dd.MM.yyyy'}}</td>
                 <td>{{customEvent.name}}</td>
@@ -144,6 +144,20 @@
             }
           </tbody>
         </table>
+      </div>
+      <!-- Pagination Controls -->
+      <div class="d-flex justify-content-between mt-3 flex-column flex-md-row">
+        <pagination-controls class="custom-pagination" [id]="'customEventTable'" [responsive]="true" [autoHide]=" true"
+                             (pageChange)="pageChanged($event)"></pagination-controls>
+
+        <!-- Showing total results with improved styling -->
+        <div class="align-self-center text-muted mt-2 mt-md-0">
+          <small>
+            Showing
+            <strong>{{ (pageNumber - 1) * pageSize + 1 }} - {{ pageNumber * pageSize > totalRecord ? totalRecord : pageNumber * pageSize }}</strong>
+            of <strong>{{ totalRecord }}</strong> results
+          </small>
+        </div>
       </div>
     } @else {
       <div class="alert alert-secondary text-center mt-5" role="alert">

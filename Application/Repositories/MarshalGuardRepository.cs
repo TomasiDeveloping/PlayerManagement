@@ -1,4 +1,5 @@
 ﻿using Application.Classes;
+using Application.DataTransferObjects;
 using Application.DataTransferObjects.MarshalGuard;
 using Application.Errors;
 using Application.Interfaces;
@@ -37,17 +38,28 @@ public class MarshalGuardRepository(ApplicationContext context, IMapper mapper, 
             : Result.Success(detailMarshalGuard);
     }
 
-    public async Task<Result<List<MarshalGuardDto>>> GetAllianceMarshalGuardsAsync(Guid allianceId, int take, CancellationToken cancellationToken)
+    public async Task<Result<PagedResponseDto<MarshalGuardDto>>> GetAllianceMarshalGuardsAsync(Guid allianceId, int pageNumber, int pageSize, CancellationToken cancellationToken)
     {
-        var allianceMarshalGuards = await context.MarshalGuards
+        var query = context.MarshalGuards
             .Where(marshalGuard => marshalGuard.AllianceId == allianceId)
             .OrderByDescending(marshalGuard => marshalGuard.EventDate)
+            .AsNoTracking();
+
+        var totalRecord = await query.CountAsync(cancellationToken);
+
+        var pagedMarshalGuards = await query
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
             .ProjectTo<MarshalGuardDto>(mapper.ConfigurationProvider)
-            .AsNoTracking()
-            .Take(take)
             .ToListAsync(cancellationToken);
 
-        return Result.Success(allianceMarshalGuards);
+        return Result.Success(new PagedResponseDto<MarshalGuardDto>
+        {
+            Data = pagedMarshalGuards,
+            TotalRecords = totalRecord,
+            PageSize = pageSize,
+            PageNumber = pageNumber
+        });
     }
 
 

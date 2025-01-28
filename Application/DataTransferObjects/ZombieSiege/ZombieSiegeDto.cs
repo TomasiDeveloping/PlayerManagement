@@ -8,6 +8,8 @@ public class ZombieSiegeDto
 
     public int TotalLevel20Players { get; set; }
 
+    public int TotalWavesSurvived { get; set; }
+
     public Guid AllianceId { get; set; }
 
     public DateTime EventDate { get; set; }

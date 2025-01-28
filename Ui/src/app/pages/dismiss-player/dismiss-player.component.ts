@@ -26,8 +26,10 @@ export class DismissPlayerComponent implements OnInit {
   private allianceId: string = this._tokenService.getAllianceId()!;
 
   public dismissedPlayers: PlayerModel[] = [];
-  itemsPerPage: string | number = 10;
-  page: string | number = 1;
+
+  public totalRecord: number = 0;
+  public pageNumber: number = 1;
+  public pageSize: number = 10;
 
 
 
@@ -36,10 +38,11 @@ export class DismissPlayerComponent implements OnInit {
   }
 
   getDismissedPlayers() {
-    this._playerService.getDismissedPlayers(this.allianceId).subscribe({
+    this._playerService.getDismissedPlayers(this.allianceId, this.pageNumber, this.pageSize).subscribe({
       next: ((response) => {
         if (response) {
-          this.dismissedPlayers = response;
+          this.dismissedPlayers = response.data;
+          this.totalRecord = response.totalRecords;
         } else {
           this.dismissedPlayers = [];
         }
@@ -113,5 +116,10 @@ export class DismissPlayerComponent implements OnInit {
     const modalRef = this._modalService.open(PlayerDismissInformationModalComponent,
       {animation: true, backdrop: true, centered: true, size: 'lg', scrollable: true});
     modalRef.componentInstance.playerId = player.id;
+  }
+
+  pageChanged(event: number) {
+    this.pageNumber = event;
+    this.getDismissedPlayers();
   }
 }

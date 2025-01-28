@@ -1,4 +1,5 @@
-﻿using Application.DataTransferObjects.ExcelImport;
+﻿using Application.DataTransferObjects;
+using Application.DataTransferObjects.ExcelImport;
 using Application.DataTransferObjects.Player;
 using Application.Errors;
 using Application.Interfaces;
@@ -55,16 +56,16 @@ namespace Api.Controllers.v1
         }
 
         [HttpGet("Alliance/dismiss/{allianceId:guid}")]
-        public async Task<ActionResult<List<PlayerDto>>> GetAllianceDismissPlayers(Guid allianceId, CancellationToken cancellationToken)
+        public async Task<ActionResult<PagedResponseDto<PlayerDto>>> GetAllianceDismissPlayers(Guid allianceId, CancellationToken cancellationToken, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             try
             {
                 var allianceDismissPlayersResult =
-                    await playerRepository.GetAllianceDismissPlayersAsync(allianceId, cancellationToken);
+                    await playerRepository.GetAllianceDismissPlayersAsync(allianceId, pageNumber, pageSize, cancellationToken);
 
                 if (allianceDismissPlayersResult.IsFailure) return BadRequest(allianceDismissPlayersResult.Error);
 
-                return allianceDismissPlayersResult.Value.Count > 0
+                return allianceDismissPlayersResult.Value.Data.Count > 0
                     ? Ok(allianceDismissPlayersResult.Value)
                     : NoContent();
             }

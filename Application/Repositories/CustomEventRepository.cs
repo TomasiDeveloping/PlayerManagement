@@ -1,4 +1,5 @@
 ﻿using Application.Classes;
+using Application.DataTransferObjects;
 using Application.DataTransferObjects.CustomEvent;
 using Application.Errors;
 using Application.Interfaces;
@@ -37,17 +38,28 @@ public class CustomEventRepository(ApplicationContext context, IMapper mapper, I
             : Result.Success(customEventDetail);
     }
 
-    public async Task<Result<List<CustomEventDto>>> GetAllianceCustomEventsAsync(Guid allianceId, int take, CancellationToken cancellationToken)
+    public async Task<Result<PagedResponseDto<CustomEventDto>>> GetAllianceCustomEventsAsync(Guid allianceId, int pageNumber, int pageSize, CancellationToken cancellationToken)
     {
-        var allianceCustomEvents = await context.CustomEvents
+        var query = context.CustomEvents
             .Where(customEvent => customEvent.AllianceId == allianceId)
-            .ProjectTo<CustomEventDto>(mapper.ConfigurationProvider)
-            .AsNoTracking()
             .OrderByDescending(customEvent => customEvent.EventDate)
-            .Take(take)
+            .AsNoTracking();
+
+        var totalRecord = await query.CountAsync(cancellationToken);
+
+        var pagedCustomEvents = await query
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ProjectTo<CustomEventDto>(mapper.ConfigurationProvider)
             .ToListAsync(cancellationToken);
 
-        return Result.Success(allianceCustomEvents);
+        return Result.Success(new PagedResponseDto<CustomEventDto>
+        {
+            Data = pagedCustomEvents,
+            TotalRecords = totalRecord,
+            PageSize = pageSize,
+            PageNumber = pageNumber
+        });
     }
 
     public async Task<Result<CustomEventDto>> CreateCustomEventAsync(CreateCustomEventDto createCustomEventDto, string createdBy,

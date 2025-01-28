@@ -3,6 +3,7 @@ import {environment} from "../../environments/environment";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {CreateCustomEventModel, CustomEventDetailModel, CustomEventModel} from "../models/customEvent.model";
+import {PagedResponseModel} from "../models/pagedResponse.model";
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +14,11 @@ export class CustomEventService {
   private readonly _httpClient: HttpClient = inject(HttpClient);
 
 
-  getAllianceCustomEvents(allianceId: string, take: number): Observable<CustomEventModel[]> {
+  getAllianceCustomEvents(allianceId: string, pageNumber: number, pageSize: number): Observable<PagedResponseModel<CustomEventModel>> {
     let params = new HttpParams();
-    params = params.append('take', take);
-    return this._httpClient.get<CustomEventModel[]>(this._serviceUrl + 'Alliance/' + allianceId, {params: params});
+    params = params.append('pageNumber', pageNumber);
+    params = params.append('pageSize', pageSize);
+    return this._httpClient.get<PagedResponseModel<CustomEventModel>>(this._serviceUrl + 'Alliance/' + allianceId, {params: params});
   }
 
   getCustomEventDetail(customEventId: string): Observable<CustomEventDetailModel> {

@@ -50,6 +50,10 @@ export class MarshalGuardComponent implements OnInit {
   public playerSelected: boolean = false;
   public marshalGuards: MarshalGuardModel[] = [];
 
+  public totalRecord: number = 0;
+  public pageNumber: number = 1;
+  public pageSize: number = 10;
+
   private allianceId: string = this._tokenService.getAllianceId()!;
 
   get f() {
@@ -57,14 +61,15 @@ export class MarshalGuardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getMarshalGuards(10);
+    this.getMarshalGuards();
   }
 
-  public getMarshalGuards(take: number) {
-    this._marshalGuardService.getAllianceMarshalGuards(this.allianceId, take).subscribe({
+  public getMarshalGuards() {
+    this._marshalGuardService.getAllianceMarshalGuards(this.allianceId, this.pageNumber, this.pageSize).subscribe({
       next: ((response) => {
         if (response) {
-          this.marshalGuards = response;
+          this.marshalGuards = response.data;
+          this.totalRecord = response.totalRecords;
         } else {
           this.marshalGuards = [];
         }
@@ -185,7 +190,7 @@ export class MarshalGuardComponent implements OnInit {
     this._marshalGuardParticipantService.insertMarshalGuardOParticipants(marshalGuardParticipants).subscribe({
       next: (() => {
         this.onCancel();
-        this.getMarshalGuards(10);
+        this.resetAndGetMarshalGuard();
         this.playerParticipated = [];
       })
     })
@@ -234,7 +239,7 @@ export class MarshalGuardComponent implements OnInit {
   private updateMarshalGuardParticipants() {
     if (this.participantToUpdate.length <= 0) {
       this.onCancel();
-      this.getMarshalGuards(10);
+      this.resetAndGetMarshalGuard();
       this.playerParticipated = [];
       this.participantToUpdate = [];
       this._toastr.success('Successfully updated marshalGuard', 'Update marshalGuard')
@@ -250,7 +255,7 @@ export class MarshalGuardComponent implements OnInit {
       next: ((response) => {
         if (response) {
           this.onCancel();
-          this.getMarshalGuards(10);
+          this.resetAndGetMarshalGuard();
           this.playerParticipated = [];
           this.participantToUpdate = [];
           this._toastr.success('Successfully updated marshalGuard', 'Update marshalGuard');
@@ -290,7 +295,7 @@ export class MarshalGuardComponent implements OnInit {
                 title: "Deleted!",
                 text: "Marshal guards has been deleted",
                 icon: "success"
-              }).then(_ => this.getMarshalGuards(10));
+              }).then(_ => this.resetAndGetMarshalGuard());
             }
           }),
           error: (error: Error) => {
@@ -303,5 +308,15 @@ export class MarshalGuardComponent implements OnInit {
 
   onGoToMarshalGuardDetail(marshalGuard: MarshalGuardModel) {
     this._router.navigate(['marshal-guard-detail', marshalGuard.id]).then();
+  }
+
+  resetAndGetMarshalGuard() {
+    this.pageNumber = 1;
+    this.getMarshalGuards();
+  }
+
+  pageChanged(event: number) {
+    this.pageNumber = event;
+    this.getMarshalGuards();
   }
 }

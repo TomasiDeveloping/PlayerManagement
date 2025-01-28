@@ -34,17 +34,16 @@ namespace Api.Controllers.v1
         }
 
         [HttpGet("Alliance/{allianceId:guid}")]
-        public async Task<ActionResult<List<MarshalGuardDto>>> GetAllianceMarshalGuards(Guid allianceId, [FromQuery] int take,
-            CancellationToken cancellationToken)
+        public async Task<ActionResult<List<MarshalGuardDto>>> GetAllianceMarshalGuards(Guid allianceId, CancellationToken cancellationToken, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             try
             {
                 var allianceMarshalGuardsResult =
-                    await marshalGuardRepository.GetAllianceMarshalGuardsAsync(allianceId, take, cancellationToken);
+                    await marshalGuardRepository.GetAllianceMarshalGuardsAsync(allianceId, pageNumber, pageSize, cancellationToken);
 
                 if (allianceMarshalGuardsResult.IsFailure) return BadRequest(allianceMarshalGuardsResult.Error);
 
-                return allianceMarshalGuardsResult.Value.Count > 0
+                return allianceMarshalGuardsResult.Value.Data.Count > 0
                     ? Ok(allianceMarshalGuardsResult.Value)
                     : NoContent();
             }

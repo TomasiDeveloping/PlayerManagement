@@ -8,6 +8,7 @@ import {
   UpdateMarshalGuardModel
 } from "../models/marshalGuard.model";
 import {Observable} from "rxjs";
+import {PagedResponseModel} from "../models/pagedResponse.model";
 
 @Injectable({
   providedIn: 'root'
@@ -26,10 +27,11 @@ export class MarshalGuardService {
     return this._httpClient.get<MarshalGuardDetailModel>(this._serviceUrl + 'GetMarshalGuardDetail/' + marshalGuardId);
   }
 
-  public getAllianceMarshalGuards(allianceId: string, take: number): Observable<MarshalGuardModel[]> {
+  public getAllianceMarshalGuards(allianceId: string, pageNumber: number, pageSize: number): Observable<PagedResponseModel<MarshalGuardModel>> {
     let params = new HttpParams();
-    params = params.append('take', take);
-    return this._httpClient.get<MarshalGuardModel[]>(this._serviceUrl + 'Alliance/' + allianceId, {params: params});
+    params = params.append('pageNumber', pageNumber);
+    params = params.append('pageSize', pageSize);
+    return this._httpClient.get<PagedResponseModel<MarshalGuardModel>>(this._serviceUrl + 'Alliance/' + allianceId, {params: params});
   }
 
   public updateMarshalGuard(marshalGuardId: string, marshalGuard: UpdateMarshalGuardModel): Observable<MarshalGuardModel> {

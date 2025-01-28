@@ -34,17 +34,16 @@ namespace Api.Controllers.v1
         }
 
         [HttpGet("Alliance/{allianceId:guid}")]
-        public async Task<ActionResult<List<DesertStormDto>>> GetAllianceDesertStorms(Guid allianceId,
-            [FromQuery] int take, CancellationToken cancellationToken)
+        public async Task<ActionResult<List<DesertStormDto>>> GetAllianceDesertStorms(Guid allianceId, CancellationToken cancellationToken, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             try
             {
                 var allianceDesertStormsResult =
-                    await desertStormRepository.GetAllianceDesertStormsAsync(allianceId, take, cancellationToken);
+                    await desertStormRepository.GetAllianceDesertStormsAsync(allianceId, pageNumber, pageSize, cancellationToken);
 
                 if (allianceDesertStormsResult.IsFailure) return BadRequest(allianceDesertStormsResult.Error);
 
-                return allianceDesertStormsResult.Value.Count > 0
+                return allianceDesertStormsResult.Value.Data.Count > 0
                     ? Ok(allianceDesertStormsResult.Value)
                     : NoContent();
             }

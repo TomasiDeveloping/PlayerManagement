@@ -34,17 +34,16 @@ namespace Api.Controllers.v1
         }
 
         [HttpGet("Alliance/{allianceId:guid}")]
-        public async Task<ActionResult<List<CustomEventDto>>> GetAllianceCustomEvents(Guid allianceId,
-            [FromQuery] int take, CancellationToken cancellationToken)
+        public async Task<ActionResult<List<CustomEventDto>>> GetAllianceCustomEvents(Guid allianceId, CancellationToken cancellationToken, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             try
             {
                 var allianceCustomEventsResult =
-                    await customEventRepository.GetAllianceCustomEventsAsync(allianceId, take, cancellationToken);
+                    await customEventRepository.GetAllianceCustomEventsAsync(allianceId, pageNumber, pageSize, cancellationToken);
 
                 if (allianceCustomEventsResult.IsFailure) return BadRequest(allianceCustomEventsResult.Error);
 
-                return allianceCustomEventsResult.Value.Count > 0
+                return allianceCustomEventsResult.Value.Data.Count > 0
                     ? Ok(allianceCustomEventsResult.Value)
                     : NoContent();
             }

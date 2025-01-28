@@ -20,22 +20,27 @@ export class VsDuelComponent implements OnInit {
   private readonly _tokenService: JwtTokenService = inject(JwtTokenService);
   private readonly _modalService : NgbModal = inject(NgbModal);
   private readonly _vsDuelService: VsDuelService = inject(VsDuelService);
-  public readonly _router: Router = inject(Router);
+  private readonly _router: Router = inject(Router);
+
+  private allianceId = this._tokenService.getAllianceId()!;
 
   public currentDate: Date = new Date();
   public vsDuels: VsDuelModel[] = [];
-  public page: number = 1;
   public currentWeekDuelExists: boolean = false;
 
+  public totalRecord: number = 0;
+  public pageNumber: number = 1;
+  public pageSize: number = 10
+
   ngOnInit() {
-    this.getVsDuels(this._tokenService.getAllianceId()!, 10);
+    this.getVsDuels();
   }
 
   onCreateEvent() {
     const vsDuel: VsDuelModel = {
       eventDate: new Date(),
       opponentName: '',
-      allianceId: this._tokenService.getAllianceId()!,
+      allianceId: this.allianceId,
       id: '',
       won: false,
       opponentPower: 0,
@@ -57,7 +62,7 @@ export class VsDuelComponent implements OnInit {
     modalRef.closed.subscribe({
       next: ((response: VsDuelModel) => {
         if (response) {
-          this.getVsDuels(response.allianceId, 10);
+          this.resetAndGetVsDuels();
         }
       })
     })
@@ -89,7 +94,7 @@ export class VsDuelComponent implements OnInit {
                 title: "Deleted!",
                 text: "VS-Duel has been deleted",
                 icon: "success"
-              }).then(_ => this.getVsDuels(vsDuel.allianceId, 10));
+              }).then(_ => this.resetAndGetVsDuels());
             }
           }),
           error: (error: Error) => {
@@ -100,20 +105,31 @@ export class VsDuelComponent implements OnInit {
     });
   }
 
-  private getVsDuels(allianceId: string, take: number) {
+  private getVsDuels() {
     this.vsDuels = []
     this.currentWeekDuelExists = false;
-    this._vsDuelService.getAllianceVsDuels(allianceId, take).subscribe({
+    this._vsDuelService.getAllianceVsDuels(this.allianceId, this.pageNumber, this.pageSize).subscribe({
       next: ((response) => {
-        if (response) {
-          response.forEach((vsDuel: VsDuelModel) => {
+        if (response.data) {
+          response.data.forEach((vsDuel: VsDuelModel) => {
             if (this._weekPipe.transform(vsDuel.eventDate) === this._weekPipe.transform(new Date())) {
               this.currentWeekDuelExists = true;
             }
           })
-          this.vsDuels = response;
+          this.vsDuels = response.data;
+          this.totalRecord = response.totalRecords;
         }
       })
     });
+  }
+
+  pageChanged(event: number) {
+    this.pageNumber = event;
+    this.getVsDuels();
+  }
+
+  resetAndGetVsDuels() {
+    this.pageNumber = 1;
+    this.getVsDuels();
   }
 }

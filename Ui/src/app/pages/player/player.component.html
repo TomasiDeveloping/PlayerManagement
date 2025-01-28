@@ -50,7 +50,7 @@
         </tr>
         </thead>
         <tbody>
-          @for (player of filteredPlayers | paginate: { itemsPerPage: itemsPerPage, currentPage: page, id: 'playerTable'}; track player.id) {
+          @for (player of filteredPlayers | paginate: { itemsPerPage: pageSize, currentPage: pageNumber, id: 'playerTable'}; track player.id) {
             <tr>
               <td>
                 <div class="row">
@@ -75,8 +75,20 @@
         </tbody>
       </table>
     </div>
+    <!-- Pagination Controls -->
+    <div class="d-flex justify-content-between mt-3 flex-column flex-md-row">
+      <pagination-controls class="custom-pagination" [id]="'playerTable'" [responsive]="true" [autoHide]=" true"
+                           (pageChange)="pageNumber = $event"></pagination-controls>
 
-        <pagination-controls class="custom-pagination" [responsive]="true" [id]="'playerTable'" (pageChange)="page = $event"></pagination-controls>
+      <!-- Showing total results with improved styling -->
+      <div class="align-self-center text-muted mt-2 mt-md-0">
+        <small>
+          Showing
+          <strong>{{ (pageNumber - 1) * pageSize + 1 }} - {{ pageNumber * pageSize > players.length ? players.length : pageNumber * pageSize }}</strong>
+          of <strong>{{ players.length }}</strong> results
+        </small>
+      </div>
+    </div>
   } @else {
     <div class="alert alert-secondary text-center mt-5" role="alert">
       No registered players

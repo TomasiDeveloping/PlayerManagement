@@ -3,6 +3,7 @@ import {environment} from "../../environments/environment";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {CreateDesertStormModel, DesertStormDetailModel, DesertStormModel} from "../models/desertStorm.model";
 import {Observable} from "rxjs";
+import {PagedResponseModel} from "../models/pagedResponse.model";
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +17,11 @@ export class DesertStormService {
     return this._httpClient.post<DesertStormModel>(this._serviceUrl, createModel);
   }
 
-  getAllianceDesertStorms(allianceId: string, take: number): Observable<DesertStormModel[]> {
+  getAllianceDesertStorms(allianceId: string, pageNumber: number, pageSize: number): Observable<PagedResponseModel<DesertStormModel>> {
     let params = new HttpParams();
-    params = params.append('take', take);
-    return this._httpClient.get<DesertStormModel[]>(this._serviceUrl + 'Alliance/' + allianceId, {params: params});
+    params = params.append('pageNumber', pageNumber);
+    params = params.append('pageSize', pageSize);
+    return this._httpClient.get<PagedResponseModel<DesertStormModel>>(this._serviceUrl + 'Alliance/' + allianceId, {params: params});
   }
 
   getDesertStormDetail(desertStormId: string): Observable<DesertStormDetailModel> {

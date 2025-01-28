@@ -33,6 +33,8 @@ export class DesertStormComponent implements OnInit {
   private readonly _modalService: NgbModal = inject(NgbModal);
   private readonly _toastr: ToastrService = inject(ToastrService);
 
+  private allianceId: string = this._tokenService.getAllianceId()!;
+
   isCreateDessertStorm: boolean = false;
   public desertStorms: DesertStormModel[] = [];
   currentDate: Date = new Date();
@@ -44,24 +46,29 @@ export class DesertStormComponent implements OnInit {
   desertStormForm!: FormGroup;
   isUpdate: boolean = false;
 
+  public totalRecord: number = 0;
+  public pageNumber: number = 1;
+  public pageSize: number = 10;
+
   get f() {
     return this.desertStormForm.controls;
   }
 
   ngOnInit() {
-    this.getDesertStorms(10);
+    this.getDesertStorms();
   }
 
-  getDesertStorms(take: number) {
-    this._desertStormService.getAllianceDesertStorms(this._tokenService.getAllianceId()!, take).subscribe({
+  getDesertStorms() {
+    this._desertStormService.getAllianceDesertStorms(this.allianceId, this.pageNumber, this.pageSize).subscribe({
       next: (response) => {
           if (response) {
-            response.forEach((desertStorm: DesertStormModel) => {
+            response.data.forEach((desertStorm: DesertStormModel) => {
               if (this._weekPipe.transform(desertStorm.eventDate) === this._weekPipe.transform(new Date())) {
                 this.currentWeekDuelExists = true;
               }
             })
-            this.desertStorms = response;
+            this.desertStorms = response.data;
+            this.totalRecord = response.totalRecords;
         } else {
           this.desertStorms = [];
           this.currentWeekDuelExists = false;
@@ -130,7 +137,7 @@ export class DesertStormComponent implements OnInit {
                 title: "Deleted!",
                 text: "Desert storm has been deleted",
                 icon: "success"
-              }).then(_ => this.getDesertStorms(10));
+              }).then(_ => this.resetAndGetDesertStorms());
             }
           }),
           error: (error: Error) => {
@@ -188,7 +195,7 @@ export class DesertStormComponent implements OnInit {
       next: (() => {
         this._toastr.success('Successfully created!', 'Successfully');
         this.onCancel();
-        this.getDesertStorms(10);
+        this.resetAndGetDesertStorms();
       })
     })
   }
@@ -234,7 +241,7 @@ export class DesertStormComponent implements OnInit {
     if (desertStormParticipants.length <= 0) {
       this._toastr.success('Successfully updated!', 'Successfully');
       this.onCancel();
-      this.getDesertStorms(10);
+      this.resetAndGetDesertStorms();
       return;
     }
     const requests: Observable<DesertStormParticipantModel>[] = [];
@@ -248,9 +255,19 @@ export class DesertStormComponent implements OnInit {
         if (response) {
           this._toastr.success('Successfully updated!', 'Successfully');
           this.onCancel();
-          this.getDesertStorms(10);
+          this.resetAndGetDesertStorms();
         }
       })
     })
+  }
+
+  pageChanged(event: number) {
+    this.pageNumber = event;
+    this.getDesertStorms();
+  }
+
+  resetAndGetDesertStorms() {
+    this.pageNumber = 1;
+    this.getDesertStorms();
   }
 }

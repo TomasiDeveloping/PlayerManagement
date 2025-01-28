@@ -1,4 +1,5 @@
 ﻿using Application.Classes;
+using Application.DataTransferObjects;
 using Application.DataTransferObjects.CustomEvent;
 
 namespace Application.Interfaces;
@@ -9,7 +10,7 @@ public interface ICustomEventRepository
 
     Task<Result<CustomEventDetailDto>> GetCustomEventDetailAsync(Guid customEventId, CancellationToken cancellationToken);
 
-    Task<Result<List<CustomEventDto>>> GetAllianceCustomEventsAsync(Guid allianceId, int take, CancellationToken cancellationToken);
+    Task<Result<PagedResponseDto<CustomEventDto>>> GetAllianceCustomEventsAsync(Guid allianceId, int pageNumber, int pageSize, CancellationToken cancellationToken);
 
     Task<Result<CustomEventDto>> CreateCustomEventAsync(CreateCustomEventDto createCustomEventDto, string createdBy,
         CancellationToken cancellationToken);

@@ -1,4 +1,5 @@
-﻿using Application.DataTransferObjects.VsDuel;
+﻿using Application.DataTransferObjects;
+using Application.DataTransferObjects.VsDuel;
 using Application.Errors;
 using Application.Interfaces;
 using Asp.Versioning;
@@ -32,17 +33,16 @@ namespace Api.Controllers.v1
         }
 
         [HttpGet("Alliance/{allianceId:guid}")]
-        public async Task<ActionResult<List<VsDuelDto>>> GetAllianceVsDuels(Guid allianceId, [FromQuery] int take,
-            CancellationToken cancellationToken)
+        public async Task<ActionResult<PagedResponseDto<VsDuelDto>>> GetAllianceVsDuels(Guid allianceId, CancellationToken cancellationToken, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             try
             {
                 var allianceVsDuelsResult =
-                    await vsDuelRepository.GetAllianceVsDuelsAsync(allianceId, take, cancellationToken);
+                    await vsDuelRepository.GetAllianceVsDuelsAsync(allianceId, pageNumber, pageSize, cancellationToken);
 
                 if (allianceVsDuelsResult.IsFailure) return BadRequest(allianceVsDuelsResult.Error);
 
-                return allianceVsDuelsResult.Value.Count > 0
+                return allianceVsDuelsResult.Value.Data.Count > 0
                     ? Ok(allianceVsDuelsResult.Value)
                     : NoContent();
             }

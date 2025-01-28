@@ -3,6 +3,7 @@ import {environment} from "../../environments/environment";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {CreateZombieSiegeModel, ZombieSiegeDetailModel, ZombieSiegeModel} from "../models/zombieSiege.model";
+import {PagedResponseModel} from "../models/pagedResponse.model";
 
 @Injectable({
   providedIn: 'root'
@@ -16,10 +17,11 @@ export class ZombieSiegeService {
     return this._httpClient.get<ZombieSiegeDetailModel>(this._serviceUrl + 'GetZombieSiegeDetail/' + zombieSiegeId);
   }
 
-  getAllianceZombieSieges(allianceId: string, take: number): Observable<ZombieSiegeModel[]> {
+  getAllianceZombieSieges(allianceId: string, pageNumber: number, pageSize: number): Observable<PagedResponseModel<ZombieSiegeModel>> {
     let params = new HttpParams();
-    params = params.append('take', take);
-    return this._httpClient.get<ZombieSiegeModel[]>(this._serviceUrl + 'Alliance/' + allianceId, {params: params});
+    params = params.append('pageNumber', pageNumber);
+    params = params.append('pageSize', pageSize);
+    return this._httpClient.get<PagedResponseModel<ZombieSiegeModel>>(this._serviceUrl + 'Alliance/' + allianceId, {params: params});
   }
 
   createZombieSiege(createZombieSiege: CreateZombieSiegeModel): Observable<ZombieSiegeModel> {

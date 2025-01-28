@@ -1,4 +1,5 @@
 ﻿using Application.Classes;
+using Application.DataTransferObjects;
 using Application.DataTransferObjects.Player;
 
 namespace Application.Interfaces;
@@ -9,7 +10,7 @@ public interface IPlayerRepository
 
     Task<Result<List<PlayerDto>>> GetAlliancePlayersAsync(Guid allianceId, CancellationToken cancellationToken);
 
-    Task<Result<List<PlayerDto>>> GetAllianceDismissPlayersAsync(Guid allianceId, CancellationToken cancellationToken);
+    Task<Result<PagedResponseDto<PlayerDto>>> GetAllianceDismissPlayersAsync(Guid allianceId, int pageNumber, int pageSize, CancellationToken cancellationToken);
 
     Task<Result<List<PlayerMvpDto>>> GetAlliancePlayersMvp(Guid allianceId, CancellationToken cancellationToken);
 

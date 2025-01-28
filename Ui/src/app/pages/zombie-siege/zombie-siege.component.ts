@@ -18,11 +18,12 @@ import {ZombieSiegeParticipantService} from "../../services/zombie-siege-partici
 import Swal from "sweetalert2";
 import {Router} from "@angular/router";
 import {forkJoin, Observable} from "rxjs";
+import {PagedResponseModel} from "../../models/pagedResponse.model";
 
 @Component({
   selector: 'app-zombie-siege',
   templateUrl: './zombie-siege.component.html',
-  styleUrl: './zombie-siege.component.css'
+  styleUrl: './zombie-siege.component.css',
 })
 export class ZombieSiegeComponent implements OnInit {
 
@@ -35,6 +36,10 @@ export class ZombieSiegeComponent implements OnInit {
   private readonly _router: Router = inject(Router);
 
   private allianceId: string = this._tokenService.getAllianceId()!;
+
+  public totalRecord: number = 0;
+  public pageNumber: number = 1;
+  public pageSize: number = 10;
 
   public isCreateZombieSiege: boolean = false;
   public playerSelected: boolean = false;
@@ -51,14 +56,15 @@ export class ZombieSiegeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.getZombieSieges(10);
+    this.getZombieSieges();
   }
 
-  getZombieSieges(limit: number) {
-    this._zombieSiegeService.getAllianceZombieSieges(this.allianceId, limit).subscribe({
-      next: ((response: any) => {
+  getZombieSieges() {
+    this._zombieSiegeService.getAllianceZombieSieges(this.allianceId, this.pageNumber, this.pageSize).subscribe({
+      next: ((response: PagedResponseModel<ZombieSiegeModel>) => {
         if (response) {
-          this.zombieSieges = response;
+          this.zombieSieges = response.data;
+          this.totalRecord = response.totalRecords;
         } else {
           this.zombieSieges = [];
         }
@@ -162,7 +168,7 @@ export class ZombieSiegeComponent implements OnInit {
                 title: "Deleted!",
                 text: "Zombie Siege has been deleted",
                 icon: "success"
-              }).then(_ => this.getZombieSieges(10));
+              }).then(_ => this.resetAndGetZombieSieges());
             }
           }),
           error: (error: Error) => {
@@ -218,7 +224,7 @@ export class ZombieSiegeComponent implements OnInit {
     this._zombieSiegeParticipantService.insertZombieSiegeParticipants(createZombieSiegeParticipants).subscribe({
       next: (() => {
         this.onCancel();
-        this.getZombieSieges(10);
+        this.resetAndGetZombieSieges()
         this.playerParticipated = [];
       })
     });
@@ -246,7 +252,7 @@ export class ZombieSiegeComponent implements OnInit {
     if (zombieSiegeParticipants.length <= 0) {
       this._toastr.success('Successfully updated!', 'Successfully');
       this.onCancel();
-      this.getZombieSieges(10);
+      this.resetAndGetZombieSieges();
       return;
     }
     const requests: Observable<ZombieSiegeParticipantModel>[] = [];
@@ -260,9 +266,19 @@ export class ZombieSiegeComponent implements OnInit {
         if (response) {
           this._toastr.success('Successfully updated!', 'Successfully');
           this.onCancel();
-          this.getZombieSieges(10);
+          this.resetAndGetZombieSieges();
         }
       })
     })
+  }
+
+  pageChanged(event: number) {
+    this.pageNumber = event;
+    this.getZombieSieges()
+  }
+
+  resetAndGetZombieSieges() {
+    this.pageNumber = 1;
+    this.getZombieSieges();
   }
 }

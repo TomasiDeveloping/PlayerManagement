@@ -1,4 +1,5 @@
 ﻿using Application.Classes;
+using Application.DataTransferObjects;
 using Application.DataTransferObjects.DesertStorm;
 
 namespace Application.Interfaces;
@@ -7,7 +8,7 @@ public interface IDesertStormRepository
 {
     Task<Result<DesertStormDto>> GetDesertStormAsync(Guid desertStormId, CancellationToken cancellationToken);
 
-    Task<Result<List<DesertStormDto>>> GetAllianceDesertStormsAsync(Guid allianceId, int take, CancellationToken cancellationToken);
+    Task<Result<PagedResponseDto<DesertStormDto>>> GetAllianceDesertStormsAsync(Guid allianceId, int pageNumber, int pageSize, CancellationToken cancellationToken);
 
     Task<Result<DesertStormDetailDto>> GetDesertStormDetailAsync(Guid desertStormId, CancellationToken cancellationToken);
 

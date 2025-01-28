@@ -1,4 +1,5 @@
 ﻿using Application.Classes;
+using Application.DataTransferObjects;
 using Application.DataTransferObjects.ZombieSiege;
 using Application.Errors;
 using Application.Interfaces;
@@ -37,17 +38,28 @@ public class ZombieSiegeRepository(ApplicationContext context, IMapper mapper, I
             : Result.Success(zombieSiegeDetail);
     }
 
-    public async Task<Result<List<ZombieSiegeDto>>> GetAllianceZombieSiegesAsync(Guid allianceId, int take, CancellationToken cancellationToken)
+    public async Task<Result<PagedResponseDto<ZombieSiegeDto>>> GetAllianceZombieSiegesAsync(Guid allianceId, int pageNumber, int pageSize, CancellationToken cancellationToken)
     {
-        var allianceZombieSieges = await context.ZombieSieges
+        var query = context.ZombieSieges
             .Where(zombieSiege => zombieSiege.AllianceId == allianceId)
             .OrderByDescending(zombieSiege => zombieSiege.EventDate)
+            .AsNoTracking();
+
+        var totalRecord = await query.CountAsync(cancellationToken);
+
+        var pagedZombieSieges = await query
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
             .ProjectTo<ZombieSiegeDto>(mapper.ConfigurationProvider)
-            .AsNoTracking()
-            .Take(take)
             .ToListAsync(cancellationToken);
 
-        return Result.Success(allianceZombieSieges);
+        return Result.Success(new PagedResponseDto<ZombieSiegeDto>
+        {
+            Data = pagedZombieSieges,
+            TotalRecords = totalRecord,
+            PageSize = pageSize,
+            PageNumber = pageNumber
+        });
     }
 
     public async Task<Result<ZombieSiegeDto>> CreateZombieSiegeAsync(CreateZombieSiegeDto createZombieSiegeDto, string createdBy,

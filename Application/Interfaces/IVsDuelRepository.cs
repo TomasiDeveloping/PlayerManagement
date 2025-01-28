@@ -1,4 +1,5 @@
 ﻿using Application.Classes;
+using Application.DataTransferObjects;
 using Application.DataTransferObjects.VsDuel;
 
 namespace Application.Interfaces;
@@ -9,7 +10,7 @@ public interface IVsDuelRepository
 
     Task<Result<VsDuelDetailDto>> GetVsDuelDetailAsync(Guid vsDuelId, CancellationToken cancellationToken);
 
-    Task<Result<List<VsDuelDto>>> GetAllianceVsDuelsAsync(Guid allianceId, int take, CancellationToken cancellationToken);
+    Task<Result<PagedResponseDto<VsDuelDto>>> GetAllianceVsDuelsAsync(Guid allianceId, int pageNumber, int pageSize, CancellationToken cancellationToken);
 
     Task<Result<VsDuelDto>> CreateVsDuelAsync(CreateVsDuelDto createVsDuelDto, string createdBy, CancellationToken cancellationToken);
 
