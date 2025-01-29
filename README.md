@@ -1,4 +1,15 @@
 ﻿# PlayerManagement  
+[![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-highlight.svg)](https://sonarcloud.io/summary/new_code?id=TomasiDeveloping_PlayerManagement)
+<br>
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=TomasiDeveloping_PlayerManagement&metric=bugs)](https://sonarcloud.io/summary/new_code?id=TomasiDeveloping_PlayerManagement)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=TomasiDeveloping_PlayerManagement&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=TomasiDeveloping_PlayerManagement)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=TomasiDeveloping_PlayerManagement&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=TomasiDeveloping_PlayerManagement)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=TomasiDeveloping_PlayerManagement&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=TomasiDeveloping_PlayerManagement)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=TomasiDeveloping_PlayerManagement&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=TomasiDeveloping_PlayerManagement)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=TomasiDeveloping_PlayerManagement&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=TomasiDeveloping_PlayerManagement)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=TomasiDeveloping_PlayerManagement&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=TomasiDeveloping_PlayerManagement)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=TomasiDeveloping_PlayerManagement&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=TomasiDeveloping_PlayerManagement)
+
 ## Changelog  
 
 All notable changes to this project are documented here.  
