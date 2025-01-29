@@ -1,5 +1,6 @@
 ﻿# PlayerManagement  
 [![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-highlight.svg)](https://sonarcloud.io/summary/new_code?id=TomasiDeveloping_PlayerManagement)
+[![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=TomasiDeveloping_PlayerManagement)](https://sonarcloud.io/summary/new_code?id=TomasiDeveloping_PlayerManagement)
 <br>
 [![Bugs](https://sonarcloud.io/api/project_badges/measure?project=TomasiDeveloping_PlayerManagement&metric=bugs)](https://sonarcloud.io/summary/new_code?id=TomasiDeveloping_PlayerManagement)
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=TomasiDeveloping_PlayerManagement&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=TomasiDeveloping_PlayerManagement)
