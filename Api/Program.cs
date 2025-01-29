@@ -8,19 +8,23 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Serilog;
 using Utilities.Classes;
 
+
 Log.Logger = new LoggerConfiguration()
     .WriteTo.Console()
     .CreateBootstrapLogger();
 
 try
 {
-    Log.Information("Starting API . . . ");
+    Log.Information("Starting Player Manager API . . . ");
     var builder = WebApplication.CreateBuilder(args);
 
-    builder.Services.AddSerilog(options =>
+    var logPath = Path.Combine(AppContext.BaseDirectory, "logs", "log-.txt");
+    builder.Host.UseSerilog((context, _, configuration) =>
     {
-        options.ReadFrom.Configuration(builder.Configuration);
+        configuration.ReadFrom.Configuration(context.Configuration)
+            .WriteTo.File(logPath, rollingInterval: RollingInterval.Day, rollOnFileSizeLimit: true);
     });
+
 
     builder.Services.AddDatabase(builder.Configuration);
     builder.Services.AddApplication();
