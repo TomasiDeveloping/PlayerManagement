@@ -6,6 +6,17 @@ This project is currently in the **Beta Phase**.
 
 ---
 
+### **[0.7.0]** - *2025-02-06*  
+#### ✨ Added  
+- **MVP Page**: A new page has been introduced where players can be loaded and a list of MVPs is displayed based on a calculation formula.
+- **Filter Options**: You can now display the entire alliance, only R4/R5 members, or just players without R5/R4.
+- **API Key**: A new tab has been added under the alliance section, allowing users to generate an API key to access endpoints and integrate them into their own systems.
+- **MVP List Endpoint**: The API endpoint for fetching the MVP list is now available.
+
+#### 🛠️ Fixed  
+- *(N/A)*
+
+
 ### **[0.6.1]** - *2025-01-28*  
 #### ✨ Added  
 - *(N/A)*  

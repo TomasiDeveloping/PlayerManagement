@@ -1,16 +1,17 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Api.Helpers;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.OpenApi.Models;
 
 namespace Api.Configurations;
 
 public static class SwaggerExtension
 {
-    // Configures Swagger for API documentation
     public static void ConfigureAndAddSwagger(this IServiceCollection services)
     {
         services.AddSwaggerGen(options =>
         {
-            // Defines API documentation details for version 1
+            options.EnableAnnotations();
+            options.DocumentFilter<HideEndpointsInProductionFilter>();
             options.SwaggerDoc("v1", new OpenApiInfo
             {
                 Title = "Last War Player Management API",

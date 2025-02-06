@@ -5,7 +5,7 @@ import {Observable} from "rxjs";
 import {
   CreatePlayerModel,
   DismissPlayerInformationModel,
-  PlayerModel,
+  PlayerModel, PlayerMvpModel,
   UpdatePlayerModel
 } from "../models/player.model";
 import {ExcelImportResponseModel} from "../models/excelImportResponse.model";
@@ -36,6 +36,13 @@ export class PlayerService {
 
   public getDismissPlayerInformation(playerId: string): Observable<DismissPlayerInformationModel> {
     return this._httpClient.get<DismissPlayerInformationModel>(this._serviceUrl + 'DismissInformation/' + playerId);
+  }
+
+  public getAllianceMvpPlayers(allianceId: string, playerType: string): Observable<PlayerMvpModel[]> {
+    let params = new HttpParams();
+    params = params.append("allianceId", allianceId);
+    params = params.append("playerType", playerType);
+    return this._httpClient.get<PlayerMvpModel[]>(this._serviceUrl + 'Mvp', {params: params});
   }
 
   public updatePlayer(playerId: string, player: UpdatePlayerModel): Observable<PlayerModel> {

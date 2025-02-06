@@ -15,7 +15,6 @@ public class PlayerProfile : Profile
 
         CreateMap<CreatePlayerDto, Player>()
             .ForMember(des => des.Id, opt => opt.MapFrom(src => Guid.CreateVersion7()))
-            .ForMember(des => des.IsDismissed, opt => opt.MapFrom(src => false))
             .ForMember(des => des.CreatedOn, opt => opt.MapFrom(src => DateTime.Now));
 
         CreateMap<UpdatePlayerDto, Player>()

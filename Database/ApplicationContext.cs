@@ -42,6 +42,8 @@ public class ApplicationContext(DbContextOptions<ApplicationContext> options) : 
 
     public DbSet<VsDuelLeague> VsDuelLeagues { get; set; }
 
+    public DbSet<ApiKey> ApiKeys { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);

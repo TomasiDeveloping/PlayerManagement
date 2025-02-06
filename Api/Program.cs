@@ -1,6 +1,7 @@
 // Configure Serilog logger
 
 using Api.Configurations;
+using Api.Middleware;
 using Application;
 using Database;
 using HealthChecks.UI.Client;
@@ -60,6 +61,7 @@ try
     app.UseHttpsRedirection();
 
     app.UseAuthentication();
+    app.UseMiddleware<ApiKeyMiddleware>();
     app.UseAuthorization();
 
     app.MapControllers();

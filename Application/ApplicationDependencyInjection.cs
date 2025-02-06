@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using Application.Helpers;
 using Application.Interfaces;
 using Application.Repositories;
 using Application.Services;
@@ -32,12 +33,14 @@ public static class ApplicationDependencyInjection
         services.AddScoped<IZombieSiegeRepository, ZombieSiegeRepository>();
         services.AddScoped<IZombieSiegeParticipantRepository, ZombieSiegeParticipantRepository>();
         services.AddScoped<IVsDuelLeagueRepository, VsDuelLeagueRepository>();
-        services.AddScoped<IExcelService, ExcelService>();
+        services.AddScoped<IApiKeyRepository, ApiKeyRepository>();
 
 
         services.AddTransient<IJwtService, JwtService>();
         services.AddTransient<IClaimTypeService, ClaimTypeService>();
         services.AddTransient<IEmailService, EmailService>();
+        services.AddTransient<IExcelService, ExcelService>();
+        services.AddTransient<IEncryptionService, EncryptionService>();
 
         return services;
     }

@@ -1,8 +1,6 @@
 import {NoteModel} from "./note.model";
 import {AdmonitionModel} from "./admonition.model";
-import {DesertStormParticipantModel} from "./desertStormParticipant.model";
-import {MarshalGuardParticipantModel} from "./marshalGuardParticipant.model";
-import {VsDuelParticipantModel} from "./vsDuelParticipant.model";
+
 
 export interface PlayerModel {
   id: string;
@@ -20,6 +18,16 @@ export interface PlayerModel {
   isDismissed: boolean;
   dismissedAt?: Date;
   dismissalReason?: string;
+}
+
+export interface PlayerMvpModel {
+  name: string;
+  allianceRank: string;
+  duelPointsLast3Weeks: number;
+  marshalParticipationCount: number;
+  desertStormParticipationCount: number;
+  hasParticipatedInOldestDuel: boolean;
+  mvpScore: number;
 }
 
 export interface CreatePlayerModel {

@@ -1,0 +1,134 @@
+<div class="container mt-3 pb-5">
+  <h2 class="text-center mb-4">🏆 MVP Leaderboard</h2>
+  <div class="container mt-4">
+    <!-- Info-Toggle Button -->
+    <div class="d-flex justify-content-center mb-3">
+      <button class="btn btn-info" type="button" (click)="toggleInfo()">
+        {{ showInfo ? 'Hide' : 'Show' }} How the MVP List is Generated
+      </button>
+    </div>
+
+    @if (showInfo) {
+      <div class="alert alert-light border p-3">
+        <h5>📊 How the MVP List is Generated</h5>
+        <p>
+          The MVP list is generated based on each player's activity in the last three weeks.
+          The calculation takes into account <strong>Weekly VS Duel Points</strong>,
+          <strong>Marshal Participation</strong>, and <strong>Desert Storm Participation</strong>.
+        </p>
+
+        <h6>🔹 Step 1: Weekly VS Duel Points (80% Weighting)</h6>
+        <p>
+          This is the most important factor. The total VS points from the last three weeks are divided by 1,000,000 and multiplied by 0.8.
+        </p>
+        <p><strong>Formula:</strong></p>
+        <code>(Total VS Points from last 3 weeks / 1,000,000) * 0.8</code>
+
+        <h6>🔹 Step 2: Participation in Events (20% Weighting)</h6>
+        <ul>
+          <li><strong>Marshal Participation:</strong> Each participation earns 20 points.</li>
+          <li><strong>Desert Storm Participation:</strong> Each participation earns 40 points.</li>
+        </ul>
+        <p><strong>Formula:</strong></p>
+        <code>(Marshal points + Desert Storm points) * 0.2</code>
+
+        <h5>📌 Example Calculation</h5>
+        <ul>
+          <li><strong>VS Points from last 3 weeks:</strong> 130 million</li>
+          <li><strong>Marshal Participations:</strong> 8</li>
+          <li><strong>Desert Storm Participations:</strong> 2</li>
+        </ul>
+        <p>Final Calculation:</p>
+        <ul>
+          <li>VS Points: <code>(130,000,000 / 1,000,000) * 0.8 = 104</code></li>
+          <li>Marshal: <code>8 * 20 = 160</code></li>
+          <li>Desert Storm: <code>2 * 40 = 80</code></li>
+          <li>Additional Points: <code>(160 + 80) * 0.2 = 48</code></li>
+          <li><strong>Total MVP Points: 104 + 48 = 152</strong></li>
+        </ul>
+
+        <h5>🔍 How the MVP List Works</h5>
+        <p>
+          The system ranks players based on their total MVP points. You can filter the list using the options below:
+        </p>
+        <ul>
+          <li><strong>Players Only:</strong> Show only regular players.</li>
+          <li><strong>Only R5/R4:</strong> Show only high-ranking players.</li>
+          <li><strong>Show All:</strong> Display the complete MVP list.</li>
+        </ul>
+      </div>
+    }
+
+
+    <div class="d-flex justify-content-center">
+      <div class="btn-group" role="group" aria-label="MVP Filter">
+        <input
+          type="radio"
+          class="btn-check"
+          name="mvpFilter"
+          id="playersOnly"
+          value="players"
+          [(ngModel)]="selectedFilter"
+          (change)="onSelectChange()"
+        />
+        <label class="btn btn-outline-primary" for="playersOnly">Players Only</label>
+
+        <input
+          type="radio"
+          class="btn-check"
+          name="mvpFilter"
+          id="leadership"
+          value="leadership"
+          [(ngModel)]="selectedFilter"
+          (change)="onSelectChange()"
+        />
+        <label class="btn btn-outline-primary" for="leadership">Only R5/R4</label>
+
+        <input
+          type="radio"
+          class="btn-check"
+          name="mvpFilter"
+          id="all"
+          value="all"
+          [(ngModel)]="selectedFilter"
+          (change)="onSelectChange()"
+          checked
+        />
+        <label class="btn btn-outline-primary" for="all">Show All</label>
+      </div>
+    </div>
+
+    <div class="table-responsive mt-5">
+      <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Rank</th>
+          <th scope="col">VS Points</th>
+          <th scope="col">Marshal Participation</th>
+          <th scope="col">Desert Storm Participation</th>
+          <th scope="col">MVP Points</th>
+          <th scope="col">Attended 3 VS Duel weeks</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (player of mvpPlayers; track player.name; let i = $index) {
+            <tr>
+              <td>{{i + 1}}</td>
+              <td>{{player.name}}</td>
+              <td>{{player.allianceRank}}</td>
+              <td>{{player.duelPointsLast3Weeks | number}}</td>
+              <td>{{player.marshalParticipationCount}}</td>
+              <td>{{player.desertStormParticipationCount}}</td>
+              <td>{{player.mvpScore}}</td>
+              <td class="text-center"><i class="bi" [ngClass]="player.hasParticipatedInOldestDuel ? 'bi-check-circle text-success' : 'bi-x-circle text-danger'"></i>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div>

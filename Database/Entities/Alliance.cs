@@ -14,6 +14,8 @@ public class Alliance : BaseEntity
 
     public string? ModifiedBy { get; set; }
 
+    public ApiKey? ApiKey { get; set; }
+
     public ICollection<Player> Players { get; set; } = [];
 
     public ICollection<User> Users { get; set; } = [];

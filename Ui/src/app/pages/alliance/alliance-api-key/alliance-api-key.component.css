@@ -1,0 +1,90 @@
+.api-key-card {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 24px;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  .card-header {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    font-size: 1.5rem;
+    background: linear-gradient(45deg, #007bff, #0056b3);
+  }
+}
+
+.api-key-input-group {
+  max-width: 420px; // Begrenzung der Breite des Input-Feldes
+}
+
+.api-key-input {
+  border-right: none;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.input-group-append .btn {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.no-api-key-card {
+  max-width: 400px;
+  margin: 24px auto;
+  padding: 20px;
+  border: none;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #3a3a3a;
+}
+
+.no-api-key-icon {
+  font-size: 3rem;
+  color: #007bff;
+}
+
+.btn-primary {
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-weight: bold;
+}
+h2 {
+  color: #ffffff; /* Weiße Schriftfarbe für Überschriften */
+}
+
+h4, h5 {
+  color: #f1f1f1; /* Hellere Farbe für Unterüberschriften */
+}
+
+.alert-info {
+  background-color: #3a3a3a; /* Dunklerer Hintergrund für Alerts */
+  border-color: #555555;
+  color: #a6c8ff; /* Hellere Schriftfarbe im Alert */
+}
+
+.alert-heading {
+  color: #ffffff; /* Weiße Schrift für den Alert-Header */
+}
+
+pre {
+  background-color: #2d2d2d; /* Dunkles Hintergrund für Code-Block */
+  border-radius: 5px;
+  padding: 15px;
+  overflow-x: auto;
+  color: #f1f1f1; /* Heller Text im Code */
+  border: 1px solid #444444; /* Dünner Rand um den Code-Block */
+}
+
+code {
+  font-family: Consolas, Monaco, monospace;
+  color: #ffcc00; /* Helle Farbe für den Code */
+}
+
+a {
+  color: #66b2ff; /* Blaue Farbe für Links */
+}
+
+a:hover {
+  color: #3388cc; /* Dunkleres Blau beim Hover über Links */
+}

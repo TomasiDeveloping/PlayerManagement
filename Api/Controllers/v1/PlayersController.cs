@@ -1,4 +1,5 @@
-﻿using Application.DataTransferObjects;
+﻿using Api.Helpers;
+using Application.DataTransferObjects;
 using Application.DataTransferObjects.ExcelImport;
 using Application.DataTransferObjects.Player;
 using Application.Errors;
@@ -6,6 +7,7 @@ using Application.Interfaces;
 using Asp.Versioning;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 
 namespace Api.Controllers.v1
@@ -13,9 +15,9 @@ namespace Api.Controllers.v1
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
-    [Authorize]
     public class PlayersController(IPlayerRepository playerRepository, IClaimTypeService claimTypeService, IExcelService excelService, ILogger<PlayersController> logger) : ControllerBase
     {
+        [Authorize]
         [HttpGet("{playerId:guid}")]
         public async Task<ActionResult<PlayerDto>> GetPlayer(Guid playerId, CancellationToken cancellationToken)
         {
@@ -34,6 +36,7 @@ namespace Api.Controllers.v1
             }
         }
 
+        [Authorize]
         [HttpGet("Alliance/{allianceId:guid}")]
         public async Task<ActionResult<List<PlayerDto>>> GetAlliancePlayers(Guid allianceId, CancellationToken cancellationToken)
         {
@@ -55,6 +58,7 @@ namespace Api.Controllers.v1
             }
         }
 
+        [Authorize]
         [HttpGet("Alliance/dismiss/{allianceId:guid}")]
         public async Task<ActionResult<PagedResponseDto<PlayerDto>>> GetAllianceDismissPlayers(Guid allianceId, CancellationToken cancellationToken, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
@@ -76,6 +80,7 @@ namespace Api.Controllers.v1
             }
         }
 
+        [Authorize]
         [HttpGet("DismissInformation/{playerId:guid}")]
         public async Task<ActionResult<DismissPlayerInformationDto>> GetDismissPlayerInformation(Guid playerId, CancellationToken cancellationToken)
         {
@@ -141,6 +146,32 @@ namespace Api.Controllers.v1
             }
         }
 
+        [AllowApiKey]
+        [HttpGet("Mvp/")]
+        [SwaggerOperation(
+            Summary = "Get Alliance MVPs",
+            Description = "Retrieves the MVPs (Most Valuable Players) for a given alliance. If the 'playerType' parameter is not provided, all MVPs will be returned. The 'playerType' parameter specifies whether the MVPs should be from 'players' or 'leadership'. Possible values for 'playerType' are 'players' or 'leadership'."
+        )]
+        public async Task<ActionResult<List<PlayerMvpDto>>> GetAllianceMvp([FromQuery] Guid allianceId, [FromQuery]string? playerType, [FromQuery]string? key, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var allianceMvpResult = await playerRepository.GetAllianceMvp(allianceId, playerType, cancellationToken);
+
+                if (allianceMvpResult.IsFailure) return BadRequest(allianceMvpResult.Error);
+
+                return allianceMvpResult.Value.Count > 0
+                    ? Ok(allianceMvpResult.Value)
+                    : NoContent();
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, e.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [Authorize]
         [HttpPost]
         public async Task<ActionResult<PlayerDto>> CreatePlayer(CreatePlayerDto createPlayerDto, CancellationToken cancellationToken)
         {
@@ -161,6 +192,7 @@ namespace Api.Controllers.v1
             }
         }
 
+        [Authorize]
         [HttpPost("ExcelImport")]
         public async Task<ActionResult<ExcelImportResponse>> ImportPlayersFromExcel(
             [FromForm] ExcelImportRequest excelImportRequest, CancellationToken cancellationToken)
@@ -194,6 +226,7 @@ namespace Api.Controllers.v1
             }
         }
 
+        [Authorize]
         [HttpPut("{playerId:guid}")]
         public async Task<ActionResult<PlayerDto>> UpdatePlayer(Guid playerId, UpdatePlayerDto updatePlayerDto, CancellationToken cancellationToken)
         {
@@ -216,6 +249,7 @@ namespace Api.Controllers.v1
             }
         }
 
+        [Authorize]
         [HttpPut("{playerId:guid}/dismiss")]
         public async Task<ActionResult<PlayerDto>> DismissPlayer(Guid playerId, DismissPlayerDto dismissPlayerDto,
             CancellationToken cancellationToken)
@@ -239,6 +273,7 @@ namespace Api.Controllers.v1
             }
         }
 
+        [Authorize]
         [HttpPut("{playerId:guid}/reactive")]
         public async Task<ActionResult<PlayerDto>> ReactivePlayer(Guid playerId, ReactivatePlayerDto reactivatePlayerDto, CancellationToken cancellationToken)
         {
@@ -261,6 +296,7 @@ namespace Api.Controllers.v1
             }
         }
 
+        [Authorize]
         [HttpDelete("{playerId:guid}")]
         public async Task<ActionResult<bool>> DeletePlayer(Guid playerId, CancellationToken cancellationToken)
         {

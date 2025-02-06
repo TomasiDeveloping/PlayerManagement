@@ -23,12 +23,14 @@ import {ZombieSiegeComponent} from "./pages/zombie-siege/zombie-siege.component"
 import {ZombieSiegeDetailComponent} from "./pages/zombie-siege/zombie-siege-detail/zombie-siege-detail.component";
 import {CustomEventDetailComponent} from "./pages/custom-event/custom-event-detail/custom-event-detail.component";
 import {DismissPlayerComponent} from "./pages/dismiss-player/dismiss-player.component";
+import {MvpComponent} from "./pages/mvp/mvp.component";
 
 const routes: Routes = [
   {path: 'players', component: PlayerComponent, canActivate: [authGuard]},
   {path: 'dismiss-players', component: DismissPlayerComponent, canActivate: [authGuard]},
   {path: 'player-information/:id', component: PlayerInformationComponent, canActivate: [authGuard]},
   {path: 'marshal-guard', component: MarshalGuardComponent, canActivate: [authGuard]},
+  {path: 'mvp', component: MvpComponent, canActivate: [authGuard]},
   {path: 'marshal-guard-detail/:id', component: MarshalGuardDetailComponent, canActivate: [authGuard]},
   {path: 'vs-duel', component: VsDuelComponent, canActivate: [authGuard]},
   {path: 'vs-duel-detail/:id', component: VsDuelDetailComponent, canActivate: [authGuard]},

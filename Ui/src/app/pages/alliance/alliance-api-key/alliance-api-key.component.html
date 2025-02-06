@@ -1,0 +1,131 @@
+<h2 class="text-center mb-4">API Key Generation and Usage</h2>
+@if (apiKey) {
+  <div class="card mb-3 api-key-card">
+    <div class="card-header bg-gradient-primary text-white">
+      API Key Details
+    </div>
+    <div class="card-body">
+      <!-- API Key Field mit Icon Toggle und Kopierfunktion -->
+      <div class="form-group">
+        <label for="apiKey">API Key</label>
+        <div class="input-group api-key-input-group">
+          <input
+            [type]="isKeyVisible ? 'text' : 'password'"
+            class="form-control api-key-input"
+            id="apiKey"
+            [value]="apiKey.key"
+            readonly>
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              (click)="toggleKeyVisibility()">
+              <i [ngClass]="isKeyVisible ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+            </button>
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              (click)="copyApiKey()"
+              [attr.title]="copied ? 'Copied!' : 'Copy to clipboard'">
+              <i [ngClass]="copied ? 'bi bi-check-lg text-success' : 'bi bi-clipboard'"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="allianceId">Alliance Id</label>
+        <div class="input-group api-key-input-group">
+          <input
+            [type]="isIdVisible ? 'text' : 'password'"
+            class="form-control api-key-input"
+            id="allianceId"
+            [value]="allianceId"
+            readonly>
+          <div class="input-group-append">
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              (click)="toggleIdVisibility()">
+              <i [ngClass]="isIdVisible ? 'bi bi-eye-slash' : 'bi bi-eye'"></i>
+            </button>
+            <button
+              class="btn btn-outline-secondary"
+              type="button"
+              (click)="copyAllianceId()"
+              [attr.title]="copied ? 'Copied!' : 'Copy to clipboard'">
+              <i [ngClass]="copied ? 'bi bi-check-lg text-success' : 'bi bi-clipboard'"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="metadata mt-4">
+        <p><strong>Created on:</strong> {{ apiKey.createdOn | date: 'dd.MM.yyyy HH:mm' }}</p>
+        <p><strong>Created by:</strong> {{ apiKey.createdBy }}</p>
+        @if (apiKey.modifiedBy) {
+          <p><strong>Last updated on:</strong> {{ apiKey.modifiedOn | date: 'dd.MM.yyyy HH:mm' }}</p>
+          <p><strong>Last updated by:</strong> {{ apiKey.modifiedBy }}</p>
+        }
+      </div>
+
+      <div class="d-flex justify-content-between mt-3">
+        <button class="btn btn-primary" (click)="regenerateApiKey(apiKey.id)">
+          <i class="bi bi-arrow-clockwise"></i>
+          Refresh Key
+        </button>
+
+        <button class="btn btn-danger" (click)="deleteApiKey(apiKey.id)">
+          <i class="bi bi-trash"></i>
+          Delete Key
+        </button>
+      </div>
+
+
+    </div>
+  </div>
+} @else {
+  <div class="card text-center no-api-key-card">
+    <div class="card-body">
+      <i class="bi bi-key-fill no-api-key-icon"></i>
+      <h5 class="card-title mt-3">No API Key Available</h5>
+      <p class="card-text">
+        You have not created an API Key yet. Click the button below to generate one.
+      </p>
+      <button class="btn btn-primary" (click)="generateApiKey()">
+        <i class="bi bi-plus-lg"></i> Generate API Key
+      </button>
+    </div>
+  </div>
+
+}
+<div class="container mt-5 pb-5">
+  <div class="row">
+    <div class="col-md-12">
+
+      <div class="alert alert-info" role="alert">
+        <h4 class="alert-heading">Important Information</h4>
+        <p>To interact with our system's endpoints, you need to generate an <strong>API Key</strong>. The API Key serves
+          as an authentication token for your requests, ensuring that only authorized users can access the available
+          endpoints.</p>
+      </div>
+
+      <h4>How to Use the API Key</h4>
+      <p>You can send the API Key in two ways:</p>
+      <ul>
+        <li><strong>As a URL Query Parameter:</strong> Add the <code>key</code> parameter to your URL.</li>
+        <li><strong>As a Request Header:</strong> Include the API Key in the <code>X-Api-Key</code> header.</li>
+      </ul>
+
+      <h5>Examples</h5>
+      <pre><code>https://api.example.com/data?key=YOUR_API_KEY&allianceId=YOUR_ALLIANCE_ID</code></pre>
+      <pre><code>curl -X GET "https://api.example.com/data?key=YOUR_API_KEY&allianceId=12345"</code></pre>
+
+      <p>In both cases, make sure to include your <strong>AllianceId</strong> as a query parameter to ensure correct
+        access and data retrieval.</p>
+
+      <h4>Swagger Documentation</h4>
+      <p>To explore all available API endpoints and their detailed usage, check out our <a
+        href="https://player-manager.last-war.ch/swagger" target="_blank">Swagger documentation here</a>.</p>
+
+    </div>
+  </div>
+</div>
