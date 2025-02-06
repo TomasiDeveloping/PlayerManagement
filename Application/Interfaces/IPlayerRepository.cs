@@ -12,10 +12,6 @@ public interface IPlayerRepository
 
     Task<Result<PagedResponseDto<PlayerDto>>> GetAllianceDismissPlayersAsync(Guid allianceId, int pageNumber, int pageSize, CancellationToken cancellationToken);
 
-    Task<Result<List<PlayerMvpDto>>> GetAlliancePlayersMvp(Guid allianceId, CancellationToken cancellationToken);
-
-    Task<Result<List<PlayerMvpDto>>> GetAllianceLeadershipMvp(Guid allianceId, CancellationToken cancellationToken);
-
     Task<Result<List<PlayerMvpDto>>> GetAllianceMvp(Guid allianceId, string? playerType, CancellationToken cancellationToken);
 
     Task<Result<DismissPlayerInformationDto>> GetDismissPlayerInformationAsync(Guid playerId, CancellationToken cancellationToken);
