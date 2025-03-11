@@ -41,6 +41,7 @@ public static class ApplicationDependencyInjection
         services.AddTransient<IEmailService, EmailService>();
         services.AddTransient<IExcelService, ExcelService>();
         services.AddTransient<IEncryptionService, EncryptionService>();
+        services.AddTransient<IGitHubService, GitHubService>();
 
         return services;
     }

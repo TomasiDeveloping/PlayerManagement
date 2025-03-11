@@ -151,7 +151,8 @@ public class PlayerRepository(ApplicationContext context, IMapper mapper, ILogge
             ModifiedBy = null,
             DismissalReason = null,
             DismissedAt = null,
-            IsDismissed = false
+            IsDismissed = false,
+            Id = Guid.CreateVersion7()
         };
 
         await context.Players.AddAsync(newPlayer, cancellationToken);

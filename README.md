@@ -17,6 +17,15 @@ All notable changes to this project are documented here.
 This project is currently in the **Beta Phase**.  
 
 ---
+### **[0.8.0]** - *2025-03-11*  
+#### ✨ Added  
+- **Feedback Page:** Users can now submit feedback, including bug reports and feature requests.  
+- **GitHub Integration:** Feedback is automatically created as a GitHub issue, providing a direct link to track progress.  
+- **Screenshot Upload:** Users can attach a screenshot to better illustrate issues.  
+- **Success Message:** After submission, the form hides, and a success message with the GitHub issue link is displayed.  
+
+🛠️ **Fixed**  
+- (N/A)
 
 ### **[0.7.0]** - *2025-02-06*  
 #### ✨ Added  

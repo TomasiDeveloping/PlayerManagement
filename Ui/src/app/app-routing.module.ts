@@ -24,6 +24,7 @@ import {ZombieSiegeDetailComponent} from "./pages/zombie-siege/zombie-siege-deta
 import {CustomEventDetailComponent} from "./pages/custom-event/custom-event-detail/custom-event-detail.component";
 import {DismissPlayerComponent} from "./pages/dismiss-player/dismiss-player.component";
 import {MvpComponent} from "./pages/mvp/mvp.component";
+import {FeedbackComponent} from "./pages/feedback/feedback.component";
 
 const routes: Routes = [
   {path: 'players', component: PlayerComponent, canActivate: [authGuard]},
@@ -40,6 +41,7 @@ const routes: Routes = [
   { path: 'alliance', component: AllianceComponent, canActivate: [authGuard]},
   {path: 'account', component: AccountComponent, canActivate: [authGuard]},
   {path: 'change-password', component: ChangePasswordComponent, canActivate: [authGuard]},
+  {path: 'feedback', component: FeedbackComponent, canActivate: [authGuard]},
   {path: 'custom-event', component: CustomEventComponent, canActivate: [authGuard]},
   {path: 'custom-event-detail/:id', component: CustomEventDetailComponent, canActivate: [authGuard]},
   {path: 'zombie-siege', component: ZombieSiegeComponent, canActivate: [authGuard]},

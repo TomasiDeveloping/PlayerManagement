@@ -1,0 +1,164 @@
+<div class="container mt-3 pb-5">
+  <h2 class="text-center">Submit Feedback</h2>
+
+  @if (!isSubmitted) {
+    <!-- Feedback Form -->
+    <form [formGroup]="feedbackForm">
+      <div class="form-floating mb-3 is-invalid">
+        <select [ngClass]="{
+          'is-valid': f['type'].valid,
+          'is-invalid': f['type'].invalid && (f['type'].touched || f['type'].dirty)
+          }" class="form-control" id="type" formControlName="type" (change)="onTypeChange($event)">
+          <option value="bug">Bug Report</option>
+          <option value="feature">Feature Request</option>
+        </select>
+        <label for="type">Feedback Type</label>
+      </div>
+
+      <div class="form-floating mb-3 is-invalid">
+        <input [ngClass]="{
+          'is-valid': f['title'].valid,
+          'is-invalid': f['title'].invalid && (f['title'].touched || f['title'].dirty)
+          }" type="text" class="form-control" id="title" placeholder="Title" formControlName="title">
+        <label for="title">Title</label>
+        @if (f['title'].invalid && (f['title'].touched || f['title'].dirty)) {
+          <div class="invalid-feedback">
+            @if (f['title'].hasError('required')) {
+              <p>Title is required</p>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="form-floating mb-3 is-invalid">
+      <textarea [ngClass]="{
+          'is-valid': f['description'].valid,
+          'is-invalid': f['description'].invalid && (f['description'].touched || f['description'].dirty)
+          }" class="form-control" id="description" formControlName="description" placeholder="Describe the issue or feature" style="height: 100px;"></textarea>
+        <label for="description">Description</label>
+        @if (f['description'].invalid && (f['description'].touched || f['description'].dirty)) {
+          <div class="invalid-feedback">
+            @if (f['description'].hasError('required')) {
+              <p>Description is required</p>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="form-floating mb-3 is-invalid">
+        <input type="email" class="form-control" id="email" formControlName="email" placeholder="Enter your email (optional)">
+        <label for="email">Your Email (Optional)</label>
+      </div>
+
+      @if (feedbackType === 'bug') {
+        <div class="form-floating mb-3 is-invalid">
+        <textarea [ngClass]="{
+          'is-valid': f['expectedBehavior'].valid,
+          'is-invalid': f['expectedBehavior'].invalid && (f['expectedBehavior'].touched || f['expectedBehavior'].dirty)
+          }"  class="form-control" id="expectedBehavior" formControlName="expectedBehavior" placeholder="What did you expect to happen?" style="height: 100px;"></textarea>
+          <label for="expectedBehavior">Expected Behavior</label>
+          @if (f['expectedBehavior'].invalid && (f['expectedBehavior'].touched || f['expectedBehavior'].dirty)) {
+            <div class="invalid-feedback">
+              @if (f['expectedBehavior'].hasError('required')) {
+                <p>ExpectedBehavior is required</p>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="form-floating mb-3 is-invalid">
+        <textarea [ngClass]="{
+          'is-valid': f['actualBehavior'].valid,
+          'is-invalid': f['actualBehavior'].invalid && (f['actualBehavior'].touched || f['actualBehavior'].dirty)
+          }"  class="form-control" id="actualBehavior" formControlName="actualBehavior" placeholder="What actually happened?" style="height: 100px;"></textarea>
+          <label for="actualBehavior">Actual Behavior</label>
+          @if (f['actualBehavior'].invalid && (f['actualBehavior'].touched || f['actualBehavior'].dirty)) {
+            <div class="invalid-feedback">
+              @if (f['actualBehavior'].hasError('required')) {
+                <p>ActualBehavior is required</p>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="form-floating mb-3 is-invalid">
+        <textarea [ngClass]="{
+          'is-valid': f['reproduction'].valid,
+          'is-invalid': f['reproduction'].invalid && (f['reproduction'].touched || f['reproduction'].dirty)
+          }"  class="form-control" id="reproduction" formControlName="reproduction" placeholder="List the steps to reproduce the issue" style="height: 100px;"></textarea>
+          <label for="reproduction">Steps to Reproduce</label>
+          @if (f['reproduction'].invalid && (f['reproduction'].touched || f['reproduction'].dirty)) {
+            <div class="invalid-feedback">
+              @if (f['reproduction'].hasError('required')) {
+                <p>Reproduction is required</p>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="form-floating mb-3 is-invalid">
+          <select [ngClass]="{
+          'is-valid': f['severity'].valid,
+          'is-invalid': f['severity'].invalid && (f['severity'].touched || f['severity'].dirty)
+          }"  class="form-control" id="severity" formControlName="severity">
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+          <label for="severity">Severity</label>
+        </div>
+
+        <div class="form-floating mb-3 is-invalid">
+          <select [ngClass]="{
+          'is-valid': f['os'].valid,
+          'is-invalid': f['os'].invalid && (f['os'].touched || f['os'].dirty)
+          }"  class="form-control" id="os" formControlName="os">
+            <option value="windows">Windows</option>
+            <option value="macos">macOS</option>
+            <option value="linux">Linux</option>
+            <option value="android">Android</option>
+            <option value="ios">iOS</option>
+          </select>
+          <label for="os">Operating System</label>
+          @if (f['os'].invalid && (f['os'].touched || f['os'].dirty)) {
+            <div class="invalid-feedback">
+              @if (f['os'].hasError('required')) {
+                <p>Operating System is required</p>
+              }
+            </div>
+          }
+        </div>
+
+        <div class="form-floating mb-3 is-invalid">
+          <input [ngClass]="{
+          'is-valid': f['appVersion'].valid,
+          'is-invalid': f['appVersion'].invalid && (f['appVersion'].touched || f['appVersion'].dirty)
+          }"  type="text" class="form-control" id="appVersion" formControlName="appVersion" placeholder="App version (e.g., 1.2.3)" readonly>
+          <label for="appVersion">App Version</label>
+        </div>
+
+        <div class="mb-3">
+          <label for="formFile" class="form-label">Screenshot (optional):</label>
+          <input class="form-control" type="file" id="formFile" (change)="onFileChange($event)">
+        </div>
+
+      }
+
+      <div class="d-flex justify-content-between">
+        <button (click)="onCancel()" type="button" class="btn btn-warning">Cancel</button>
+        <button [disabled]="feedbackForm.invalid" (click)="onSubmit()" type="submit" class="btn btn-success">Send feedback</button>
+      </div>
+    </form>
+  } @else {
+    <div class="alert alert-success text-center">
+      <h3>Thank you for your feedback!</h3>
+      <p>Your feedback has been successfully submitted.</p>
+      <p>
+        You can track the progress of your feedback <br />
+        <a [href]="issueUrl" target="_blank" class="btn btn-success mt-2">View Issue on GitHub</a>
+      </p>
+    </div>
+  }
+
+
+</div>

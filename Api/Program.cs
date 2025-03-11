@@ -1,5 +1,3 @@
-// Configure Serilog logger
-
 using Api.Configurations;
 using Api.Middleware;
 using Application;
@@ -40,6 +38,11 @@ try
 
     builder.Services.AddOptions<EmailConfiguration>()
         .BindConfiguration("EmailSettings")
+        .ValidateDataAnnotations()
+        .ValidateOnStart();
+
+    builder.Services.AddOptions<GitHubSetting>()
+        .BindConfiguration("GitHubSettings")
         .ValidateDataAnnotations()
         .ValidateOnStart();
 
