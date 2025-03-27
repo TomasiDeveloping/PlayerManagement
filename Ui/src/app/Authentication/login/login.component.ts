@@ -68,4 +68,11 @@ export class LoginComponent {
     this._router.navigate(['sign-up']).then();
   }
 
+  onVersion() {
+    window.open('https://github.com/TomasiDeveloping/PlayerManagement', '_blank');
+  }
+
+  onCompany() {
+    window.open('https://tomasi-developing.ch', '_blank');
+  }
 }

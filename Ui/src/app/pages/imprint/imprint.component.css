@@ -1,0 +1,36 @@
+.legal {
+  background-color: #1a1a1a;
+  color: #f8f9fa;
+  padding: 2rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.6);
+  line-height: 1.6;
+}
+
+.legal h1,
+.legal h2 {
+  color: #78c2ad;
+  font-weight: 600;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.legal a {
+  color: #1abc9c;
+  text-decoration: none;
+}
+
+.legal a:hover {
+  color: #16a085;
+  text-decoration: underline;
+}
+
+.legal ul {
+  padding-left: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.legal hr {
+  border-color: rgba(255, 255, 255, 0.1);
+  margin: 2rem 0;
+}

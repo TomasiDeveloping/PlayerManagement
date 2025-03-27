@@ -75,8 +75,9 @@
     </div>
   </div>
 
-  <footer class="footer">
-    <span class="small">&copy; {{currentYear}} Tomasi-Developing</span>
-    <span class="small">Version: <span class="text-primary">{{version}}</span></span>
+  <footer class="footer d-flex flex-wrap justify-content-center justify-content-md-between align-items-center  px-3 py-3 mt-auto shadow-sm gap-2 small text-center">
+    <span (click)="onCompany()" style="cursor: pointer">&copy; {{currentYear}} Tomasi-Developing</span>
+    <span>Version: <span (click)="onVersion()" class="text-info" style="cursor: pointer">{{version}}</span></span>
+    <span><a routerLink="/imprint" class="text-info text-decoration-none">Legal Notice / Privacy</a></span>
   </footer>
 </div>

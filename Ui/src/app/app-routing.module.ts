@@ -25,6 +25,7 @@ import {CustomEventDetailComponent} from "./pages/custom-event/custom-event-deta
 import {DismissPlayerComponent} from "./pages/dismiss-player/dismiss-player.component";
 import {MvpComponent} from "./pages/mvp/mvp.component";
 import {FeedbackComponent} from "./pages/feedback/feedback.component";
+import {ImprintComponent} from "./pages/imprint/imprint.component";
 
 const routes: Routes = [
   {path: 'players', component: PlayerComponent, canActivate: [authGuard]},
@@ -51,6 +52,7 @@ const routes: Routes = [
   {path: 'sign-up', component: SignUpComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'reset-password', component: ResetPasswordComponent},
+  {path: 'imprint', component: ImprintComponent},
   {path: '', redirectTo: 'players', pathMatch: 'full'},
 ];
 

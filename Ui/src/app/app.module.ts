@@ -60,6 +60,7 @@ import { MvpComponent } from './pages/mvp/mvp.component';
 import { AllianceApiKeyComponent } from './pages/alliance/alliance-api-key/alliance-api-key.component';
 import { AllianceUserAdministrationComponent } from './pages/alliance/alliance-user-administration/alliance-user-administration.component';
 import { FeedbackComponent } from './pages/feedback/feedback.component';
+import { ImprintComponent } from './pages/imprint/imprint.component';
 
 @NgModule({
   declarations: [
@@ -109,7 +110,8 @@ import { FeedbackComponent } from './pages/feedback/feedback.component';
     MvpComponent,
     AllianceApiKeyComponent,
     AllianceUserAdministrationComponent,
-    FeedbackComponent
+    FeedbackComponent,
+    ImprintComponent
   ],
     imports: [
         BrowserModule,
