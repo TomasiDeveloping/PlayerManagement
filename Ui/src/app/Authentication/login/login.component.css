@@ -8,7 +8,7 @@
 
 .background::before {
   content: "";
-  background-image: url('../../../assets/images/background.jpg');
+  background-image: url('../../../assets/images/background.png');
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -25,22 +25,57 @@
 .title {
   text-align: center;
   padding-top: 50px;
-  font-size: 3em;
+  font-size: 3rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
   color: #ffffff;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+  text-shadow: 0 0 8px rgba(0, 153, 255, 0.4);
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+  animation: fadeInTitle 1.2s ease-out;
+  background: linear-gradient(to right, #00bfff, #66ccff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
+@keyframes fadeInTitle {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
+/* Login Box mit Glow & Animation */
 .login-box {
-  background-color: rgba(0, 0, 0, 0.7);
-  padding: 20px;
-  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 30px;
+  border-radius: 16px;
   width: 100%;
   max-width: 500px;
   margin: 100px auto 0;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+  transition: all 0.3s ease-in-out;
+  animation: fadeInUp 0.8s ease-in-out;
 }
 
+/* Animation beim Laden */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
 
 .login-box h2 {
   text-align: center;
@@ -55,33 +90,46 @@
   cursor: pointer;
 }
 
-
+/* Button mit Glow */
 .login-box button {
   width: 100%;
   padding: 10px;
   margin-top: 10px;
   background-color: #0275d8;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   color: white;
   font-size: 1em;
+  font-weight: 600;
   cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+  transition: all 0.3s ease;
 }
 
 .login-box button:hover {
   background-color: #025aa5;
+  box-shadow: 0 0 15px rgba(0, 123, 255, 0.8);
 }
 
+/* Input-Felder */
 .login-box .form-control {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.2);
   color: #ffffff;
   border: 1px solid rgba(255, 255, 255, 0.4);
+  transition: all 0.3s ease;
 }
 
 .login-box .form-control::placeholder {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.85);
 }
 
+.login-box .form-control:focus {
+  outline: none;
+  border-color: #66afe9;
+  box-shadow: 0 0 10px rgba(102, 175, 233, 0.6);
+}
+
+/* Validierung */
 .login-box .form-control.is-invalid {
   border-color: #ff3860;
 }
@@ -90,26 +138,25 @@
   color: #ff3860;
 }
 
-/* Footer-Styling */
+/* Footer */
 .footer {
   display: flex;
-  justify-content: space-between; /* Platz zwischen den Elementen */
-  align-items: center; /* Vertikale Ausrichtung */
+  justify-content: space-between;
+  align-items: center;
   width: 100%;
   padding: 10px 20px;
-  background-color: #090909; /* Hellgrauer Hintergrund */
-  color: #ffffff; /* Dezente Textfarbe */
+  background-color: #090909;
+  color: #ffffff;
   font-size: 0.9em;
-  position: absolute; /* Absolute Position */
-  bottom: 0; /* Fixiert am unteren Rand */
+  position: absolute;
+  bottom: 0;
   left: 0;
-  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Schatteneffekt */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Link-Styling */
 .footer a {
   text-decoration: none;
-  color: #007bff; /* Blau für Links */
+  color: #007bff;
   margin-left: 10px;
 }
 
@@ -117,7 +164,7 @@
   text-decoration: underline;
 }
 
-
+/* Responsive */
 @media (max-width: 768px) {
   .login-box {
     width: 90%;
