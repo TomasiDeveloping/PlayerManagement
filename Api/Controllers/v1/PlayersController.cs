@@ -31,8 +31,11 @@ namespace Api.Controllers.v1
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(GetPlayer)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
             }
         }
 
@@ -53,8 +56,11 @@ namespace Api.Controllers.v1
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(GetAlliancePlayers)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
             }
         }
 
@@ -75,8 +81,11 @@ namespace Api.Controllers.v1
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(GetAllianceDismissPlayers)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
             }
         }
 
@@ -95,8 +104,11 @@ namespace Api.Controllers.v1
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(GetDismissPlayerInformation)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
             }
         }
 
@@ -120,8 +132,11 @@ namespace Api.Controllers.v1
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(GetAllianceMvp)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
             }
         }
 
@@ -141,8 +156,11 @@ namespace Api.Controllers.v1
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(CreatePlayer)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
             }
         }
 
@@ -175,8 +193,11 @@ namespace Api.Controllers.v1
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(ImportPlayersFromExcel)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
             }
         }
 
@@ -198,8 +219,11 @@ namespace Api.Controllers.v1
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(UpdatePlayer)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
             }
         }
 
@@ -222,8 +246,11 @@ namespace Api.Controllers.v1
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(DismissPlayer)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
             }
         }
 
@@ -245,8 +272,11 @@ namespace Api.Controllers.v1
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(ReactivePlayer)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
             }
         }
 
@@ -264,8 +294,11 @@ namespace Api.Controllers.v1
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(DeletePlayer)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
             }
         }
     }

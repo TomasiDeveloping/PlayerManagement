@@ -101,7 +101,7 @@ public class ExcelService(ApplicationContext context, ILogger<ExcelService> logg
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{ExcelErrorMessage}", e.Message);
             return Result.Failure<ExcelImportResponse>(new Error("", ""));
         }
     }

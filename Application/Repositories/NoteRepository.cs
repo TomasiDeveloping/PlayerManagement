@@ -51,7 +51,7 @@ public class NoteRepository(ApplicationContext context, IMapper mapper, ILogger<
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<NoteDto>(GeneralErrors.DatabaseError);
         }
     }
@@ -73,7 +73,7 @@ public class NoteRepository(ApplicationContext context, IMapper mapper, ILogger<
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<NoteDto>(GeneralErrors.DatabaseError);
         }
     }
@@ -94,7 +94,7 @@ public class NoteRepository(ApplicationContext context, IMapper mapper, ILogger<
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<bool>(GeneralErrors.DatabaseError);
         }
     }

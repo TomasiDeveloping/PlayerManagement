@@ -77,7 +77,7 @@ public class MarshalGuardRepository(ApplicationContext context, IMapper mapper, 
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<MarshalGuardDto>(GeneralErrors.DatabaseError);
         }
     }
@@ -99,7 +99,7 @@ public class MarshalGuardRepository(ApplicationContext context, IMapper mapper, 
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<MarshalGuardDto>(GeneralErrors.DatabaseError);
         }
     }
@@ -120,7 +120,7 @@ public class MarshalGuardRepository(ApplicationContext context, IMapper mapper, 
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<bool>(GeneralErrors.DatabaseError);
         }
     }

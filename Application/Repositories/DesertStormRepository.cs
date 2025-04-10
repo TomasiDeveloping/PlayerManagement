@@ -76,7 +76,7 @@ public class DesertStormRepository(ApplicationContext context, IMapper mapper, I
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<DesertStormDto>(GeneralErrors.DatabaseError);
         }
     }
@@ -98,7 +98,7 @@ public class DesertStormRepository(ApplicationContext context, IMapper mapper, I
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<DesertStormDto>(GeneralErrors.DatabaseError);
         }
     }
@@ -119,7 +119,7 @@ public class DesertStormRepository(ApplicationContext context, IMapper mapper, I
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<bool>(GeneralErrors.DatabaseError);
         }
     }

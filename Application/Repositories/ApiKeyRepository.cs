@@ -72,7 +72,7 @@ public class ApiKeyRepository(ApplicationContext context, ILogger<ApiKeyReposito
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<ApiKeyDto>(GeneralErrors.DatabaseError);
         }
     }
@@ -108,7 +108,7 @@ public class ApiKeyRepository(ApplicationContext context, ILogger<ApiKeyReposito
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<ApiKeyDto>(GeneralErrors.DatabaseError);
         }
     }
@@ -128,7 +128,7 @@ public class ApiKeyRepository(ApplicationContext context, ILogger<ApiKeyReposito
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<bool>(GeneralErrors.DatabaseError);
         }
     }

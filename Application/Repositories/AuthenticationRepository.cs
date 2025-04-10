@@ -250,7 +250,11 @@ public class AuthenticationRepository(UserManager<User> userManager, Application
 
         var emailSendResponse = await emailService.SendEmailAsync(emailConfirmMessage);
 
-        if (emailSendResponse) return Result.Success();
+        if (emailSendResponse)
+        {
+            logger.LogInformation("User {UserName} with Alliance: {AllianzName} registered successfully", newUser.PlayerName, createAllianceResult.Value.Name);
+            return Result.Success();
+        }
 
         await userManager.DeleteAsync(newUser);
         await RollbackAlliance(createAllianceResult.Value, cancellationToken);
@@ -268,7 +272,7 @@ public class AuthenticationRepository(UserManager<User> userManager, Application
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<Alliance>(GeneralErrors.DatabaseError);
         }
     }
@@ -284,7 +288,7 @@ public class AuthenticationRepository(UserManager<User> userManager, Application
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<bool>(GeneralErrors.DatabaseError);
         }
     }

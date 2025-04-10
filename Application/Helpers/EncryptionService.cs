@@ -43,9 +43,9 @@ public class EncryptionService : IEncryptionService
         aes.Key = _key;
         aes.IV = _iv;
 
-        using var decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+        using var decrypt = aes.CreateDecryptor(aes.Key, aes.IV);
         using var memoryStream = new MemoryStream(Convert.FromBase64String(encryptedText));
-        await using var cryptoStream = new CryptoStream(memoryStream, decryptor, CryptoStreamMode.Read);
+        await using var cryptoStream = new CryptoStream(memoryStream, decrypt, CryptoStreamMode.Read);
 
         using var reader = new StreamReader(cryptoStream, Encoding.UTF8);
         return await reader.ReadToEndAsync();

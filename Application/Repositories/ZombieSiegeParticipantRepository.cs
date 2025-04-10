@@ -38,7 +38,7 @@ public class ZombieSiegeParticipantRepository(ApplicationContext context, IMappe
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<bool>(GeneralErrors.DatabaseError);
         }
     }
@@ -76,7 +76,7 @@ public class ZombieSiegeParticipantRepository(ApplicationContext context, IMappe
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<ZombieSiegeParticipantDto>(GeneralErrors.DatabaseError);
         }
     }

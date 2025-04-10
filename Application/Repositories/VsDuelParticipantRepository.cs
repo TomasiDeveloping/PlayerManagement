@@ -28,7 +28,7 @@ public class VsDuelParticipantRepository(ApplicationContext context, IMapper map
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<VsDuelParticipantDto>(GeneralErrors.DatabaseError);
         }
     }

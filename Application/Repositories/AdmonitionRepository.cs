@@ -62,7 +62,7 @@ public class AdmonitionRepository(ApplicationContext context, IMapper mapper, IL
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}",e.Message);
             return Result.Failure<AdmonitionDto>(GeneralErrors.DatabaseError);
         }
     }
@@ -84,7 +84,7 @@ public class AdmonitionRepository(ApplicationContext context, IMapper mapper, IL
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<AdmonitionDto>(GeneralErrors.DatabaseError);
         }
     }
@@ -105,7 +105,7 @@ public class AdmonitionRepository(ApplicationContext context, IMapper mapper, IL
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<bool>(GeneralErrors.DatabaseError);
         }
     }

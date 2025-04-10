@@ -81,7 +81,7 @@ public class VsDuelRepository(ApplicationContext context, IMapper mapper, ILogge
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<VsDuelDto>(GeneralErrors.DatabaseError);
         }
     }
@@ -103,7 +103,7 @@ public class VsDuelRepository(ApplicationContext context, IMapper mapper, ILogge
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<VsDuelDto>(GeneralErrors.DatabaseError);
         }
     }
@@ -124,7 +124,7 @@ public class VsDuelRepository(ApplicationContext context, IMapper mapper, ILogge
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<bool>(GeneralErrors.DatabaseError);
         }
     }
@@ -146,7 +146,7 @@ public class VsDuelRepository(ApplicationContext context, IMapper mapper, ILogge
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure(GeneralErrors.DatabaseError);
         }
     }

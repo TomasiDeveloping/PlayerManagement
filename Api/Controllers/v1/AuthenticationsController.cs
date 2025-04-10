@@ -29,8 +29,11 @@ namespace Api.Controllers.v1
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(SignUp)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
             }
         }
 
@@ -52,8 +55,11 @@ namespace Api.Controllers.v1
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(RegisterUser)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
             }
         }
 
@@ -73,8 +79,11 @@ namespace Api.Controllers.v1
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(Login)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
             }
         }
 
@@ -96,8 +105,11 @@ namespace Api.Controllers.v1
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(ResendConfirmationEmail)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
             }
         }
 
@@ -118,8 +130,11 @@ namespace Api.Controllers.v1
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(ConfirmEmail)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
             }
         }
 
@@ -139,8 +154,11 @@ namespace Api.Controllers.v1
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(InviteUser)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
             }
         }
 
@@ -157,14 +175,17 @@ namespace Api.Controllers.v1
 
                 if (forgotPasswordResponse.IsFailure)
                 {
-                    logger.LogWarning(forgotPasswordResponse.Error.Name);
+                    logger.LogWarning("{@ForgotPasswordError}", forgotPasswordResponse.Error);
                 }
                 return Ok(true);
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(ForgotPassword)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
             }
         }
 
@@ -188,8 +209,11 @@ namespace Api.Controllers.v1
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(ResetPassword)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
             }
         }
     }

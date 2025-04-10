@@ -29,8 +29,11 @@ namespace Api.Controllers.v1
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(GetMarshalGuardParticipant)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
             }
         }
 
@@ -49,8 +52,11 @@ namespace Api.Controllers.v1
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(GetPlayerMarshalGuardsParticipants)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
             }
         }
 
@@ -72,8 +78,11 @@ namespace Api.Controllers.v1
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(InsertMarshalGuardParticipant)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
             }
         }
 
@@ -98,8 +107,11 @@ namespace Api.Controllers.v1
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(UpdateMarshalGuardParticipant)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
             }
         }
     }

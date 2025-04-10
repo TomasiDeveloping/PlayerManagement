@@ -78,7 +78,7 @@ public class CustomEventRepository(ApplicationContext context, IMapper mapper, I
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<CustomEventDto>(GeneralErrors.DatabaseError);
         }
 
@@ -103,7 +103,7 @@ public class CustomEventRepository(ApplicationContext context, IMapper mapper, I
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<CustomEventDto>(GeneralErrors.DatabaseError);
         }
     }
@@ -124,7 +124,7 @@ public class CustomEventRepository(ApplicationContext context, IMapper mapper, I
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<bool>(GeneralErrors.DatabaseError);
         }
     }

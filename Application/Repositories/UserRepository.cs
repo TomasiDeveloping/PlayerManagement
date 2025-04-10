@@ -112,7 +112,7 @@ public class UserRepository(ApplicationContext context, ILogger<UserRepository> 
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<UserDto>(GeneralErrors.DatabaseError);
         }
   
@@ -134,8 +134,8 @@ public class UserRepository(ApplicationContext context, ILogger<UserRepository> 
         }
         catch (Exception e)
         {
-    
-            logger.LogError(e, e.Message);
+
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure(GeneralErrors.DatabaseError);
         }
  

@@ -1,9 +1,6 @@
 ﻿using Api.Helpers;
 using Asp.Versioning;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.WebEncoders.Testing;
 
 namespace Api.Controllers.v1
 {

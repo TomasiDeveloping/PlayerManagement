@@ -77,7 +77,7 @@ public class ZombieSiegeRepository(ApplicationContext context, IMapper mapper, I
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<ZombieSiegeDto>(GeneralErrors.DatabaseError);
         }
     }
@@ -100,7 +100,7 @@ public class ZombieSiegeRepository(ApplicationContext context, IMapper mapper, I
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<ZombieSiegeDto>(GeneralErrors.DatabaseError);
         }
 
@@ -121,7 +121,7 @@ public class ZombieSiegeRepository(ApplicationContext context, IMapper mapper, I
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<bool>(GeneralErrors.DatabaseError);
         }
     }

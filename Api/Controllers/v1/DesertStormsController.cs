@@ -28,8 +28,11 @@ namespace Api.Controllers.v1
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(GetDesertStorm)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
             }
         }
 
@@ -49,8 +52,11 @@ namespace Api.Controllers.v1
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(GetAllianceDesertStorms)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
             }
         }
 
@@ -69,8 +75,11 @@ namespace Api.Controllers.v1
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(GetDesertStormDetail)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
             }
         }
 
@@ -92,8 +101,11 @@ namespace Api.Controllers.v1
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(CreateDesertStorm)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
             }
         }
 
@@ -116,8 +128,11 @@ namespace Api.Controllers.v1
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(UpdateDesertStorm)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
             }
         }
 
@@ -134,8 +149,11 @@ namespace Api.Controllers.v1
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(DeleteDesertStorm)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
             }
         }
     }

@@ -22,8 +22,11 @@ namespace Api.Controllers.v1
             }
             catch (Exception e)
             {
-                logger.LogError(e, e.Message);
-                return StatusCode(StatusCodes.Status500InternalServerError);
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(PostFeedback)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
             }
         }
 

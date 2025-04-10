@@ -17,6 +17,15 @@ All notable changes to this project are documented here.
 This project is currently in the **Beta Phase**.  
 
 ---
+### **[0.8.3]** - *2025-04-10*  
+#### ♻️ Changed  
+- **NuGet Packages:** Updated all dependencies, including Serilog and Seq, to their latest stable versions.  
+- **Logging Setup:** Cleaned up and reorganized the Serilog configuration for improved clarity and maintainability.  
+
+---
+
+🛠️ **Fixed**  
+- (N/A)
 ### **[0.8.0]** - *2025-03-11*  
 #### ✨ Added  
 - **Feedback Page:** Users can now submit feedback, including bug reports and feature requests.  
@@ -26,6 +35,8 @@ This project is currently in the **Beta Phase**.
 
 🛠️ **Fixed**  
 - (N/A)
+
+---
 
 ### **[0.7.0]** - *2025-02-06*  
 #### ✨ Added  
@@ -37,6 +48,7 @@ This project is currently in the **Beta Phase**.
 #### 🛠️ Fixed  
 - *(N/A)*
 
+---
 
 ### **[0.6.1]** - *2025-01-28*  
 #### ✨ Added  

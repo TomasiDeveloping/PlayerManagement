@@ -39,7 +39,7 @@ public class DesertStormParticipantRepository(ApplicationContext context, ILogge
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<bool>(GeneralErrors.DatabaseError);
         }
     }
@@ -76,7 +76,7 @@ public class DesertStormParticipantRepository(ApplicationContext context, ILogge
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<DesertStormParticipantDto>(GeneralErrors.DatabaseError);
         }
     }

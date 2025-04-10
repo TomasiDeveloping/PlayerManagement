@@ -164,7 +164,7 @@ public class PlayerRepository(ApplicationContext context, IMapper mapper, ILogge
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<PlayerDto>(GeneralErrors.DatabaseError);
         }
     }
@@ -186,7 +186,7 @@ public class PlayerRepository(ApplicationContext context, IMapper mapper, ILogge
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<PlayerDto>(GeneralErrors.DatabaseError);
         }
     }
@@ -220,7 +220,7 @@ public class PlayerRepository(ApplicationContext context, IMapper mapper, ILogge
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<PlayerDto>(GeneralErrors.DatabaseError);
         }
     }
@@ -254,7 +254,7 @@ public class PlayerRepository(ApplicationContext context, IMapper mapper, ILogge
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<PlayerDto>(GeneralErrors.DatabaseError);
         }
     }
@@ -306,7 +306,7 @@ public class PlayerRepository(ApplicationContext context, IMapper mapper, ILogge
         }
         catch (Exception e)
         {
-            logger.LogError(e, e.Message);
+            logger.LogError(e, "{DateBaseErrorMessage}", e.Message);
             return Result.Failure<bool>(GeneralErrors.DatabaseError);
         }
     }

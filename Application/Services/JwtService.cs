@@ -24,7 +24,7 @@ public class JwtService(IConfiguration configuration, UserManager<User> userMana
 
     public async Task<List<Claim>> GetClaimsAsync(User user)
     {
-        var claims = new List<Claim>()
+        var claims = new List<Claim>
         {
             new("email", user.Email!),
             new("playerName", user.PlayerName),
