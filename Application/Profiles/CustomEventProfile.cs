@@ -8,7 +8,8 @@ public class CustomEventProfile : Profile
 {
     public CustomEventProfile()
     {
-        CreateMap<CustomEvent, CustomEventDto>();
+        CreateMap<CustomEvent, CustomEventDto>()
+            .ForMember(des => des.CategoryName, opt => opt.MapFrom(src => src.CustomEventCategory!.Name));
 
         CreateMap<CustomEvent, CustomEventDetailDto>()
             .ForMember(des => des.CustomEventParticipants, opt => opt.MapFrom(src => src.CustomEventParticipants));

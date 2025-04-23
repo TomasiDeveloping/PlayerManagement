@@ -48,7 +48,7 @@
                   <h6 class="mb-1 text-success">{{player.playerName}}</h6>
                   @if (customEventDetail.isPointsEvent) {
                     <div class="col mb-1">
-                      Achieved Points: <span class="text-primary">{{player.achievedPoints}}</span>
+                      Achieved Points: <span class="text-primary">{{player.achievedPoints | number}}</span>
                     </div>
                       }
                   @if (customEventDetail.isParticipationEvent) {

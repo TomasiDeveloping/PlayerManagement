@@ -7,6 +7,8 @@ public class UpdateCustomEventDto
     [Required]
     public Guid Id { get; set; }
 
+    public Guid? CustomEventCategoryId { get; set; }
+
     [Required]
     [MaxLength(150)]
     public required string Name { get; set; }

@@ -21,6 +21,8 @@ public class CreateCustomEventDto
     [Required]
     public Guid AllianceId { get; set; }
 
+    public Guid? CustomEventCategoryId { get; set; }
+
     [Required]
     public required string EventDate { get; set; }
 

@@ -6,6 +6,10 @@ public class CustomEvent : BaseEntity
 
     public Alliance Alliance { get; set; } = null!;
 
+    public Guid? CustomEventCategoryId { get; set; }
+
+    public CustomEventCategory? CustomEventCategory { get; set; }
+
     public required string Name { get; set; }
 
     public required string Description { get; set; }

@@ -6,6 +6,10 @@ public class CustomEventDto
 
     public Guid AllianceId { get; set; }
 
+    public Guid? CustomEventCategoryId { get; set; }
+
+    public string? CategoryName { get; set; }
+
     public required string Name { get; set; }
 
     public required string Description { get; set; }

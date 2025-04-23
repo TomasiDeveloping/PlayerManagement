@@ -4,6 +4,8 @@ export interface CustomEventModel {
   id: string;
   allianceId: string;
   name: string;
+  categoryName?: string;
+  customEventCategoryId?: string;
   description: string;
   isPointsEvent: boolean;
   isParticipationEvent: boolean;
@@ -25,5 +27,6 @@ export interface CreateCustomEventModel {
   isParticipationEvent: boolean;
   eventDate: string;
   allianceId: string;
+  customEventCategoryId?: string;
   isInProgress: boolean;
 }

@@ -17,15 +17,28 @@ All notable changes to this project are documented here.
 This project is currently in the **Beta Phase**.  
 
 ---
+
+### **[0.9.0]** - *2025-04-23*  
+#### ✨ Added  
+- **Event Categories:** Custom events can now be assigned to specific categories.  
+- **Category-Based Leaderboards:** Each category can have its own leaderboard, depending on the event type (e.g., participation-only, points-only, or a combination).  
+
+🛠️ **Fixed**  
+- Minor display issues in the event and leaderboard sections have been resolved.
+
+---
+
 ### **[0.8.3]** - *2025-04-10*  
 #### ♻️ Changed  
 - **NuGet Packages:** Updated all dependencies, including Serilog and Seq, to their latest stable versions.  
 - **Logging Setup:** Cleaned up and reorganized the Serilog configuration for improved clarity and maintainability.  
 
----
-
 🛠️ **Fixed**  
 - (N/A)
+
+---
+
+
 ### **[0.8.0]** - *2025-03-11*  
 #### ✨ Added  
 - **Feedback Page:** Users can now submit feedback, including bug reports and feature requests.  

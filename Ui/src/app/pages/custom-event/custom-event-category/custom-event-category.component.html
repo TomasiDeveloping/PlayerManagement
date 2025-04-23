@@ -1,0 +1,94 @@
+@if (!isCreateCustomEventCategory) {
+  <div class="d-grid gap-2 col-6 mx-auto">
+    <button (click)="onCreateCategory()" class="btn btn-primary" type="button">Create new Category</button>
+  </div>
+}
+
+@if (isCreateCustomEventCategory) {
+  <form [formGroup]="customEventCategoryForm">
+    <!--      Event name-->
+    <div class="form-floating mb-3 is-invalid">
+      <input [ngClass]="{
+        'is-invalid': f['name'].invalid && (f['name'].dirty || !f['name'].untouched),
+        'is-valid': f['name'].valid}"
+             type="text" class="form-control" maxlength="151" id="name" placeholder="name" formControlName="name">
+      <label for="name">Event name</label>
+      @if (f['name'].invalid && (f['name'].dirty || !f['name'].untouched)) {
+        <div class="invalid-feedback">
+          @if (f['name'].hasError('required')) {
+            <p>Name is required</p>
+          }
+          @if (f['name'].hasError('maxlength')) {
+            <p>Maximum 150 characters allowed</p>
+          }
+        </div>
+      }
+    </div>
+    <!--      Is point event-->
+    <div class="form-check mb-3">
+      <input class="form-check-input" type="checkbox" formControlName="isPointsEvent" id="isPointsEvent">
+      <label class="form-check-label" for="isPointsEvent">
+        Points Event
+      </label>
+    </div>
+
+    <!--      Is participation event-->
+    <div class="form-check mb-3">
+      <input class="form-check-input" type="checkbox" formControlName="isParticipationEvent" id="isParticipationEvent">
+      <label class="form-check-label" for="isParticipationEvent">
+        Participation Event
+      </label>
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <button (click)="onCancel()" type="button" class="btn btn-warning">Cancel</button>
+      <button [disabled]="customEventCategoryForm.invalid" (click)="onSubmit()" type="submit" class="btn btn-success">{{isUpdate ? 'Update': 'Create'}}</button>
+    </div>
+  </form>
+}
+
+@if (!isCreateCustomEventCategory) {
+  @if (customEventCategories.length > 0) {
+    <div class="table-responsive mt-5">
+      <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Point event</th>
+          <th scope="col">Participation event</th>
+          <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (customEventCategory of customEventCategories | paginate: { id: 'customEventTable', itemsPerPage: 5, currentPage: pageNumber}; track customEventCategory.id) {
+            <tr>
+              <td>{{customEventCategory.name}}</td>
+              <td>
+                <i class="bi " [ngClass]="customEventCategory.isPointsEvent ? 'bi-check-lg text-success' : 'bi-x-lg text-danger'"></i>
+              </td>
+              <td>
+                <i class="bi " [ngClass]="customEventCategory.isParticipationEvent ? 'bi-check-lg text-success' : 'bi-x-lg text-danger'"></i>
+              </td>
+              <td>
+                <div class="d-flex gap-3 justify-content-around">
+                  <i ngbTooltip="Edit" placement="auto" (click)="onEditCustomEventCategory(customEventCategory)" class="bi custom-edit-icon bi-pencil-fill"></i>
+                  <i ngbTooltip="Delete" placement="auto" (click)="onDeleteCustomEventCategory(customEventCategory)" class="bi custom-delete-icon bi-trash3"></i>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <!-- Pagination Controls -->
+    <div class="d-flex justify-content-between mt-3 flex-column flex-md-row">
+      <pagination-controls class="custom-pagination" [id]="'customEventTable'" [responsive]="true" [autoHide]=" true"
+                           (pageChange)="pageChanged($event)"></pagination-controls>
+
+    </div>
+  } @else {
+    <div class="alert alert-secondary text-center mt-5" role="alert">
+      No saved categories
+    </div>
+  }
+}

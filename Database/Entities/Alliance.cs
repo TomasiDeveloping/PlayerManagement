@@ -29,4 +29,6 @@ public class Alliance : BaseEntity
     public ICollection<VsDuel> VsDuels { get; set; } = [];
 
     public ICollection<ZombieSiege> ZombieSieges { get; set; } = [];
+
+    public ICollection<CustomEventCategory> CustomEventCategories { get; set; } = [];
 }

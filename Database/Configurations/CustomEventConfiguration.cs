@@ -25,5 +25,10 @@ public class CustomEventConfiguration : IEntityTypeConfiguration<CustomEvent>
             .WithMany(a => a.CustomEvents)
             .HasForeignKey(c => c.AllianceId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasOne(customEvent => customEvent.CustomEventCategory)
+            .WithMany(customEventCategory => customEventCategory.CustomEvents)
+            .HasForeignKey(customEvent => customEvent.CustomEventCategoryId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 }

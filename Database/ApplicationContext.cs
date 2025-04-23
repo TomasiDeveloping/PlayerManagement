@@ -44,6 +44,8 @@ public class ApplicationContext(DbContextOptions<ApplicationContext> options) : 
 
     public DbSet<ApiKey> ApiKeys { get; set; }
 
+    public DbSet<CustomEventCategory> CustomEventCategories { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);

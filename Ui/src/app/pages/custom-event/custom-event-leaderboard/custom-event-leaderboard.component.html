@@ -1,0 +1,278 @@
+<h3 class="text-center mb-4">🏆 Leaderboard</h3>
+<!-- Info-Toggle Button -->
+<div class="d-flex justify-content-center mb-3">
+  <button class="btn btn-info" type="button" (click)="toggleInfo()">
+    {{ showInfo ? 'Hide' : 'Show' }} How the Leaderboard is Generated
+  </button>
+</div>
+
+@if (showInfo) {
+  <div class="alert alert-light border p-3">
+    <h5>📊 How the Event Leaderboard is Calculated</h5>
+    <ul #nav="ngbNav" [(activeId)]="activeTab" class="nav-tabs" ngbNav>
+      <li [ngbNavItem]="1">
+        <button ngbNavLink>Point event</button>
+        <ng-template ngbNavContent>
+          <p>
+            The leaderboard for the <strong>Points Event</strong> is based purely on the total points
+            (<code>AchievedPoints</code>) manually entered per event. There is no participation tracking or bonus logic applied.
+          </p>
+
+          <h6>🔹 Step 1: Enter Points Per Event</h6>
+          <p>
+            For each event, administrators enter the exact number of points a player has earned.
+            These values are saved and linked to the respective player.
+          </p>
+
+          <h6>🔹 Step 2: Total Points Are Calculated</h6>
+          <p>
+            The system adds up all points a player has earned across all events. This sum determines their leaderboard position.
+            No participation status, score bonus, or placement logic is applied.
+          </p>
+
+          <p><strong>Formula:</strong></p>
+          <code>Total Points = Sum of AchievedPoints from all events</code>
+
+          <h5>📌 Example Calculation</h5>
+          <ul>
+            <li><strong>Event 1:</strong> 1,200,000 points</li>
+            <li><strong>Event 2:</strong> 950,000 points</li>
+            <li><strong>Event 3:</strong> 2,300,000 points</li>
+          </ul>
+          <p><strong>Total Points:</strong> <code>1,200,000 + 950,000 + 2,300,000 = 4,450,000</code></p>
+
+          <h5>🔍 How the Leaderboard Works</h5>
+          <p>
+            Players are ranked based on their total accumulated points across all events.
+            The player with the most points is ranked first.
+          </p>
+          <ul>
+            <li>There is no weighting or adjustment applied.</li>
+            <li>Only point totals matter – no bonus logic is used.</li>
+            <li>All players with at least one entered score are shown in the leaderboard.</li>
+          </ul>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="2">
+        <button ngbNavLink>Participation event</button>
+        <ng-template ngbNavContent>
+          <p>
+            The leaderboard for the <strong>Participation Event</strong> is based solely on whether a player took part in each event.
+            No scores or placements are used. The more events a player attends, the higher their ranking.
+          </p>
+
+          <h6>🔹 Step 1: Mark Participation per Event</h6>
+          <p>
+            For each event, administrators simply mark whether a player participated (<code>Participated = true</code>) or not.
+            No further input (like scores or ranks) is required.
+          </p>
+
+          <h6>🔹 Step 2: Total Participations Are Counted</h6>
+          <p>
+            The system counts the number of events each player has participated in. This count becomes the player’s total score.
+          </p>
+
+          <p><strong>Formula:</strong></p>
+          <code>Total Participations = Number of Events where Participated = true</code>
+
+          <h5>📌 Example Calculation</h5>
+          <ul>
+            <li><strong>Event 1:</strong> Participated ✅</li>
+            <li><strong>Event 2:</strong> Not Participated ❌</li>
+            <li><strong>Event 3:</strong> Participated ✅</li>
+            <li><strong>Event 4:</strong> Participated ✅</li>
+          </ul>
+          <p><strong>Total Participations:</strong> <code>3</code></p>
+
+          <h5>🔍 How the Leaderboard Works</h5>
+          <p>
+            Players are ranked by the number of events they have participated in.
+            The player with the highest number of participations is listed first.
+          </p>
+          <ul>
+            <li>There are no scores or ranking bonuses.</li>
+            <li>Only actual participation is counted.</li>
+            <li>All players who are part of the event list are shown, even with 0 participations.</li>
+          </ul>
+        </ng-template>
+      </li>
+      <li [ngbNavItem]="3">
+        <button ngbNavLink>Point and participation</button>
+        <ng-template ngbNavContent>
+          <p>
+            The leaderboard ranks players based on their <strong>participation</strong> and <strong>performance</strong> in events.
+            The calculation rewards consistency and effort, while still recognizing high individual scores.
+          </p>
+
+          <h6>🔹 Step 1: Participation Bonus (High Weighting)</h6>
+          <p>
+            Every time a player is marked as <code>Participated = true</code>, they receive a fixed bonus of <strong>10 points</strong>.
+            This ensures that active players gain a strong foundation in the leaderboard.
+          </p>
+          <p><strong>Formula:</strong></p>
+          <code>Total Participation Bonus = Number of Participations × 10</code>
+
+          <h6>🔹 Step 2: Placement Bonus (Moderate Weighting)</h6>
+          <p>
+            Players are ranked within each event based on <code>AchievedPoints</code>. The top 100 ranked participants receive bonus points:
+          </p>
+          <ul>
+            <li>1st place = 100 points</li>
+            <li>2nd place = 99 points</li>
+            <li>...</li>
+            <li>100th place = 1 point</li>
+          </ul>
+          <p>
+            This value is normalized (divided by 100) and then multiplied by <strong>2.0</strong>.
+          </p>
+          <p><strong>Formula (per event):</strong></p>
+          <code>Placement Bonus = (Rank Points / 100) × 2</code>
+
+          <h6>🔹 Step 3: Score Bonus (Lower Weighting)</h6>
+          <p>
+            Each player's raw score (<code>AchievedPoints</code>) is converted into a bonus using a logarithmic scale:
+            <code>log10(Score + 1)</code>. This prevents extremely high scores from dominating the leaderboard.
+          </p>
+          <p><strong>Formula (per event):</strong></p>
+          <code>Score Bonus = log10(AchievedPoints + 1) × 1.0</code>
+
+          <h5>📌 Example Calculation</h5>
+          <ul>
+            <li><strong>Events Participated:</strong> 3</li>
+            <li><strong>Event 1:</strong> 1st place, 1,200,000 points</li>
+            <li><strong>Event 2:</strong> 8th place, 950,000 points</li>
+            <li><strong>Event 3:</strong> Participated, 10,000 points</li>
+          </ul>
+          <p>Final Calculation:</p>
+          <ul>
+            <li>Participation Bonus: <code>3 × 10 = 30</code></li>
+            <li>Placement Bonus: <code>(1.00 + 0.93 + 0.21) × 2 = 4.28</code></li>
+            <li>Score Bonus: <code>log10(1,200,001) + log10(950,001) + log10(10,001) ≈ 6.08 + 5.98 + 4.00 = 16.06</code></li>
+            <li><strong>Total Points: 30 + 4.28 + 16.06 = 50.34</strong></li>
+          </ul>
+
+          <h5>🔍 How the Leaderboard Works</h5>
+          <p>
+            Players are ranked based on their total points accumulated across all events. The system encourages players to join events regularly and perform well.
+          </p>
+          <ul>
+            <li><strong>Consistent participation</strong> is the best way to climb the leaderboard.</li>
+            <li><strong>High scores</strong> matter, but do not outweigh multiple solid participations.</li>
+            <li><strong>All players assigned to events</strong> appear on the leaderboard, even with no participations.</li>
+          </ul>
+        </ng-template>
+      </li>
+    </ul>
+    <div [ngbNavOutlet]="nav" class="mt-2"></div>
+  </div>
+
+}
+<div class="form-floating mb-3" (change)="onCategoryChange($event)">
+  <select class="form-select" id="customEventCategoryId">
+    <option [value]="null">Select a category</option>
+    @for (customEventCategory of customEventCategories; track customEventCategory.id) {
+      <option [value]="customEventCategory.id">{{customEventCategory.name}}</option>
+    }
+  </select>
+  <label for="customEventCategoryId">Category</label>
+</div>
+
+@if (selectedCustomEventCategory) {
+  <div class="d-flex justify-content-between mt-3">
+    <p>Category: <span class="text-primary">{{selectedCustomEventCategory.name}}</span></p>
+    <p>
+      Point event:
+      <i class="bi" [ngClass]="selectedCustomEventCategory.isPointsEvent ? 'bi-check-lg text-success' : 'bi-x-lg text-danger'"></i>
+    </p>
+    <p>
+      Participation event:
+      <i class="bi" [ngClass]="selectedCustomEventCategory.isParticipationEvent ? 'bi-check-lg text-success' : 'bi-x-lg text-danger'"></i>
+    </p>
+  </div>
+
+}
+
+@if (pointEventLeaderboard) {
+  @if (pointEventLeaderboard.length > 0) {
+    <div class="table-responsive mt-5">
+      <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+          <th scope="col">Player</th>
+          <th scope="col">Total points</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (leader of pointEventLeaderboard | paginate: { id: 'pointEventTable', itemsPerPage: 8,  currentPage: pointPageNumber}; track leader.playerName) {
+            <tr>
+              <td>{{leader.playerName}}</td>
+              <td>{{leader.points |number}}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <pagination-controls class="custom-pagination" [id]="'pointEventTable'" [responsive]="true" [autoHide]=" true"
+                         (pageChange)="pointPageChanged($event)"></pagination-controls>
+  } @else {
+    <p>No events in category: {{selectedCustomEventCategory?.name}}</p>
+  }
+}
+
+@if (participationEventLeaderboard) {
+  @if (participationEventLeaderboard.length > 0) {
+    <div class="table-responsive mt-5">
+      <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+          <th scope="col">Player</th>
+          <th scope="col">Total participations</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (leader of participationEventLeaderboard | paginate: { id: 'participationEventTable', itemsPerPage: 8,  currentPage: participationPageNumber}; track leader.playerName) {
+            <tr>
+              <td>{{leader.playerName}}</td>
+              <td>{{leader.participations}}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <pagination-controls class="custom-pagination" [id]="'participationEventTable'" [responsive]="true" [autoHide]=" true"
+                         (pageChange)="participationPageChanged($event)"></pagination-controls>
+  } @else {
+    <p>No events in category: {{selectedCustomEventCategory?.name}}</p>
+  }
+}
+
+@if (pointAndParticipationEventLeaderboard) {
+  @if (pointAndParticipationEventLeaderboard.length > 0) {
+    <div class="table-responsive mt-5">
+      <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+          <th scope="col">Player</th>
+          <th scope="col">Score points</th>
+          <th scope="col">Total participations</th>
+          <th scope="col">Total points</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (leader of pointAndParticipationEventLeaderboard | paginate: { id: 'pointAndParticipationEventTable', itemsPerPage: 8,  currentPage: pointAndParticipationPageNumber}; track leader.playerName) {
+            <tr>
+              <td>{{leader.playerName}}</td>
+              <td>{{leader.totalPoints}}</td>
+              <td>{{leader.participations}}</td>
+              <td>{{leader.points | number}}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    <pagination-controls class="custom-pagination" [id]="'pointAndParticipationEventTable'" [responsive]="true" [autoHide]=" true"
+                         (pageChange)="pointAndParticipationPageChanged($event)"></pagination-controls>
+  } @else {
+    <p>No events in category: {{selectedCustomEventCategory?.name}}</p>
+  }
+}

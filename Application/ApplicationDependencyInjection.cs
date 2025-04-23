@@ -34,6 +34,8 @@ public static class ApplicationDependencyInjection
         services.AddScoped<IZombieSiegeParticipantRepository, ZombieSiegeParticipantRepository>();
         services.AddScoped<IVsDuelLeagueRepository, VsDuelLeagueRepository>();
         services.AddScoped<IApiKeyRepository, ApiKeyRepository>();
+        services.AddScoped<ICustomEventCategoryRepository, CustomEventCategoryRepository>();
+        services.AddScoped<ICustomEventLeaderBoardRepository, CustomEventLeaderboardRepository>();
 
 
         services.AddTransient<IJwtService, JwtService>();

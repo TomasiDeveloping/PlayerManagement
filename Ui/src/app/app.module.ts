@@ -61,6 +61,9 @@ import { AllianceApiKeyComponent } from './pages/alliance/alliance-api-key/allia
 import { AllianceUserAdministrationComponent } from './pages/alliance/alliance-user-administration/alliance-user-administration.component';
 import { FeedbackComponent } from './pages/feedback/feedback.component';
 import { ImprintComponent } from './pages/imprint/imprint.component';
+import { CustomEventCategoryComponent } from './pages/custom-event/custom-event-category/custom-event-category.component';
+import { CustomEventLeaderboardComponent } from './pages/custom-event/custom-event-leaderboard/custom-event-leaderboard.component';
+import { CustomEventEventsComponent } from './pages/custom-event/custom-event-events/custom-event-events.component';
 
 @NgModule({
   declarations: [
@@ -111,7 +114,10 @@ import { ImprintComponent } from './pages/imprint/imprint.component';
     AllianceApiKeyComponent,
     AllianceUserAdministrationComponent,
     FeedbackComponent,
-    ImprintComponent
+    ImprintComponent,
+    CustomEventCategoryComponent,
+    CustomEventLeaderboardComponent,
+    CustomEventEventsComponent
   ],
     imports: [
         BrowserModule,
