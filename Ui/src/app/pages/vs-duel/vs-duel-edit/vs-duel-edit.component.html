@@ -17,11 +17,11 @@
               <form [formGroup]="vsDuelForm">
                 <div class="form-floating mb-3 is-invalid">
                   <input [ngClass]="{
-        'is-invalid': df['opponentName'].invalid && (df['opponentName'].dirty || df['opponentName'].touched),
+        'is-invalid': df['opponentName'].invalid && (df['opponentName'].dirty || !df['opponentName'].untouched),
         'is-valid': df['opponentName'].valid}"
                          type="text" maxlength="151" class="form-control" id="opponentName" placeholder="opponentName" formControlName="opponentName">
                   <label for="opponentName">Opponent name</label>
-                  @if (df['opponentName'].invalid && (df['opponentName'].dirty || df['opponentName'].touched)) {
+                  @if (df['opponentName'].invalid && (df['opponentName'].dirty || !df['opponentName'].untouched)) {
                     <div class="invalid-feedback">
                       @if (df['opponentName'].hasError('required')) {
                         <p>Opponent Name is required</p>
@@ -34,11 +34,11 @@
                 </div>
                 <div class="form-floating mb-3 is-invalid">
                   <input [ngClass]="{
-        'is-invalid': df['opponentServer'].invalid && (df['opponentServer'].dirty || df['opponentServer'].touched),
+        'is-invalid': df['opponentServer'].invalid && (df['opponentServer'].dirty || !df['opponentServer'].untouched),
         'is-valid': df['opponentServer'].valid}"
                          type="number" min="0" class="form-control" id="opponentServer" placeholder="opponentServer" formControlName="opponentServer">
                   <label for="opponentServer">Opponent server</label>
-                  @if (df['opponentServer'].invalid && (df['opponentServer'].dirty || df['opponentServer'].touched)) {
+                  @if (df['opponentServer'].invalid && (df['opponentServer'].dirty || !df['opponentServer'].untouched)) {
                     <div class="invalid-feedback">
                       @if (df['opponentServer'].hasError('required')) {
                         <p>Opponent server is required</p>
@@ -48,11 +48,11 @@
                 </div>
                 <div class="form-floating mb-3 is-invalid">
                   <input [ngClass]="{
-        'is-invalid': df['opponentPower'].invalid && (df['opponentPower'].dirty || df['opponentPower'].touched),
+        'is-invalid': df['opponentPower'].invalid && (df['opponentPower'].dirty || !df['opponentPower'].untouched),
         'is-valid': df['opponentPower'].valid}"
-                         type="number" min="0" class="form-control" id="opponentPower" placeholder="opponentPower" formControlName="opponentPower">
+                         type="text" mask="separator.2" thousandSeparator="." separatorLimit="9999999999999999"  class="form-control" id="opponentPower" placeholder="opponentPower" formControlName="opponentPower">
                   <label for="opponentPower">Opponent power</label>
-                  @if (df['opponentPower'].invalid && (df['opponentPower'].dirty || df['opponentPower'].touched)) {
+                  @if (df['opponentPower'].invalid && (df['opponentPower'].dirty || !df['opponentPower'].untouched)) {
                     <div class="invalid-feedback">
                       @if (df['opponentPower'].hasError('required')) {
                         <p>Opponent power is required</p>
@@ -62,11 +62,11 @@
                 </div>
                 <div class="form-floating mb-3 is-invalid">
                   <input [ngClass]="{
-        'is-invalid': df['opponentSize'].invalid && (df['opponentSize'].dirty || df['opponentSize'].touched),
+        'is-invalid': df['opponentSize'].invalid && (df['opponentSize'].dirty || !df['opponentSize'].untouched),
         'is-valid': df['opponentSize'].valid}"
                          type="number" min="0" class="form-control" id="opponentSize" placeholder="opponentSize" formControlName="opponentSize">
                   <label for="opponentSize">Opponent size</label>
-                  @if (df['opponentSize'].invalid && (df['opponentSize'].dirty || df['opponentSize'].touched)) {
+                  @if (df['opponentSize'].invalid && (df['opponentSize'].dirty || !df['opponentSize'].untouched)) {
                     <div class="invalid-feedback">
                       @if (df['opponentSize'].hasError('required')) {
                         <p>Opponent size is required</p>
@@ -76,14 +76,14 @@
                 </div>
                 <div class="form-floating mb-3 is-invalid">
                   <select [ngClass]="{
-        'is-invalid': df['vsDuelLeagueId'].invalid && (df['vsDuelLeagueId'].dirty || df['vsDuelLeagueId'].touched),
+        'is-invalid': df['vsDuelLeagueId'].invalid && (df['vsDuelLeagueId'].dirty || !df['vsDuelLeagueId'].untouched),
         'is-valid': df['vsDuelLeagueId'].valid}" class="form-control" id="vsDuelLeagueId" formControlName="vsDuelLeagueId">
                     @for (vsDuelLeague of vsDuelLeagues; track vsDuelLeague.id) {
                       <option [ngValue]="vsDuelLeague.id">{{vsDuelLeague.name}}</option>
                     }
                   </select>
                   <label for="opponentSize">Opponent size</label>
-                  @if (df['opponentSize'].invalid && (df['opponentSize'].dirty || df['opponentSize'].touched)) {
+                  @if (df['opponentSize'].invalid && (df['opponentSize'].dirty || !df['opponentSize'].untouched)) {
                     <div class="invalid-feedback">
                       @if (df['opponentSize'].hasError('required')) {
                         <p>Opponent size is required</p>
@@ -129,7 +129,7 @@
                           <input [ngClass]="{
                           'is-valid': participant.get('weeklyPoints')?.valid,
                           'is-invalid': participant.get('weeklyPoints')?.invalid && (participant.get('weeklyPoints')?.touched || participant.get('weeklyPoints')?.dirty)
-                          }" type="number" min="0" class="form-control form-control-sm" id="player{{i}}" formControlName="weeklyPoints">
+                          }" mask="separator.2" thousandSeparator="." separatorLimit="9999999999999999" type="text" min="0" class="form-control form-control-sm" id="player{{i}}" formControlName="weeklyPoints">
                           @if (participant.get('weeklyPoints')?.invalid && (participant.get('weeklyPoints')?.touched || participant.get('weeklyPoints')?.dirty)) {
                             <div class="invalid-feedback">
                               @if (participant.get('weeklyPoints')?.hasError('required')){

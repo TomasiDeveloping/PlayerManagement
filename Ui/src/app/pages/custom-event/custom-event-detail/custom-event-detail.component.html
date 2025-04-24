@@ -12,6 +12,9 @@
       <div class="card-body">
         <h5 class="card-title">Name: <span class="text-primary">{{customEventDetail.name}}</span></h5>
         <p class="card-text">Description: <span class="text-primary">{{customEventDetail.description}}</span></p>
+        @if (customEventDetail.customEventCategoryId) {
+          <p class="card-text">Category: <span class="text-primary">{{customEventDetail.categoryName}}</span></p>
+        }
         <p class="card-text">Point event:
           <i class="bi " [ngClass]="customEventDetail.isPointsEvent ? 'bi-check-lg text-success' : 'bi-x-lg text-danger'"></i>
         </p>

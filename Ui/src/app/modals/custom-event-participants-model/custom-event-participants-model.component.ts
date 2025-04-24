@@ -63,7 +63,7 @@ export class CustomEventParticipantsModelComponent implements OnInit {
         playerId: new FormControl(player.playerId),
         playerName: new FormControl<string>(player.playerName),
         participated: new FormControl<boolean>(player.participated),
-        achievedPoints: new FormControl<number>(player.achievedPoints, [Validators.required, Validators.pattern('(0|[1-9]\\d*)')])
+        achievedPoints: new FormControl<number>(player.achievedPoints, [Validators.required])
       }))
     });
   }

@@ -53,10 +53,10 @@
         <div class="form-floating mb-3">
           <textarea [ngClass]="{
           'is-valid': admonitionForm.controls['reason'].valid,
-          'is-invalid': admonitionForm.controls['reason'].invalid && (admonitionForm.controls['reason'].touched || admonitionForm.controls['reason'].dirty)
+          'is-invalid': admonitionForm.controls['reason'].invalid && (!admonitionForm.controls['reason'].untouched || admonitionForm.controls['reason'].dirty)
           }" class="form-control" maxlength="251" formControlName="reason" placeholder="reason" id="reason" style="height: 100px"></textarea>
           <label for="reason">Reason</label>
-          @if (admonitionForm.controls['reason'].invalid && (admonitionForm.controls['reason'].touched || admonitionForm.controls['reason'].dirty)) {
+          @if (admonitionForm.controls['reason'].invalid && (!admonitionForm.controls['reason'].untouched || admonitionForm.controls['reason'].dirty)) {
             <div class="invalid-feedback">
               @if (admonitionForm.controls['reason'].hasError('required')) {
                 <p>Reason is required</p>

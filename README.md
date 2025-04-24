@@ -18,6 +18,15 @@ This project is currently in the **Beta Phase**.
 
 ---
 
+### **[0.9.1]** - *2025-04-24*  
+#### ✨ Added  
+- **Number Formatting Input Mask:** Numbers are now automatically formatted for better readability (e.g., `250000` → `250.000`).  
+
+🛠️ **Fixed**  
+- Fixed an issue where the selected category was not saved correctly when updating a custom event.
+
+---
+
 ### **[0.9.0]** - *2025-04-23*  
 #### ✨ Added  
 - **Event Categories:** Custom events can now be assigned to specific categories.  

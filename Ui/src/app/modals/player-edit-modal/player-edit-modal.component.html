@@ -8,11 +8,11 @@
     <form [formGroup]="playerForm">
       <div class="form-floating mb-3 is-invalid">
         <input [ngClass]="{
-        'is-invalid': f['playerName'].invalid && (f['playerName'].dirty || f['playerName'].touched),
+        'is-invalid': f['playerName'].invalid && (f['playerName'].dirty || !f['playerName'].untouched),
         'is-valid': f['playerName'].valid}"
                type="text" maxlength="251" class="form-control" id="playerName" placeholder="Player" formControlName="playerName">
         <label for="playerName">Player name</label>
-        @if (f['playerName'].invalid && (f['playerName'].dirty || f['playerName'].touched)) {
+        @if (f['playerName'].invalid && (f['playerName'].dirty || !f['playerName'].untouched)) {
           <div class="invalid-feedback">
             @if (f['playerName'].hasError('required')) {
               <p>Player name is required</p>
@@ -25,11 +25,11 @@
       </div>
       <div class="form-floating mb-3 is-invalid">
         <input [ngClass]="{
-        'is-invalid': f['level'].invalid && (f['level'].dirty || f['level'].touched),
+        'is-invalid': f['level'].invalid && (f['level'].dirty || !f['level'].untouched),
         'is-valid': f['level'].valid}"
                type="number" class="form-control" id="level" placeholder="level" formControlName="level">
         <label for="level">Level</label>
-        @if (f['level'].invalid && (f['level'].dirty || f['level'].touched)) {
+        @if (f['level'].invalid && (f['level'].dirty || !f['level'].untouched)) {
           <div class="invalid-feedback">
             @if (f['level'].hasError('required')) {
               <p>Level is required</p>
@@ -39,14 +39,14 @@
       </div>
       <div class="form-floating mb-3 is-invalid">
         <select [ngClass]="{
-        'is-invalid': f['rankId'].invalid && (f['rankId'].dirty || f['level'].touched),
+        'is-invalid': f['rankId'].invalid && (f['rankId'].dirty || !f['level'].untouched),
         'is-valid': f['rankId'].valid}" class="form-select" id="rankId"  formControlName="rankId">
           @for (rank of ranks; track rank.id) {
             <option [ngValue]="rank.id">{{rank.name}}</option>
           }
         </select>
         <label for="rankId">Rank</label>
-        @if (f['rankId'].invalid && (f['rankId'].dirty || f['rankId'].touched)) {
+        @if (f['rankId'].invalid && (f['rankId'].dirty || !f['rankId'].untouched)) {
           <div class="invalid-feedback">
             @if (f['rankId'].hasError('required')) {
               <p>Rank is required</p>

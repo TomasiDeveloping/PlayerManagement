@@ -53,10 +53,10 @@
           <div class="form-floating mb-3">
             <textarea [ngClass]="{
             'is-valid': noteForm.controls['playerNote'].valid,
-            'is-invalid': noteForm.controls['playerNote'].invalid && (noteForm.controls['playerNote'].touched || noteForm.controls['playerNote'].dirty)
+            'is-invalid': noteForm.controls['playerNote'].invalid && (!noteForm.controls['playerNote'].untouched || noteForm.controls['playerNote'].dirty)
             }" class="form-control" maxlength="501" formControlName="playerNote" placeholder="playerNote" id="playerNote" style="height: 100px"></textarea>
             <label for="playerNote">Note</label>
-            @if (noteForm.controls['playerNote'].invalid && (noteForm.controls['playerNote'].touched || noteForm.controls['playerNote'].dirty)) {
+            @if (noteForm.controls['playerNote'].invalid && (!noteForm.controls['playerNote'].untouched || noteForm.controls['playerNote'].dirty)) {
               <div class="invalid-feedback">
                 @if (noteForm.controls['playerNote'].hasError('required')) {
                   <p>Note is required</p>

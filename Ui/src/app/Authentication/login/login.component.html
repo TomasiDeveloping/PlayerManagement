@@ -12,10 +12,10 @@
             <!-- Email icon -->
             <i class="input-group-text bi bi-envelope-at-fill"></i>
             <!-- Email input control with dynamic classes for validation feedback -->
-            <input [ngClass]="{'is-invalid': email?.invalid && (email?.dirty || email?.touched),'is-valid': email?.valid}"
+            <input [ngClass]="{'is-invalid': email?.invalid && (email?.dirty || !email?.untouched),'is-valid': email?.valid}"
                    class="form-control" formControlName="email" id="email" placeholder="Email Address" type="email">
             <!-- Email validation messages -->
-            @if (email?.errors && (email?.dirty || email?.touched)) {
+            @if (email?.errors && (email?.dirty || !email?.untouched)) {
               <div class="invalid-feedback">
                 @if (email?.hasError('required')) {
                   <p>Email address is required</p>
@@ -36,7 +36,7 @@
             <i class="input-group-text bi bi-key-fill"></i>
             <!-- Password input control with dynamic classes for validation feedback and visibility toggle -->
             <input
-              [ngClass]="{'is-invalid': password?.invalid && (password?.dirty || password?.touched),'is-valid': password?.valid}"
+              [ngClass]="{'is-invalid': password?.invalid && (password?.dirty || !password?.untouched),'is-valid': password?.valid}"
               [type]="isPasswordType ? 'password' : 'text'" autocomplete="on" class="form-control"
               formControlName="password" id="password" placeholder="Password">
             <!-- Eye icon to toggle password visibility -->
@@ -44,7 +44,7 @@
                [ngClass]="isPasswordType ? 'bi bi-eye-fill' : 'bi-eye-slash-fill'" class="input-group-text eye-icon bi">
             </i>
             <!-- Password validation messages -->
-            @if (password?.errors && (password?.dirty || password?.touched)) {
+            @if (password?.errors && (password?.dirty || !password?.untouched)) {
               <div class="invalid-feedback">
                 @if (password?.hasError('required')) {
                   <p>Password is required</p>

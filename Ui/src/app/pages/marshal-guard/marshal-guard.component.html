@@ -11,11 +11,11 @@
       <form [formGroup]="marshalGuardForm">
         <div class="form-floating mb-3 is-invalid">
           <input [ngClass]="{
-        'is-invalid': f['eventDate'].invalid && (f['eventDate'].dirty || f['eventDate'].touched),
+        'is-invalid': f['eventDate'].invalid && (f['eventDate'].dirty || !f['eventDate'].untouched),
         'is-valid': f['eventDate'].valid}"
                  type="date" class="form-control" id="eventDate" placeholder="eventDate" formControlName="eventDate">
           <label for="level">eventDate</label>
-          @if (f['eventDate'].invalid && (f['eventDate'].dirty || f['eventDate'].touched)) {
+          @if (f['eventDate'].invalid && (f['eventDate'].dirty || !f['eventDate'].untouched)) {
             <div class="invalid-feedback">
               @if (f['eventDate'].hasError('required')) {
                 <p>eventDate is required</p>
@@ -25,11 +25,11 @@
         </div>
         <div class="form-floating mb-3 is-invalid">
           <input [ngClass]="{
-        'is-invalid': f['level'].invalid && (f['level'].dirty || f['level'].touched),
+        'is-invalid': f['level'].invalid && (f['level'].dirty || !f['level'].untouched),
         'is-valid': f['level'].valid}"
                  type="number" class="form-control" id="level" placeholder="level" formControlName="level">
           <label for="level">Level</label>
-          @if (f['level'].invalid && (f['level'].dirty || f['level'].touched)) {
+          @if (f['level'].invalid && (f['level'].dirty || !f['level'].untouched)) {
             <div class="invalid-feedback">
               @if (f['level'].hasError('required')) {
                 <p>Level is required</p>

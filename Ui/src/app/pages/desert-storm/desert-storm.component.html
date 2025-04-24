@@ -30,11 +30,11 @@
 
       <div class="form-floating mb-3 is-invalid">
         <input [ngClass]="{
-        'is-invalid': f['opponentName'].invalid && (f['opponentName'].dirty || f['opponentName'].touched),
+        'is-invalid': f['opponentName'].invalid && (f['opponentName'].dirty || !f['opponentName'].untouched),
         'is-valid': f['opponentName'].valid}"
                type="text" class="form-control" id="opponentName" placeholder="opponentName" formControlName="opponentName">
         <label for="opponentName">Opponent name</label>
-        @if (f['opponentName'].invalid && (f['opponentName'].dirty || f['opponentName'].touched)) {
+        @if (f['opponentName'].invalid && (f['opponentName'].dirty || !f['opponentName'].untouched)) {
           <div class="invalid-feedback">
             @if (f['opponentName'].hasError('required')) {
               <p>Opponent name is required</p>
@@ -45,11 +45,11 @@
 
       <div class="form-floating mb-3 is-invalid">
         <input [ngClass]="{
-        'is-invalid': f['opponentServer'].invalid && (f['opponentServer'].dirty || f['opponentServer'].touched),
+        'is-invalid': f['opponentServer'].invalid && (f['opponentServer'].dirty || !f['opponentServer'].untouched),
         'is-valid': f['opponentServer'].valid}"
                type="number" class="form-control" id="opponentServer" placeholder="opponentServer" formControlName="opponentServer">
         <label for="opponentServer">opponentServer</label>
-        @if (f['opponentServer'].invalid && (f['opponentServer'].dirty || f['opponentServer'].touched)) {
+        @if (f['opponentServer'].invalid && (f['opponentServer'].dirty || !f['opponentServer'].untouched)) {
           <div class="invalid-feedback">
             @if (f['opponentServer'].hasError('required')) {
               <p>opponentServer is required</p>
@@ -60,11 +60,11 @@
 
       <div class="form-floating mb-3 is-invalid">
         <input [ngClass]="{
-        'is-invalid': f['OpposingParticipants'].invalid && (f['OpposingParticipants'].dirty || f['OpposingParticipants'].touched),
+        'is-invalid': f['OpposingParticipants'].invalid && (f['OpposingParticipants'].dirty || !f['OpposingParticipants'].untouched),
         'is-valid': f['OpposingParticipants'].valid}"
                type="number" class="form-control" id="OpposingParticipants" placeholder="OpposingParticipants" formControlName="OpposingParticipants">
         <label for="OpposingParticipants">OpposingParticipants</label>
-        @if (f['OpposingParticipants'].invalid && (f['OpposingParticipants'].dirty || f['OpposingParticipants'].touched)) {
+        @if (f['OpposingParticipants'].invalid && (f['OpposingParticipants'].dirty || !f['OpposingParticipants'].untouched)) {
           <div class="invalid-feedback">
             @if (f['opponentPower'].hasError('required')) {
               <p>OpposingParticipants is required</p>

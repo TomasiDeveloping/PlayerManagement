@@ -8,11 +8,11 @@
     <form [formGroup]="inviteUserForm">
       <div class="form-floating mb-3 is-invalid">
         <input [ngClass]="{
-        'is-invalid': f['email'].invalid && (f['email'].dirty || f['email'].touched),
+        'is-invalid': f['email'].invalid && (f['email'].dirty || !f['email'].untouched),
         'is-valid': f['email'].valid}"
                type="email" class="form-control" id="email" placeholder="email" formControlName="email">
         <label for="email">Email</label>
-        @if (f['email'].invalid && (f['email'].dirty || f['email'].touched)) {
+        @if (f['email'].invalid && (f['email'].dirty || !f['email'].untouched)) {
           <div class="invalid-feedback">
             @if (f['email'].hasError('required')) {
               <p>Email is required</p>
@@ -25,14 +25,14 @@
       </div>
       <div class="form-floating mb-3 is-invalid">
         <select [ngClass]="{
-        'is-invalid': f['role'].invalid && (f['role'].dirty || f['role'].touched),
+        'is-invalid': f['role'].invalid && (f['role'].dirty || !f['role'].untouched),
         'is-valid': f['role'].valid}" class="form-select" id="role"  formControlName="role">
           @for (role of roles; track role) {
             <option [ngValue]="role">{{role}}</option>
           }
         </select>
         <label for="role">Role</label>
-        @if (f['role'].invalid && (f['role'].dirty || f['role'].touched)) {
+        @if (f['role'].invalid && (f['role'].dirty || !f['role'].untouched)) {
           <div class="invalid-feedback">
             @if (f['role'].hasError('required')) {
               <p>Role is required</p>

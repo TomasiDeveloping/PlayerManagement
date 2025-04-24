@@ -101,7 +101,7 @@ export class CustomEventEventsComponent implements OnInit {
     this.customEventForm = new FormGroup({
       id: new FormControl<string>(isUpdate ? customEventDetail!.id : ''),
       allianceId: new FormControl<string>(this.allianceId),
-      customEventCategoryId: new FormControl<string | null>(null),
+      customEventCategoryId: new FormControl<string | null>(isUpdate ? customEventDetail?.customEventCategoryId ? customEventDetail.customEventCategoryId : null : null),
       name: new FormControl<string>(isUpdate ? customEventDetail!.name : '', [Validators.required, Validators.maxLength(150)]),
       description: new FormControl<string>(isUpdate ? customEventDetail!.description : '', [Validators.required, Validators.maxLength(500)]),
       isPointsEvent: new FormControl<boolean>(isUpdate ? customEventDetail!.isPointsEvent : false),
@@ -112,6 +112,10 @@ export class CustomEventEventsComponent implements OnInit {
     this.isCreateCustomEvent = true;
     if (isUpdate) {
       this.customEventForm.controls['customEventCategoryId'].disable();
+      if (customEventDetail?.customEventCategoryId) {
+        this.customEventForm.controls['isPointsEvent'].disable();
+        this.customEventForm.controls['isParticipationEvent'].disable();
+      }
     }
   }
 

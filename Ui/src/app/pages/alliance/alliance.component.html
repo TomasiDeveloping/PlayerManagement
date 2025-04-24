@@ -20,10 +20,10 @@
             <div class="form-floating mb-3">
               <input [ngClass]="{
         'is-valid': f['server'].valid,
-        'is-invalid': f['server'].invalid && (f['server'].touched || f['server'].dirty )
+        'is-invalid': f['server'].invalid && (!f['server'].untouched || f['server'].dirty )
         }" type="number" min="0" formControlName="server" class="form-control" id="server" placeholder="469">
               <label for="server">Server</label>
-              @if (f['server'].invalid && (f['server'].touched || f['server'].dirty)) {
+              @if (f['server'].invalid && (!f['server'].untouched || f['server'].dirty)) {
                 <div class="invalid-feedback">
                   @if (f['server'].hasError('required')) {
                     <p>Server is required</p>
@@ -35,10 +35,10 @@
             <div class="form-floating mb-3">
               <input [ngClass]="{
         'is-valid': f['name'].valid,
-        'is-invalid': f['name'].invalid && (f['name'].touched || f['name'].dirty )
+        'is-invalid': f['name'].invalid && (!f['name'].untouched || f['name'].dirty )
         }" type="text" formControlName="name" maxlength="201" class="form-control" id="name" placeholder="Old Vikings">
               <label for="name">Name</label>
-              @if (f['name'].invalid && (f['name'].touched || f['name'].dirty)) {
+              @if (f['name'].invalid && (!f['name'].untouched || f['name'].dirty)) {
                 <div class="invalid-feedback">
                   @if (f['name'].hasError('required')) {
                     <p>Name is required</p>
@@ -53,11 +53,11 @@
             <div class="form-floating mb-3">
               <input [ngClass]="{
         'is-valid': f['abbreviation'].valid,
-        'is-invalid': f['abbreviation'].invalid && (f['abbreviation'].touched || f['abbreviation'].dirty )
+        'is-invalid': f['abbreviation'].invalid && (!f['abbreviation'].untouched || f['abbreviation'].dirty )
         }" type="text" formControlName="abbreviation" maxlength="5" class="form-control" id="abbreviation"
                      placeholder="vis">
               <label for="abbreviation">Abbreviation</label>
-              @if (f['abbreviation'].invalid && (f['abbreviation'].touched || f['abbreviation'].dirty)) {
+              @if (f['abbreviation'].invalid && (!f['abbreviation'].untouched || f['abbreviation'].dirty)) {
                 <div class="invalid-feedback">
                   @if (f['abbreviation'].hasError('required')) {
                     <p>Abbreviation is required</p>

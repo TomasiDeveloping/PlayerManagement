@@ -5,11 +5,11 @@
     <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
       <div class="form-floating mb-3 is-invalid">
         <input [ngClass]="{
-        'is-invalid': f['playerName'].invalid && (f['playerName'].dirty || f['playerName'].touched),
+        'is-invalid': f['playerName'].invalid && (f['playerName'].dirty || !f['playerName'].untouched),
         'is-valid': f['playerName'].valid}"
                type="text" maxlength="251" class="form-control" id="playerName" placeholder="Player" formControlName="playerName">
         <label for="playerName">Player name</label>
-        @if (f['playerName'].invalid && (f['playerName'].dirty || f['playerName'].touched)) {
+        @if (f['playerName'].invalid && (f['playerName'].dirty || !f['playerName'].untouched)) {
           <div class="invalid-feedback">
             @if (f['playerName'].hasError('required')) {
               <p>Player name is required</p>

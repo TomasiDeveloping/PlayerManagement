@@ -64,6 +64,7 @@ import { ImprintComponent } from './pages/imprint/imprint.component';
 import { CustomEventCategoryComponent } from './pages/custom-event/custom-event-category/custom-event-category.component';
 import { CustomEventLeaderboardComponent } from './pages/custom-event/custom-event-leaderboard/custom-event-leaderboard.component';
 import { CustomEventEventsComponent } from './pages/custom-event/custom-event-events/custom-event-events.component';
+import {NgxMaskDirective, NgxMaskPipe, provideNgxMask} from "ngx-mask";
 
 @NgModule({
   declarations: [
@@ -137,9 +138,12 @@ import { CustomEventEventsComponent } from './pages/custom-event/custom-event-ev
                 tokenGetter: () => localStorage.getItem(''),
             }
         }),
-        AgCharts
+        AgCharts,
+      NgxMaskDirective,
+      NgxMaskPipe
     ],
   providers: [
+    provideNgxMask(),
     provideHttpClient(withInterceptors([spinnerInterceptor, jwtInterceptor]))
   ],
   bootstrap: [AppComponent]

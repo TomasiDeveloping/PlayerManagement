@@ -4,11 +4,11 @@
     <form [formGroup]="signUpForm" (ngSubmit)="onSignUp()">
       <div class="form-floating mb-3 is-invalid">
         <input [ngClass]="{
-        'is-invalid': f['playerName'].invalid && (f['playerName'].dirty || f['playerName'].touched),
+        'is-invalid': f['playerName'].invalid && (f['playerName'].dirty || !f['playerName'].untouched),
         'is-valid': f['playerName'].valid}"
                type="text" class="form-control" id="playerName" placeholder="Player" formControlName="playerName">
         <label for="playerName">Player name</label>
-        @if (f['playerName'].invalid && (f['playerName'].dirty || f['playerName'].touched)) {
+        @if (f['playerName'].invalid && (f['playerName'].dirty || !f['playerName'].untouched)) {
           <div class="invalid-feedback">
             @if (f['playerName'].hasError('required')) {
               <p>Player name is required</p>
@@ -19,11 +19,11 @@
 
       <div class="form-floating mb-3 is-invalid">
         <input [ngClass]="{
-        'is-invalid': f['email'].invalid && (f['email'].dirty || f['email'].touched),
+        'is-invalid': f['email'].invalid && (f['email'].dirty || !f['email'].untouched),
         'is-valid': f['email'].valid}"
                type="email" class="form-control" id="email" placeholder="email" formControlName="email">
         <label for="email">Email</label>
-        @if (f['email'].invalid && (f['email'].dirty || f['email'].touched)) {
+        @if (f['email'].invalid && (f['email'].dirty || !f['email'].untouched)) {
           <div class="invalid-feedback">
             @if (f['email'].hasError('required')) {
               <p>Email is required</p>
@@ -37,11 +37,11 @@
 
       <div class="form-floating mb-3 is-invalid">
         <input [ngClass]="{
-        'is-invalid': f['allianceServer'].invalid && (f['allianceServer'].dirty || f['allianceServer'].touched),
+        'is-invalid': f['allianceServer'].invalid && (f['allianceServer'].dirty || !f['allianceServer'].untouched),
         'is-valid': f['allianceServer'].valid}"
                type="number" class="form-control" id="allianceServer" placeholder="allianceServer" formControlName="allianceServer">
         <label for="allianceServer">Server</label>
-        @if (f['allianceServer'].invalid && (f['allianceServer'].dirty || f['allianceServer'].touched)) {
+        @if (f['allianceServer'].invalid && (f['allianceServer'].dirty || !f['allianceServer'].untouched)) {
           <div class="invalid-feedback">
             @if (f['allianceServer'].hasError('required')) {
               <p>Server is required</p>
@@ -52,11 +52,11 @@
 
       <div class="form-floating mb-3 is-invalid">
         <input [ngClass]="{
-        'is-invalid': f['allianceName'].invalid && (f['allianceName'].dirty || f['allianceName'].touched),
+        'is-invalid': f['allianceName'].invalid && (f['allianceName'].dirty || !f['allianceName'].untouched),
         'is-valid': f['allianceName'].valid}"
                type="text" class="form-control" id="allianceName" placeholder="allianceName" formControlName="allianceName">
         <label for="allianceName">Alliance name</label>
-        @if (f['allianceName'].invalid && (f['allianceName'].dirty || f['allianceName'].touched)) {
+        @if (f['allianceName'].invalid && (f['allianceName'].dirty || !f['allianceName'].untouched)) {
           <div class="invalid-feedback">
             @if (f['allianceName'].hasError('required')) {
               <p>Alliance name is required</p>
@@ -67,11 +67,11 @@
 
       <div class="form-floating mb-3 is-invalid">
         <input [ngClass]="{
-        'is-invalid': f['allianceAbbreviation'].invalid && (f['allianceAbbreviation'].dirty || f['allianceAbbreviation'].touched),
+        'is-invalid': f['allianceAbbreviation'].invalid && (f['allianceAbbreviation'].dirty || !f['allianceAbbreviation'].untouched),
         'is-valid': f['allianceAbbreviation'].valid}"
                type="text" class="form-control" id="allianceAbbreviation" placeholder="allianceAbbreviation" formControlName="allianceAbbreviation">
         <label for="allianceAbbreviation">Alliance abbreviation</label>
-        @if (f['allianceAbbreviation'].invalid && (f['allianceAbbreviation'].dirty || f['allianceAbbreviation'].touched)) {
+        @if (f['allianceAbbreviation'].invalid && (f['allianceAbbreviation'].dirty || !f['allianceAbbreviation'].untouched)) {
           <div class="invalid-feedback">
             @if (f['allianceAbbreviation'].hasError('required')) {
               <p>Alliance abbreviation is required</p>
@@ -84,7 +84,7 @@
         <div class="form-floating is-invalid">
           <!-- Password Input  -->
           <input
-            [ngClass]="{'is-invalid': f['password'].invalid && (f['password'].dirty || f['password'].touched),'is-valid': f['password'].valid}"
+            [ngClass]="{'is-invalid': f['password'].invalid && (f['password'].dirty || !f['password'].untouched),'is-valid': f['password'].valid}"
             [type]="isInputText ? 'text' : 'password'" autocomplete="on" class="form-control"
             formControlName="password"
             id="password" placeholder="password">
@@ -98,7 +98,7 @@
                    class="input-group-text eye-icon bi"></i>
             </span>
         <!-- Password Invalid Feedback  -->
-        <div *ngIf="f['password'].invalid && (f['password'].dirty || f['password'].touched )"
+        <div *ngIf="f['password'].invalid && (f['password'].dirty || !f['password'].untouched )"
              class="invalid-feedback">
           <p *ngIf="f['password'].hasError('required')">Required</p>
           <div *ngIf="!f['password'].hasError('required')">
@@ -133,7 +133,7 @@
 
       <div class="form-floating is-invalid mb-3">
         <!-- Confirm Password Input  -->
-        <input [ngClass]="{'is-invalid': f['confirmPassword'].invalid && (f['confirmPassword'].dirty || f['confirmPassword'].touched),'is-valid': f['confirmPassword'].valid}"
+        <input [ngClass]="{'is-invalid': f['confirmPassword'].invalid && (f['confirmPassword'].dirty || !f['confirmPassword'].untouched),'is-valid': f['confirmPassword'].valid}"
                type="password" autocomplete="on" class="form-control"
                formControlName="confirmPassword"
                id="confirmPassword" placeholder="confirmPassword">
@@ -141,7 +141,7 @@
         <label for="confirmPassword">Confirm Password</label>
       </div>
       <!-- Confirm Password Invalid Feedback  -->
-      <div *ngIf="f['confirmPassword'].invalid && (f['confirmPassword'].dirty || f['confirmPassword'].touched )"
+      <div *ngIf="f['confirmPassword'].invalid && (f['confirmPassword'].dirty || !f['confirmPassword'].untouched )"
            class="invalid-feedback">
         <p *ngIf="f['confirmPassword'].hasError('required')">Confirmation password is required</p>
         <p

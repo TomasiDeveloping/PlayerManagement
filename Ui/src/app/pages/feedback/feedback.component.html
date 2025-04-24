@@ -7,7 +7,7 @@
       <div class="form-floating mb-3 is-invalid">
         <select [ngClass]="{
           'is-valid': f['type'].valid,
-          'is-invalid': f['type'].invalid && (f['type'].touched || f['type'].dirty)
+          'is-invalid': f['type'].invalid && (!f['type'].untouched || f['type'].dirty)
           }" class="form-control" id="type" formControlName="type" (change)="onTypeChange($event)">
           <option value="bug">Bug Report</option>
           <option value="feature">Feature Request</option>
@@ -18,10 +18,10 @@
       <div class="form-floating mb-3 is-invalid">
         <input [ngClass]="{
           'is-valid': f['title'].valid,
-          'is-invalid': f['title'].invalid && (f['title'].touched || f['title'].dirty)
+          'is-invalid': f['title'].invalid && (!f['title'].untouched || f['title'].dirty)
           }" type="text" class="form-control" id="title" placeholder="Title" formControlName="title">
         <label for="title">Title</label>
-        @if (f['title'].invalid && (f['title'].touched || f['title'].dirty)) {
+        @if (f['title'].invalid && (!f['title'].untouched || f['title'].dirty)) {
           <div class="invalid-feedback">
             @if (f['title'].hasError('required')) {
               <p>Title is required</p>
@@ -33,10 +33,10 @@
       <div class="form-floating mb-3 is-invalid">
       <textarea [ngClass]="{
           'is-valid': f['description'].valid,
-          'is-invalid': f['description'].invalid && (f['description'].touched || f['description'].dirty)
+          'is-invalid': f['description'].invalid && (!f['description'].untouched || f['description'].dirty)
           }" class="form-control" id="description" formControlName="description" placeholder="Describe the issue or feature" style="height: 100px;"></textarea>
         <label for="description">Description</label>
-        @if (f['description'].invalid && (f['description'].touched || f['description'].dirty)) {
+        @if (f['description'].invalid && (!f['description'].untouched || f['description'].dirty)) {
           <div class="invalid-feedback">
             @if (f['description'].hasError('required')) {
               <p>Description is required</p>
@@ -54,10 +54,10 @@
         <div class="form-floating mb-3 is-invalid">
         <textarea [ngClass]="{
           'is-valid': f['expectedBehavior'].valid,
-          'is-invalid': f['expectedBehavior'].invalid && (f['expectedBehavior'].touched || f['expectedBehavior'].dirty)
+          'is-invalid': f['expectedBehavior'].invalid && (!f['expectedBehavior'].untouched || f['expectedBehavior'].dirty)
           }"  class="form-control" id="expectedBehavior" formControlName="expectedBehavior" placeholder="What did you expect to happen?" style="height: 100px;"></textarea>
           <label for="expectedBehavior">Expected Behavior</label>
-          @if (f['expectedBehavior'].invalid && (f['expectedBehavior'].touched || f['expectedBehavior'].dirty)) {
+          @if (f['expectedBehavior'].invalid && (!f['expectedBehavior'].untouched || f['expectedBehavior'].dirty)) {
             <div class="invalid-feedback">
               @if (f['expectedBehavior'].hasError('required')) {
                 <p>ExpectedBehavior is required</p>
@@ -69,10 +69,10 @@
         <div class="form-floating mb-3 is-invalid">
         <textarea [ngClass]="{
           'is-valid': f['actualBehavior'].valid,
-          'is-invalid': f['actualBehavior'].invalid && (f['actualBehavior'].touched || f['actualBehavior'].dirty)
+          'is-invalid': f['actualBehavior'].invalid && (!f['actualBehavior'].untouched || f['actualBehavior'].dirty)
           }"  class="form-control" id="actualBehavior" formControlName="actualBehavior" placeholder="What actually happened?" style="height: 100px;"></textarea>
           <label for="actualBehavior">Actual Behavior</label>
-          @if (f['actualBehavior'].invalid && (f['actualBehavior'].touched || f['actualBehavior'].dirty)) {
+          @if (f['actualBehavior'].invalid && (!f['actualBehavior'].untouched || f['actualBehavior'].dirty)) {
             <div class="invalid-feedback">
               @if (f['actualBehavior'].hasError('required')) {
                 <p>ActualBehavior is required</p>
@@ -84,10 +84,10 @@
         <div class="form-floating mb-3 is-invalid">
         <textarea [ngClass]="{
           'is-valid': f['reproduction'].valid,
-          'is-invalid': f['reproduction'].invalid && (f['reproduction'].touched || f['reproduction'].dirty)
+          'is-invalid': f['reproduction'].invalid && (!f['reproduction'].untouched || f['reproduction'].dirty)
           }"  class="form-control" id="reproduction" formControlName="reproduction" placeholder="List the steps to reproduce the issue" style="height: 100px;"></textarea>
           <label for="reproduction">Steps to Reproduce</label>
-          @if (f['reproduction'].invalid && (f['reproduction'].touched || f['reproduction'].dirty)) {
+          @if (f['reproduction'].invalid && (!f['reproduction'].untouched || f['reproduction'].dirty)) {
             <div class="invalid-feedback">
               @if (f['reproduction'].hasError('required')) {
                 <p>Reproduction is required</p>
@@ -99,7 +99,7 @@
         <div class="form-floating mb-3 is-invalid">
           <select [ngClass]="{
           'is-valid': f['severity'].valid,
-          'is-invalid': f['severity'].invalid && (f['severity'].touched || f['severity'].dirty)
+          'is-invalid': f['severity'].invalid && (!f['severity'].untouched || f['severity'].dirty)
           }"  class="form-control" id="severity" formControlName="severity">
             <option value="low">Low</option>
             <option value="medium">Medium</option>
@@ -111,7 +111,7 @@
         <div class="form-floating mb-3 is-invalid">
           <select [ngClass]="{
           'is-valid': f['os'].valid,
-          'is-invalid': f['os'].invalid && (f['os'].touched || f['os'].dirty)
+          'is-invalid': f['os'].invalid && (!f['os'].untouched || f['os'].dirty)
           }"  class="form-control" id="os" formControlName="os">
             <option value="windows">Windows</option>
             <option value="macos">macOS</option>
@@ -120,7 +120,7 @@
             <option value="ios">iOS</option>
           </select>
           <label for="os">Operating System</label>
-          @if (f['os'].invalid && (f['os'].touched || f['os'].dirty)) {
+          @if (f['os'].invalid && (!f['os'].untouched || f['os'].dirty)) {
             <div class="invalid-feedback">
               @if (f['os'].hasError('required')) {
                 <p>Operating System is required</p>
@@ -132,7 +132,7 @@
         <div class="form-floating mb-3 is-invalid">
           <input [ngClass]="{
           'is-valid': f['appVersion'].valid,
-          'is-invalid': f['appVersion'].invalid && (f['appVersion'].touched || f['appVersion'].dirty)
+          'is-invalid': f['appVersion'].invalid && (!f['appVersion'].untouched || f['appVersion'].dirty)
           }"  type="text" class="form-control" id="appVersion" formControlName="appVersion" placeholder="App version (e.g., 1.2.3)" readonly>
           <label for="appVersion">App Version</label>
         </div>

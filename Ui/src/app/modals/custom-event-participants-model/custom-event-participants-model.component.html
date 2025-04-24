@@ -24,14 +24,11 @@
                         <input [ngClass]="{
                           'is-valid': participant.get('achievedPoints')?.valid,
                           'is-invalid': participant.get('achievedPoints')?.invalid && (participant.get('achievedPoints')?.touched || participant.get('achievedPoints')?.dirty)
-                          }" type="number" min="0" class="form-control form-control-sm" id="point{{i}}" formControlName="achievedPoints">
+                          }" type="text" mask="separator.2" thousandSeparator="." separatorLimit="9999999999999999"  class="form-control form-control-sm" id="point{{i}}" formControlName="achievedPoints">
                         @if (participant.get('achievedPoints')?.invalid && (participant.get('achievedPoints')?.touched || participant.get('achievedPoints')?.dirty)) {
                           <div class="invalid-feedback">
                             @if (participant.get('achievedPoints')?.hasError('required')){
                               <p>points is required</p>
-                            }
-                            @if (participant.get('achievedPoints')?.hasError('pattern')){
-                              <p>points must not be less than 0</p>
                             }
                           </div>
                         }

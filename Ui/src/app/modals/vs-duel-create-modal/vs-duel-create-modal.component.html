@@ -12,11 +12,11 @@
       </div>
       <div class="form-floating mb-3 is-invalid">
         <input [ngClass]="{
-        'is-invalid': f['opponentName'].invalid && (f['opponentName'].dirty || f['opponentName'].touched),
+        'is-invalid': f['opponentName'].invalid && (f['opponentName'].dirty || !f['opponentName'].untouched),
         'is-valid': f['opponentName'].valid}"
                type="text" class="form-control" id="opponentName" placeholder="opponentName" formControlName="opponentName">
         <label for="opponentName">Opponent name</label>
-        @if (f['opponentName'].invalid && (f['opponentName'].dirty || f['opponentName'].touched)) {
+        @if (f['opponentName'].invalid && (f['opponentName'].dirty || !f['opponentName'].untouched)) {
           <div class="invalid-feedback">
             @if (f['opponentName'].hasError('required')) {
               <p>Opponent name is required</p>
@@ -26,11 +26,11 @@
       </div>
       <div class="form-floating mb-3 is-invalid">
         <input [ngClass]="{
-        'is-invalid': f['opponentServer'].invalid && (f['opponentServer'].dirty || f['opponentServer'].touched),
+        'is-invalid': f['opponentServer'].invalid && (f['opponentServer'].dirty || !f['opponentServer'].untouched),
         'is-valid': f['opponentServer'].valid}"
                type="number" class="form-control" id="opponentServer" placeholder="opponentServer" formControlName="opponentServer">
         <label for="opponentServer">opponentServer</label>
-        @if (f['opponentServer'].invalid && (f['opponentServer'].dirty || f['opponentServer'].touched)) {
+        @if (f['opponentServer'].invalid && (f['opponentServer'].dirty || !f['opponentServer'].untouched)) {
           <div class="invalid-feedback">
             @if (f['opponentServer'].hasError('required')) {
               <p>opponentServer is required</p>
@@ -40,11 +40,11 @@
       </div>
       <div class="form-floating mb-3 is-invalid">
         <input [ngClass]="{
-        'is-invalid': f['opponentPower'].invalid && (f['opponentPower'].dirty || f['opponentPower'].touched),
+        'is-invalid': f['opponentPower'].invalid && (f['opponentPower'].dirty || !f['opponentPower'].untouched),
         'is-valid': f['opponentPower'].valid}"
-               type="number" class="form-control" id="opponentPower" placeholder="opponentPower" formControlName="opponentPower">
+               type="text" mask="separator.2" thousandSeparator="." separatorLimit="9999999999999999"  class="form-control" id="opponentPower" placeholder="opponentPower" formControlName="opponentPower">
         <label for="opponentPower">opponentPower</label>
-        @if (f['opponentPower'].invalid && (f['opponentPower'].dirty || f['opponentPower'].touched)) {
+        @if (f['opponentPower'].invalid && (f['opponentPower'].dirty || !f['opponentPower'].untouched)) {
           <div class="invalid-feedback">
             @if (f['opponentPower'].hasError('required')) {
               <p>opponentPower is required</p>
@@ -54,11 +54,11 @@
       </div>
       <div class="form-floating mb-3 is-invalid">
         <input [ngClass]="{
-        'is-invalid': f['opponentSize'].invalid && (f['opponentSize'].dirty || f['opponentSize'].touched),
+        'is-invalid': f['opponentSize'].invalid && (f['opponentSize'].dirty || !f['opponentSize'].untouched),
         'is-valid': f['opponentSize'].valid}"
                type="number" class="form-control" id="opponentSize" placeholder="opponentSize" formControlName="opponentSize">
         <label for="opponentSize">opponentSize</label>
-        @if (f['opponentSize'].invalid && (f['opponentSize'].dirty || f['opponentSize'].touched)) {
+        @if (f['opponentSize'].invalid && (f['opponentSize'].dirty || !f['opponentSize'].untouched)) {
           <div class="invalid-feedback">
             @if (f['opponentSize'].hasError('required')) {
               <p>opponentSize is required</p>
@@ -68,14 +68,14 @@
       </div>
       <div class="form-floating mb-3 is-invalid">
         <select [ngClass]="{
-        'is-invalid': f['vsDuelLeagueId'].invalid && (f['vsDuelLeagueId'].dirty || f['vsDuelLeagueId'].touched),
+        'is-invalid': f['vsDuelLeagueId'].invalid && (f['vsDuelLeagueId'].dirty || !f['vsDuelLeagueId'].untouched),
         'is-valid': f['vsDuelLeagueId'].valid}" class="form-select" id="vsDuelLeagueId" formControlName="vsDuelLeagueId">
           @for (vsDuelLeague of vsDuelLeagues; track vsDuelLeague.id) {
             <option [ngValue]="vsDuelLeague.id">{{vsDuelLeague.name}}</option>
           }
         </select>
         <label for="vsDuelLeagueId">Vs Duel League</label>
-        @if (f['vsDuelLeagueId'].invalid && (f['vsDuelLeagueId'].dirty || f['vsDuelLeagueId'].touched)) {
+        @if (f['vsDuelLeagueId'].invalid && (f['vsDuelLeagueId'].dirty || !f['vsDuelLeagueId'].untouched)) {
           <div class="invalid-feedback">
             @if (f['vsDuelLeagueId'].hasError('required')) {
               <p>Vs Duel League is required</p>

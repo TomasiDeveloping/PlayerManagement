@@ -93,7 +93,7 @@ export class VsDuelEditComponent implements OnInit {
         id: new FormControl<string>(vsDuelParticipant.id),
         playerId: new FormControl<string>(vsDuelParticipant.playerId),
         vsDuelId: new FormControl<string>(vsDuelParticipant.vsDuelId),
-        weeklyPoints: new FormControl<number>(vsDuelParticipant.weeklyPoints, [Validators.required, Validators.pattern('(0|[1-9]\\d*)')]),
+        weeklyPoints: new FormControl<number>(vsDuelParticipant.weeklyPoints, [Validators.required]),
         playerName: new FormControl<string>(vsDuelParticipant.playerName),
       }));
     })
