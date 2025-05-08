@@ -113,7 +113,7 @@ export class VsDuelComponent implements OnInit {
         if (response.data) {
           response.data.forEach((vsDuel: VsDuelModel) => {
             if (this._weekPipe.transform(vsDuel.eventDate) === this._weekPipe.transform(new Date())) {
-              this.currentWeekDuelExists = true;
+              //this.currentWeekDuelExists = true;
             }
           })
           this.vsDuels = response.data;
