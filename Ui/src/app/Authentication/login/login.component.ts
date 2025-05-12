@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {AuthenticationService} from "../../services/authentication.service";
 import {Router} from "@angular/router";
@@ -6,16 +6,15 @@ import {ToastrService} from "ngx-toastr";
 import {LoginRequestModel} from "../../models/login.model";
 import {environment} from "../../../environments/environment";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
-import {PlayerEditModalComponent} from "../../modals/player-edit-modal/player-edit-modal.component";
-import {PlayerModel} from "../../models/player.model";
 import {ForgotPasswordComponent} from "../forgot-password/forgot-password.component";
+import {StatService} from "../../services/stat.service";
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
 
   public isPasswordType: boolean = true;
   public currentYear: number = new Date().getFullYear();
@@ -27,9 +26,11 @@ export class LoginComponent {
   });
 
   private readonly _authenticationService: AuthenticationService = inject(AuthenticationService);
+  private readonly _statService: StatService = inject(StatService);
   private readonly _router: Router = inject(Router);
   private readonly _toastr: ToastrService = inject(ToastrService);
   private readonly _modalService : NgbModal = inject(NgbModal);
+  allianceCount: number | null = null;
 
   get email() {
     return this.loginForm.get('email');
@@ -37,6 +38,18 @@ export class LoginComponent {
 
   get password() {
     return this.loginForm.get('password');
+  }
+
+  ngOnInit() {
+    this.fetchAllianceCount();
+  }
+
+  fetchAllianceCount() {
+    this._statService.getAllianceUseCount().subscribe({
+      next: ((response => {
+        this.allianceCount = response;
+      }))
+    })
   }
 
   onLogin(): void {

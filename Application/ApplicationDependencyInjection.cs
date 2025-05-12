@@ -36,6 +36,7 @@ public static class ApplicationDependencyInjection
         services.AddScoped<IApiKeyRepository, ApiKeyRepository>();
         services.AddScoped<ICustomEventCategoryRepository, CustomEventCategoryRepository>();
         services.AddScoped<ICustomEventLeaderBoardRepository, CustomEventLeaderboardRepository>();
+        services.AddScoped<IStatRepository, StatRepository>();
 
 
         services.AddTransient<IJwtService, JwtService>();

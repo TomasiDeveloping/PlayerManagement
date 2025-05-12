@@ -65,6 +65,7 @@ import { CustomEventCategoryComponent } from './pages/custom-event/custom-event-
 import { CustomEventLeaderboardComponent } from './pages/custom-event/custom-event-leaderboard/custom-event-leaderboard.component';
 import { CustomEventEventsComponent } from './pages/custom-event/custom-event-events/custom-event-events.component';
 import {NgxMaskDirective, NgxMaskPipe, provideNgxMask} from "ngx-mask";
+import {CountUpModule} from "ngx-countup";
 
 @NgModule({
   declarations: [
@@ -140,7 +141,8 @@ import {NgxMaskDirective, NgxMaskPipe, provideNgxMask} from "ngx-mask";
         }),
         AgCharts,
       NgxMaskDirective,
-      NgxMaskPipe
+      NgxMaskPipe,
+      CountUpModule
     ],
   providers: [
     provideNgxMask(),
