@@ -7,3 +7,26 @@
 .user-menu {
   cursor: pointer;
 }
+.kofi-custom-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #794bc4;
+  color: white;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 8px 16px;
+  border-radius: 999px; /* pill-shape */
+  font-family: sans-serif;
+  font-size: 14px;
+  transition: background-color 0.3s ease;
+}
+
+.kofi-custom-button img {
+  height: 20px;
+  width: auto;
+}
+
+.kofi-custom-button:hover {
+  background-color: #5e37a4;
+}
