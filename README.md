@@ -1,4 +1,7 @@
 ﻿# PlayerManagement  
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/C0C11EVSE0)
+<br>
+---
 [![SonarQube Cloud](https://sonarcloud.io/images/project_badges/sonarcloud-highlight.svg)](https://sonarcloud.io/summary/new_code?id=TomasiDeveloping_PlayerManagement)
 [![Quality gate](https://sonarcloud.io/api/project_badges/quality_gate?project=TomasiDeveloping_PlayerManagement)](https://sonarcloud.io/summary/new_code?id=TomasiDeveloping_PlayerManagement)
 <br>
