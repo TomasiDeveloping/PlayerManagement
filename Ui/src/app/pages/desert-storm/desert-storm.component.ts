@@ -92,6 +92,7 @@ export class DesertStormComponent implements OnInit {
       opponentName: new FormControl<string>(desertStormModel ? desertStormModel.opponentName : ''),
       opponentServer: new FormControl<number | null>(desertStormModel ? desertStormModel.opponentServer : null),
       OpposingParticipants: new FormControl<number | null>(desertStormModel ? desertStormModel.opposingParticipants : null),
+      team: new FormControl<string>(desertStormModel ? desertStormModel.team : 'A')
     })
   }
 

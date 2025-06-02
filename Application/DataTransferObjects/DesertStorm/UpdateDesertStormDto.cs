@@ -23,4 +23,8 @@ public class UpdateDesertStormDto
 
     [Required]
     public bool IsInProgress { get; set; }
+
+    [Required]
+    [MaxLength(1)]
+    public required string Team { get; set; }
 }

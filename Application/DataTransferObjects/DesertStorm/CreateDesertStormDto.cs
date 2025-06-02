@@ -23,5 +23,9 @@ public class CreateDesertStormDto
     [MaxLength(150)]
     public required string OpponentName { get; set; }
 
+    [Required]
+    [MaxLength(1)]
+    public required string Team { get; set; }
+
     public bool IsInProgress { get; set; }
 }

@@ -25,4 +25,6 @@ public class DesertStormDto
     public int Participants { get; set; }
 
     public bool IsInProgress { get; set; }
+
+    public required string Team { get; set; }
 }

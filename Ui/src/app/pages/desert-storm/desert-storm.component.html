@@ -8,17 +8,9 @@
   </div>
 
   @if (!isCreateDessertStorm) {
-    @if (!currentWeekDuelExists) {
       <div class="d-grid gap-2 col-6 mx-auto">
         <button (click)="onCreateEvent()" class="btn btn-primary" type="button">Create new Desert storm Event</button>
       </div>
-    } @else {
-      <div class="d-flex justify-content-center">
-        <div class="alert alert-primary text-center w-auto" role="alert">
-          One event has already been recorded for this week. You can edit or delete the event
-        </div>
-      </div>
-    }
   }
 
   @if (isCreateDessertStorm) {
@@ -73,6 +65,14 @@
         }
       </div>
 
+      <div class="form-floating mb-3 is-invalid">
+        <select class="form-select" formControlName="team" id="team">
+          <option [ngValue]="'A'">Team A</option>
+          <option [ngValue]="'B'">Team B</option>
+        </select>
+        <label for="team">Team</label>
+      </div>
+
       @if (f['isInProgress'].value === false) {
         <div class="form-check mb-3">
           <input class="form-check-input" type="checkbox" formControlName="won" id="won">
@@ -122,6 +122,7 @@
             <th scope="col">Opponent server</th>
             <th scope="col">Opposing participants</th>
             <th scope="col">Allianz participants</th>
+            <th scope="col">Team</th>
             <th scope="col">Won</th>
             <th scope="col">Action</th>
           </tr>
@@ -134,6 +135,7 @@
                 <td>{{desertStorm.opponentServer}}</td>
                 <td>{{desertStorm.opposingParticipants}}</td>
                 <td>{{desertStorm.participants}}</td>
+                <td>{{desertStorm.team}}</td>
                 <td>
                   @if (desertStorm.isInProgress) {
                     <i class="bi bi-hourglass-split"></i> In Progress

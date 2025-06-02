@@ -21,6 +21,16 @@ This project is currently in the **Beta Phase**.
 
 ---
 
+### **[0.10.0]** - *2025-06-02*  
+#### ✨ Added  
+- **Team Selection for Desert Storm:** You can now assign **Team A** or **Team B** when creating a Desert Storm entry.  
+- **Team Display in Table:** The selected team is now also shown in the Desert Storm overview table.
+
+🛠️ **Fixed**  
+- (N/A)
+
+---
+
 ### **[0.9.1]** - *2025-04-24*  
 #### ✨ Added  
 - **Number Formatting Input Mask:** Numbers are now automatically formatted for better readability (e.g., `250000` → `250.000`).  

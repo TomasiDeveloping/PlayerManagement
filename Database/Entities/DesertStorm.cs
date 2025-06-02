@@ -24,5 +24,7 @@ public class DesertStorm : BaseEntity
 
     public bool IsInProgress { get; set; }
 
+    public required string Team { get; set; }
+
     public ICollection<DesertStormParticipant> DesertStormParticipants { get; set; } = [];
 }

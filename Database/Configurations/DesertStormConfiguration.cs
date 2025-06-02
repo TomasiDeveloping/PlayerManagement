@@ -19,6 +19,7 @@ public class DesertStormConfiguration : IEntityTypeConfiguration<DesertStorm>
         builder.Property(desertStorm => desertStorm.CreatedBy).IsRequired().HasMaxLength(150);
         builder.Property(desertStorm => desertStorm.OpponentName).IsRequired().HasMaxLength(150);
         builder.Property(desertStorm => desertStorm.ModifiedBy).IsRequired(false).HasMaxLength(150);
+        builder.Property(desertStorm => desertStorm.Team).IsRequired().HasMaxLength(1).HasDefaultValue("A");
         builder.Property(desertStorm => desertStorm.ModifiedOn).IsRequired(false);
 
         builder.HasOne(desertStorm => desertStorm.Alliance)
