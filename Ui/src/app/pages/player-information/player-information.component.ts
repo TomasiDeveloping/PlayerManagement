@@ -64,5 +64,4 @@ export class PlayerInformationComponent implements OnInit {
       })
     });
   }
-
 }

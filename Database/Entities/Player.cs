@@ -41,4 +41,6 @@ public class Player : BaseEntity
     public ICollection<CustomEventParticipant> CustomEventParticipants { get; set; } = [];
 
     public ICollection<ZombieSiegeParticipant> ZombieSiegeParticipants { get; set; } = [];
+
+    public ICollection<Squad> Squads { get; set; } = [];
 }

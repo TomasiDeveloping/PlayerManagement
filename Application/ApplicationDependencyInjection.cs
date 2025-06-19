@@ -37,6 +37,8 @@ public static class ApplicationDependencyInjection
         services.AddScoped<ICustomEventCategoryRepository, CustomEventCategoryRepository>();
         services.AddScoped<ICustomEventLeaderBoardRepository, CustomEventLeaderboardRepository>();
         services.AddScoped<IStatRepository, StatRepository>();
+        services.AddScoped<ISquadTypeRepository, SquadTypeRepository>();
+        services.AddScoped<ISquadRepository, SquadRepository>();
 
 
         services.AddTransient<IJwtService, JwtService>();

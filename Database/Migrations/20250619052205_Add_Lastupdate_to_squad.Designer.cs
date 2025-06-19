@@ -4,6 +4,7 @@ using Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Database.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20250619052205_Add_Lastupdate_to_squad")]
+    partial class Add_Lastupdate_to_squad
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -524,9 +527,8 @@ namespace Database.Migrations
                     b.Property<int>("Position")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Power")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<long>("Power")
+                        .HasColumnType("bigint");
 
                     b.Property<Guid>("SquadTypeId")
                         .HasColumnType("uniqueidentifier");
@@ -557,22 +559,22 @@ namespace Database.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("01978732-b32b-7af9-bf5f-a69585d89eb7"),
+                            Id = new Guid("019786a3-17f5-7634-bb11-87b188d9510b"),
                             TypeName = "Tanks"
                         },
                         new
                         {
-                            Id = new Guid("01978732-b32b-7fe8-9ee5-68b0d0df44f4"),
+                            Id = new Guid("019786a3-17f5-77c9-ad85-398874bf3497"),
                             TypeName = "Missile"
                         },
                         new
                         {
-                            Id = new Guid("01978732-b32b-780e-bef0-6bcf784ee1b4"),
+                            Id = new Guid("019786a3-17f5-728c-a5de-162cdf8a1b0d"),
                             TypeName = "Aircraft"
                         },
                         new
                         {
-                            Id = new Guid("01978732-b32b-79c9-adaa-19ed53157f67"),
+                            Id = new Guid("019786a3-17f5-732b-ac04-dcdddd3f7736"),
                             TypeName = "Mixed"
                         });
                 });
@@ -728,19 +730,19 @@ namespace Database.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("01978732-b32e-7aa5-8e77-507b8b20977d"),
+                            Id = new Guid("019786a3-17f8-78a8-8c5e-cc1036f64454"),
                             Code = 1,
                             Name = "Silver League"
                         },
                         new
                         {
-                            Id = new Guid("01978732-b32e-76d6-9beb-3fd062efe9ef"),
+                            Id = new Guid("019786a3-17f8-7e97-acd6-3b84721f6ba4"),
                             Code = 2,
                             Name = "Gold League"
                         },
                         new
                         {
-                            Id = new Guid("01978732-b32e-7583-9522-90dde6d778b6"),
+                            Id = new Guid("019786a3-17f8-7e3a-99ce-b8f2458c8561"),
                             Code = 3,
                             Name = "Diamond League"
                         });

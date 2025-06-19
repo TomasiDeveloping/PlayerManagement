@@ -21,6 +21,19 @@ This project is currently in the **Beta Phase**.
 
 ---
 
+### **[0.11.0]** - *2025-06-19*  
+#### ✨ Added  
+- **Squad Management per Player:** You can now add up to **four squads per player**, each with:  
+  - **Power** (in millions)  
+  - **Position**  
+  - **Type**: Tank, Aircraft, Missile, or Mixed  
+- **Visual Enhancements:** Squad types are displayed with custom icons and total power is summarized at the top of the squad card.
+
+🛠️ **Fixed**  
+- (N/A)
+
+---
+
 ### **[0.10.0]** - *2025-06-02*  
 #### ✨ Added  
 - **Team Selection for Desert Storm:** You can now assign **Team A** or **Team B** when creating a Desert Storm entry.  

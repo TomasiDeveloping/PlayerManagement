@@ -4,6 +4,7 @@ using Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Database.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20250617082727_Update_Squad")]
+    partial class Update_Squad
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -515,18 +518,14 @@ namespace Database.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("LastUpdateAt")
-                        .HasColumnType("datetime2");
-
                     b.Property<Guid>("PlayerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Position")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Power")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<long>("Power")
+                        .HasColumnType("bigint");
 
                     b.Property<Guid>("SquadTypeId")
                         .HasColumnType("uniqueidentifier");
@@ -557,22 +556,22 @@ namespace Database.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("01978732-b32b-7af9-bf5f-a69585d89eb7"),
+                            Id = new Guid("01977d00-1596-7c18-a665-e079870ae3cb"),
                             TypeName = "Tanks"
                         },
                         new
                         {
-                            Id = new Guid("01978732-b32b-7fe8-9ee5-68b0d0df44f4"),
+                            Id = new Guid("01977d00-1596-7078-b24d-f5abd8baaec1"),
                             TypeName = "Missile"
                         },
                         new
                         {
-                            Id = new Guid("01978732-b32b-780e-bef0-6bcf784ee1b4"),
+                            Id = new Guid("01977d00-1596-71a1-bbff-db88a4a59f32"),
                             TypeName = "Aircraft"
                         },
                         new
                         {
-                            Id = new Guid("01978732-b32b-79c9-adaa-19ed53157f67"),
+                            Id = new Guid("01977d00-1596-7644-98aa-ff20f05f13bb"),
                             TypeName = "Mixed"
                         });
                 });
@@ -728,19 +727,19 @@ namespace Database.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("01978732-b32e-7aa5-8e77-507b8b20977d"),
+                            Id = new Guid("01977d00-159a-7c8d-947d-56c18ec1ec5b"),
                             Code = 1,
                             Name = "Silver League"
                         },
                         new
                         {
-                            Id = new Guid("01978732-b32e-76d6-9beb-3fd062efe9ef"),
+                            Id = new Guid("01977d00-159a-766e-bdbd-e7c9a6b0805c"),
                             Code = 2,
                             Name = "Gold League"
                         },
                         new
                         {
-                            Id = new Guid("01978732-b32e-7583-9522-90dde6d778b6"),
+                            Id = new Guid("01977d00-159a-75b5-b1b3-2b968e39eb21"),
                             Code = 3,
                             Name = "Diamond League"
                         });

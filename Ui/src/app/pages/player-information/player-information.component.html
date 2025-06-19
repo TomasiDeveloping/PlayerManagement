@@ -5,40 +5,50 @@
   </div>
   @if (currentPlayer) {
     <!--    Player card-->
-    <div class="card border-info mt-3">
-      <h5 class="card-header border-info text-center">Player Information</h5>
-      <div class="card-body">
-        <h5 class="card-title">Name: <span class="text-primary">{{ currentPlayer.playerName }}</span></h5>
-        <p class="card-text">Rank: <span class="text-primary">{{ currentPlayer.rankName }}</span></p>
-        <p class="card-text">Headquarter: <span class="text-primary">{{ currentPlayer.level }}</span></p>
-        <p class="card-text">Created On: <span
-          class="text-primary">{{ currentPlayer.createdOn | date: 'dd.MM.yyyy HH:mm' }}</span></p>
-        <p class="card-text">Created by: <span class="text-primary">{{currentPlayer.createdBy}}</span></p>
-        @if (currentPlayer.modifiedOn) {
-          <p class="card-text">Modified On: <span
-            class="text-primary">{{ currentPlayer.modifiedOn | date: 'dd.MM.yyyy HH:mm' }}</span></p>
-          <p class="card-text">Modified by: <span class="text-primary">{{currentPlayer.modifiedBy}}</span></p>
-        }
-        <div class="d-flex justify-content-between">
-          <button (click)="openPlayerNotes(currentPlayer)" type="button" class="btn btn-primary position-relative">
-            Notes
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+    <div class="row mt-3">
+      <div class="col-md-6 mb-3 d-flex">
+        <div class="card border-info flex-fill">
+          <h5 class="card-header border-info text-center">Player Information</h5>
+          <div class="card-body d-flex flex-column">
+            <h5 class="card-title">Name: <span class="text-primary">{{ currentPlayer.playerName }}</span></h5>
+            <p class="card-text">Rank: <span class="text-primary">{{ currentPlayer.rankName }}</span></p>
+            <p class="card-text">Headquarter: <span class="text-primary">{{ currentPlayer.level }}</span></p>
+            <p class="card-text">Created On: <span
+              class="text-primary">{{ currentPlayer.createdOn | date: 'dd.MM.yyyy HH:mm' }}</span></p>
+            <p class="card-text">Created by: <span class="text-primary">{{currentPlayer.createdBy}}</span></p>
+            @if (currentPlayer.modifiedOn) {
+              <p class="card-text">Modified On: <span
+                class="text-primary">{{ currentPlayer.modifiedOn | date: 'dd.MM.yyyy HH:mm' }}</span></p>
+              <p class="card-text">Modified by: <span class="text-primary">{{currentPlayer.modifiedBy}}</span></p>
+            }
+            <div class="mt-auto d-flex justify-content-between">
+              <button (click)="openPlayerNotes(currentPlayer)" type="button" class="btn btn-primary position-relative">
+                Notes
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
             {{ currentPlayer.notesCount }}
-              <span class="visually-hidden">unread messages</span>
-          </span>
-          </button>
-          <button (click)="openPlayerAdmonitions(currentPlayer)" type="button"
-                  class="btn btn-warning position-relative">
-            Admonitions
-            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  <span class="visually-hidden">unread messages</span>
+            </span>
+              </button>
+              <button (click)="openPlayerAdmonitions(currentPlayer)" type="button"
+                      class="btn btn-warning position-relative">
+                Admonitions
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
             {{ currentPlayer.admonitionsCount }}
-              <span class="visually-hidden">unread messages</span>
-          </span>
-          </button>
+                  <span class="visually-hidden">unread messages</span>
+            </span>
+              </button>
+            </div>
+          </div>
         </div>
-
       </div>
+
+    <div class="col-md-6 mb-3 d-flex">
+      <app-player-squads [playerId]="playerId"></app-player-squads>
     </div>
+
+  </div>
+
+
     <!--    Accordion-->
     <div ngbAccordion #accordion="ngbAccordion" class="mt-3 pb-5">
       <!--    Marshal guard-->

@@ -1,0 +1,68 @@
+@if (squadForm) {
+  <div class="modal-header" xmlns="http://www.w3.org/1999/html">
+    <h4 class="modal-title">{{ isUpdate ? 'Update Squad ' : 'Insert new Squad' }}</h4>
+    <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+  </div>
+
+  <div class="modal-body">
+    <form [formGroup]="squadForm">
+
+      <div class="form-floating mb-3 is-invalid">
+        <select [ngClass]="{
+        'is-invalid': f['position'].invalid && (f['position'].dirty || !f['position'].untouched),
+        'is-valid': f['position'].valid}" class="form-select" id="position" formControlName="position">
+          @for (position of positions; track position) {
+            <option [ngValue]="position">{{ position }}</option>
+          }
+        </select>
+        <label for="position">Position</label>
+        @if (f['position'].invalid && (f['position'].dirty || !f['position'].untouched)) {
+          <div class="invalid-feedback">
+            @if (f['position'].hasError('required')) {
+              <p>Position is required</p>
+            }
+          </div>
+        }
+      </div>
+      <div class="form-floating mb-3 is-invalid">
+        <input [ngClass]="{
+        'is-invalid': f['power'].invalid && (f['power'].dirty || !f['power'].untouched),
+        'is-valid': f['power'].valid}"
+               type="number" class="form-control" id="power" placeholder="power" formControlName="power">
+        <label for="power">Power in millions</label>
+        @if (f['power'].invalid && (f['power'].dirty || !f['power'].untouched)) {
+          <div class="invalid-feedback">
+            @if (f['power'].hasError('required')) {
+              <p>Power is required</p>
+            }
+          </div>
+        }
+      </div>
+      <div class="form-floating mb-3 is-invalid">
+        <select [ngClass]="{
+        'is-invalid': f['squadTypeId'].invalid && (f['squadTypeId'].dirty || !f['squadTypeId'].untouched),
+        'is-valid': f['squadTypeId'].valid}" class="form-select" id="squadTypeId" formControlName="squadTypeId">
+          @for (type of squadTypes; track type.id) {
+            <option [ngValue]="type.id">{{ type.typeName }}</option>
+          }
+        </select>
+        <label for="squadTypeId">Squad Type</label>
+        @if (f['squadTypeId'].invalid && (f['squadTypeId'].dirty || !f['squadTypeId'].untouched)) {
+          <div class="invalid-feedback">
+            @if (f['squadTypeId'].hasError('required')) {
+              <p>Squad Type is required</p>
+            }
+          </div>
+        }
+      </div>
+    </form>
+  </div>
+
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-warning" (click)="activeModal.dismiss()">Close</button>
+    <button [disabled]="squadForm.invalid" (click)="onSubmit()" type="submit"
+            class=" btn btn-success">{{ isUpdate ? 'Update' : 'Insert' }} Squad
+    </button>
+  </div>
+}

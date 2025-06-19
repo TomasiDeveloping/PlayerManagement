@@ -1,0 +1,76 @@
+<div class="card border-info flex-fill w-100">
+  <h5 class="card-header border-info text-center">
+    Squad Power
+    @if (squads.length > 0) {
+      <span class="text-success fw-bold">
+    {{ totalPower | number:'1.2-2' }} million
+  </span>
+    }
+  </h5>
+  <div class="card-body">
+
+    <!-- Add Squad -->
+    @if (squads.length < 4) {
+      <div class="d-flex justify-content-end mb-3">
+        <button (click)="addSquad()" class="btn btn-sm btn-success" title="Add Squad">
+          <i class="bi bi-plus-lg"></i> Add
+        </button>
+      </div>
+    }
+
+
+    <!-- Squad List -->
+    @for (squad of squads; track squad.id) {
+      <div class="mb-3 border-bottom pb-3">
+
+        <!-- Title Row -->
+        <h6 class="mb-2">{{ squad.position }}. Squad ({{ squad.typeName }})</h6>
+
+        <!-- Power | Actions | Image -->
+        <div class="d-flex align-items-center justify-content-between">
+
+          <!-- Power -->
+          <div>
+            <strong>Power:</strong> {{ squad.power | number:'1.2-2' }}M
+          </div>
+
+          <!-- Edit / Delete Icons -->
+          <div>
+            <i
+              (click)="editSquad(squad)"
+              class="bi bi-pencil text-primary me-3 cursor-pointer"
+              title="Edit Squad">
+            </i>
+            <i
+              (click)="deleteSquad(squad)"
+              class="bi bi-trash text-danger cursor-pointer"
+              title="Delete Squad">
+            </i>
+          </div>
+
+          <!-- Image -->
+          <img
+            [src]="'assets/images/icons/' + squad.typeName + '.png'"
+            alt="{{ squad.typeName }}"
+            style="width: 50px; height: 50px;"
+          />
+        </div>
+
+        <!-- Last Update -->
+        <div class="text-muted">
+          <small>Last updated: {{ squad.lastUpdateAt | date:'dd.MM.yyyy' }}</small>
+        </div>
+
+      </div>
+    }
+
+    <!-- No Squads -->
+    @if (!squads?.length) {
+      <div class="text-muted text-center">
+        No squads available.
+      </div>
+    }
+
+  </div>
+</div>
+

@@ -1,0 +1,7 @@
+.cursor-pointer {
+  cursor: pointer;
+}
+:host {
+  display: block;
+  width: 100%;
+}

@@ -66,6 +66,8 @@ import { CustomEventLeaderboardComponent } from './pages/custom-event/custom-eve
 import { CustomEventEventsComponent } from './pages/custom-event/custom-event-events/custom-event-events.component';
 import {NgxMaskDirective, NgxMaskPipe, provideNgxMask} from "ngx-mask";
 import {CountUpModule} from "ngx-countup";
+import { PlayerSquadsComponent } from './pages/player-squads/player-squads.component';
+import { SquadEditModalComponent } from './modals/squad-edit-modal/squad-edit-modal.component';
 
 @NgModule({
   declarations: [
@@ -119,7 +121,9 @@ import {CountUpModule} from "ngx-countup";
     ImprintComponent,
     CustomEventCategoryComponent,
     CustomEventLeaderboardComponent,
-    CustomEventEventsComponent
+    CustomEventEventsComponent,
+    PlayerSquadsComponent,
+    SquadEditModalComponent
   ],
     imports: [
         BrowserModule,

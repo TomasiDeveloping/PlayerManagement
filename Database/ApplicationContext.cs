@@ -46,6 +46,10 @@ public class ApplicationContext(DbContextOptions<ApplicationContext> options) : 
 
     public DbSet<CustomEventCategory> CustomEventCategories { get; set; }
 
+    public DbSet<Squad> Squads { get; set; }
+
+    public DbSet<SquadType> SquadTypes { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);

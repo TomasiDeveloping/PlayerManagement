@@ -4,6 +4,7 @@ using Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Database.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20250617074428_Add_Squds")]
+    partial class Add_Squds
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -515,18 +518,11 @@ namespace Database.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime>("LastUpdateAt")
-                        .HasColumnType("datetime2");
-
                     b.Property<Guid>("PlayerId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<int>("Position")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Power")
-                        .HasPrecision(18, 2)
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<long>("Power")
+                        .HasColumnType("bigint");
 
                     b.Property<Guid>("SquadTypeId")
                         .HasColumnType("uniqueidentifier");
@@ -537,7 +533,7 @@ namespace Database.Migrations
 
                     b.HasIndex("SquadTypeId");
 
-                    b.ToTable("Squads", "dbo");
+                    b.ToTable("Squad", "dbo");
                 });
 
             modelBuilder.Entity("Database.Entities.SquadType", b =>
@@ -552,27 +548,27 @@ namespace Database.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SquadTypes", "dbo");
+                    b.ToTable("SquadType", "dbo");
 
                     b.HasData(
                         new
                         {
-                            Id = new Guid("01978732-b32b-7af9-bf5f-a69585d89eb7"),
+                            Id = new Guid("01977cd8-bb62-7d5b-823e-b77c6121c4f1"),
                             TypeName = "Tanks"
                         },
                         new
                         {
-                            Id = new Guid("01978732-b32b-7fe8-9ee5-68b0d0df44f4"),
+                            Id = new Guid("01977cd8-bb62-79aa-9a71-95d57250d723"),
                             TypeName = "Missile"
                         },
                         new
                         {
-                            Id = new Guid("01978732-b32b-780e-bef0-6bcf784ee1b4"),
+                            Id = new Guid("01977cd8-bb62-7089-85cb-5a48223a6e92"),
                             TypeName = "Aircraft"
                         },
                         new
                         {
-                            Id = new Guid("01978732-b32b-79c9-adaa-19ed53157f67"),
+                            Id = new Guid("01977cd8-bb62-7150-a0f9-5415e46a87e4"),
                             TypeName = "Mixed"
                         });
                 });
@@ -728,19 +724,19 @@ namespace Database.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("01978732-b32e-7aa5-8e77-507b8b20977d"),
+                            Id = new Guid("01977cd8-bb64-721f-8881-a613b564da5d"),
                             Code = 1,
                             Name = "Silver League"
                         },
                         new
                         {
-                            Id = new Guid("01978732-b32e-76d6-9beb-3fd062efe9ef"),
+                            Id = new Guid("01977cd8-bb64-7a7c-9c41-e19877c39ebb"),
                             Code = 2,
                             Name = "Gold League"
                         },
                         new
                         {
-                            Id = new Guid("01978732-b32e-7583-9522-90dde6d778b6"),
+                            Id = new Guid("01977cd8-bb64-712a-b54f-d8a6ca676771"),
                             Code = 3,
                             Name = "Diamond League"
                         });
