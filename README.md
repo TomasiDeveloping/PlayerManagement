@@ -25,7 +25,7 @@ All beta versions (0.x.x) can be found here →
 
 ---
 
-### **[1.0.1]** – *2025-02-02* 🎉
+### **[1.0.1]** – *2026-02-02* 🎉
 #### ✨ Added
 - **Zombie Siege – Perfect Checkbox**  
   A new **“Perfect” checkbox** is available for each player.  
