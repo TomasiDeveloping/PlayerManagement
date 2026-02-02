@@ -19,6 +19,17 @@ export class ZombieSiegeParticipantsModalComponent implements OnInit {
 
   @Input() players: { playerId: string, playerName: string, survivedWaves: number; }[] | undefined;
   @Input({required: true}) allianceId!: string;
+  playerSearch: string = '';
+
+  get filteredPlayers() {
+    const q = this.playerSearch.trim().toLowerCase();
+    if (!q) return this.playerParticipated;
+
+    return this.playerParticipated.filter(p =>
+      (p.playerName ?? '').toLowerCase().includes(q)
+    );
+  }
+
 
   ngOnInit() {
     if (this.players) {
@@ -41,5 +52,15 @@ export class ZombieSiegeParticipantsModalComponent implements OnInit {
         }
       })
     });
+  }
+
+  onPerfectToggle(event: Event, player: any) {
+    const checked = (event.target as HTMLInputElement).checked;
+
+    if (checked) {
+      player.survivedWaves = 20;
+    } else {
+      player.survivedWaves = 0;
+    }
   }
 }

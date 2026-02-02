@@ -15,6 +15,7 @@ Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "Ui", "Ui\Ui.esproj", "{7716
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Projektmappenelemente", "Projektmappenelemente", "{E8BE2EF5-0D8D-4D68-9979-0680938F26DF}"
 	ProjectSection(SolutionItems) = preProject
+		CHANGELOG-BETA.md = CHANGELOG-BETA.md
 		README.md = README.md
 	EndProjectSection
 EndProject

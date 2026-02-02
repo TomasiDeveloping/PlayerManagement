@@ -6,8 +6,19 @@
 </div>
 
 <div class="modal-body">
+  <!-- 🔍 Suche oben, volle Breite -->
+  <div class="mb-3 w-75 m-auto">
+    <div class="input-group">
+      <input
+        type="search"
+        class="form-control"
+        placeholder="Search player..."
+        [(ngModel)]="playerSearch"
+      />
+    </div>
+  </div>
   <div class="row">
-    @for (player of playerParticipated; track player.playerId; let i = $index) {
+    @for (player of filteredPlayers; track player.playerId; let i = $index) {
       <div class="col-12 col-md-6 mb-4">
         <div class="d-flex flex-column align-items-center border p-3">
           <h6 class="mb-4 text-color">{{player.playerName}}</h6>

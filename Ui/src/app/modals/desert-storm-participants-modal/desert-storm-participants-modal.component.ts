@@ -18,6 +18,7 @@ export class DesertStormParticipantsModalComponent implements OnInit {
 
   @Input({required: true}) allianceId!: string;
   @Input() players: {playerId: string, playerName: string, participated: boolean, registered: boolean, startPlayer: boolean}[] | undefined;
+  playerSearch: string = '';
 
   ngOnInit() {
     if (this.players) {
@@ -25,6 +26,15 @@ export class DesertStormParticipantsModalComponent implements OnInit {
     } else {
       this.getPlayers();
     }
+  }
+
+  get filteredPlayers() {
+    const q = this.playerSearch.trim().toLowerCase();
+    if (!q) return this.playerParticipated;
+
+    return this.playerParticipated.filter(p =>
+      (p.playerName ?? '').toLowerCase().includes(q)
+    );
   }
 
   getPlayers() {

@@ -6,15 +6,37 @@
 </div>
 
 <div class="modal-body">
+  <!-- 🔍 Suche oben, volle Breite -->
+  <div class="mb-3 w-75 m-auto">
+    <div class="input-group">
+      <input
+        type="search"
+        class="form-control"
+        placeholder="Search player..."
+        [(ngModel)]="playerSearch"
+      />
+    </div>
+  </div>
   <div class="check-box-container d-flex flex-wrap">
-    @for (player of playerParticipated; track player.playerId) {
+    @for (player of filteredPlayers; track player.playerId) {
       <div class="form-check flex-item">
-        <label class="form-check-label" for="{{player.playerId}}">
-          <span class="text-color">{{player.playerName}}</span>
-        </label>
-        <select class="form-select" [(ngModel)]="player.survivedWaves">
+        <div class="d-flex align-items-center justify-content-between">
+          <span class="text-color">{{ player.playerName }}</span>
+
+          <div class="d-flex align-items-center gap-2">
+            <input
+              type="checkbox"
+              class="form-check-input m-0"
+              [checked]="player.survivedWaves === 20"
+              (change)="onPerfectToggle($event, player)"
+            />
+            <span class="small text-warning">Perfect</span>
+          </div>
+        </div>
+
+        <select class="form-select mt-1" [(ngModel)]="player.survivedWaves">
           @for (wave of waves; track wave) {
-            <option [ngValue]="wave">{{wave}}</option>
+            <option [ngValue]="wave">{{ wave }}</option>
           }
         </select>
       </div>
