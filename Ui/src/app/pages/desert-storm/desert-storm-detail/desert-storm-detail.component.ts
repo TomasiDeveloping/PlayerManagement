@@ -18,6 +18,32 @@ export class DesertStormDetailComponent implements OnInit {
   public registeredPlayers: number = 0;
   public participatedPlayers: number = 0;
   public startedPlayers: number = 0;
+  filterType: 'ALL' | 'PARTICIPATED' | 'START_NOT_PARTICIPATED' | 'SUB_NOT_PARTICIPATED' = 'ALL';
+
+  get filteredPlayers() {
+    if (this.desertStormDetail?.desertStormParticipants) {
+      return this.desertStormDetail.desertStormParticipants.filter(player => {
+        if (!player.registered) return false;
+
+        switch (this.filterType) {
+          case 'PARTICIPATED':
+            return player.participated;
+
+          case 'START_NOT_PARTICIPATED':
+            return player.startPlayer && !player.participated;
+
+          case 'SUB_NOT_PARTICIPATED':
+            return !player.startPlayer && !player.participated;
+
+          default:
+            return true;
+        }
+      });
+    }
+    return [];
+
+  }
+
 
   ngOnInit() {
 

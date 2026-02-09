@@ -25,6 +25,17 @@ All beta versions (0.x.x) can be found here →
 
 ---
 
+### **[1.1.0]** – *2026-02-09* 🚀  
+#### ✨ Added  
+- **Desert Storm – Player Sorting in Info Dialog**  
+  Players can now be **sorted directly** in the **Desert Storm info dialog**:  
+  - Participated  
+  - Start Player – Did not participate  
+  - Substitute Player – Did not participate  
+
+  This makes it easier to **track participation** and quickly see who was active and who missed Desert Storm.
+
+
 ### **[1.0.1]** – *2026-02-02* 🎉
 #### ✨ Added
 - **Zombie Siege – Perfect Checkbox**  

@@ -16,29 +16,61 @@
       </h5>
       <div class="card-body">
         <h5 class="card-title">Opponent: <span class="text-primary">{{desertStormDetail.opponentName}}</span></h5>
-        <p class="card-text">Team: <span class="text-primary">{{desertStormDetail.team}}</span></p>
-        <p class="card-text">Server: <span class="text-primary">{{desertStormDetail.opponentServer}}</span></p>
-        <p class="card-text">Opponent participants: <span class="text-primary">{{desertStormDetail.opposingParticipants}}</span></p>
-        <p class="card-text">Allianz participants: <span class="text-primary">{{desertStormDetail.participants | number}}</span></p>
+        <p class="card-text mb-1">Team: <span class="text-primary">{{desertStormDetail.team}}</span></p>
+        <p class="card-text mb-1">Server: <span class="text-primary">{{desertStormDetail.opponentServer}}</span></p>
+        <p class="card-text mb-1">Opponent participants: <span class="text-primary">{{desertStormDetail.opposingParticipants}}</span></p>
+        <p class="card-text mb-1">Allianz participants: <span class="text-primary">{{desertStormDetail.participants | number}}</span></p>
         <hr>
         <div>
-          <p class="card-text">Creator: <span class="text-primary">{{desertStormDetail.createdBy}}</span></p>
+          <p class="card-text mb-1">Creator: <span class="text-primary">{{desertStormDetail.createdBy}}</span></p>
           @if (desertStormDetail.modifiedOn) {
-            <p class="card-text">Modified: <span class="text-primary">{{desertStormDetail.modifiedOn | date: 'dd.MM.yyyy HH:mm'}}</span>
+            <p class="card-text mb-1">Modified: <span class="text-primary">{{desertStormDetail.modifiedOn | date: 'dd.MM.yyyy HH:mm'}}</span>
               by <span class="text-primary">{{desertStormDetail.modifiedBy}}</span></p>
           }
         </div>
         <hr>
         <div class="d-flex justify-content-between">
-          <p>Registered: <span class="text-primary">{{registeredPlayers}}</span></p>
-          <p>Start player: <span class="text-primary">{{startedPlayers}}</span></p>
-          <p>Participated: <span class="text-primary">{{participatedPlayers}}</span></p>
+          <p class="mb-1">Registered: <span class="text-primary">{{registeredPlayers}}</span></p>
+          <p class="mb-1">Start player: <span class="text-primary">{{startedPlayers}}</span></p>
+          <p class="mb-1">Participated: <span class="text-primary">{{participatedPlayers}}</span></p>
         </div>
         <hr>
-        <p class="card-text text-center">Players</p>
+        <p class="card-text text-center mb-1">Players</p>
+        <div class="d-flex justify-content-center gap-2 mb-3 flex-wrap">
+
+          <button type="button"
+                  class="btn btn-sm rounded-pill px-3"
+                  [ngClass]="filterType === 'ALL' ? 'btn-dark' : 'btn-outline-dark'"
+                  (click)="filterType='ALL'">
+            All
+          </button>
+
+          <button type="button"
+                  class="btn btn-sm rounded-pill px-3"
+                  [ngClass]="filterType === 'PARTICIPATED' ? 'btn-success' : 'btn-outline-success'"
+                  (click)="filterType='PARTICIPATED'">
+            Participated
+          </button>
+
+          <button type="button"
+                  class="btn btn-sm rounded-pill px-3"
+                  [ngClass]="filterType === 'START_NOT_PARTICIPATED' ? 'btn-danger' : 'btn-outline-danger'"
+                  (click)="filterType='START_NOT_PARTICIPATED'">
+            Starter · Not participated
+          </button>
+
+          <button type="button"
+                  class="btn btn-sm rounded-pill px-3"
+                  [ngClass]="filterType === 'SUB_NOT_PARTICIPATED' ? 'btn-warning' : 'btn-outline-warning'"
+                  (click)="filterType='SUB_NOT_PARTICIPATED'">
+            Substitute · Not participated
+          </button>
+
+        </div>
+
         <div ngbScrollSpy class="bg-light p-3 rounded-2 mb-3" style="height: 200px">
           <div class="row">
-            @for (player of desertStormDetail.desertStormParticipants; track player.id; let i = $index) {
+            @for (player of filteredPlayers; track player.id; let i = $index) {
               @if (player.registered) {
                 <div class="col-12 col-md-6 mb-4">
                   <div class="d-flex flex-column align-items-center border p-3"
