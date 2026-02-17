@@ -13,85 +13,87 @@
             <i class="input-group-text bi bi-envelope-at-fill"></i>
             <!-- Email input control with dynamic classes for validation feedback -->
             <input [ngClass]="{'is-invalid': email?.invalid && (email?.dirty || !email?.untouched),'is-valid': email?.valid}"
-                   class="form-control" formControlName="email" id="email" placeholder="Email Address" type="email">
-            <!-- Email validation messages -->
-            @if (email?.errors && (email?.dirty || !email?.untouched)) {
-              <div class="invalid-feedback">
-                @if (email?.hasError('required')) {
-                  <p>Email address is required</p>
-                }
-                @if (email?.hasError('email')) {
-                  <p>Please enter a valid email address</p>
+              class="form-control" formControlName="email" id="email" placeholder="Email Address" type="email">
+              <!-- Email validation messages -->
+              @if (email?.errors && (email?.dirty || !email?.untouched)) {
+                <div class="invalid-feedback">
+                  @if (email?.hasError('required')) {
+                    <p>Email address is required</p>
+                  }
+                  @if (email?.hasError('email')) {
+                    <p>Please enter a valid email address</p>
+                  }
+                </div>
+              }
+            </div>
+          </div>
+
+          <!-- Password input field with validation and toggle visibility -->
+          <div class="form-label-group">
+            <label class="form-label" for="password"></label>
+            <div class="input-group">
+              <!-- Password icon -->
+              <i class="input-group-text bi bi-key-fill"></i>
+              <!-- Password input control with dynamic classes for validation feedback and visibility toggle -->
+              <input
+                [ngClass]="{'is-invalid': password?.invalid && (password?.dirty || !password?.untouched),'is-valid': password?.valid}"
+                [type]="isPasswordType ? 'password' : 'text'" autocomplete="on" class="form-control"
+                formControlName="password" id="password" placeholder="Password">
+                <!-- Eye icon to toggle password visibility -->
+                <i (click)="isPasswordType = !isPasswordType"
+                  [ngClass]="isPasswordType ? 'bi bi-eye-fill' : 'bi-eye-slash-fill'" class="input-group-text eye-icon bi">
+                </i>
+                <!-- Password validation messages -->
+                @if (password?.errors && (password?.dirty || !password?.untouched)) {
+                  <div class="invalid-feedback">
+                    @if (password?.hasError('required')) {
+                      <p>Password is required</p>
+                    }
+                  </div>
                 }
               </div>
-            }
-          </div>
-        </div>
+            </div>
 
-        <!-- Password input field with validation and toggle visibility -->
-        <div class="form-label-group">
-          <label class="form-label" for="password"></label>
-          <div class="input-group">
-            <!-- Password icon -->
-            <i class="input-group-text bi bi-key-fill"></i>
-            <!-- Password input control with dynamic classes for validation feedback and visibility toggle -->
-            <input
-              [ngClass]="{'is-invalid': password?.invalid && (password?.dirty || !password?.untouched),'is-valid': password?.valid}"
-              [type]="isPasswordType ? 'password' : 'text'" autocomplete="on" class="form-control"
-              formControlName="password" id="password" placeholder="Password">
-            <!-- Eye icon to toggle password visibility -->
-            <i (click)="isPasswordType = !isPasswordType"
-               [ngClass]="isPasswordType ? 'bi bi-eye-fill' : 'bi-eye-slash-fill'" class="input-group-text eye-icon bi">
-            </i>
-            <!-- Password validation messages -->
-            @if (password?.errors && (password?.dirty || !password?.untouched)) {
-              <div class="invalid-feedback">
-                @if (password?.hasError('required')) {
-                  <p>Password is required</p>
-                }
+            <!-- Forgot password link -->
+            <div class="mt-3">
+              <div class="text-center">
+                <p (click)="onForgotPassword()" class="custom-link">Forgot your password?</p>
               </div>
-            }
+            </div>
+
+            <div class="mt-3">
+              <div class="text-center">
+                <p (click)="onSignUp()" class="custom-link">Don’t have an account? Sign up</p>
+              </div>
+            </div>
+
+            <!-- Login button, disabled if form is invalid -->
+            <button [disabled]="loginForm.invalid" class="btn" type="submit">
+              <i class="bi bi-box-arrow-in-right"></i> Log In
+            </button>
+
+            <!-- Documentation link -->
+            <div class="mt-3 text-center">
+              <a href="../../../assets/docs/player-manager-doc-en.pdf" target="_blank" class="custom-link text-info text-decoration-none">
+                📘 View Documentation
+              </a>
+            </div>
+          </form>
+        </div>
+        @if (allianceCount !== null) {
+          <div class="alliance-counter">
+            <span>Currently </span>
+            <span class="count">
+              <span [countUp]="allianceCount"></span>
+            </span>
+            <span> alliances use the tool</span>
           </div>
-        </div>
+        }
+      </div>
 
-        <!-- Forgot password link -->
-        <div class="mt-3">
-          <div class="text-center">
-            <p (click)="onForgotPassword()" class="custom-link">Forgot your password?</p>
-          </div>
-        </div>
-
-        <div class="mt-3">
-          <div class="text-center">
-            <p (click)="onSignUp()" class="custom-link">Don’t have an account? Sign up</p>
-          </div>
-        </div>
-
-        <!-- Login button, disabled if form is invalid -->
-        <button [disabled]="loginForm.invalid" class="btn" type="submit">
-          <i class="bi bi-box-arrow-in-right"></i> Log In
-        </button>
-
-        <!-- Documentation link -->
-        <div class="mt-3 text-center">
-          <a href="../../../assets/docs/player-manager-doc-en.pdf" target="_blank" class="custom-link text-info text-decoration-none">
-            📘 View Documentation
-          </a>
-        </div>
-      </form>
+      <footer class="footer d-flex flex-wrap justify-content-center justify-content-md-between align-items-center  px-3 py-3 mt-auto shadow-sm gap-2 small text-center">
+        <span (click)="onCompany()" style="cursor: pointer">&copy; {{currentYear}} Tomasi-Developing</span>
+        <span>Version: <span (click)="onVersion()" class="text-info" style="cursor: pointer">{{version}}</span></span>
+        <span><a routerLink="/imprint" class="text-info text-decoration-none">Legal Notice / Privacy</a></span>
+      </footer>
     </div>
-    <div class="alliance-counter" *ngIf="allianceCount !== null">
-      <span>Currently </span>
-      <span class="count">
-        <span [countUp]="allianceCount"></span>
-  </span>
-      <span> alliances use the tool</span>
-    </div>
-  </div>
-
-  <footer class="footer d-flex flex-wrap justify-content-center justify-content-md-between align-items-center  px-3 py-3 mt-auto shadow-sm gap-2 small text-center">
-    <span (click)="onCompany()" style="cursor: pointer">&copy; {{currentYear}} Tomasi-Developing</span>
-    <span>Version: <span (click)="onVersion()" class="text-info" style="cursor: pointer">{{version}}</span></span>
-    <span><a routerLink="/imprint" class="text-info text-decoration-none">Legal Notice / Privacy</a></span>
-  </footer>
-</div>

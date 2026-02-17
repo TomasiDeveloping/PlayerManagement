@@ -10,8 +10,8 @@
 
       <!-- Toggle button for collapsed navigation on smaller screens -->
       <button (click)="isShown = !isShown" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation"
-              class="navbar-toggler" data-bs-target="#navbar" data-bs-toggle="collapse"
-              type="button">
+        class="navbar-toggler" data-bs-target="#navbar" data-bs-toggle="collapse"
+        type="button">
         <span class="navbar-toggler-icon"></span>
       </button>
 
@@ -67,9 +67,9 @@
 
           <li class="nav-item">
             <a href="https://ko-fi.com/C0C11EVSE0"
-               target="_blank"
-               rel="noopener noreferrer"
-               class="kofi-custom-button">
+              target="_blank"
+              rel="noopener noreferrer"
+              class="kofi-custom-button">
               <img src="https://storage.ko-fi.com/cdn/cup-border.png" alt="Ko-fi" />
               <span>Donate</span>
             </a>
@@ -78,33 +78,37 @@
         </ul>
 
         <!-- User menu (visible only when user is logged in) -->
-        <div *ngIf="loggedInUser" class="login">
-          <ul class="navbar-nav me-auto">
-            <li ngbDropdown display="dynamic" class="nav-item" role="presentation">
-              <button type="button" class="nav-link" ngbDropdownToggle>
-                <i class="bi bi-person-circle"></i>
-                {{loggedInUser.userName}}
-              </button>
-              <div ngbDropdownMenu>
-                <button (click)="isShown = false" routerLink="/account" ngbDropdownItem>Account</button>
-                <button (click)="isShown = false" routerLink="/change-password" ngbDropdownItem>Change password</button>
-                <button (click)="isShown = false" routerLink="/feedback" ngbDropdownItem>Submit Feedback</button>
-                <div class="dropdown-divider"></div>
-                <button (click)="onLogout()" ngbDropdownItem>Logout</button>
-              </div>
-            </li>
-          </ul>
-        </div>
+        @if (loggedInUser) {
+          <div class="login">
+            <ul class="navbar-nav me-auto">
+              <li ngbDropdown display="dynamic" class="nav-item" role="presentation">
+                <button type="button" class="nav-link" ngbDropdownToggle>
+                  <i class="bi bi-person-circle"></i>
+                  {{loggedInUser.userName}}
+                </button>
+                <div ngbDropdownMenu>
+                  <button (click)="isShown = false" routerLink="/account" ngbDropdownItem>Account</button>
+                  <button (click)="isShown = false" routerLink="/change-password" ngbDropdownItem>Change password</button>
+                  <button (click)="isShown = false" routerLink="/feedback" ngbDropdownItem>Submit Feedback</button>
+                  <div class="dropdown-divider"></div>
+                  <button (click)="onLogout()" ngbDropdownItem>Logout</button>
+                </div>
+              </li>
+            </ul>
+          </div>
+        }
 
         <!-- Login button (visible only when user is not logged in) -->
-        <div *ngIf="!loggedInUser" class="d-flex login" routerLink="/login">
-          <button (click)="isShown = false" class="btn btn-secondary" routerLink="/login"><i
+        @if (!loggedInUser) {
+          <div class="d-flex login" routerLink="/login">
+            <button (click)="isShown = false" class="btn btn-secondary" routerLink="/login"><i
             class="bi bi-box-arrow-right"></i> Login
           </button>
         </div>
-      </div>
+      }
     </div>
-  </nav>
+  </div>
+</nav>
 }
 
 
