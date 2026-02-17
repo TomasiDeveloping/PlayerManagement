@@ -5,9 +5,10 @@ import {PlayerModel} from "../../models/player.model";
 import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
-  selector: 'app-custom-event-participants-model',
-  templateUrl: './custom-event-participants-model.component.html',
-  styleUrl: './custom-event-participants-model.component.css'
+    selector: 'app-custom-event-participants-model',
+    templateUrl: './custom-event-participants-model.component.html',
+    styleUrl: './custom-event-participants-model.component.css',
+    standalone: false
 })
 export class CustomEventParticipantsModelComponent implements OnInit {
 

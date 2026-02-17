@@ -1,9 +1,10 @@
 import {Component} from '@angular/core';
 
 @Component({
-  selector: 'app-player-info-desert-storm',
-  templateUrl: './player-info-desert-storm.component.html',
-  styleUrl: './player-info-desert-storm.component.css'
+    selector: 'app-player-info-desert-storm',
+    templateUrl: './player-info-desert-storm.component.html',
+    styleUrl: './player-info-desert-storm.component.css',
+    standalone: false
 })
 export class PlayerInfoDesertStormComponent {
 

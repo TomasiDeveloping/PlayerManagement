@@ -7,9 +7,10 @@ import Swal from "sweetalert2";
 import {ToastrService} from "ngx-toastr";
 
 @Component({
-  selector: 'app-player-squads',
-  templateUrl: './player-squads.component.html',
-  styleUrl: './player-squads.component.css'
+    selector: 'app-player-squads',
+    templateUrl: './player-squads.component.html',
+    styleUrl: './player-squads.component.css',
+    standalone: false
 })
 export class PlayerSquadsComponent implements OnInit {
 

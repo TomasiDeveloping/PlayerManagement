@@ -21,9 +21,10 @@ import {forkJoin, Observable} from "rxjs";
 import {PagedResponseModel} from "../../models/pagedResponse.model";
 
 @Component({
-  selector: 'app-zombie-siege',
-  templateUrl: './zombie-siege.component.html',
-  styleUrl: './zombie-siege.component.css',
+    selector: 'app-zombie-siege',
+    templateUrl: './zombie-siege.component.html',
+    styleUrl: './zombie-siege.component.css',
+    standalone: false
 })
 export class ZombieSiegeComponent implements OnInit {
 

@@ -11,9 +11,10 @@ import {
 } from "../../modals/player-dismiss-information-modal/player-dismiss-information-modal.component";
 
 @Component({
-  selector: 'app-dismiss-player',
-  templateUrl: './dismiss-player.component.html',
-  styleUrl: './dismiss-player.component.css'
+    selector: 'app-dismiss-player',
+    templateUrl: './dismiss-player.component.html',
+    styleUrl: './dismiss-player.component.css',
+    standalone: false
 })
 export class DismissPlayerComponent implements OnInit {
 

@@ -11,9 +11,10 @@ import {ToastrService} from "ngx-toastr";
 import Swal from "sweetalert2";
 
 @Component({
-  selector: 'app-custom-event-category',
-  templateUrl: './custom-event-category.component.html',
-  styleUrl: './custom-event-category.component.css'
+    selector: 'app-custom-event-category',
+    templateUrl: './custom-event-category.component.html',
+    styleUrl: './custom-event-category.component.css',
+    standalone: false
 })
 export class CustomEventCategoryComponent implements OnInit {
   isCreateCustomEventCategory: any;

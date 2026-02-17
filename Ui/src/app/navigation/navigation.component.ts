@@ -5,9 +5,10 @@ import {Subscription} from "rxjs";
 import {environment} from "../../environments/environment";
 
 @Component({
-  selector: 'app-navigation',
-  templateUrl: './navigation.component.html',
-  styleUrl: './navigation.component.css'
+    selector: 'app-navigation',
+    templateUrl: './navigation.component.html',
+    styleUrl: './navigation.component.css',
+    standalone: false
 })
 export class NavigationComponent implements OnInit, OnDestroy {
 

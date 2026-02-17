@@ -5,9 +5,10 @@ import {VsDuelDetailModel} from "../../../models/vsDuel.model";
 
 
 @Component({
-  selector: 'app-vs-duel-detail',
-  templateUrl: './vs-duel-detail.component.html',
-  styleUrl: './vs-duel-detail.component.css'
+    selector: 'app-vs-duel-detail',
+    templateUrl: './vs-duel-detail.component.html',
+    styleUrl: './vs-duel-detail.component.css',
+    standalone: false
 })
 export class VsDuelDetailComponent implements OnInit {
 

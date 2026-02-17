@@ -8,9 +8,10 @@ import {RegisterUserModel} from "../../models/registerUser.model";
 import {environment} from "../../../environments/environment";
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+    selector: 'app-register',
+    templateUrl: './register.component.html',
+    styleUrl: './register.component.css',
+    standalone: false
 })
 export class RegisterComponent implements OnInit {
 

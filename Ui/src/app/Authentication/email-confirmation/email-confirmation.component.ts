@@ -7,9 +7,10 @@ import {EmailConfirmationRequestModel} from "../../models/emailConfirmationReque
 import {environment} from "../../../environments/environment";
 
 @Component({
-  selector: 'app-email-confirmation',
-  templateUrl: './email-confirmation.component.html',
-  styleUrl: './email-confirmation.component.css'
+    selector: 'app-email-confirmation',
+    templateUrl: './email-confirmation.component.html',
+    styleUrl: './email-confirmation.component.css',
+    standalone: false
 })
 export class EmailConfirmationComponent implements OnInit {
 

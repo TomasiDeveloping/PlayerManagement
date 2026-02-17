@@ -8,9 +8,10 @@ import {PlayerService} from "../../services/player.service";
 import {ToastrService} from "ngx-toastr";
 
 @Component({
-  selector: 'app-player-edit-modal',
-  templateUrl: './player-edit-modal.component.html',
-  styleUrl: './player-edit-modal.component.css'
+    selector: 'app-player-edit-modal',
+    templateUrl: './player-edit-modal.component.html',
+    styleUrl: './player-edit-modal.component.css',
+    standalone: false
 })
 export class PlayerEditModalComponent implements OnInit {
 

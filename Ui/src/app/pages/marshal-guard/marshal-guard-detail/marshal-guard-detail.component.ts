@@ -4,9 +4,10 @@ import {MarshalGuardService} from "../../../services/marshal-guard.service";
 import {MarshalGuardDetailModel} from "../../../models/marshalGuard.model";
 
 @Component({
-  selector: 'app-marshal-guard-detail',
-  templateUrl: './marshal-guard-detail.component.html',
-  styleUrl: './marshal-guard-detail.component.css'
+    selector: 'app-marshal-guard-detail',
+    templateUrl: './marshal-guard-detail.component.html',
+    styleUrl: './marshal-guard-detail.component.css',
+    standalone: false
 })
 export class MarshalGuardDetailComponent implements OnInit {
 

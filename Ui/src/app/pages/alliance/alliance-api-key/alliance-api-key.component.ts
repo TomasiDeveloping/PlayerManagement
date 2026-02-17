@@ -5,9 +5,10 @@ import {ApiKeyService} from "../../../services/api-key.service";
 import {ToastrService} from "ngx-toastr";
 
 @Component({
-  selector: 'app-alliance-api-key',
-  templateUrl: './alliance-api-key.component.html',
-  styleUrl: './alliance-api-key.component.css'
+    selector: 'app-alliance-api-key',
+    templateUrl: './alliance-api-key.component.html',
+    styleUrl: './alliance-api-key.component.css',
+    standalone: false
 })
 export class AllianceApiKeyComponent implements OnInit {
 

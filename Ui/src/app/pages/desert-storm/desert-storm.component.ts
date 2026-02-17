@@ -19,9 +19,10 @@ import {ToastrService} from "ngx-toastr";
 import {forkJoin, Observable} from "rxjs";
 
 @Component({
-  selector: 'app-desert-storm',
-  templateUrl: './desert-storm.component.html',
-  styleUrl: './desert-storm.component.css'
+    selector: 'app-desert-storm',
+    templateUrl: './desert-storm.component.html',
+    styleUrl: './desert-storm.component.css',
+    standalone: false
 })
 export class DesertStormComponent implements OnInit {
 

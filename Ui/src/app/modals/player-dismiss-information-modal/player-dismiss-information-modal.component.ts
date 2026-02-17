@@ -5,9 +5,10 @@ import {PlayerService} from "../../services/player.service";
 import {ToastrService} from "ngx-toastr";
 
 @Component({
-  selector: 'app-player-dismiss-information-modal',
-  templateUrl: './player-dismiss-information-modal.component.html',
-  styleUrl: './player-dismiss-information-modal.component.css'
+    selector: 'app-player-dismiss-information-modal',
+    templateUrl: './player-dismiss-information-modal.component.html',
+    styleUrl: './player-dismiss-information-modal.component.css',
+    standalone: false
 })
 export class PlayerDismissInformationModalComponent implements OnInit {
 

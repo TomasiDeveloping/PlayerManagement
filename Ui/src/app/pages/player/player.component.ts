@@ -18,9 +18,10 @@ import {
 
 
 @Component({
-  selector: 'app-player',
-  templateUrl: './player.component.html',
-  styleUrl: './player.component.css'
+    selector: 'app-player',
+    templateUrl: './player.component.html',
+    styleUrl: './player.component.css',
+    standalone: false
 })
 export class PlayerComponent implements OnInit {
 

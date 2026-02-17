@@ -6,9 +6,10 @@ import {ToastrService} from "ngx-toastr";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-feedback',
-  templateUrl: './feedback.component.html',
-  styleUrl: './feedback.component.css'
+    selector: 'app-feedback',
+    templateUrl: './feedback.component.html',
+    styleUrl: './feedback.component.css',
+    standalone: false
 })
 export class FeedbackComponent implements OnInit {
 

@@ -22,9 +22,10 @@ import {Router} from "@angular/router";
 import {forkJoin, Observable} from "rxjs";
 
 @Component({
-  selector: 'app-marshal-guard',
-  templateUrl: './marshal-guard.component.html',
-  styleUrl: './marshal-guard.component.css'
+    selector: 'app-marshal-guard',
+    templateUrl: './marshal-guard.component.html',
+    styleUrl: './marshal-guard.component.css',
+    standalone: false
 })
 export class MarshalGuardComponent implements OnInit {
 

@@ -6,9 +6,10 @@ import {UpdateUserModel, UserModel} from "../../models/user.model";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
-  selector: 'app-user-edit-modal',
-  templateUrl: './user-edit-modal.component.html',
-  styleUrl: './user-edit-modal.component.css'
+    selector: 'app-user-edit-modal',
+    templateUrl: './user-edit-modal.component.html',
+    styleUrl: './user-edit-modal.component.css',
+    standalone: false
 })
 export class UserEditModalComponent implements OnInit {
 

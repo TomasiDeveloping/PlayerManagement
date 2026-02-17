@@ -4,9 +4,10 @@ import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {PlayerModel} from "../../models/player.model";
 
 @Component({
-  selector: 'app-desert-storm-participants-modal',
-  templateUrl: './desert-storm-participants-modal.component.html',
-  styleUrl: './desert-storm-participants-modal.component.css'
+    selector: 'app-desert-storm-participants-modal',
+    templateUrl: './desert-storm-participants-modal.component.html',
+    styleUrl: './desert-storm-participants-modal.component.css',
+    standalone: false
 })
 export class DesertStormParticipantsModalComponent implements OnInit {
 

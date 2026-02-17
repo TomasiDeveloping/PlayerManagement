@@ -4,9 +4,10 @@ import {PlayerService} from "../../services/player.service";
 import {PlayerModel} from "../../models/player.model";
 
 @Component({
-  selector: 'app-zombie-siege-participants-modal',
-  templateUrl: './zombie-siege-participants-modal.component.html',
-  styleUrl: './zombie-siege-participants-modal.component.css'
+    selector: 'app-zombie-siege-participants-modal',
+    templateUrl: './zombie-siege-participants-modal.component.html',
+    styleUrl: './zombie-siege-participants-modal.component.css',
+    standalone: false
 })
 export class ZombieSiegeParticipantsModalComponent implements OnInit {
 

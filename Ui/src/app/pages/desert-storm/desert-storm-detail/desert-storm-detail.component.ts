@@ -4,9 +4,10 @@ import {DesertStormService} from "../../../services/desert-storm.service";
 import {DesertStormDetailModel} from "../../../models/desertStorm.model";
 
 @Component({
-  selector: 'app-desert-storm-detail',
-  templateUrl: './desert-storm-detail.component.html',
-  styleUrl: './desert-storm-detail.component.css'
+    selector: 'app-desert-storm-detail',
+    templateUrl: './desert-storm-detail.component.html',
+    styleUrl: './desert-storm-detail.component.css',
+    standalone: false
 })
 export class DesertStormDetailComponent implements OnInit {
 

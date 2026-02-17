@@ -8,9 +8,10 @@ import {PlayerAdmonitionModalComponent} from "../../modals/player-admonition-mod
 import {ToastrService} from "ngx-toastr";
 
 @Component({
-  selector: 'app-player-information',
-  templateUrl: './player-information.component.html',
-  styleUrl: './player-information.component.css'
+    selector: 'app-player-information',
+    templateUrl: './player-information.component.html',
+    styleUrl: './player-information.component.css',
+    standalone: false
 })
 export class PlayerInformationComponent implements OnInit {
 

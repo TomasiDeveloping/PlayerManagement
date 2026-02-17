@@ -9,10 +9,11 @@ import Swal from "sweetalert2";
 import {Router} from "@angular/router";
 
 @Component({
-  selector: 'app-vs-duel',
-  templateUrl: './vs-duel.component.html',
-  styleUrl: './vs-duel.component.css',
-  providers: [WeekPipe]
+    selector: 'app-vs-duel',
+    templateUrl: './vs-duel.component.html',
+    styleUrl: './vs-duel.component.css',
+    providers: [WeekPipe],
+    standalone: false
 })
 export class VsDuelComponent implements OnInit {
 
