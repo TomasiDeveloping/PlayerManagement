@@ -31,7 +31,7 @@
     "ngx-countup": "^21.0.0",
     "ngx-mask": "^21.0.1",
     "ngx-pagination": "^6.0.3",
-    "ngx-spinner": "^17.0.0",
+    "ngx-spinner": "^21.0.0",
     "ngx-toastr": "^19.0.0",
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.22.4",
