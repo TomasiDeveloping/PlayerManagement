@@ -25,9 +25,7 @@ export class PlayerInfoVsDuelComponent {
 
 
   options: AgChartOptions = {
-    title: {
-      text: 'Weekly Points'
-    },
+    title: { text: 'Weekly Points' },
     data: [],
     series: [
       {
@@ -40,22 +38,21 @@ export class PlayerInfoVsDuelComponent {
         fill: 'blue'
       }
     ],
-    axes: [
-      {
+    axes: {
+      y: {
         type: 'number',
         position: 'left',
         label: {
-          formatter: (params: any) => {
-            return params.value.toLocaleString('en-US')
-          }
-        }
+          formatter: (params: any) => params.value.toLocaleString('en-US'),
+        },
       },
-      {
+      x: {
         type: 'category',
         position: 'bottom',
-      }
-    ]
-  }
+      },
+    },
+  };
+
 
   getData(take: number) {
     const chartData: {date: string, points: number}[] = [];
