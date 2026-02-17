@@ -34,7 +34,7 @@
     "ngx-spinner": "^21.0.0",
     "ngx-toastr": "^20.0.5",
     "rxjs": "~7.8.0",
-    "sweetalert2": "^11.22.4",
+    "sweetalert2": "^11.26.18",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.1"
   },
