@@ -10,9 +10,10 @@ import {ForgotPasswordComponent} from "../forgot-password/forgot-password.compon
 import {StatService} from "../../services/stat.service";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+    selector: 'app-login',
+    templateUrl: './login.component.html',
+    styleUrl: './login.component.css',
+    standalone: false
 })
 export class LoginComponent implements OnInit {
 

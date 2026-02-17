@@ -4,9 +4,10 @@ import {ActivatedRoute} from "@angular/router";
 import {ZombieSiegeService} from "../../../services/zombie-siege.service";
 
 @Component({
-  selector: 'app-zombie-siege-detail',
-  templateUrl: './zombie-siege-detail.component.html',
-  styleUrl: './zombie-siege-detail.component.css'
+    selector: 'app-zombie-siege-detail',
+    templateUrl: './zombie-siege-detail.component.html',
+    styleUrl: './zombie-siege-detail.component.css',
+    standalone: false
 })
 export class ZombieSiegeDetailComponent implements OnInit {
 

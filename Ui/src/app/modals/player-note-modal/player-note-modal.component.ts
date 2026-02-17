@@ -8,9 +8,10 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import Swal from "sweetalert2";
 
 @Component({
-  selector: 'app-player-note-modal',
-  templateUrl: './player-note-modal.component.html',
-  styleUrl: './player-note-modal.component.css'
+    selector: 'app-player-note-modal',
+    templateUrl: './player-note-modal.component.html',
+    styleUrl: './player-note-modal.component.css',
+    standalone: false
 })
 export class PlayerNoteModalComponent implements OnInit {
 

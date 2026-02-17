@@ -4,9 +4,10 @@ import {CustomEventService} from "../../../services/custom-event.service";
 import {CustomEventDetailModel} from "../../../models/customEvent.model";
 
 @Component({
-  selector: 'app-custom-event-detail',
-  templateUrl: './custom-event-detail.component.html',
-  styleUrl: './custom-event-detail.component.css'
+    selector: 'app-custom-event-detail',
+    templateUrl: './custom-event-detail.component.html',
+    styleUrl: './custom-event-detail.component.css',
+    standalone: false
 })
 export class CustomEventDetailComponent implements OnInit {
 

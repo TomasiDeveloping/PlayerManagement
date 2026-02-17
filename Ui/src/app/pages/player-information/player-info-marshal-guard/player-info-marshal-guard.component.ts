@@ -4,9 +4,10 @@ import {ToastrService} from "ngx-toastr";
 import {MarshalGuardParticipantModel} from "../../../models/marshalGuardParticipant.model";
 
 @Component({
-  selector: 'app-player-info-marshal-guard',
-  templateUrl: './player-info-marshal-guard.component.html',
-  styleUrl: './player-info-marshal-guard.component.css'
+    selector: 'app-player-info-marshal-guard',
+    templateUrl: './player-info-marshal-guard.component.html',
+    styleUrl: './player-info-marshal-guard.component.css',
+    standalone: false
 })
 export class PlayerInfoMarshalGuardComponent {
 

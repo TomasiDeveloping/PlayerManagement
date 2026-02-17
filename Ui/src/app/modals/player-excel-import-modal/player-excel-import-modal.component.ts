@@ -6,9 +6,10 @@ import {JwtTokenService} from "../../services/jwt-token.service";
 import {PlayerService} from "../../services/player.service";
 
 @Component({
-  selector: 'app-player-excel-import-modal',
-  templateUrl: './player-excel-import-modal.component.html',
-  styleUrl: './player-excel-import-modal.component.css'
+    selector: 'app-player-excel-import-modal',
+    templateUrl: './player-excel-import-modal.component.html',
+    styleUrl: './player-excel-import-modal.component.css',
+    standalone: false
 })
 export class PlayerExcelImportModalComponent {
 

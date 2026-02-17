@@ -8,9 +8,10 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
 
 @Component({
-  selector: 'app-squad-edit-modal',
-  templateUrl: './squad-edit-modal.component.html',
-  styleUrl: './squad-edit-modal.component.css'
+    selector: 'app-squad-edit-modal',
+    templateUrl: './squad-edit-modal.component.html',
+    styleUrl: './squad-edit-modal.component.css',
+    standalone: false
 })
 export class SquadEditModalComponent implements OnInit {
 

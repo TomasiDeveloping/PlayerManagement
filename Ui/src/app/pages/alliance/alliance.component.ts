@@ -7,9 +7,10 @@ import {JwtTokenService} from "../../services/jwt-token.service";
 
 
 @Component({
-  selector: 'app-alliance',
-  templateUrl: './alliance.component.html',
-  styleUrl: './alliance.component.css'
+    selector: 'app-alliance',
+    templateUrl: './alliance.component.html',
+    styleUrl: './alliance.component.css',
+    standalone: false
 })
 export class AllianceComponent implements OnInit {
 

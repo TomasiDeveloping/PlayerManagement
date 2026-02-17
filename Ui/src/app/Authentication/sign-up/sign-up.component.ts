@@ -8,9 +8,10 @@ import {ToastrService} from "ngx-toastr";
 import {environment} from "../../../environments/environment";
 
 @Component({
-  selector: 'app-sign-up',
-  templateUrl: './sign-up.component.html',
-  styleUrl: './sign-up.component.css'
+    selector: 'app-sign-up',
+    templateUrl: './sign-up.component.html',
+    styleUrl: './sign-up.component.css',
+    standalone: false
 })
 export class SignUpComponent {
 

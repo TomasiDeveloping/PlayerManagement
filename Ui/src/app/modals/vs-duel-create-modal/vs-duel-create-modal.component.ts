@@ -8,9 +8,10 @@ import {VsDuelLeagueService} from "../../services/vs-duel-league.service";
 import {VsDuelLeagueModel} from "../../models/vsDuelLeague.model";
 
 @Component({
-  selector: 'app-vs-duel-edit-modal',
-  templateUrl: './vs-duel-create-modal.component.html',
-  styleUrl: './vs-duel-create-modal.component.css'
+    selector: 'app-vs-duel-edit-modal',
+    templateUrl: './vs-duel-create-modal.component.html',
+    styleUrl: './vs-duel-create-modal.component.css',
+    standalone: false
 })
 export class VsDuelCreateModalComponent implements OnInit {
 

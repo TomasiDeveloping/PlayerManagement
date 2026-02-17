@@ -7,9 +7,10 @@ import {PasswordValidators} from "../../helpers/passwordValidators";
 import {ResetPasswordModel} from "../../models/resetPassword.model";
 
 @Component({
-  selector: 'app-reset-password',
-  templateUrl: './reset-password.component.html',
-  styleUrl: './reset-password.component.css'
+    selector: 'app-reset-password',
+    templateUrl: './reset-password.component.html',
+    styleUrl: './reset-password.component.css',
+    standalone: false
 })
 export class ResetPasswordComponent implements OnInit {
 

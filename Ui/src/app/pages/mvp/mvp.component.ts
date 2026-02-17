@@ -6,9 +6,10 @@ import {PlayerMvpModel} from "../../models/player.model";
 
 
 @Component({
-  selector: 'app-mvp',
-  templateUrl: './mvp.component.html',
-  styleUrl: './mvp.component.css'
+    selector: 'app-mvp',
+    templateUrl: './mvp.component.html',
+    styleUrl: './mvp.component.css',
+    standalone: false
 })
 export class MvpComponent implements OnInit {
 

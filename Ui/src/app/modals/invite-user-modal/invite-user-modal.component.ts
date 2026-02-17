@@ -8,9 +8,10 @@ import {environment} from "../../../environments/environment";
 
 
 @Component({
-  selector: 'app-invite-user-modal',
-  templateUrl: './invite-user-modal.component.html',
-  styleUrl: './invite-user-modal.component.css'
+    selector: 'app-invite-user-modal',
+    templateUrl: './invite-user-modal.component.html',
+    styleUrl: './invite-user-modal.component.css',
+    standalone: false
 })
 export class InviteUserModalComponent implements OnInit {
 

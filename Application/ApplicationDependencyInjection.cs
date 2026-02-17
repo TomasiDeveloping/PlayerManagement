@@ -1,6 +1,6 @@
-﻿using System.Reflection;
-using Application.Helpers;
+﻿using Application.Helpers;
 using Application.Interfaces;
+using Application.Profiles;
 using Application.Repositories;
 using Application.Services;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,7 +13,7 @@ public static class ApplicationDependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
-        services.AddAutoMapper(Assembly.GetExecutingAssembly());
+        services.AddAutoMapper(_ =>  {}, typeof(AllianceProfile));
 
         services.AddScoped<IAllianceRepository, AllianceRepository>();
         services.AddScoped<IAdmonitionRepository, AdmonitionRepository>();

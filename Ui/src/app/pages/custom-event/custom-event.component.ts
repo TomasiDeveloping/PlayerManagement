@@ -2,9 +2,10 @@ import {Component} from '@angular/core';
 
 
 @Component({
-  selector: 'app-custom-event',
-  templateUrl: './custom-event.component.html',
-  styleUrl: './custom-event.component.css'
+    selector: 'app-custom-event',
+    templateUrl: './custom-event.component.html',
+    styleUrl: './custom-event.component.css',
+    standalone: false
 })
 export class CustomEventComponent  {
 

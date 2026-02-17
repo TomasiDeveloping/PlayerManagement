@@ -9,9 +9,10 @@ import {InviteUserModalComponent} from "../../../modals/invite-user-modal/invite
 import {JwtTokenService} from "../../../services/jwt-token.service";
 
 @Component({
-  selector: 'app-alliance-user-administration',
-  templateUrl: './alliance-user-administration.component.html',
-  styleUrl: './alliance-user-administration.component.css'
+    selector: 'app-alliance-user-administration',
+    templateUrl: './alliance-user-administration.component.html',
+    styleUrl: './alliance-user-administration.component.css',
+    standalone: false
 })
 export class AllianceUserAdministrationComponent implements OnInit {
 

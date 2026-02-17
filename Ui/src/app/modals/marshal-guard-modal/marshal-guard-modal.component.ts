@@ -4,9 +4,10 @@ import {PlayerService} from "../../services/player.service";
 import {PlayerModel} from "../../models/player.model";
 
 @Component({
-  selector: 'app-marshal-guard-modal',
-  templateUrl: './marshal-guard-modal.component.html',
-  styleUrl: './marshal-guard-modal.component.css'
+    selector: 'app-marshal-guard-modal',
+    templateUrl: './marshal-guard-modal.component.html',
+    styleUrl: './marshal-guard-modal.component.css',
+    standalone: false
 })
 export class MarshalGuardModalComponent implements OnInit {
 

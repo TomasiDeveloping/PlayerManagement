@@ -3,6 +3,7 @@ using Api.Middleware;
 using Application;
 using Database;
 using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Serilog;
 using Utilities.Classes;
@@ -23,7 +24,6 @@ try
         configuration.ReadFrom.Configuration(context.Configuration)
             .WriteTo.File(logPath, rollingInterval: RollingInterval.Day, rollOnFileSizeLimit: true);
     });
-
 
     builder.Services.AddDatabase(builder.Configuration);
     builder.Services.AddApplication();
@@ -53,6 +53,8 @@ try
 
     app.UseStaticFiles();
     app.UseDefaultFiles();
+
+    app.MapOpenApi();
 
     app.UseSwagger();
     app.UseSwaggerUI();

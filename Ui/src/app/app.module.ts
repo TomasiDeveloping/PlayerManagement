@@ -65,9 +65,10 @@ import { CustomEventCategoryComponent } from './pages/custom-event/custom-event-
 import { CustomEventLeaderboardComponent } from './pages/custom-event/custom-event-leaderboard/custom-event-leaderboard.component';
 import { CustomEventEventsComponent } from './pages/custom-event/custom-event-events/custom-event-events.component';
 import {NgxMaskDirective, NgxMaskPipe, provideNgxMask} from "ngx-mask";
-import {CountUpModule} from "ngx-countup";
 import { PlayerSquadsComponent } from './pages/player-squads/player-squads.component';
 import { SquadEditModalComponent } from './modals/squad-edit-modal/squad-edit-modal.component';
+import {CommonModule} from "@angular/common";
+import {CountUpDirective} from "ngx-countup";
 
 @NgModule({
   declarations: [
@@ -125,29 +126,30 @@ import { SquadEditModalComponent } from './modals/squad-edit-modal/squad-edit-mo
     PlayerSquadsComponent,
     SquadEditModalComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        NgbModule,
-        FormsModule,
-        NgxPaginationModule,
-        ReactiveFormsModule,
-        NgxSpinnerModule,
-        NgbRatingModule,
-        ToastrModule.forRoot({
-            positionClass: 'toast-bottom-right',
-        }),
-        JwtModule.forRoot({
-            config: {
-                tokenGetter: () => localStorage.getItem(''),
-            }
-        }),
-        AgCharts,
-      NgxMaskDirective,
-      NgxMaskPipe,
-      CountUpModule
-    ],
+  imports: [
+    CommonModule,
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    NgbModule,
+    FormsModule,
+    NgxPaginationModule,
+    ReactiveFormsModule,
+    NgxSpinnerModule,
+    NgbRatingModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-bottom-right',
+    }),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => localStorage.getItem(''),
+      }
+    }),
+    AgCharts,
+    NgxMaskDirective,
+    NgxMaskPipe,
+    CountUpDirective
+  ],
   providers: [
     provideNgxMask(),
     provideHttpClient(withInterceptors([spinnerInterceptor, jwtInterceptor]))

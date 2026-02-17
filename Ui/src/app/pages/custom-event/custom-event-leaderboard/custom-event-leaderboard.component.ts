@@ -10,9 +10,10 @@ import {
 } from "../../../models/customEventLeaderboard.model";
 
 @Component({
-  selector: 'app-custom-event-leaderboard',
-  templateUrl: './custom-event-leaderboard.component.html',
-  styleUrl: './custom-event-leaderboard.component.css'
+    selector: 'app-custom-event-leaderboard',
+    templateUrl: './custom-event-leaderboard.component.html',
+    styleUrl: './custom-event-leaderboard.component.css',
+    standalone: false
 })
 export class CustomEventLeaderboardComponent implements OnInit {
 

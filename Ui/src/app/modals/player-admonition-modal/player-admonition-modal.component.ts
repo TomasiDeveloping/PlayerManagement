@@ -8,9 +8,10 @@ import {AdmonitionService} from "../../services/admonition.service";
 import Swal from "sweetalert2";
 
 @Component({
-  selector: 'app-player-admonition-modal',
-  templateUrl: './player-admonition-modal.component.html',
-  styleUrl: './player-admonition-modal.component.css'
+    selector: 'app-player-admonition-modal',
+    templateUrl: './player-admonition-modal.component.html',
+    styleUrl: './player-admonition-modal.component.css',
+    standalone: false
 })
 export class PlayerAdmonitionModalComponent implements OnInit {
 

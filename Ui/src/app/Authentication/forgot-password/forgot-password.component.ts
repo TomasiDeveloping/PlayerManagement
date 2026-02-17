@@ -7,9 +7,10 @@ import {ForgotPasswordModel} from "../../models/forgotPassword.model";
 import {environment} from "../../../environments/environment";
 
 @Component({
-  selector: 'app-forgot-password',
-  templateUrl: './forgot-password.component.html',
-  styleUrl: './forgot-password.component.css'
+    selector: 'app-forgot-password',
+    templateUrl: './forgot-password.component.html',
+    styleUrl: './forgot-password.component.css',
+    standalone: false
 })
 export class ForgotPasswordComponent {
 

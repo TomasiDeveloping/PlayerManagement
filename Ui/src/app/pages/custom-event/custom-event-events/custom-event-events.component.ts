@@ -17,9 +17,10 @@ import Swal from "sweetalert2";
 import {forkJoin, Observable} from "rxjs";
 
 @Component({
-  selector: 'app-custom-event-events',
-  templateUrl: './custom-event-events.component.html',
-  styleUrl: './custom-event-events.component.css'
+    selector: 'app-custom-event-events',
+    templateUrl: './custom-event-events.component.html',
+    styleUrl: './custom-event-events.component.css',
+    standalone: false
 })
 export class CustomEventEventsComponent implements OnInit {
 
