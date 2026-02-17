@@ -24,7 +24,7 @@
     "@sweetalert2/theme-dark": "^5.0.27",
     "ag-charts-angular": "^13.1.0",
     "bootstrap": "^5.3.8",
-    "bootstrap-icons": "^1.11.3",
+    "bootstrap-icons": "^1.13.1",
     "bootswatch": "^5.3.3",
     "jest-editor-support": "*",
     "moment": "^2.30.1",
