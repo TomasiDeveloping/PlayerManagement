@@ -25,6 +25,16 @@ All beta versions (0.x.x) can be found here →
 
 ---
 
+### **[1.2.0]** – *2026-02-17* 🚀  
+#### 🛠 Changed  
+- **Platform Upgrade**  
+  The application has been upgraded to the latest platform versions:  
+  - Backend: **.NET 10**  
+  - Frontend: **Angular 21**
+
+  These upgrades improve performance, security, and future compatibility with upcoming features.
+
+
 ### **[1.1.0]** – *2026-02-09* 🚀  
 #### ✨ Added  
 - **Desert Storm – Player Sorting in Info Dialog**  
