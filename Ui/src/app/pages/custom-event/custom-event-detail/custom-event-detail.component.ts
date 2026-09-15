@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {CustomEventService} from "../../../services/custom-event.service";
 import {CustomEventDetailModel} from "../../../models/customEvent.model";
@@ -7,6 +7,7 @@ import {CustomEventDetailModel} from "../../../models/customEvent.model";
     selector: 'app-custom-event-detail',
     templateUrl: './custom-event-detail.component.html',
     styleUrl: './custom-event-detail.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class CustomEventDetailComponent implements OnInit {

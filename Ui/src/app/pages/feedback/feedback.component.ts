@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {environment} from "../../../environments/environment";
 import {FeedbackService} from "../../services/feedback.service";
@@ -9,6 +9,7 @@ import {Router} from "@angular/router";
     selector: 'app-feedback',
     templateUrl: './feedback.component.html',
     styleUrl: './feedback.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class FeedbackComponent implements OnInit {

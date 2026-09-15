@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {AllianceService} from "../../services/alliance.service";
 import {AllianceModel} from "../../models/alliance.model";
 import {ToastrService} from "ngx-toastr";
@@ -10,6 +10,7 @@ import {JwtTokenService} from "../../services/jwt-token.service";
     selector: 'app-alliance',
     templateUrl: './alliance.component.html',
     styleUrl: './alliance.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class AllianceComponent implements OnInit {

@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {PlayerService} from "../../services/player.service";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {PlayerModel} from "../../models/player.model";
@@ -8,6 +8,7 @@ import {FormArray, FormControl, FormGroup, Validators} from "@angular/forms";
     selector: 'app-custom-event-participants-model',
     templateUrl: './custom-event-participants-model.component.html',
     styleUrl: './custom-event-participants-model.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class CustomEventParticipantsModelComponent implements OnInit {

@@ -1,4 +1,4 @@
-import {Component, inject, Input} from '@angular/core';
+import {Component, inject, Input, ChangeDetectionStrategy} from '@angular/core';
 import { AgChartOptions } from "ag-charts-community";
 import {DatePipe} from "@angular/common";
 import {VsDuelParticipantService} from "../../../services/vs-duel-participant.service";
@@ -10,6 +10,7 @@ import {ToastrService} from "ngx-toastr";
     templateUrl: './player-info-vs-duel.component.html',
     styleUrl: './player-info-vs-duel.component.css',
     providers: [DatePipe],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PlayerInfoVsDuelComponent {

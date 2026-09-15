@@ -22,7 +22,7 @@
                       <div class="col mb-2">
                         <label for="point{{i}}">Achieved Points</label>
                         <input [ngClass]="{
-                          'is-valid': participant.get('achievedPoints')?.valid,
+                          'is-valid': $safeNavigationMigration(participant.get('achievedPoints')?.valid),
                           'is-invalid': participant.get('achievedPoints')?.invalid && (participant.get('achievedPoints')?.touched || participant.get('achievedPoints')?.dirty)
                           }" type="text" mask="separator.2" thousandSeparator="." separatorLimit="9999999999999999"  class="form-control form-control-sm" id="point{{i}}" formControlName="achievedPoints">
                         @if (participant.get('achievedPoints')?.invalid && (participant.get('achievedPoints')?.touched || participant.get('achievedPoints')?.dirty)) {

@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {CustomEventCategoryModel} from "../../../models/customEventCategory.model";
 import {CustomEventCategoryService} from "../../../services/custom-event-category.service";
 import {ToastrService} from "ngx-toastr";
@@ -13,6 +13,7 @@ import {
     selector: 'app-custom-event-leaderboard',
     templateUrl: './custom-event-leaderboard.component.html',
     styleUrl: './custom-event-leaderboard.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class CustomEventLeaderboardComponent implements OnInit {

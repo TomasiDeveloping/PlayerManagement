@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PlayerComponent } from './pages/player/player.component';
-import {provideHttpClient, withInterceptors} from "@angular/common/http";
+import {provideHttpClient, withInterceptors, withXhr} from "@angular/common/http";
 import {NgbModule, NgbRatingModule} from '@ng-bootstrap/ng-bootstrap';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {NgxPaginationModule} from "ngx-pagination";
@@ -154,7 +154,7 @@ import { CombatPowerComponent } from './pages/combat-power/combat-power.componen
   ],
   providers: [
     provideNgxMask(),
-    provideHttpClient(withInterceptors([spinnerInterceptor, jwtInterceptor]))
+    provideHttpClient(withXhr(), withInterceptors([spinnerInterceptor, jwtInterceptor]))
   ],
   bootstrap: [AppComponent]
 })

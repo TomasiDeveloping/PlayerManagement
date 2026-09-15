@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {PlayerService} from "../../services/player.service";
 import {ToastrService} from "ngx-toastr";
 import {PlayerModel} from "../../models/player.model";
@@ -14,6 +14,7 @@ import {
     selector: 'app-dismiss-player',
     templateUrl: './dismiss-player.component.html',
     styleUrl: './dismiss-player.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class DismissPlayerComponent implements OnInit {

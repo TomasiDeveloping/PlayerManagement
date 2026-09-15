@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {ToastrService} from "ngx-toastr";
 import {AuthenticationService} from "../../services/authentication.service";
@@ -10,6 +10,7 @@ import {environment} from "../../../environments/environment";
     selector: 'app-forgot-password',
     templateUrl: './forgot-password.component.html',
     styleUrl: './forgot-password.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ForgotPasswordComponent {

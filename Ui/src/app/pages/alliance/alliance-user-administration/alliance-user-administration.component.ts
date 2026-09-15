@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {UserModel} from "../../../models/user.model";
 import {UserEditModalComponent} from "../../../modals/user-edit-modal/user-edit-modal.component";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
@@ -12,6 +12,7 @@ import {JwtTokenService} from "../../../services/jwt-token.service";
     selector: 'app-alliance-user-administration',
     templateUrl: './alliance-user-administration.component.html',
     styleUrl: './alliance-user-administration.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class AllianceUserAdministrationComponent implements OnInit {

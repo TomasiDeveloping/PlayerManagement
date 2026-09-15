@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {PlayerService} from "../../services/player.service";
 import {JwtTokenService} from "../../services/jwt-token.service";
@@ -25,6 +25,7 @@ import {forkJoin, Observable} from "rxjs";
     selector: 'app-marshal-guard',
     templateUrl: './marshal-guard.component.html',
     styleUrl: './marshal-guard.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class MarshalGuardComponent implements OnInit {

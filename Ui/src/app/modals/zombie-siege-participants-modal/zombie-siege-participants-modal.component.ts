@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {PlayerService} from "../../services/player.service";
 import {PlayerModel} from "../../models/player.model";
@@ -7,6 +7,7 @@ import {PlayerModel} from "../../models/player.model";
     selector: 'app-zombie-siege-participants-modal',
     templateUrl: './zombie-siege-participants-modal.component.html',
     styleUrl: './zombie-siege-participants-modal.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ZombieSiegeParticipantsModalComponent implements OnInit {

@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {CreateCustomEventModel, CustomEventDetailModel, CustomEventModel} from "../../../models/customEvent.model";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {CustomEventParticipantModel} from "../../../models/customEventParticipant.model";
@@ -20,6 +20,7 @@ import {forkJoin, Observable} from "rxjs";
     selector: 'app-custom-event-events',
     templateUrl: './custom-event-events.component.html',
     styleUrl: './custom-event-events.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class CustomEventEventsComponent implements OnInit {

@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {VsDuelModel} from "../../models/vsDuel.model";
@@ -11,6 +11,7 @@ import {VsDuelLeagueModel} from "../../models/vsDuelLeague.model";
     selector: 'app-vs-duel-edit-modal',
     templateUrl: './vs-duel-create-modal.component.html',
     styleUrl: './vs-duel-create-modal.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class VsDuelCreateModalComponent implements OnInit {

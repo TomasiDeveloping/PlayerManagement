@@ -1,4 +1,4 @@
-import {Component, inject, Input} from '@angular/core';
+import {Component, inject, Input, ChangeDetectionStrategy} from '@angular/core';
 import {MarshalGuardParticipantService} from "../../../services/marshal-guard-participant.service";
 import {ToastrService} from "ngx-toastr";
 import {MarshalGuardParticipantModel} from "../../../models/marshalGuardParticipant.model";
@@ -7,6 +7,7 @@ import {MarshalGuardParticipantModel} from "../../../models/marshalGuardParticip
     selector: 'app-player-info-marshal-guard',
     templateUrl: './player-info-marshal-guard.component.html',
     styleUrl: './player-info-marshal-guard.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PlayerInfoMarshalGuardComponent {

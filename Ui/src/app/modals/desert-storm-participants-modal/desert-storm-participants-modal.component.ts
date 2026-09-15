@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {PlayerService} from "../../services/player.service";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {PlayerModel} from "../../models/player.model";
@@ -7,6 +7,7 @@ import {PlayerModel} from "../../models/player.model";
     selector: 'app-desert-storm-participants-modal',
     templateUrl: './desert-storm-participants-modal.component.html',
     styleUrl: './desert-storm-participants-modal.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class DesertStormParticipantsModalComponent implements OnInit {

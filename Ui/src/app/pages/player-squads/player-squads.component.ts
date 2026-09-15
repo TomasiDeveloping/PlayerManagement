@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {SquadEditModalComponent} from "../../modals/squad-edit-modal/squad-edit-modal.component";
 import {SquadModel} from "../../models/squad.model";
@@ -10,6 +10,7 @@ import {ToastrService} from "ngx-toastr";
     selector: 'app-player-squads',
     templateUrl: './player-squads.component.html',
     styleUrl: './player-squads.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PlayerSquadsComponent implements OnInit {

@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {JwtTokenService} from "../../services/jwt-token.service";
 import {UserModel} from "../../models/user.model";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
@@ -12,6 +12,7 @@ import {AuthenticationService} from "../../services/authentication.service";
     selector: 'app-account',
     templateUrl: './account.component.html',
     styleUrl: './account.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class AccountComponent implements OnInit{

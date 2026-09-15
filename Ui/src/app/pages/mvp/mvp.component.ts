@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {PlayerService} from "../../services/player.service";
 import {JwtTokenService} from "../../services/jwt-token.service";
 import {ToastrService} from "ngx-toastr";
@@ -9,6 +9,7 @@ import {PlayerMvpModel} from "../../models/player.model";
     selector: 'app-mvp',
     templateUrl: './mvp.component.html',
     styleUrl: './mvp.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class MvpComponent implements OnInit {

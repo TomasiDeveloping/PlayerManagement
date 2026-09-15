@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import Swal from "sweetalert2";
 import {ApiKeyModel, CreateApiKeyModel, UpdateApiKeyModel} from "../../../models/apiKey.model";
 import {ApiKeyService} from "../../../services/api-key.service";
@@ -8,6 +8,7 @@ import {ToastrService} from "ngx-toastr";
     selector: 'app-alliance-api-key',
     templateUrl: './alliance-api-key.component.html',
     styleUrl: './alliance-api-key.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class AllianceApiKeyComponent implements OnInit {

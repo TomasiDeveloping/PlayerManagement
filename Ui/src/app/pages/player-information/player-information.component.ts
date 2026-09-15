@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {PlayerModel} from "../../models/player.model";
 import {PlayerService} from "../../services/player.service";
@@ -11,6 +11,7 @@ import {ToastrService} from "ngx-toastr";
     selector: 'app-player-information',
     templateUrl: './player-information.component.html',
     styleUrl: './player-information.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PlayerInformationComponent implements OnInit {

@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {DesertStormService} from "../../../services/desert-storm.service";
 import {DesertStormDetailModel} from "../../../models/desertStorm.model";
@@ -7,6 +7,7 @@ import {DesertStormDetailModel} from "../../../models/desertStorm.model";
     selector: 'app-desert-storm-detail',
     templateUrl: './desert-storm-detail.component.html',
     styleUrl: './desert-storm-detail.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class DesertStormDetailComponent implements OnInit {

@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import { DismissPlayerInformationModel} from "../../models/player.model";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {PlayerService} from "../../services/player.service";
@@ -8,6 +8,7 @@ import {ToastrService} from "ngx-toastr";
     selector: 'app-player-dismiss-information-modal',
     templateUrl: './player-dismiss-information-modal.component.html',
     styleUrl: './player-dismiss-information-modal.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PlayerDismissInformationModalComponent implements OnInit {

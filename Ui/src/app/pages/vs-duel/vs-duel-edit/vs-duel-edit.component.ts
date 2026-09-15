@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {VsDuelService} from "../../../services/vs-duel.service";
 import {VsDuelDetailModel, VsDuelModel} from "../../../models/vsDuel.model";
@@ -14,6 +14,7 @@ import {VsDuelLeagueModel} from "../../../models/vsDuelLeague.model";
     selector: 'app-vs-duel-edit',
     templateUrl: './vs-duel-edit.component.html',
     styleUrl: './vs-duel-edit.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class VsDuelEditComponent implements OnInit {

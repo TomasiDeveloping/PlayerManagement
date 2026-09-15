@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {VsDuelModel} from "../../models/vsDuel.model";
 import {JwtTokenService} from "../../services/jwt-token.service";
 import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
@@ -13,6 +13,7 @@ import {Router} from "@angular/router";
     templateUrl: './vs-duel.component.html',
     styleUrl: './vs-duel.component.css',
     providers: [WeekPipe],
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class VsDuelComponent implements OnInit {

@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {ToastrService} from "ngx-toastr";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
@@ -11,6 +11,7 @@ import {environment} from "../../../environments/environment";
     selector: 'app-invite-user-modal',
     templateUrl: './invite-user-modal.component.html',
     styleUrl: './invite-user-modal.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class InviteUserModalComponent implements OnInit {

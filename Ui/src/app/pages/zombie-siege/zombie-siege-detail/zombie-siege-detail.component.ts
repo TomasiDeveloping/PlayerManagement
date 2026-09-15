@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ZombieSiegeDetailModel} from "../../../models/zombieSiege.model";
 import {ActivatedRoute} from "@angular/router";
 import {ZombieSiegeService} from "../../../services/zombie-siege.service";
@@ -7,6 +7,7 @@ import {ZombieSiegeService} from "../../../services/zombie-siege.service";
     selector: 'app-zombie-siege-detail',
     templateUrl: './zombie-siege-detail.component.html',
     styleUrl: './zombie-siege-detail.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ZombieSiegeDetailComponent implements OnInit {

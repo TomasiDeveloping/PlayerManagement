@@ -127,7 +127,7 @@
                         <div class="col-md-4">
                           <label for="player{{i}}">{{participant.get('playerName')?.value}}</label>
                           <input [ngClass]="{
-                          'is-valid': participant.get('weeklyPoints')?.valid,
+                          'is-valid': $safeNavigationMigration(participant.get('weeklyPoints')?.valid),
                           'is-invalid': participant.get('weeklyPoints')?.invalid && (participant.get('weeklyPoints')?.touched || participant.get('weeklyPoints')?.dirty)
                           }" mask="separator.2" thousandSeparator="." separatorLimit="9999999999999999" type="text" min="0" class="form-control form-control-sm" id="player{{i}}" formControlName="weeklyPoints">
                           @if (participant.get('weeklyPoints')?.invalid && (participant.get('weeklyPoints')?.touched || participant.get('weeklyPoints')?.dirty)) {

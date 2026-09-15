@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {PasswordValidators} from "../../helpers/passwordValidators";
@@ -11,6 +11,7 @@ import {environment} from "../../../environments/environment";
     selector: 'app-sign-up',
     templateUrl: './sign-up.component.html',
     styleUrl: './sign-up.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class SignUpComponent {

@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {CreateZombieSiegeModel, ZombieSiegeDetailModel, ZombieSiegeModel} from "../../models/zombieSiege.model";
 import {JwtTokenService} from "../../services/jwt-token.service";
@@ -24,6 +24,7 @@ import {PagedResponseModel} from "../../models/pagedResponse.model";
     selector: 'app-zombie-siege',
     templateUrl: './zombie-siege.component.html',
     styleUrl: './zombie-siege.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ZombieSiegeComponent implements OnInit {

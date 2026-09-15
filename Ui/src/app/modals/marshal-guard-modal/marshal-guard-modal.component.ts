@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {PlayerService} from "../../services/player.service";
 import {PlayerModel} from "../../models/player.model";
@@ -7,6 +7,7 @@ import {PlayerModel} from "../../models/player.model";
     selector: 'app-marshal-guard-modal',
     templateUrl: './marshal-guard-modal.component.html',
     styleUrl: './marshal-guard-modal.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class MarshalGuardModalComponent implements OnInit {

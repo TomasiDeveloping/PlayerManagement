@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {PasswordValidators} from "../../helpers/passwordValidators";
 import {AuthenticationService} from "../../services/authentication.service";
@@ -12,6 +12,7 @@ import {JwtTokenService} from "../../services/jwt-token.service";
     selector: 'app-change-password',
     templateUrl: './change-password.component.html',
     styleUrl: './change-password.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ChangePasswordComponent {

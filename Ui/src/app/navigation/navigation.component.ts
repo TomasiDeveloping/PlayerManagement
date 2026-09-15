@@ -1,4 +1,4 @@
-import {Component, inject, OnDestroy, OnInit} from '@angular/core';
+import {Component, inject, OnDestroy, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {AuthenticationService} from "../services/authentication.service";
 import {LoggedInUser} from "../models/user.model";
 import {Subscription} from "rxjs";
@@ -8,6 +8,7 @@ import {environment} from "../../environments/environment";
     selector: 'app-navigation',
     templateUrl: './navigation.component.html',
     styleUrl: './navigation.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class NavigationComponent implements OnInit, OnDestroy {

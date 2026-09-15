@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {SquadTypeService} from "../../services/squad-type.service";
 import {SquadService} from "../../services/squad.service";
 import {SquadTypeModel} from "../../models/squadType.model";
@@ -11,6 +11,7 @@ import {ToastrService} from "ngx-toastr";
     selector: 'app-squad-edit-modal',
     templateUrl: './squad-edit-modal.component.html',
     styleUrl: './squad-edit-modal.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class SquadEditModalComponent implements OnInit {

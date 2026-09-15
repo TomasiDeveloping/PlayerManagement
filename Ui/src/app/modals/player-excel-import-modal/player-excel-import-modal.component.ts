@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, ChangeDetectionStrategy} from '@angular/core';
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {ToastrService} from "ngx-toastr";
 import Swal from "sweetalert2";
@@ -9,6 +9,7 @@ import {PlayerService} from "../../services/player.service";
     selector: 'app-player-excel-import-modal',
     templateUrl: './player-excel-import-modal.component.html',
     styleUrl: './player-excel-import-modal.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PlayerExcelImportModalComponent {

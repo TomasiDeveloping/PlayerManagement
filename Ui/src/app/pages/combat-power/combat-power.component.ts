@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {PlayerModel} from "../../models/player.model";
 
@@ -6,6 +6,7 @@ import {PlayerModel} from "../../models/player.model";
   selector: 'app-combat-power',
   standalone: false,
   templateUrl: './combat-power.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './combat-power.component.css',
 })
 export class CombatPowerComponent implements OnInit {

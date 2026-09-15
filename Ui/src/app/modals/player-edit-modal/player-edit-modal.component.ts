@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {CreatePlayerModel, PlayerModel, UpdatePlayerModel} from "../../models/player.model";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
@@ -11,6 +11,7 @@ import {ToastrService} from "ngx-toastr";
     selector: 'app-player-edit-modal',
     templateUrl: './player-edit-modal.component.html',
     styleUrl: './player-edit-modal.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PlayerEditModalComponent implements OnInit {

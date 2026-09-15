@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {NoteModel} from "../../models/note.model";
 import {PlayerModel} from "../../models/player.model";
@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
     selector: 'app-player-note-modal',
     templateUrl: './player-note-modal.component.html',
     styleUrl: './player-note-modal.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PlayerNoteModalComponent implements OnInit {

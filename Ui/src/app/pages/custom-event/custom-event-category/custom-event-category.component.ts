@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {
   CreateCustomEventCategoryModel,
   CustomEventCategoryModel,
@@ -14,6 +14,7 @@ import Swal from "sweetalert2";
     selector: 'app-custom-event-category',
     templateUrl: './custom-event-category.component.html',
     styleUrl: './custom-event-category.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class CustomEventCategoryComponent implements OnInit {

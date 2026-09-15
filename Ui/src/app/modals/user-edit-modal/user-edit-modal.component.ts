@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {ToastrService} from "ngx-toastr";
 import {UserService} from "../../services/user.service";
@@ -9,6 +9,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
     selector: 'app-user-edit-modal',
     templateUrl: './user-edit-modal.component.html',
     styleUrl: './user-edit-modal.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class UserEditModalComponent implements OnInit {

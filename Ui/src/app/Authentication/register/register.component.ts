@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
 import {AuthenticationService} from "../../services/authentication.service";
@@ -11,6 +11,7 @@ import {environment} from "../../../environments/environment";
     selector: 'app-register',
     templateUrl: './register.component.html',
     styleUrl: './register.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class RegisterComponent implements OnInit {

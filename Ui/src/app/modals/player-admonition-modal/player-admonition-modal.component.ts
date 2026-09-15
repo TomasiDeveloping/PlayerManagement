@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, inject, Input, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {PlayerModel} from "../../models/player.model";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {AdmonitionModel} from "../../models/admonition.model";
@@ -11,6 +11,7 @@ import Swal from "sweetalert2";
     selector: 'app-player-admonition-modal',
     templateUrl: './player-admonition-modal.component.html',
     styleUrl: './player-admonition-modal.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PlayerAdmonitionModalComponent implements OnInit {

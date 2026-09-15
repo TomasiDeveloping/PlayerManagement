@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {MarshalGuardService} from "../../../services/marshal-guard.service";
 import {MarshalGuardDetailModel} from "../../../models/marshalGuard.model";
@@ -7,6 +7,7 @@ import {MarshalGuardDetailModel} from "../../../models/marshalGuard.model";
     selector: 'app-marshal-guard-detail',
     templateUrl: './marshal-guard-detail.component.html',
     styleUrl: './marshal-guard-detail.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class MarshalGuardDetailComponent implements OnInit {

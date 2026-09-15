@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {CreateDesertStormModel, DesertStormDetailModel, DesertStormModel} from "../../models/desertStorm.model";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {JwtTokenService} from "../../services/jwt-token.service";
@@ -22,6 +22,7 @@ import {forkJoin, Observable} from "rxjs";
     selector: 'app-desert-storm',
     templateUrl: './desert-storm.component.html',
     styleUrl: './desert-storm.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class DesertStormComponent implements OnInit {

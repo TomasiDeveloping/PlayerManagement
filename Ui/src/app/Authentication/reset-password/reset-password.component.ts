@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {Component, inject, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
 import {AuthenticationService} from "../../services/authentication.service";
@@ -10,6 +10,7 @@ import {ResetPasswordModel} from "../../models/resetPassword.model";
     selector: 'app-reset-password',
     templateUrl: './reset-password.component.html',
     styleUrl: './reset-password.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class ResetPasswordComponent implements OnInit {

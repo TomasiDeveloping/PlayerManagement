@@ -2,6 +2,7 @@ import {
   Component,
   inject,
   OnInit,
+  ChangeDetectionStrategy
 } from '@angular/core';
 import {PlayerService} from "../../services/player.service";
 import { PlayerModel} from "../../models/player.model";
@@ -21,6 +22,7 @@ import {
     selector: 'app-player',
     templateUrl: './player.component.html',
     styleUrl: './player.component.css',
+    changeDetection: ChangeDetectionStrategy.Eager,
     standalone: false
 })
 export class PlayerComponent implements OnInit {
