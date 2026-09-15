@@ -1,0 +1,124 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+
+      <!-- Card Container -->
+      <div class="card bg-dark text-light border-secondary shadow-lg">
+        <div class="card-header bg-secondary text-white text-center py-3">
+          <h3 class="mb-0">Alliance Combat Power Submission</h3>
+          <small *ngIf="allianceName" class="text-info">Alliance: {{ allianceName }}</small>
+        </div>
+
+        <div class="card-body p-4">
+
+          <!-- Loading Spinner -->
+          <div *ngIf="isLoading" class="text-center py-5">
+            <div class="spinner-border text-primary" role="status">
+              <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-3 text-muted">Validating access token...</p>
+          </div>
+
+          <!-- Error Alert (z.B. Kein Token oder Ungültig) -->
+          <div *ngIf="!isLoading && errorMessage" class="alert alert-danger text-center" role="alert">
+            <h4 class="alert-heading">Access Error</h4>
+            <p>{{ errorMessage }}</p>
+            <hr>
+            <p class="mb-0 small text-muted">Please make sure you are using the correct link provided by your alliance leadership.</p>
+          </div>
+
+          <!-- Success Alert -->
+          <div *ngIf="successMessage" class="alert alert-success text-center" role="alert">
+            <h4 class="alert-heading">Success!</h4>
+            <p>{{ successMessage }}</p>
+          </div>
+
+          <!-- Main Form (Wird nur angezeigt, wenn Token gültig & geladen) -->
+          <form *ngIf="!isLoading && !errorMessage && !successMessage" (ngSubmit)="onSubmit()">
+
+            <!-- Player Selection -->
+            <div class="mb-3">
+              <label for="playerSelect" class="form-label">Select Your Player Name:</label>
+              <select id="playerSelect" class="form-select bg-dark text-light border-secondary" [(ngModel)]="selectedPlayerId" name="selectedPlayerId" required>
+                <option value="" disabled selected>-- Choose your name --</option>
+                <option *ngFor="let p of players" [value]="p.id">{{ p.playerName }}</option>
+              </select>
+            </div>
+
+            <hr class="border-secondary my-4">
+
+            <!-- Squad 1 -->
+            <h5 class="text-primary mb-3">Squad 1</h5>
+            <div class="row mb-3">
+              <div class="col-sm-6">
+                <label class="form-label">Troop Type</label>
+                <select class="form-select bg-dark text-light border-secondary" [(ngModel)]="squad1Type" name="squad1Type">
+                  <option *ngFor="let t of troopTypes" [value]="t">{{ t }}</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label">Power</label>
+                <input type="number" class="form-control bg-dark text-light border-secondary" [(ngModel)]="squad1Power" name="squad1Power" min="0" required>
+              </div>
+            </div>
+
+            <!-- Squad 2 -->
+            <h5 class="text-primary mb-3">Squad 2</h5>
+            <div class="row mb-3">
+              <div class="col-sm-6">
+                <label class="form-label">Troop Type</label>
+                <select class="form-select bg-dark text-light border-secondary" [(ngModel)]="squad2Type" name="squad2Type">
+                  <option *ngFor="let t of troopTypes" [value]="t">{{ t }}</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label">Power</label>
+                <input type="number" class="form-control bg-dark text-light border-secondary" [(ngModel)]="squad2Power" name="squad2Power" min="0" required>
+              </div>
+            </div>
+
+            <!-- Squad 3 -->
+            <h5 class="text-primary mb-3">Squad 3</h5>
+            <div class="row mb-3">
+              <div class="col-sm-6">
+                <label class="form-label">Troop Type</label>
+                <select class="form-select bg-dark text-light border-secondary" [(ngModel)]="squad3Type" name="squad3Type">
+                  <option *ngFor="let t of troopTypes" [value]="t">{{ t }}</option>
+                </select>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label">Power</label>
+                <input type="number" class="form-control bg-dark text-light border-secondary" [(ngModel)]="squad3Power" name="squad3Power" min="0" required>
+              </div>
+            </div>
+
+            <hr class="border-secondary my-4">
+
+            <!-- Metrics (Hero Power & Kills) -->
+            <div class="row mb-3">
+              <div class="col-sm-6">
+                <label class="form-label">Total Hero Power</label>
+                <input type="number" class="form-control bg-dark text-light border-secondary" [(ngModel)]="totalHeroPower" name="totalHeroPower" min="0" required>
+              </div>
+              <div class="col-sm-6">
+                <label class="form-label">Kills</label>
+                <input type="number" class="form-control bg-dark text-light border-secondary" [(ngModel)]="kills" name="kills" min="0" required>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="d-grid mt-4">
+              <button type="submit" class="btn btn-primary btn-lg" [disabled]="isSubmitting || !selectedPlayerId">
+                <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                {{ isSubmitting ? 'Submitting...' : 'Submit Combat Records' }}
+              </button>
+            </div>
+
+          </form>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>

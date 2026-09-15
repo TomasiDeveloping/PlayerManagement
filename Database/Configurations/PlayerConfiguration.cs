@@ -42,5 +42,10 @@ public class PlayerConfiguration : IEntityTypeConfiguration<Player>
             .WithOne(admonitions => admonitions.Player)
             .HasForeignKey(admonition => admonition.PlayerId)
             .OnDelete(DeleteBehavior.Cascade);
+
+        builder.HasMany(player => player.PlayerCombatRecords)
+            .WithOne(record => record.Player)
+            .HasForeignKey(record => record.PlayerId)
+            .OnDelete(DeleteBehavior.Cascade);
     }
 }

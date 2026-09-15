@@ -15,31 +15,31 @@ public class SquadTypeConfiguration : IEntityTypeConfiguration<SquadType>
             .IsRequired()
             .HasMaxLength(150);
 
-        var squadTypes = new List<SquadType>()
-        {
-            new()
-            {
-                Id = Guid.CreateVersion7(),
-                TypeName = "Tanks"
-            },
-            new()
-            {
-                Id = Guid.CreateVersion7(),
-                TypeName = "Missile"
-            },
-            new()
-            {
-                Id = Guid.CreateVersion7(),
-                TypeName = "Aircraft"
-            },
-            new()
-            {
-                Id = Guid.CreateVersion7(),
-                TypeName = "Mixed"
-            }
-        };
+        //var squadTypes = new List<SquadType>()
+        //{
+        //    new()
+        //    {
+        //        Id = Guid.CreateVersion7(),
+        //        TypeName = "Tanks"
+        //    },
+        //    new()
+        //    {
+        //        Id = Guid.CreateVersion7(),
+        //        TypeName = "Missile"
+        //    },
+        //    new()
+        //    {
+        //        Id = Guid.CreateVersion7(),
+        //        TypeName = "Aircraft"
+        //    },
+        //    new()
+        //    {
+        //        Id = Guid.CreateVersion7(),
+        //        TypeName = "Mixed"
+        //    }
+        //};
 
-        builder.HasData(squadTypes);
+        //builder.HasData(squadTypes);
 
 
     }

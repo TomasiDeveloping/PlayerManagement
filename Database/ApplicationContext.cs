@@ -50,6 +50,10 @@ public class ApplicationContext(DbContextOptions<ApplicationContext> options) : 
 
     public DbSet<SquadType> SquadTypes { get; set; }
 
+    public DbSet<PlayerCombatRecord> PlayerCombatRecords { get; set; }
+
+    public DbSet<AllianceAccessToken> AllianceAccessTokens { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         base.OnConfiguring(optionsBuilder);

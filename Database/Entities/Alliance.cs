@@ -31,4 +31,6 @@ public class Alliance : BaseEntity
     public ICollection<ZombieSiege> ZombieSieges { get; set; } = [];
 
     public ICollection<CustomEventCategory> CustomEventCategories { get; set; } = [];
+
+    public ICollection<AllianceAccessToken> AllianceAccessTokens { get; set; } = [];
 }

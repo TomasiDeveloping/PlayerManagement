@@ -43,4 +43,6 @@ public class Player : BaseEntity
     public ICollection<ZombieSiegeParticipant> ZombieSiegeParticipants { get; set; } = [];
 
     public ICollection<Squad> Squads { get; set; } = [];
+
+    public ICollection<PlayerCombatRecord> PlayerCombatRecords { get; set; } = [];
 }

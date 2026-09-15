@@ -4,6 +4,7 @@ using Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Database.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20260915065335_AddPlayerCombatRecord")]
+    partial class AddPlayerCombatRecord
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -89,38 +92,6 @@ namespace Database.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Alliances", "dbo");
-                });
-
-            modelBuilder.Entity("Database.Entities.AllianceAccessToken", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("AllianceId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAtUtc")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("ExpiresAtUtc")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Token")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AllianceId");
-
-                    b.HasIndex("Token")
-                        .IsUnique();
-
-                    b.ToTable("AllianceAccessTokens", "dbo");
                 });
 
             modelBuilder.Entity("Database.Entities.ApiKey", b =>
@@ -546,7 +517,7 @@ namespace Database.Migrations
 
                     b.HasIndex("PlayerId");
 
-                    b.ToTable("PlayerCombatRecords", "dbo");
+                    b.ToTable("PlayerCombatRecord", "dbo");
                 });
 
             modelBuilder.Entity("Database.Entities.Rank", b =>
@@ -563,6 +534,33 @@ namespace Database.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Ranks", "dbo");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("b1c10a1c-5cf3-4e22-9fc1-d9b165b85dd3"),
+                            Name = "R5"
+                        },
+                        new
+                        {
+                            Id = new Guid("0fc2f68a-0a4d-4922-981e-c624e4c39024"),
+                            Name = "R4"
+                        },
+                        new
+                        {
+                            Id = new Guid("4970e1f5-f7f5-43e8-88cc-7f8fc4075418"),
+                            Name = "R3"
+                        },
+                        new
+                        {
+                            Id = new Guid("d8d0c587-f269-45ff-b13e-4631298bf0af"),
+                            Name = "R2"
+                        },
+                        new
+                        {
+                            Id = new Guid("326edef0-5074-43a5-9db9-edc71221a0f7"),
+                            Name = "R1"
+                        });
                 });
 
             modelBuilder.Entity("Database.Entities.Squad", b =>
@@ -608,6 +606,28 @@ namespace Database.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SquadTypes", "dbo");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("01a0a3d7-a8f5-7cc2-a318-3d7c7921b2d0"),
+                            TypeName = "Tanks"
+                        },
+                        new
+                        {
+                            Id = new Guid("01a0a3d7-a8f5-7bcf-8a2b-1e299269c44d"),
+                            TypeName = "Missile"
+                        },
+                        new
+                        {
+                            Id = new Guid("01a0a3d7-a8f5-7318-b633-b1dd51fe6d18"),
+                            TypeName = "Aircraft"
+                        },
+                        new
+                        {
+                            Id = new Guid("01a0a3d7-a8f5-7792-8af9-b2e8059c2520"),
+                            TypeName = "Mixed"
+                        });
                 });
 
             modelBuilder.Entity("Database.Entities.User", b =>
@@ -757,6 +777,26 @@ namespace Database.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("VsDuelLeagues", "dbo");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("01a0a3d7-a8fa-79ec-9c53-0058d68eadf0"),
+                            Code = 1,
+                            Name = "Silver League"
+                        },
+                        new
+                        {
+                            Id = new Guid("01a0a3d7-a8fa-729e-b99e-d777544980f2"),
+                            Code = 2,
+                            Name = "Gold League"
+                        },
+                        new
+                        {
+                            Id = new Guid("01a0a3d7-a8fa-7d9a-86df-ceb443b17dd6"),
+                            Code = 3,
+                            Name = "Diamond League"
+                        });
                 });
 
             modelBuilder.Entity("Database.Entities.VsDuelParticipant", b =>
@@ -867,6 +907,36 @@ namespace Database.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("Roles", "dbo");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("d8b9f882-95f0-4ba0-80ed-9c22c27ac88a"),
+                            ConcurrencyStamp = "710f35a2-8d1e-47a4-a39b-12073febe1e3",
+                            Name = "SystemAdministrator",
+                            NormalizedName = "SYSTEMADMINISTRATOR"
+                        },
+                        new
+                        {
+                            Id = new Guid("47de05ba-ff1e-46b6-9995-269084006c24"),
+                            ConcurrencyStamp = "f13da061-33d6-46c8-b96e-1e142bb60567",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        },
+                        new
+                        {
+                            Id = new Guid("5cc27946-5601-4a25-b9a9-75b8a11c0cf4"),
+                            ConcurrencyStamp = "24bbebbd-b174-46a2-8215-92a9f6afcaad",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = new Guid("207bb0a3-ad50-49bb-bc41-b266fce66529"),
+                            ConcurrencyStamp = "61cc0879-ead0-436c-b27e-432b1a83613a",
+                            Name = "ReadOnly",
+                            NormalizedName = "READONLY"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -981,17 +1051,6 @@ namespace Database.Migrations
                         .IsRequired();
 
                     b.Navigation("Player");
-                });
-
-            modelBuilder.Entity("Database.Entities.AllianceAccessToken", b =>
-                {
-                    b.HasOne("Database.Entities.Alliance", "Alliance")
-                        .WithMany("AllianceAccessTokens")
-                        .HasForeignKey("AllianceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Alliance");
                 });
 
             modelBuilder.Entity("Database.Entities.ApiKey", b =>
@@ -1304,8 +1363,6 @@ namespace Database.Migrations
 
             modelBuilder.Entity("Database.Entities.Alliance", b =>
                 {
-                    b.Navigation("AllianceAccessTokens");
-
                     b.Navigation("ApiKey");
 
                     b.Navigation("CustomEventCategories");

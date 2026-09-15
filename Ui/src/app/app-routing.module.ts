@@ -26,6 +26,7 @@ import {DismissPlayerComponent} from "./pages/dismiss-player/dismiss-player.comp
 import {MvpComponent} from "./pages/mvp/mvp.component";
 import {FeedbackComponent} from "./pages/feedback/feedback.component";
 import {ImprintComponent} from "./pages/imprint/imprint.component";
+import {CombatPowerComponent} from "./pages/combat-power/combat-power.component";
 
 const routes: Routes = [
   {path: 'players', component: PlayerComponent, canActivate: [authGuard]},
@@ -53,6 +54,8 @@ const routes: Routes = [
   {path: 'register', component: RegisterComponent},
   {path: 'reset-password', component: ResetPasswordComponent},
   {path: 'imprint', component: ImprintComponent},
+
+  {path: 'combat-power', component: CombatPowerComponent},
   {path: '', redirectTo: 'players', pathMatch: 'full'},
 ];
 

@@ -69,6 +69,7 @@ import { PlayerSquadsComponent } from './pages/player-squads/player-squads.compo
 import { SquadEditModalComponent } from './modals/squad-edit-modal/squad-edit-modal.component';
 import {CommonModule} from "@angular/common";
 import {CountUpDirective} from "ngx-countup";
+import { CombatPowerComponent } from './pages/combat-power/combat-power.component';
 
 @NgModule({
   declarations: [
@@ -124,7 +125,8 @@ import {CountUpDirective} from "ngx-countup";
     CustomEventLeaderboardComponent,
     CustomEventEventsComponent,
     PlayerSquadsComponent,
-    SquadEditModalComponent
+    SquadEditModalComponent,
+    CombatPowerComponent
   ],
   imports: [
     CommonModule,

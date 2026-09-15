@@ -39,6 +39,8 @@ public static class ApplicationDependencyInjection
         services.AddScoped<IStatRepository, StatRepository>();
         services.AddScoped<ISquadTypeRepository, SquadTypeRepository>();
         services.AddScoped<ISquadRepository, SquadRepository>();
+        services.AddScoped<IAllianceAccessTokenRepository, AllianceAccessTokenRepository>();
+        services.AddScoped<IPlayerCombatRecordRepository, PlayerCombatRecordRepository>();
 
 
         services.AddTransient<IJwtService, JwtService>();
@@ -47,6 +49,10 @@ public static class ApplicationDependencyInjection
         services.AddTransient<IExcelService, ExcelService>();
         services.AddTransient<IEncryptionService, EncryptionService>();
         services.AddTransient<IGitHubService, GitHubService>();
+
+
+        services.AddScoped<IPlayerCombatRecordService, PlayerCombatRecordService>();
+        services.AddScoped<IAllianceAccessTokenService, AllianceAccessTokenService>();
 
         return services;
     }
