@@ -1,0 +1,53 @@
+.growth-container {
+  width: 100%;
+}
+
+/* Fallback-Karte für "Keine Daten" */
+.custom-empty-card {
+  background-color: #121418 !important;
+  border-radius: 12px;
+}
+
+.stat-card {
+  background-color: #121418 !important;
+  border-radius: 12px;
+  border-width: 1px;
+  border-style: solid;
+  padding: 1.25rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.6);
+  }
+
+  .card-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .stat-value {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+
+    @media (min-width: 768px) {
+      font-size: 1.5rem;
+    }
+  }
+
+  .chart-wrapper {
+    position: relative;
+    height: 75px; /* Etwas mehr Höhe für einen sauberen Chart-Verlauf */
+    width: 100%;
+  }
+}
+
+/* Badges optisch aufwerten */
+.badge.font-monospace {
+  font-size: 0.8rem;
+  letter-spacing: 0.5px;
+}

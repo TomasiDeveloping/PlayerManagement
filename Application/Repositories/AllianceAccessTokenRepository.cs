@@ -11,14 +11,12 @@ public class AllianceAccessTokenRepository(ApplicationContext dbContext, ILogger
     public async Task<AllianceAccessToken?> GetActiveTokenByTokenStringAsync(string token, CancellationToken cancellationToken = default)
     {
         return await dbContext.AllianceAccessTokens
-            .Include(t => t.Alliance)
             .FirstOrDefaultAsync(t => t.Token == token && t.IsActive, cancellationToken);
     }
 
     public async Task<AllianceAccessToken?> GetByIdAsync(Guid id, CancellationToken cancellationToken = default)
     {
         return await dbContext.AllianceAccessTokens
-            .Include(t => t.Alliance)
             .FirstOrDefaultAsync(t => t.Id == id, cancellationToken);
     }
 

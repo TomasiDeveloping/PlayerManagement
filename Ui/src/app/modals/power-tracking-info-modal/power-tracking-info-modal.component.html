@@ -1,0 +1,29 @@
+<div class="modal-header">
+  <h5 class="modal-title">About Power Tracking & Management</h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+</div>
+<div class="modal-body">
+  <p>This page tracks the combat power of your alliance members over time.</p>
+
+  <h6 class="fw-bold mt-3">Power Tab</h6>
+  <p>
+    The table shows each player's most recent record: their 3 squads (with power and type —
+    Tank, Air, or Missile), Total Hero Power (THP), and Kills.
+  </p>
+  <ul>
+    <li><strong>Growth history icon:</strong> view how a player's power has developed over time.</li>
+    <li><strong>Edit icon:</strong> load all recorded entries for a player to correct or delete them.</li>
+    <li><strong>New Power Record:</strong> add a new record for a player (top right).</li>
+    <li><strong>Export:</strong> download the current list as Excel or CSV to import into your own spreadsheet tool.</li>
+  </ul>
+
+  <h6 class="fw-bold mt-3">Access Tokens Tab</h6>
+  <p>
+    Generate a shareable link so players can submit their own records or view their own growth
+    history without logging in. Each token can optionally be given an expiration date, and can be
+    revoked at any time or replaced with a new one.
+  </p>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-secondary btn-sm" (click)="activeModal.close()">Got it</button>
+</div>

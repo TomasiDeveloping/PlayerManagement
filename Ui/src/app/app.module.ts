@@ -70,6 +70,15 @@ import { SquadEditModalComponent } from './modals/squad-edit-modal/squad-edit-mo
 import {CommonModule} from "@angular/common";
 import {CountUpDirective} from "ngx-countup";
 import { CombatPowerComponent } from './pages/combat-power/combat-power.component';
+import { PlayerGrowthHistoryComponent } from './pages/player-growth-history/player-growth-history.component';
+import {BaseChartDirective} from "ng2-charts";
+import { PowerTrackingComponent } from './pages/power-tracking/power-tracking.component';
+import { CreateAccessTokenModalComponent } from './modals/create-access-token-modal/create-access-token-modal.component';
+import {MomentModule} from "ngx-moment";
+import { PowerTrackingEditDialogComponent } from './modals/power-tracking-edit-dialog/power-tracking-edit-dialog.component';
+import { PowerTrackingRecordsModalComponent } from './modals/power-tracking-records-modal/power-tracking-records-modal.component';
+import { PlayerPowerRecordsModalComponent } from './modals/player-power-records-modal/player-power-records-modal.component';
+import { PowerTrackingInfoModalComponent } from './modals/power-tracking-info-modal/power-tracking-info-modal.component';
 
 @NgModule({
   declarations: [
@@ -126,32 +135,41 @@ import { CombatPowerComponent } from './pages/combat-power/combat-power.componen
     CustomEventEventsComponent,
     PlayerSquadsComponent,
     SquadEditModalComponent,
-    CombatPowerComponent
+    CombatPowerComponent,
+    PlayerGrowthHistoryComponent,
+    PowerTrackingComponent,
+    CreateAccessTokenModalComponent,
+    PowerTrackingEditDialogComponent,
+    PowerTrackingRecordsModalComponent,
+    PlayerPowerRecordsModalComponent,
+    PowerTrackingInfoModalComponent
   ],
-  imports: [
-    CommonModule,
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    NgbModule,
-    FormsModule,
-    NgxPaginationModule,
-    ReactiveFormsModule,
-    NgxSpinnerModule,
-    NgbRatingModule,
-    ToastrModule.forRoot({
-      positionClass: 'toast-bottom-right',
-    }),
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: () => localStorage.getItem(''),
-      }
-    }),
-    AgCharts,
-    NgxMaskDirective,
-    NgxMaskPipe,
-    CountUpDirective
-  ],
+    imports: [
+        CommonModule,
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        NgbModule,
+        FormsModule,
+        NgxPaginationModule,
+        ReactiveFormsModule,
+        NgxSpinnerModule,
+        NgbRatingModule,
+        ToastrModule.forRoot({
+            positionClass: 'toast-bottom-right',
+        }),
+        JwtModule.forRoot({
+            config: {
+                tokenGetter: () => localStorage.getItem(''),
+            }
+        }),
+        AgCharts,
+        NgxMaskDirective,
+        NgxMaskPipe,
+        CountUpDirective,
+        BaseChartDirective,
+        MomentModule
+    ],
   providers: [
     provideNgxMask(),
     provideHttpClient(withXhr(), withInterceptors([spinnerInterceptor, jwtInterceptor]))

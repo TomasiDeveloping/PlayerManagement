@@ -1,5 +1,8 @@
 import {Component, inject, OnInit, ChangeDetectionStrategy} from '@angular/core';
 import {AuthenticationService} from "./services/authentication.service";
+import {Chart, registerables} from "chart.js";
+
+Chart.register(...registerables);
 
 @Component({
     selector: 'app-root',

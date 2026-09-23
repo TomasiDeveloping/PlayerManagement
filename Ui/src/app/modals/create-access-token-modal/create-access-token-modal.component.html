@@ -1,0 +1,24 @@
+<div class="modal-header">
+  <h4 class="modal-title">Generate Access Token</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+</div>
+
+<div class="modal-body">
+  <p class="text-muted small">
+    Create a secure link for your alliance members. Players can use this link to update their combat records without logging into the portal.
+  </p>
+
+  <form [formGroup]="tokenForm" (ngSubmit)="onSubmit()">
+
+    <div class="form-floating mb-3">
+      <input type="datetime-local" class="form-control" formControlName="expiresAt" id="expiresAt" placeholder="Expires At">
+      <label for="expiresAt">Expires At (Optional)</label>
+      <small class="form-text text-muted">Leave blank if the token should not expire automatically.</small>
+    </div>
+
+    <div class="d-flex justify-content-between mt-4">
+      <button (click)="onCancel()" type="button" class="btn btn-warning">Cancel</button>
+      <button type="submit" class="btn btn-success">Generate</button>
+    </div>
+  </form>
+</div>

@@ -1,6 +1,7 @@
 ﻿using Application.DataTransferObjects.AllianceAccessToken;
 using Application.Interfaces;
 using Asp.Versioning;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers.v1
@@ -8,6 +9,7 @@ namespace Api.Controllers.v1
     [Route("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     [ApiVersion("1.0")]
+    [Authorize]
     public class AllianceAccessTokenController(IAllianceAccessTokenService service,IConfiguration configuration, ILogger<AllianceAccessTokenController> logger) : ControllerBase
     {
         [HttpPost("generate")]
@@ -36,7 +38,7 @@ namespace Api.Controllers.v1
         {
             try
             {
-                var baseUrl = $"{Request.Scheme}://{Request.Host}";
+                var baseUrl = configuration.GetValue<string>("AppSettings:FrontendUrl") ?? throw new NullReferenceException("Settings:FrontendUrl is not configured in appsettings.json");
                 var tokens = await service.GetTokensForAllianceAsync(allianceId, baseUrl, cancellationToken);
                 return Ok(tokens);
             }
@@ -65,6 +67,27 @@ namespace Api.Controllers.v1
                 logger.LogError(e, "{ErrorMessage}", e.Message);
                 return Problem(
                     detail: $"Failed to process {nameof(RevokeToken)}",
+                    statusCode: StatusCodes.Status500InternalServerError,
+                    title: "Internal server error");
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpGet("validate/{token}")]
+        public async Task<ActionResult<AllianceAccessTokenDto?>> ValidateToken(string token, CancellationToken cancellationToken)
+        {
+            try
+            {
+                var result = await service.ValidateTokenAsync(token, cancellationToken);
+                if (result is null) return NotFound();
+
+                return Ok(result);
+            }
+            catch (Exception e)
+            {
+                logger.LogError(e, "{ErrorMessage}", e.Message);
+                return Problem(
+                    detail: $"Failed to process {nameof(ValidateToken)}",
                     statusCode: StatusCodes.Status500InternalServerError,
                     title: "Internal server error");
             }

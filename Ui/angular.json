@@ -36,7 +36,7 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "./node_modules/bootswatch/dist/cyborg/bootstrap.min.css",
               "./node_modules/ngx-spinner/animations/ball-8bits.css",
               "./node_modules/ngx-toastr/toastr.css",

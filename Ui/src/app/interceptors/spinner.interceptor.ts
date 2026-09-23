@@ -6,7 +6,7 @@ import {finalize} from "rxjs";
 export const spinnerInterceptor: HttpInterceptorFn = (req, next) => {
   const spinnerService: SpinnerService = inject(SpinnerService);
 
-  if(req.url.includes('Stats/useCount')) {
+  if (req.url.includes('Stats/useCount') || req.url.includes('AllianceAccessToken')) {
     return next(req);
   }
 

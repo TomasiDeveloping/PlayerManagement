@@ -1,124 +1,386 @@
-<div class="container mt-5">
-  <div class="row justify-content-center">
-    <div class="col-md-8 col-lg-6">
+<div class="custom-portal-wrapper">
+  <div class="container-fluid py-4 py-md-5">
+    <div class="row justify-content-center">
+      <div class="col-12 col-lg-10 col-xl-9 col-xxl-8">
 
-      <!-- Card Container -->
-      <div class="card bg-dark text-light border-secondary shadow-lg">
-        <div class="card-header bg-secondary text-white text-center py-3">
-          <h3 class="mb-0">Alliance Combat Power Submission</h3>
-          <small *ngIf="allianceName" class="text-info">Alliance: {{ allianceName }}</small>
+        <!-- Main Card in Custom Cyborg Modern Style -->
+        <div class="card custom-main-card shadow-lg">
+
+          <!-- Header -->
+          <div class="card-header custom-card-header text-center py-5 px-4 position-relative">
+
+            <div class="position-absolute top-0 end-0 p-3">
+              <div class="position-relative">
+
+                <button class="btn btn-sm btn-outline-info text-uppercase fw-bold d-flex align-items-center gap-2"
+                        type="button"
+                        (click)="isLangDropdownOpen = !isLangDropdownOpen">
+                  <i class="bi bi-globe"></i>
+                  <span>{{ currentLang }}</span>
+                  <i class="bi bi-chevron-down small"></i>
+                </button>
+
+                @if (isLangDropdownOpen) {
+                  <div class="shadow-lg text-start position-absolute end-0 mt-1 rounded-2 border border-secondary"
+                       style="background-color: #161b22 !important; z-index: 1060; min-width: 160px;">
+
+                    <div class="py-1">
+                      <div class="lang-option px-3 py-2 fw-semibold border-bottom border-secondary" style="cursor: pointer; background-color: #161b22 !important; color: #ffffff !important;" (click)="changeLanguage('en')">🇬🇧 English</div>
+                      <div class="lang-option px-3 py-2 fw-semibold border-bottom border-secondary" style="cursor: pointer; background-color: #161b22 !important; color: #ffffff !important;" (click)="changeLanguage('de')">🇩🇪 Deutsch</div>
+                      <div class="lang-option px-3 py-2 fw-semibold border-bottom border-secondary" style="cursor: pointer; background-color: #161b22 !important; color: #ffffff !important;" (click)="changeLanguage('fr')">🇫🇷 Français</div>
+                      <div class="lang-option px-3 py-2 fw-semibold border-bottom border-secondary" style="cursor: pointer; background-color: #161b22 !important; color: #ffffff !important;" (click)="changeLanguage('es')">🇪🇸 Español</div>
+                      <div class="lang-option px-3 py-2 fw-semibold border-bottom border-secondary" style="cursor: pointer; background-color: #161b22 !important; color: #ffffff !important;" (click)="changeLanguage('it')">🇮🇹 Italiano</div>
+                      <div class="lang-option px-3 py-2 fw-semibold border-bottom border-secondary" style="cursor: pointer; background-color: #161b22 !important; color: #ffffff !important;" (click)="changeLanguage('tr')">🇹🇷 Türkçe</div>
+                      <div class="lang-option px-3 py-2 fw-semibold border-bottom border-secondary" style="cursor: pointer; background-color: #161b22 !important; color: #ffffff !important;" (click)="changeLanguage('sv')">🇸🇪 Svenska</div>
+                      <div class="lang-option px-3 py-2 fw-semibold border-bottom border-secondary" style="cursor: pointer; background-color: #161b22 !important; color: #ffffff !important;" (click)="changeLanguage('no')">🇳🇴 Norsk</div>
+                      <div class="lang-option px-3 py-2 fw-semibold" style="cursor: pointer; background-color: #161b22 !important; color: #ffffff !important;" (click)="changeLanguage('fi')">🇫🇮 Suomi</div>
+                    </div>
+
+                  </div>
+                }
+
+                @if (isLangDropdownOpen) {
+                  <div class="position-fixed top-0 start-0 w-100 h-100"
+                       (click)="isLangDropdownOpen = false"
+                       style="background: transparent; z-index: 1055;">
+                  </div>
+                }
+              </div>
+            </div>
+
+            <div class="header-icon-glow mb-3">
+              <i class="bi bi-shield-shaded display-4 text-info"></i>
+            </div>
+            <h2 class="fw-extrabold text-white mb-2 tracking-wide">{{ t('title') }}</h2>
+
+            @if (allianceName) {
+              <div class="alliance-badge-wrapper my-3">
+                <span class="alliance-glow-badge">
+                  <i class="bi bi-flag-fill me-2 text-warning"></i>{{ allianceName }}
+                </span>
+              </div>
+            }
+
+            <p class="mb-0 text-muted small fst-italic px-md-5 mx-auto description-text">
+              {{ t('description') }}
+            </p>
+          </div>
+
+          <div class="card-body p-4 p-md-5">
+
+            <!-- 1. Loading State -->
+            @if (isLoading) {
+              <div class="text-center py-5">
+                <div class="spinner-border text-info mb-3" style="width: 3rem; height: 3rem;" role="status">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <p class="text-muted mb-0">{{ t('loading') }}</p>
+              </div>
+            }
+
+            <!-- 2. Access Denied State (Global/Init Error) -->
+            @if (!isLoading && errorMessage) {
+              <div class="text-center py-4">
+                <div class="mb-3 text-danger">
+                  <i class="bi bi-shield-lock-fill display-3"></i>
+                </div>
+                <h4 class="text-danger fw-bold mb-3">{{ t('accessDenied') }}</h4>
+                <div class="alert alert-dismissible alert-danger border border-danger py-3 mb-4 rounded-3" role="alert">
+                  <strong>{{ t('errorLabel') }}:</strong> {{ errorMessage }}
+                </div>
+                <p class="text-muted small mb-0">{{ t('accessDeniedSub') }}</p>
+              </div>
+            }
+
+            <!-- 3. Main Interface -->
+            @if (!isLoading && !errorMessage) {
+              <div>
+
+                @if (!selectedPlayerId) {
+                  <div class="mb-4 animate__animated animate__fadeIn text-center py-4">
+                    <label class="form-label text-uppercase fs-6 fw-bold text-info mb-3 d-block">
+                      <i class="bi bi-person-badge me-2"></i> {{ t('searchLabel') }}
+                    </label>
+                    <div class="row justify-content-center">
+                      <div class="col-12 col-md-8 col-lg-6 position-relative">
+
+                        <div class="input-group custom-search-group shadow-sm">
+                          <span class="input-group-text bg-black border-secondary text-info">
+                            <i class="bi bi-search"></i>
+                          </span>
+                          <input type="text"
+                                 class="form-control custom-select-lg border-secondary bg-black text-light"
+                                 [placeholder]="t('searchPlaceholder')"
+                                 [(ngModel)]="playerSearchQuery"
+                                 (focus)="isPlayerDropdownOpen = true"
+                                 (input)="isPlayerDropdownOpen = true"
+                                 autocomplete="off">
+                          @if (playerSearchQuery) {
+                            <button type="button" class="btn btn-outline-secondary border-secondary bg-black text-white px-3" (click)="playerSearchQuery = ''" [title]="t('clearSearch')">
+                              <i class="bi bi-x-lg text-white"></i>
+                            </button>
+                          }
+                        </div>
+
+                        @if (isPlayerDropdownOpen) {
+                          <div class="player-dropdown-list shadow-lg text-start position-absolute w-100 start-0 mt-1 rounded-2 border border-secondary">
+
+                            @if (filteredPlayers.length === 0) {
+                              <div class="p-3 text-center small" style="background-color: #161b22 !important; color: #adb5bd !important;">
+                                {{ t('noCommander') }} "{{ playerSearchQuery }}"
+                              </div>
+                            }
+
+                            @for (p of filteredPlayers; track p.id) {
+                              <div class="player-dropdown-item p-3 border-bottom border-secondary text-light fw-semibold"
+                                   (click)="selectPlayerFromSearch(p)"
+                                   style="background-color: #161b22 !important; cursor: pointer;">
+                                <i class="bi bi-person me-2 text-info"></i> {{ p.name }}
+                              </div>
+                            }
+
+                          </div>
+                        }
+
+                        @if (isPlayerDropdownOpen) {
+                          <div class="position-fixed top-0 start-0 w-100 h-100" (click)="isPlayerDropdownOpen = false" style="background: transparent; z-index: 1040;"></div>
+                        }
+
+                      </div>
+                    </div>
+                  </div>
+                }
+
+                @if (selectedPlayerId) {
+                  <div class="animate__animated animate__fadeIn">
+
+                    <div class="d-flex flex-column flex-sm-row justify-content-between align-items-sm-center custom-player-bar p-3 mb-4 gap-2">
+                      <div class="d-flex align-items-center gap-3">
+                        <div class="player-avatar-icon bg-info bg-opacity-10 text-info p-2 rounded-circle">
+                          <i class="bi bi-person-fill fs-4"></i>
+                        </div>
+                        <div>
+                          <span class="text-muted text-uppercase tiny-label d-block">{{ t('commander') }}</span>
+                          <h4 class="text-white fw-bold m-0">{{ selectedPlayerName }}</h4>
+                        </div>
+                      </div>
+                      <button type="button" class="btn btn-outline-light btn-sm px-3" (click)="resetPlayerSelection()">
+                        <i class="bi bi-arrow-repeat me-1"></i> {{ t('changePlayer') }}
+                      </button>
+                    </div>
+
+                    <ul class="nav nav-pills nav-fill custom-nav-tabs p-1 mb-4 shadow-sm" role="tablist">
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link py-2.5 text-uppercase fw-bold"
+                                [class.active]="activeTab === 'form'"
+                                (click)="setTab('form')"
+                                type="button">
+                          <i class="bi bi-pencil-square me-2"></i> {{ t('updateRecords') }}
+                        </button>
+                      </li>
+                      <li class="nav-item" role="presentation">
+                        <button class="nav-link py-2.5 text-uppercase fw-bold"
+                                [class.active]="activeTab === 'growth'"
+                                (click)="setTab('growth')"
+                                type="button">
+                          <i class="bi bi-graph-up-arrow me-2"></i> {{ t('growthOverview') }}
+                        </button>
+                      </li>
+                    </ul>
+
+                    <!-- TAB CONTENT AREA -->
+                    <div>
+
+                      @if (activeTab === 'form') {
+                        <div>
+                          @if (!successMessage) {
+                            <form (ngSubmit)="onSubmit()" #powerForm="ngForm">
+
+                              @if (submitErrorMessage) {
+                                <div class="alert alert-danger border border-danger py-3 mb-4 rounded-3 d-flex align-items-center justify-content-between shadow-sm" role="alert">
+                                  <div class="d-flex align-items-center gap-3">
+                                    <i class="bi bi-exclamation-triangle-fill fs-3 text-danger"></i>
+                                    <div>
+                                      <h5 class="alert-heading fw-bold mb-1">{{ t('errorLabel') }}</h5>
+                                      <p class="mb-0 small">{{ submitErrorMessage }}</p>
+                                    </div>
+                                  </div>
+                                  <button type="button" class="btn btn-sm btn-outline-danger" (click)="submitErrorMessage = ''">
+                                    <i class="bi bi-x-lg"></i>
+                                  </button>
+                                </div>
+                              }
+
+                              <div class="custom-hint-box p-3 mb-4 rounded-3 d-flex align-items-center gap-3">
+                                <i class="bi bi-info-circle-fill text-info fs-4"></i>
+                                <span class="small text-light">{{ t('hintText') }}</span>
+                              </div>
+
+                              <div class="row g-4">
+                                <!-- Squad 1 -->
+                                <div class="col-12 col-md-4">
+                                  <div class="squad-input-card p-3 h-100">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                      <label class="form-label text-uppercase fs-7 fw-bold text-warning m-0">{{ t('squad1') }}</label>
+                                      <button type="button" class="btn btn-link text-info p-0 text-decoration-none small" (click)="openHelpModal(t('squad1HelpTitle'), t('squad1HelpText'), 'assets/images/squad.png')">
+                                        <i class="bi bi-question-circle"></i> {{ t('help') }}
+                                      </button>
+                                    </div>
+                                    <div class="mb-2">
+                                      <select class="form-select form-select-sm border-secondary bg-black text-light" [(ngModel)]="squad1Type" name="squad1Type">
+                                        @for (tr of troopTypes; track tr) {
+                                          <option [value]="tr">{{ tr }}</option>
+                                        }
+                                      </select>
+                                    </div>
+                                    <div>
+                                      <input type="number" step="any" class="form-control border-secondary bg-black text-light" [(ngModel)]="squad1Power" name="squad1Power" [placeholder]="t('squadPlaceholder')" min="0" required>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <!-- Squad 2 -->
+                                <div class="col-12 col-md-4">
+                                  <div class="squad-input-card p-3 h-100">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                      <label class="form-label text-uppercase fs-7 fw-bold text-info m-0">{{ t('squad2') }}</label>
+                                      <button type="button" class="btn btn-link text-info p-0 text-decoration-none small" (click)="openHelpModal(t('squad2HelpTitle'), t('squad2HelpText'), 'assets/images/squad.png')">
+                                        <i class="bi bi-question-circle"></i> {{ t('help') }}
+                                      </button>
+                                    </div>
+                                    <div class="mb-2">
+                                      <select class="form-select form-select-sm border-secondary bg-black text-light" [(ngModel)]="squad2Type" name="squad2Type">
+                                        @for (tr of troopTypes; track tr) {
+                                          <option [value]="tr">{{ tr }}</option>
+                                        }
+                                      </select>
+                                    </div>
+                                    <div>
+                                      <input type="number" step="any" class="form-control border-secondary bg-black text-light" [(ngModel)]="squad2Power" name="squad2Power" [placeholder]="t('squadPlaceholder')" min="0" required>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <!-- Squad 3 -->
+                                <div class="col-12 col-md-4">
+                                  <div class="squad-input-card p-3 h-100">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                      <label class="form-label text-uppercase fs-7 fw-bold text-warning m-0">{{ t('squad3') }}</label>
+                                      <button type="button" class="btn btn-link text-info p-0 text-decoration-none small" (click)="openHelpModal(t('squad3HelpTitle'), t('squad3HelpText'), 'assets/images/squad.png')">
+                                        <i class="bi bi-question-circle"></i> {{ t('help') }}
+                                      </button>
+                                    </div>
+                                    <div class="mb-2">
+                                      <select class="form-select form-select-sm border-secondary bg-black text-light" [(ngModel)]="squad3Type" name="squad3Type">
+                                        @for (tr of troopTypes; track tr) {
+                                          <option [value]="tr">{{ tr }}</option>
+                                        }
+                                      </select>
+                                    </div>
+                                    <div>
+                                      <input type="number" step="any" class="form-control border-secondary bg-black text-light" [(ngModel)]="squad3Power" name="squad3Power" [placeholder]="t('squadPlaceholder')" min="0" required>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <hr class="border-secondary my-4 opacity-50">
+
+                              <!-- THP & Kills -->
+                              <div class="row g-4">
+                                <!-- Total Hero Power -->
+                                <div class="col-12 col-md-6">
+                                  <div class="squad-input-card p-3 h-100">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                      <label class="form-label text-uppercase fs-7 fw-bold text-primary m-0">{{ t('thp') }}</label>
+                                      <button type="button" class="btn btn-link text-primary p-0 text-decoration-none small" (click)="openHelpModal(t('thpHelpTitle'), t('thpHelpText'), 'assets/images/totalHp.png')">
+                                        <i class="bi bi-question-circle"></i> {{ t('help') }}
+                                      </button>
+                                    </div>
+                                    <input type="number" step="any" class="form-control border-secondary bg-black text-light" [(ngModel)]="totalHeroPower" name="totalHeroPower" [placeholder]="t('thpPlaceholder')" min="0" required>
+                                    <div class="form-text text-muted tiny-text mt-1">{{ t('thpExample') }}</div>
+                                  </div>
+                                </div>
+
+                                <!-- Kills Number -->
+                                <div class="col-12 col-md-6">
+                                  <div class="squad-input-card p-3 h-100">
+                                    <div class="d-flex justify-content-between align-items-center mb-2">
+                                      <label class="form-label text-uppercase fs-7 fw-bold text-danger m-0">{{ t('kills') }}</label>
+                                      <button type="button" class="btn btn-link text-danger p-0 text-decoration-none small" (click)="openHelpModal(t('killsHelpTitle'), t('killsHelpText'), 'assets/images/Kills.png')">
+                                        <i class="bi bi-question-circle"></i> {{ t('help') }}
+                                      </button>
+                                    </div>
+                                    <input type="number" step="any" class="form-control border-secondary bg-black text-light" [(ngModel)]="kills" name="kills" [placeholder]="t('killsPlaceholder')" min="0" required>
+                                    <div class="form-text text-muted tiny-text mt-1">{{ t('killsExample') }}</div>
+                                  </div>
+                                </div>
+                              </div>
+
+                              <!-- Submit Button -->
+                              <div class="d-grid mt-5">
+                                <button type="submit"
+                                        class="btn btn-info py-3 fw-bold text-uppercase shadow text-dark custom-submit-btn"
+                                        [disabled]="isSubmitting || !selectedPlayerId || powerForm.invalid">
+                                  @if (isSubmitting) {
+                                    <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                                  }
+                                  {{ isSubmitting ? t('submitting') : t('submit') }}
+                                </button>
+                              </div>
+                            </form>
+                          } @else {
+                            <div class="text-center py-5">
+                              <div class="mb-3 text-success">
+                                <i class="bi bi-check-circle-fill display-3"></i>
+                              </div>
+                              <h4 class="text-success fw-bold mb-3">{{ t('successTitle') }}</h4>
+                            </div>
+                          }
+                        </div>
+                      }
+
+                      <!-- TAB 2: GROWTH OVERVIEW -->
+                      @if (activeTab === 'growth') {
+                        <div>
+                          <app-player-growth-history [playerId]="selectedPlayerId" [currentLang]="currentLang"></app-player-growth-history>
+                        </div>
+                      }
+                    </div>
+
+                  </div>
+                }
+              </div>
+            }
+          </div>
         </div>
 
-        <div class="card-body p-4">
-
-          <!-- Loading Spinner -->
-          <div *ngIf="isLoading" class="text-center py-5">
-            <div class="spinner-border text-primary" role="status">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-            <p class="mt-3 text-muted">Validating access token...</p>
-          </div>
-
-          <!-- Error Alert (z.B. Kein Token oder Ungültig) -->
-          <div *ngIf="!isLoading && errorMessage" class="alert alert-danger text-center" role="alert">
-            <h4 class="alert-heading">Access Error</h4>
-            <p>{{ errorMessage }}</p>
-            <hr>
-            <p class="mb-0 small text-muted">Please make sure you are using the correct link provided by your alliance leadership.</p>
-          </div>
-
-          <!-- Success Alert -->
-          <div *ngIf="successMessage" class="alert alert-success text-center" role="alert">
-            <h4 class="alert-heading">Success!</h4>
-            <p>{{ successMessage }}</p>
-          </div>
-
-          <!-- Main Form (Wird nur angezeigt, wenn Token gültig & geladen) -->
-          <form *ngIf="!isLoading && !errorMessage && !successMessage" (ngSubmit)="onSubmit()">
-
-            <!-- Player Selection -->
-            <div class="mb-3">
-              <label for="playerSelect" class="form-label">Select Your Player Name:</label>
-              <select id="playerSelect" class="form-select bg-dark text-light border-secondary" [(ngModel)]="selectedPlayerId" name="selectedPlayerId" required>
-                <option value="" disabled selected>-- Choose your name --</option>
-                <option *ngFor="let p of players" [value]="p.id">{{ p.playerName }}</option>
-              </select>
-            </div>
-
-            <hr class="border-secondary my-4">
-
-            <!-- Squad 1 -->
-            <h5 class="text-primary mb-3">Squad 1</h5>
-            <div class="row mb-3">
-              <div class="col-sm-6">
-                <label class="form-label">Troop Type</label>
-                <select class="form-select bg-dark text-light border-secondary" [(ngModel)]="squad1Type" name="squad1Type">
-                  <option *ngFor="let t of troopTypes" [value]="t">{{ t }}</option>
-                </select>
-              </div>
-              <div class="col-sm-6">
-                <label class="form-label">Power</label>
-                <input type="number" class="form-control bg-dark text-light border-secondary" [(ngModel)]="squad1Power" name="squad1Power" min="0" required>
-              </div>
-            </div>
-
-            <!-- Squad 2 -->
-            <h5 class="text-primary mb-3">Squad 2</h5>
-            <div class="row mb-3">
-              <div class="col-sm-6">
-                <label class="form-label">Troop Type</label>
-                <select class="form-select bg-dark text-light border-secondary" [(ngModel)]="squad2Type" name="squad2Type">
-                  <option *ngFor="let t of troopTypes" [value]="t">{{ t }}</option>
-                </select>
-              </div>
-              <div class="col-sm-6">
-                <label class="form-label">Power</label>
-                <input type="number" class="form-control bg-dark text-light border-secondary" [(ngModel)]="squad2Power" name="squad2Power" min="0" required>
-              </div>
-            </div>
-
-            <!-- Squad 3 -->
-            <h5 class="text-primary mb-3">Squad 3</h5>
-            <div class="row mb-3">
-              <div class="col-sm-6">
-                <label class="form-label">Troop Type</label>
-                <select class="form-select bg-dark text-light border-secondary" [(ngModel)]="squad3Type" name="squad3Type">
-                  <option *ngFor="let t of troopTypes" [value]="t">{{ t }}</option>
-                </select>
-              </div>
-              <div class="col-sm-6">
-                <label class="form-label">Power</label>
-                <input type="number" class="form-control bg-dark text-light border-secondary" [(ngModel)]="squad3Power" name="squad3Power" min="0" required>
-              </div>
-            </div>
-
-            <hr class="border-secondary my-4">
-
-            <!-- Metrics (Hero Power & Kills) -->
-            <div class="row mb-3">
-              <div class="col-sm-6">
-                <label class="form-label">Total Hero Power</label>
-                <input type="number" class="form-control bg-dark text-light border-secondary" [(ngModel)]="totalHeroPower" name="totalHeroPower" min="0" required>
-              </div>
-              <div class="col-sm-6">
-                <label class="form-label">Kills</label>
-                <input type="number" class="form-control bg-dark text-light border-secondary" [(ngModel)]="kills" name="kills" min="0" required>
-              </div>
-            </div>
-
-            <!-- Submit Button -->
-            <div class="d-grid mt-4">
-              <button type="submit" class="btn btn-primary btn-lg" [disabled]="isSubmitting || !selectedPlayerId">
-                <span *ngIf="isSubmitting" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                {{ isSubmitting ? 'Submitting...' : 'Submit Combat Records' }}
-              </button>
-            </div>
-
-          </form>
-
-        </div>
       </div>
+    </div>
+  </div>
+</div>
 
+<!-- HELP MODAL -->
+<div class="modal fade" [class.show]="isHelpModalOpen" [style.display]="isHelpModalOpen ? 'block' : 'none'" tabindex="-1" aria-hidden="true" style="background: rgba(0,0,0,0.8); backdrop-filter: blur(4px);">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content bg-dark border-secondary text-light shadow-lg">
+      <div class="modal-header border-secondary bg-black">
+        <h5 class="modal-title text-info fw-bold">
+          <i class="bi bi-question-circle-fill me-2"></i> {{ activeHelpTitle }}
+        </h5>
+        <button type="button" class="btn-close btn-close-white" (click)="closeHelpModal()" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-4">
+        <p class="mb-3 fs-6" [innerHTML]="activeHelpText"></p>
+        @if (activeHelpImage) {
+          <div class="text-center mt-3">
+            <img [src]="activeHelpImage" class="img-fluid rounded border border-secondary shadow" alt="Help Guide" style="max-height: 400px;">
+          </div>
+        }
+      </div>
+      <div class="modal-footer border-secondary bg-black py-2">
+        <button type="button" class="btn custom-modal-btn px-4 py-2" (click)="closeHelpModal()">{{ t('gotIt') }}</button>
+      </div>
     </div>
   </div>
 </div>

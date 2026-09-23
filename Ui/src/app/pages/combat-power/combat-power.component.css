@@ -1,0 +1,227 @@
+/* ==========================================================================
+   1. PORTAL LAYOUT & MAIN CARDS
+   ========================================================================== */
+.custom-portal-wrapper {
+  min-height: 100vh;
+  background: radial-gradient(circle at center, #1a1e24 0%, #06080a 100%);
+}
+
+.custom-main-card {
+  background-color: #0d1117 !important;
+  border: 1px solid #30363d !important;
+  border-radius: 12px;
+  overflow: visible !important; /* Wichtig, damit das Dropdown nicht abgeschnitten wird */
+}
+
+.card-body {
+  overflow: visible !important;
+}
+
+/* Header Design */
+.custom-card-header {
+  background: linear-gradient(135deg, #161b22 0%, #0d1117 100%) !important;
+  border-bottom: 1px solid #30363d;
+}
+
+.tracking-wide {
+  letter-spacing: 0.5px;
+}
+
+.description-text {
+  color: #8b949e !important;
+  max-width: 600px;
+}
+
+
+/* ==========================================================================
+   2. ALLIANCE BADGE
+   ========================================================================== */
+.alliance-badge-wrapper {
+  display: inline-block;
+}
+
+.alliance-glow-badge {
+  display: inline-block;
+  background: linear-gradient(90deg, rgba(13, 202, 240, 0.15), rgba(255, 193, 7, 0.15));
+  color: #ffffff;
+  border: 1px solid #0dcaf0;
+  padding: 8px 24px;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  letter-spacing: 1px;
+  box-shadow: 0 0 15px rgba(13, 202, 240, 0.2);
+  text-transform: uppercase;
+}
+
+
+/* ==========================================================================
+   3. NAVIGATION TABS & PLAYER BAR
+   ========================================================================== */
+.custom-player-bar {
+  background-color: #161b22 !important;
+  border: 1px solid #30363d !important;
+  border-radius: 8px;
+}
+
+.tiny-label {
+  font-size: 0.7rem;
+  letter-spacing: 0.5px;
+}
+
+.custom-nav-tabs {
+  background-color: #161b22 !important;
+  border: 1px solid #30363d !important;
+  border-radius: 8px;
+}
+
+.custom-nav-tabs .nav-link {
+  color: #8b949e;
+  transition: all 0.2s ease-in-out;
+}
+
+.custom-nav-tabs .nav-link:hover {
+  color: #fff;
+}
+
+.custom-nav-tabs .nav-link.active {
+  background-color: #0dcaf0 !important;
+  color: #000000 !important;
+  font-weight: bold;
+}
+
+
+/* ==========================================================================
+   4. FORMULAR & INPUT FIELDS
+   ========================================================================== */
+.squad-input-card {
+  background-color: #161b22;
+  border: 1px solid #30363d;
+  border-radius: 8px;
+  transition: border-color 0.2s;
+}
+
+.squad-input-card:hover {
+  border-color: #58a6ff;
+}
+
+.custom-select-lg {
+  background-color: #060606 !important;
+  color: #fff !important;
+  border-color: #0dcaf0 !important;
+  padding: 12px 16px;
+  font-size: 1rem;
+}
+
+.form-control,
+.form-select {
+  background-color: #060606 !important;
+  color: #ffffff !important;
+  border-color: #30363d !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+  border-color: #0dcaf0 !important;
+  box-shadow: 0 0 0 0.2rem rgba(13, 202, 240, 0.25) !important;
+}
+
+.form-label,
+.squad-input-card .form-label {
+  color: #f0f6fc !important;
+}
+
+.custom-hint-box {
+  background-color: #1f2937 !important;
+  border: 1px solid #0dcaf0 !important;
+  color: #ffffff !important;
+}
+
+.custom-hint-box span,
+.custom-hint-box strong {
+  color: #ffffff !important;
+}
+
+
+/* ==========================================================================
+   5. BUTTONS (SUBMIT & MODAL)
+   ========================================================================== */
+.custom-submit-btn,
+.custom-modal-btn {
+  background-color: #0dcaf0 !important;
+  color: #000000 !important;
+  font-weight: 700 !important;
+  border: none !important;
+  transition: all 0.2s ease-in-out;
+}
+
+.custom-submit-btn {
+  font-size: 1.05rem;
+  letter-spacing: 0.5px;
+}
+
+.custom-submit-btn:hover,
+.custom-submit-btn:focus,
+.custom-submit-btn:active,
+.custom-modal-btn:hover,
+.custom-modal-btn:focus,
+.custom-modal-btn:active {
+  background-color: #3dd5f3 !important;
+  color: #000000 !important;
+  box-shadow: 0 0 15px rgba(13, 202, 240, 0.4);
+}
+
+
+/* ==========================================================================
+   6. SEARCH & AUTOCOMPLETE DROPDOWN
+   ========================================================================== */
+.player-dropdown-list {
+  background-color: #161b22 !important;
+  max-height: 225px !important;
+  overflow-y: auto !important;
+  overflow-x: hidden;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.9) !important;
+  z-index: 1055 !important;
+  left: 0;
+  right: 0;
+}
+
+/* Scrollbar Design */
+.player-dropdown-list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.player-dropdown-list::-webkit-scrollbar-track {
+  background: #0d1117;
+}
+
+.player-dropdown-list::-webkit-scrollbar-thumb {
+  background: #30363d;
+  border-radius: 4px;
+}
+
+.player-dropdown-list::-webkit-scrollbar-thumb:hover {
+  background: #0dcaf0;
+}
+
+/* Dropdown Items & Hover Effects */
+.player-dropdown-item {
+  cursor: pointer;
+  background-color: #161b22 !important;
+  color: #ffffff !important;
+  transition: background-color 0.15s ease-in-out, color 0.15s ease-in-out;
+}
+
+.player-dropdown-item i {
+  color: #0dcaf0 !important;
+}
+
+.player-dropdown-item:hover {
+  background-color: #21262d !important;
+  color: #0dcaf0 !important;
+}
+
+.lang-option:hover {
+  background-color: #21262d !important;
+  color: #38bdf8 !important; /* Cyan-Ton passend zum Portal */
+}

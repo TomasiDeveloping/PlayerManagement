@@ -1,0 +1,350 @@
+<div class="container mt-3 pb-4">
+
+  <!-- Header & Titel -->
+  <h2 class="text-center mb-3 d-flex justify-content-center align-items-center gap-2">
+    Power Tracking & Management
+    <button type="button"
+            class="btn btn-sm btn-outline-info rounded-circle d-flex align-items-center justify-content-center p-0"
+            style="width: 28px; height: 28px;"
+            ngbTooltip="More info"
+            placement="right"
+            (click)="openInfoModal()">
+      <i class="bi bi-info-lg"></i>
+    </button>
+  </h2>
+
+  <!-- Nav Tabs -->
+  <ul class="nav nav-tabs mb-3">
+    <li class="nav-item">
+      <button
+        class="nav-link"
+        [class.active]="activeTab === 'roster'"
+        (click)="switchTab('roster')">
+        <i class="bi bi-people-fill me-1"></i> Power
+      </button>
+    </li>
+    <li class="nav-item">
+      <button
+        class="nav-link"
+        [class.active]="activeTab === 'tokens'"
+        (click)="switchTab('tokens')">
+        <i class="bi bi-key-fill me-1"></i> Access Tokens
+      </button>
+    </li>
+  </ul>
+
+  <!-- TAB 1: PLAYER ROSTER & POWER -->
+  @if (activeTab === 'roster') {
+    <div class="d-flex justify-content-between align-items-center mb-3 gap-2">
+      <h4 class="text-muted m-0 fs-5 fs-md-4 text-truncate">Alliance Combat Records</h4>
+
+      <div class="d-flex align-items-center gap-2 flex-shrink-0">
+        <div class="dropdown" ngbDropdown>
+          <button class="btn btn-sm btn-outline-info dropdown-toggle" type="button" ngbDropdownToggle>
+            <i class="bi bi-download me-1"></i> <span class="d-none d-sm-inline">Export</span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-end shadow" ngbDropdownMenu>
+            <li><h6 class="dropdown-header text-uppercase small text-muted">Latest Record Only</h6></li>
+            <li><button class="dropdown-item small" type="button" ngbDropdownItem (click)="exportAllPlayers('latest', 'excel')"><i class="bi bi-file-earmark-excel text-success me-2"></i> Excel (.xlsx)</button></li>
+            <li><button class="dropdown-item small" type="button" ngbDropdownItem (click)="exportAllPlayers('latest', 'csv')"><i class="bi bi-file-earmark-text text-info me-2"></i> CSV (.csv)</button></li>
+          </ul>
+        </div>
+
+        <!-- New Power Record Button -->
+        <button type="button" class="btn btn-sm btn-info" (click)="openNewRecordModal()">
+          <i class="bi bi-plus-circle me-1"></i> <span class="d-none d-sm-inline">New Power </span>Record
+        </button>
+      </div>
+    </div>
+
+    <!-- FILTER-LEISTE -->
+    <div class="card mb-3 p-3 shadow-sm">
+      <div class="row g-3 align-items-center">
+        <!-- Textsuche -->
+        <div class="col-12 col-md-7">
+          <div class="input-group input-group-sm">
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+            <input type="text" class="form-control"
+                   placeholder="Search commander by name..."
+                   [(ngModel)]="searchText"
+                   (ngModelChange)="onFilterChanged()">
+            @if (searchText) {
+              <button class="btn btn-outline-secondary" type="button" (click)="searchText = ''; onFilterChanged()">
+                <i class="bi bi-x-lg"></i>
+              </button>
+            }
+          </div>
+        </div>
+        <!-- Switch Filter -->
+        <div class="col-12 col-md-5 d-flex justify-content-md-end align-items-center">
+          <div class="form-check form-switch m-0">
+            <input class="form-check-input" type="checkbox" role="switch" id="outdatedFilter"
+                   [(ngModel)]="filterOutdatedOrEmpty"
+                   (ngModelChange)="onFilterChanged()">
+            <label class="form-check-label small fw-semibold ms-2" for="outdatedFilter">
+              Missing or older than 1 month
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ENDE FILTER-LEISTE -->
+
+    @if (filteredPlayers.length > 0) {
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered align-middle mb-3 text-nowrap">
+          <thead>
+          <tr>
+            <th scope="col">Player</th>
+            <th scope="col" (click)="sortPlayers('squad1Power')" role="button">
+              Squad 1
+              @if (currentSortColumn === 'squad1Power') {
+                <i class="bi" [ngClass]="isAscending ? 'bi-arrow-up' : 'bi-arrow-down'"></i>
+              } @else {
+                <i class="bi bi-arrow-down-up small text-muted"></i>
+              }
+            </th>
+            <th scope="col" (click)="sortPlayers('squad2Power')" role="button">
+              Squad 2
+              @if (currentSortColumn === 'squad2Power') {
+                <i class="bi" [ngClass]="isAscending ? 'bi-arrow-up' : 'bi-arrow-down'"></i>
+              } @else {
+                <i class="bi bi-arrow-down-up small text-muted"></i>
+              }
+            </th>
+            <th scope="col" (click)="sortPlayers('squad3Power')" role="button">
+              Squad 3
+              @if (currentSortColumn === 'squad3Power') {
+                <i class="bi" [ngClass]="isAscending ? 'bi-arrow-up' : 'bi-arrow-down'"></i>
+              } @else {
+                <i class="bi bi-arrow-down-up small text-muted"></i>
+              }
+            </th>
+            <th scope="col" (click)="sortPlayers('totalHeroPower')" role="button">
+              THP
+              @if (currentSortColumn === 'totalHeroPower') {
+                <i class="bi" [ngClass]="isAscending ? 'bi-arrow-up' : 'bi-arrow-down'"></i>
+              } @else {
+                <i class="bi bi-arrow-down-up small text-muted"></i>
+              }
+            </th>
+            <th scope="col" (click)="sortPlayers('kills')" role="button">
+              Kills
+              @if (currentSortColumn === 'kills') {
+                <i class="bi" [ngClass]="isAscending ? 'bi-arrow-up' : 'bi-arrow-down'"></i>
+              } @else {
+                <i class="bi bi-arrow-down-up small text-muted"></i>
+              }
+            </th>
+            <!-- Last Update auf sehr kleinen Bildschirmen ausblenden, um Platz zu sparen -->
+            <th scope="col" class="d-none d-lg-table-cell">Last Update</th>
+            <th scope="col" class="text-center">Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+            @for (player of filteredPlayers | paginate: { totalItems: totalPlayers, itemsPerPage: pageSize, currentPage: pageNumberPlayer, id: 'rosterTable'}; track player.playerId) {
+              <tr>
+                <!-- Commander Name -->
+                <td>
+                  <span class="fw-bold">{{ player.playerName }}</span>
+                </td>
+
+                <!-- Squad 1 -->
+                <td>
+                  @if (player.squad1Power > 0) {
+                    <div class="fw-mono">{{ player.squad1Power }}M</div>
+                    @if (player.squad1 !== null && player.squad1 !== undefined) {
+                      <div class="small text-uppercase fw-bold" style="font-size: 0.65rem;">
+                        @if (player.squad1 === 0) { <span class="text-warning opacity-75">Tank</span> }
+                        @else if (player.squad1 === 1) { <span class="text-info opacity-75">Air</span> }
+                        @else if (player.squad1 === 2) { <span class="text-danger opacity-75">Missile</span> }
+                      </div>
+                    }
+                  } @else {
+                    <span class="text-muted fst-italic small">No Data</span>
+                  }
+                </td>
+
+                <!-- Squad 2 -->
+                <td>
+                  @if (player.squad2Power > 0) {
+                    <div class="fw-mono">{{ player.squad2Power }}M</div>
+                    @if (player.squad2 !== null && player.squad2 !== undefined) {
+                      <div class="small text-uppercase fw-bold" style="font-size: 0.65rem;">
+                        @if (player.squad2 === 0) { <span class="text-warning opacity-75">Tank</span> }
+                        @else if (player.squad2 === 1) { <span class="text-info opacity-75">Air</span> }
+                        @else if (player.squad2 === 2) { <span class="text-danger opacity-75">Missile</span> }
+                      </div>
+                    }
+                  } @else {
+                    <span class="text-muted fst-italic small">No Data</span>
+                  }
+                </td>
+
+                <!-- Squad 3 -->
+                <td>
+                  @if (player.squad3Power > 0) {
+                    <div class="fw-mono">{{ player.squad3Power }}M</div>
+                    @if (player.squad3 !== null && player.squad3 !== undefined) {
+                      <div class="small text-uppercase fw-bold" style="font-size: 0.65rem;">
+                        @if (player.squad3 === 0) { <span class="text-warning opacity-75">Tank</span> }
+                        @else if (player.squad3 === 1) { <span class="text-info opacity-75">Air</span> }
+                        @else if (player.squad3 === 2) { <span class="text-danger opacity-75">Missile</span> }
+                      </div>
+                    }
+                  } @else {
+                    <span class="text-muted fst-italic small">No Data</span>
+                  }
+                </td>
+
+                <!-- THP -->
+                <td>
+                  @if (player.totalHeroPower > 0) {
+                    {{ player.totalHeroPower | number }}
+                  } @else {
+                    <span class="text-muted fst-italic small">No Data</span>
+                  }
+                </td>
+
+                <!-- Kills -->
+                <td>
+                  @if (player.kills > 0) {
+                    {{ player.kills }}M
+                  } @else {
+                    <span class="text-muted fst-italic small">No Data</span>
+                  }
+                </td>
+
+                <!-- Last Update (responsiv ausgeblendet auf kleinen Screens) -->
+                <td class="d-none d-lg-table-cell">
+                  @if (player.recordedAtUtc) {
+                    <div>
+                      {{ player.recordedAtUtc | amTimeAgo }}
+                      <div class="text-muted" style="font-size: 0.7rem;">({{ player.recordedAtUtc | date: 'dd.MM.yyyy' }})</div>
+                    </div>
+                  } @else {
+                    <span class="text-muted fst-italic small">Never</span>
+                  }
+                </td>
+
+                <!-- Actions -->
+                <td class="text-center">
+                  @if (player.recordedAtUtc) {
+                    <div class="d-flex gap-2 justify-content-center">
+                      <button type="button" class="btn btn-sm btn-outline-info px-2 py-1" ngbTooltip="View growth history" placement="auto" (click)="openPlayerHistory(player)">
+                        <i class="bi bi-graph-up"></i>
+                      </button>
+                      <button type="button" class="btn btn-sm btn-outline-warning px-2 py-1" ngbTooltip="Correct values" placement="auto" (click)="openEditPlayer(player)">
+                        <i class="bi bi-pencil-square"></i>
+                      </button>
+                    </div>
+                  } @else {
+                    <span class="text-muted small">-</span>
+                  }
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination Controls for Roster -->
+      <div class="d-flex justify-content-between align-items-center mt-3 flex-column flex-md-row gap-2">
+        <pagination-controls class="custom-pagination" [id]="'rosterTable'" [responsive]="true" [autoHide]="true"
+                             (pageChange)="pageChangedPlayer($event)"></pagination-controls>
+
+        <div class="text-muted text-center text-md-end">
+          <small>
+            Showing
+            <strong>{{ (pageNumberPlayer - 1) * pageSize + 1 }} - {{ pageNumberPlayer * pageSize > totalPlayers ? totalPlayers : pageNumberPlayer * pageSize }}</strong>
+            of <strong>{{ totalPlayers }}</strong> results
+          </small>
+        </div>
+      </div>
+    } @else {
+      <div class="alert alert-secondary text-center mt-5" role="alert">
+        No player records available
+      </div>
+    }
+  }
+
+  <!-- TAB 2: ACCESS TOKENS -->
+  @if (activeTab === 'tokens') {
+    <div class="d-flex justify-content-between align-items-center mb-3 gap-2">
+      <div>
+        <h4 class="text-muted m-0 fs-5 fs-md-4">Access Token Management</h4>
+        <small class="text-muted d-none d-sm-block">Create secure links to share with your alliance so players can update stats without logging in.</small>
+      </div>
+      <button class="btn btn-sm btn-secondary flex-shrink-0" (click)="openCreateTokenModal()">
+        <i class="bi bi-plus-circle me-1"></i> <span class="d-none d-sm-inline">Generate </span>New Token
+      </button>
+    </div>
+
+    @if (tokens.length > 0) {
+      <div class="table-responsive">
+        <table class="table table-striped table-bordered align-middle mb-3">
+          <thead>
+          <tr>
+            <th scope="col">Share URL / Token</th>
+            <th scope="col">Created At</th>
+            <th scope="col">Expires At</th>
+            <th scope="col">Status</th>
+            <th scope="col" class="text-center">Actions</th>
+          </tr>
+          </thead>
+          <tbody>
+            @for (t of tokens | paginate: { totalItems: totalTokens, itemsPerPage: pageSize, currentPage: pageNumberToken, id: 'tokenTable'}; track t.id) {
+              <tr>
+                <td>
+                  <code class="text-info text-break" style="max-width: 250px; display: inline-block;">{{ t.fullShareUrl }}</code>
+                </td>
+                <td>{{ t.createdAt | date: 'dd.MM.yyyy HH:mm' }}</td>
+                <td>
+                  @if (t.expiresAt) {
+                    {{ t.expiresAt | date: 'dd.MM.yyyy HH:mm' }}
+                  } @else {
+                    <span class="text-muted">Never</span>
+                  }
+                </td>
+                <td>
+                  @if (t.isActive) {
+                    <span class="badge bg-success">Active</span>
+                  } @else {
+                    <span class="badge bg-danger">Revoked</span>
+                  }
+                </td>
+                <td>
+                  <div class="d-flex gap-3 justify-content-around">
+                    <i ngbTooltip="Copy Link" placement="auto" (click)="copyTokenLink(t.fullShareUrl)" class="bi custom-info-icon bi-clipboard" role="button"></i>
+                    @if (t.isActive) {
+                      <i ngbTooltip="Revoke Token" placement="auto" (click)="revokeToken(t.id)" class="bi custom-delete-icon bi-lock-fill" role="button"></i>
+                    }
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination Controls for Tokens -->
+      <div class="d-flex justify-content-between align-items-center mt-3 flex-column flex-md-row gap-2">
+        <pagination-controls class="custom-pagination" [id]="'tokenTable'" [responsive]="true" [autoHide]="true"
+                             (pageChange)="pageChangedToken($event)"></pagination-controls>
+
+        <div class="text-muted text-center text-md-end">
+          <small>
+            Showing
+            <strong>{{ (pageNumberToken - 1) * pageSize + 1 }} - {{ pageNumberToken * pageSize > totalTokens ? totalTokens : pageNumberToken * pageSize }}</strong>
+            of <strong>{{ totalTokens }}</strong> results
+          </small>
+        </div>
+      </div>
+    } @else {
+      <div class="alert alert-secondary text-center sm-5 text-center mt-5" role="alert">
+        No access tokens found
+      </div>
+    }
+  }
+
+</div>

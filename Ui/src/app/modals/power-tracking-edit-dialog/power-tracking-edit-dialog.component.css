@@ -1,0 +1,64 @@
+::ng-deep .modal-content {
+  background-color: #0b0f19 !important;
+  color: #f8f9fa !important;
+  border: 1px solid rgba(42, 159, 216, 0.2) !important;
+  border-radius: 0.75rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 20px rgba(42, 159, 216, 0.1) !important;
+}
+
+.card {
+  background-color: #111827 !important;
+  border: 1px solid #1f2937 !important;
+  border-radius: 0.5rem;
+}
+
+.form-control, .form-select {
+  background-color: #131b2e !important;
+  color: #ffffff !important;
+  border: 1px solid #374151 !important;
+  border-radius: 0.4rem;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.9rem;
+  transition: all 0.25s ease-in-out;
+
+  &:focus {
+    background-color: #1e293b !important;
+    color: #ffffff !important;
+    border-color: #2a9fd8 !important;
+    box-shadow: 0 0 0 0.25rem rgba(42, 159, 216, 0.25) !important;
+  }
+}
+
+.form-select {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%232a9fd8' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 0.75rem center !important;
+  background-size: 14px 10px !important;
+  padding-right: 2.25rem;
+}
+
+.form-select:disabled {
+  background-color: #0d111a !important;
+  color: #6b7280 !important;
+  border-color: #1f2937 !important;
+  opacity: 0.8;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%234b5563' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e") !important;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1) drop-shadow(0 0 2px #2a9fd8);
+  cursor: pointer;
+  opacity: 0.8;
+  &:hover {
+    opacity: 1;
+  }
+}

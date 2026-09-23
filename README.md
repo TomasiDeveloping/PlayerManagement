@@ -25,6 +25,28 @@ All beta versions (0.x.x) can be found here →
 
 ---
 
+### **[1.3.0]** – *2026-09-23* 🚀  
+#### ✨ Added  
+- **Power Tracking & Management**  
+  A new admin page to track and manage the combat power of alliance members:  
+  - Overview table showing each player's latest **Squad 1–3 power** (with type: Tank, Air, Missile), **Total Hero Power**, and **Kills**  
+  - **Growth history** view per player to track development over time  
+  - **Edit dialog** to correct or delete previously recorded entries  
+  - **Export** the current list as **Excel** or **CSV**  
+  - **Info dialog** explaining how to use the page  
+
+- **Access Tokens**  
+  Generate secure, shareable links so players can submit their own records without logging in:  
+  - Optional **expiration date**  
+  - **Revoke** or generate a new token at any time  
+
+- **Self-Service Player Page**  
+  Using their secure access link, players can now:  
+  - **Submit their own power records** (squads, Total Hero Power, kills)  
+  - **View their growth history** as an interactive **graph**  
+
+  This reduces manual work for alliance leaders and lets players track their own progress independently.
+
 ### **[1.2.0]** – *2026-02-17* 🚀  
 #### 🛠 Changed  
 - **Platform Upgrade**  

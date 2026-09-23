@@ -1,0 +1,153 @@
+<div class="modal-header bg-dark text-light border-bottom border-secondary px-4 py-3">
+  <h5 class="modal-title text-info fw-bold d-flex align-items-center m-0">
+    <i class="bi me-2" [ngClass]="isUpdate ? 'bi-pencil-square' : 'bi-plus-circle-fill'"></i>
+    {{ isUpdate ? 'Edit Combat Record' : 'New Combat Record' }}
+  </h5>
+  <button type="button" class="btn-close btn-close-white shadow-none" aria-label="Close" (click)="activeModal.dismiss()"></button>
+</div>
+
+<form [formGroup]="recordForm" (ngSubmit)="onSubmit()">
+  <div class="modal-body bg-dark text-light p-4">
+
+    <div class="row g-3 mb-4">
+      <div class="col-md-7 position-relative">
+        <label class="form-label small text-uppercase fw-bold text-info">Commander</label>
+
+        @if (isLoading) {
+          <div class="d-flex align-items-center text-muted py-2">
+            <span class="spinner-border spinner-border-sm me-2 text-info" role="status"></span>
+            <small>Loading commanders...</small>
+          </div>
+        } @else {
+          <div class="custom-dropdown-container position-relative">
+
+            <div class="form-select custom-select-trigger d-flex align-items-center justify-content-between"
+                 [ngClass]="{
+                   'is-invalid': recordForm.get('playerId')?.invalid && recordForm.get('playerId')?.touched,
+                   'disabled': isUpdate
+                 }"
+                 (click)="toggleDropdown($event)">
+              <span class="text-truncate">{{ selectedPlayerName }}</span>
+            </div>
+
+            @if (isDropdownOpen && !isUpdate) {
+              <div class="custom-dropdown-menu position-absolute w-100 mt-1 shadow-lg rounded p-2 bg-dark border border-secondary z-3">
+
+                <div class="input-group input-group-sm mb-2">
+                  <span class="input-group-text bg-black text-info border-secondary">
+                    <i class="bi bi-search"></i>
+                  </span>
+                  <input type="text" class="form-control shadow-none text-light bg-black border-secondary"
+                         placeholder="Type to search..."
+                         [(ngModel)]="playerSearchQuery"
+                         [ngModelOptions]="{ standalone: true }"
+                         (click)="$event.stopPropagation()"
+                         autofocus>
+                </div>
+
+                <div class="player-list overflow-y-auto" style="max-height: 160px;">
+                  @for (player of filteredPlayers; track player.id) {
+                    <div class="player-item px-3 py-2 rounded text-light cursor-pointer small mb-1"
+                         (click)="selectPlayer(player)">
+                      {{ player.playerName }}
+                    </div>
+                  } @empty {
+                    <div class="text-muted text-center small py-2">No commanders found</div>
+                  }
+                </div>
+              </div>
+            }
+          </div>
+
+          @if (isUpdate) {
+            <div class="form-text text-muted font-monospace mt-1" style="font-size: 0.75rem;">Commander cannot be changed during update.</div>
+          }
+        }
+      </div>
+
+      <div class="col-md-5">
+        <label for="recordedAtUtc" class="form-label small text-uppercase fw-bold text-info">Record Date</label>
+        <input type="date" id="recordedAtUtc" class="form-control shadow-none" formControlName="recordedAtUtc">
+      </div>
+    </div>
+
+    <div class="text-info small fw-bold mb-2 text-uppercase tracking-wider">Squad Configurations</div>
+
+    <div class="card p-3 mb-4 shadow-sm">
+      <!-- Squad 1 -->
+      <div class="row g-2 align-items-center mb-3">
+        <div class="col-4">
+          <label class="form-label text-muted mb-1" style="font-size: 0.65rem; font-weight: 700;">SQUAD 1 TYPE</label>
+          <select class="form-select form-select-sm shadow-none" formControlName="squad1">
+            <option value="0">Tank</option>
+            <option value="1">Air</option>
+            <option value="2">Missile</option>
+          </select>
+        </div>
+        <div class="col-8">
+          <label class="form-label text-muted mb-1" style="font-size: 0.65rem; font-weight: 700;">SQUAD 1 POWER (M)</label>
+          <input type="number" step="0.01" class="form-control form-control-sm font-monospace shadow-none" formControlName="squad1Power">
+        </div>
+      </div>
+
+      <div class="border-top border-secondary opacity-25 my-2"></div>
+
+      <!-- Squad 2 -->
+      <div class="row g-2 align-items-center mb-3">
+        <div class="col-4">
+          <label class="form-label text-muted mb-1" style="font-size: 0.65rem; font-weight: 700;">SQUAD 2 TYPE</label>
+          <select class="form-select form-select-sm shadow-none" formControlName="squad2">
+            <option value="0">Tank</option>
+            <option value="1">Air</option>
+            <option value="2">Missile</option>
+          </select>
+        </div>
+        <div class="col-8">
+          <label class="form-label text-muted mb-1" style="font-size: 0.65rem; font-weight: 700;">SQUAD 2 POWER (M)</label>
+          <input type="number" step="0.01" class="form-control form-control-sm font-monospace shadow-none" formControlName="squad2Power">
+        </div>
+      </div>
+
+      <div class="border-top border-secondary opacity-25 my-2"></div>
+
+      <!-- Squad 3 -->
+      <div class="row g-2 align-items-center">
+        <div class="col-4">
+          <label class="form-label text-muted mb-1" style="font-size: 0.65rem; font-weight: 700;">SQUAD 3 TYPE</label>
+          <select class="form-select form-select-sm shadow-none" formControlName="squad3">
+            <option value="0">Tank</option>
+            <option value="1">Air</option>
+            <option value="2">Missile</option>
+          </select>
+        </div>
+        <div class="col-8">
+          <label class="form-label text-muted mb-1" style="font-size: 0.65rem; font-weight: 700;">SQUAD 3 POWER (M)</label>
+          <input type="number" step="0.01" class="form-control form-control-sm font-monospace shadow-none" formControlName="squad3Power">
+        </div>
+      </div>
+    </div>
+
+    <!-- THP & Kills -->
+    <div class="row g-3">
+      <div class="col-md-6">
+        <label for="totalHeroPower" class="form-label small text-uppercase fw-bold text-info">Total Hero Power (THP)</label>
+        <input type="number" step="1" id="totalHeroPower" class="form-control font-monospace shadow-none" formControlName="totalHeroPower">
+      </div>
+      <div class="col-md-6">
+        <label for="kills" class="form-label small text-uppercase fw-bold text-info">Kills (M)</label>
+        <input type="number" step="0.01" id="kills" class="form-control font-monospace shadow-none" formControlName="kills">
+      </div>
+    </div>
+
+  </div>
+
+  <div class="modal-footer bg-dark text-light border-top border-secondary px-4 py-3">
+    <button type="button" class="btn btn-outline-secondary btn-sm px-4" (click)="activeModal.dismiss()">Cancel</button>
+    <button type="submit" class="btn btn-info btn-sm px-4 fw-bold text-dark shadow-none" [disabled]="isSubmitting || recordForm.invalid">
+      @if (isSubmitting) {
+        <span class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></span>
+      }
+      {{ isUpdate ? 'Update Record' : 'Save Record' }}
+    </button>
+  </div>
+</form>

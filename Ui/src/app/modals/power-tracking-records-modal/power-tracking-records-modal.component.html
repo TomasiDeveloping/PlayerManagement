@@ -1,0 +1,18 @@
+<div class="modal-header py-2 bg-light">
+  <h5 class="modal-title d-flex align-items-center">
+    <i class="bi bi-graph-up text-info me-2"></i>
+    <span>Growth History</span>
+    @if (playerName) {
+      <span class="text-muted ms-2 fs-6 fw-normal">- {{ playerName }}</span>
+    }
+  </h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+</div>
+
+<div class="modal-body p-3">
+  <app-player-growth-history [playerId]="playerId" [currentLang]="'en'"></app-player-growth-history>
+</div>
+
+<div class="modal-footer py-1 bg-light">
+  <button type="button" class="btn btn-sm btn-secondary px-3" (click)="activeModal.close()">Close</button>
+</div>

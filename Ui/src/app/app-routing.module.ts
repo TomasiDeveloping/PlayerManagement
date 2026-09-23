@@ -27,9 +27,11 @@ import {MvpComponent} from "./pages/mvp/mvp.component";
 import {FeedbackComponent} from "./pages/feedback/feedback.component";
 import {ImprintComponent} from "./pages/imprint/imprint.component";
 import {CombatPowerComponent} from "./pages/combat-power/combat-power.component";
+import {PowerTrackingComponent} from "./pages/power-tracking/power-tracking.component";
 
 const routes: Routes = [
   {path: 'players', component: PlayerComponent, canActivate: [authGuard]},
+  {path: 'power-tracking', component: PowerTrackingComponent, canActivate: [authGuard]},
   {path: 'dismiss-players', component: DismissPlayerComponent, canActivate: [authGuard]},
   {path: 'player-information/:id', component: PlayerInformationComponent, canActivate: [authGuard]},
   {path: 'marshal-guard', component: MarshalGuardComponent, canActivate: [authGuard]},

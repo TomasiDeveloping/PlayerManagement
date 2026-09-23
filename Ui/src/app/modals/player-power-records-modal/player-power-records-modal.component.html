@@ -1,0 +1,54 @@
+<div class="modal-header py-2">
+  <h5 class="modal-title">Manage Records for {{ playerName }}</h5>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss(hasChanges)"></button>
+</div>
+<div class="modal-body">
+  @if (loading) {
+    <div class="text-center py-4">
+      <div class="spinner-border spinner-border-sm text-info" role="status"></div> Loading history...
+    </div>
+  } @else if (records.length > 0) {
+    <div class="table-responsive">
+      <table class="table table-sm table-striped table-bordered align-middle mb-0">
+        <thead>
+        <tr>
+          <th>Date</th>
+          <th>Squad 1</th>
+          <th>Squad 2</th>
+          <th>Squad 3</th>
+          <th>THP</th>
+          <th>Kills</th>
+          <th class="text-center">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (rec of records; track rec.id) {
+            <tr>
+              <td>{{ rec.recordedAtUtc | date: 'dd.MM.yyyy HH:mm' }}</td>
+              <td>{{ rec.squad1Power }}M</td>
+              <td>{{ rec.squad2Power }}M</td>
+              <td>{{ rec.squad3Power }}M</td>
+              <td>{{ rec.totalHeroPower | number }}</td>
+              <td>{{ rec.kills }}M</td>
+              <td class="text-center">
+                <div class="d-flex gap-2 justify-content-center">
+                  <button class="btn btn-sm btn-outline-warning py-0 px-1" (click)="editRecord(rec)" title="Edit">
+                    <i class="bi bi-pencil-square"></i>
+                  </button>
+                  <button class="btn btn-sm btn-outline-danger py-0 px-1" (click)="deleteRecord(rec.id)" title="Delete">
+                    <i class="bi bi-trash"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  } @else {
+    <div class="alert alert-secondary text-center m-0">No records found for this player.</div>
+  }
+</div>
+<div class="modal-footer py-1">
+  <button type="button" class="btn btn-sm btn-secondary" (click)="activeModal.close(hasChanges)">Close</button>
+</div>

@@ -1,0 +1,237 @@
+<div class="growth-container py-3">
+
+  <!-- Sektion Header -->
+  <div class="d-flex align-items-center justify-content-between mb-4">
+    <h5 class="text-white fw-bold m-0">
+      <i class="bi bi-activity text-info me-2"></i> {{ t('growthOverview') }}
+    </h5>
+    <span class="badge bg-secondary text-light px-3 py-2 border border-secondary">
+      @if (isLoading) {
+        <ng-container>{{ t('loading') }}</ng-container>
+      }
+      @if (!isLoading) {
+        <ng-container>{{ t('growthOverview') }}</ng-container>
+      }
+    </span>
+  </div>
+
+  <!-- Fall 1: Keine Daten vorhanden -->
+  @if (hasNoData && !isLoading) {
+    <div class="row">
+      <div class="col-12">
+        <div class="card border border-info text-center p-5 shadow-lg custom-empty-card">
+          <div class="card-body">
+            <i class="bi bi-info-circle display-4 mb-3 text-info"></i>
+            <h4 class="fw-bold mb-2 text-white">{{ t('noRecordsTitle') }}</h4>
+            <p class="mb-0 text-muted">
+              {{ t('noRecordsText') }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Fall 2: Lade-Zustand -->
+  @if (isLoading) {
+    <div class="text-center py-5">
+      <div class="spinner-border text-info" style="width: 3rem; height: 3rem;" role="status">
+        <span class="visually-hidden">{{ t('loading') }}</span>
+      </div>
+      <p class="text-muted mt-3 mb-0">{{ t('loading') }}</p>
+    </div>
+  }
+
+  <!-- Fall 3: Daten sind da - Zeige die Cards -->
+  @if (!hasNoData && !isLoading) {
+    <div class="row g-4">
+
+      <!-- SQUAD 1 -->
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="stat-card border-warning">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <div>
+              <span class="card-label text-warning d-block mb-0">
+                <i class="bi bi-shield-fill-check me-1"></i> {{ t('squad1Title') }}
+              </span>
+              <!-- Dezent als Text statt Badge/Icon -->
+              @if (cardData.squad1.type !== undefined && cardData.squad1.type !== null) {
+                <span class="small text-uppercase tracking-wider fw-bold" style="font-size: 0.75rem;">
+                  @if (cardData.squad1.type === '0') {
+                    <span class="text-warning opacity-75">Tank</span>
+                  } @else if (cardData.squad1.type === '1') {
+                    <span class="text-info opacity-75">Air</span>
+                  } @else if (cardData.squad1.type === '2') {
+                    <span class="text-danger opacity-75">Missile</span>
+                  }
+                </span>
+              }
+            </div>
+            <span class="badge bg-black border font-monospace px-2 py-1"
+                  [ngClass]="{
+                  'text-success border-success': cardData.squad1.growth.startsWith('+'),
+                  'text-danger border-danger': cardData.squad1.growth.startsWith('-'),
+                  'text-info border-info': !cardData.squad1.growth.startsWith('+') && !cardData.squad1.growth.startsWith('-')
+                }">
+              {{ cardData.squad1.growth }}
+            </span>
+          </div>
+          <div class="stat-value text-white mb-3 font-monospace">
+            {{ cardData.squad1.value }}
+          </div>
+          <div class="chart-wrapper">
+            <canvas baseChart
+                    [data]="squad1ChartData"
+                    [options]="lineChartOptions"
+                    [type]="'line'">
+            </canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- SQUAD 2 -->
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="stat-card border-info">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <div>
+              <span class="card-label text-info d-block mb-0">
+                <i class="bi bi-shield-fill-check me-1"></i> {{ t('squad2Title') }}
+              </span>
+              @if (cardData.squad2.type !== undefined && cardData.squad2.type !== null) {
+                <span class="small text-uppercase tracking-wider fw-bold" style="font-size: 0.75rem;">
+                  @if (cardData.squad2.type === '0') {
+                    <span class="text-warning opacity-75">Tank</span>
+                  } @else if (cardData.squad2.type === '1') {
+                    <span class="text-info opacity-75">Air</span>
+                  } @else if (cardData.squad2.type === '2') {
+                    <span class="text-danger opacity-75">Missile</span>
+                  }
+                </span>
+              }
+            </div>
+            <span class="badge bg-black border font-monospace px-2 py-1"
+                  [ngClass]="{
+                  'text-success border-success': cardData.squad2.growth.startsWith('+'),
+                  'text-danger border-danger': cardData.squad2.growth.startsWith('-'),
+                  'text-info border-info': !cardData.squad2.growth.startsWith('+') && !cardData.squad2.growth.startsWith('-')
+                }">
+              {{ cardData.squad2.growth }}
+            </span>
+          </div>
+          <div class="stat-value text-white mb-3 font-monospace">
+            {{ cardData.squad2.value }}
+          </div>
+          <div class="chart-wrapper">
+            <canvas baseChart
+                    [data]="squad2ChartData"
+                    [options]="lineChartOptions"
+                    [type]="'line'">
+            </canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- SQUAD 3 -->
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="stat-card border-warning">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <div>
+              <span class="card-label text-warning d-block mb-0">
+                <i class="bi bi-shield-fill-check me-1"></i> {{ t('squad3Title') }}
+              </span>
+              @if (cardData.squad3.type !== undefined && cardData.squad3.type !== null) {
+                <span class="small text-uppercase tracking-wider fw-bold" style="font-size: 0.75rem;">
+                  @if (cardData.squad3.type === '0') {
+                    <span class="text-warning opacity-75">Tank</span>
+                  } @else if (cardData.squad3.type === '1') {
+                    <span class="text-info opacity-75">Air</span>
+                  } @else if (cardData.squad3.type === '2') {
+                    <span class="text-danger opacity-75">Missile</span>
+                  }
+                </span>
+              }
+            </div>
+            <span class="badge bg-black border font-monospace px-2 py-1"
+                  [ngClass]="{
+                  'text-success border-success': cardData.squad3.growth.startsWith('+'),
+                  'text-danger border-danger': cardData.squad3.growth.startsWith('-'),
+                  'text-info border-info': !cardData.squad3.growth.startsWith('+') && !cardData.squad3.growth.startsWith('-')
+                }">
+              {{ cardData.squad3.growth }}
+            </span>
+          </div>
+          <div class="stat-value text-white mb-3 font-monospace">
+            {{ cardData.squad3.value }}
+          </div>
+          <div class="chart-wrapper">
+            <canvas baseChart
+                    [data]="squad3ChartData"
+                    [options]="lineChartOptions"
+                    [type]="'line'">
+            </canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- TOTAL HERO POWER (THP) -->
+      <div class="col-12 col-md-6 col-xl-6">
+        <div class="stat-card border-info">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <span class="card-label text-info">
+              <i class="bi bi-star-fill me-1"></i> {{ t('thpTitle') }}
+            </span>
+            <span class="badge bg-black border font-monospace px-2 py-1"
+                  [ngClass]="{
+                  'text-success border-success': cardData.thp.growth.startsWith('+'),
+                  'text-danger border-danger': cardData.thp.growth.startsWith('-'),
+                  'text-info border-info': !cardData.thp.growth.startsWith('+') && !cardData.thp.growth.startsWith('-')
+                }">
+              {{ cardData.thp.growth }}
+            </span>
+          </div>
+          <div class="stat-value text-white mb-3 font-monospace">
+            {{ cardData.thp.value }}
+          </div>
+          <div class="chart-wrapper">
+            <canvas baseChart
+                    [data]="thpChartData"
+                    [options]="lineChartOptions"
+                    [type]="'line'">
+            </canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- KILLS -->
+      <div class="col-12 col-md-6 col-xl-6">
+        <div class="stat-card border-danger">
+          <div class="d-flex justify-content-between align-items-start mb-2">
+            <span class="card-label text-danger">
+              <i class="bi bi-crosshair me-1"></i> {{ t('killsTitle') }}
+            </span>
+            <span class="badge bg-black border font-monospace px-2 py-1"
+                  [ngClass]="{
+                  'text-success border-success': cardData.kills.growth.startsWith('+'),
+                  'text-danger border-danger': cardData.kills.growth.startsWith('-'),
+                  'text-info border-info': !cardData.kills.growth.startsWith('+') && !cardData.kills.growth.startsWith('-')
+                }">
+              {{ cardData.kills.growth }}
+            </span>
+          </div>
+          <div class="stat-value text-white mb-3 font-monospace">
+            {{ cardData.kills.value }}
+          </div>
+          <div class="chart-wrapper">
+            <canvas baseChart
+                    [data]="killsChartData"
+                    [options]="lineChartOptions"
+                    [type]="'line'">
+            </canvas>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  }
+
+</div>

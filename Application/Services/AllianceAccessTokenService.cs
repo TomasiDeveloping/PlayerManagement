@@ -54,12 +54,27 @@ public class AllianceAccessTokenService(IAllianceAccessTokenRepository repositor
         return true;
     }
 
-    public async Task<bool> ValidateTokenAsync(string token, CancellationToken cancellationToken = default)
+    public async Task<AllianceAccessTokenDto?> ValidateTokenAsync(string token, CancellationToken cancellationToken = default)
     {
         var accessToken = await repository.GetActiveTokenByTokenStringAsync(token, cancellationToken);
-        if (accessToken is null) return false;
 
-        return !accessToken.ExpiresAtUtc.HasValue || accessToken.ExpiresAtUtc.Value >= DateTime.UtcNow;
+        if (accessToken == null) return null;
+
+        if (accessToken.ExpiresAtUtc.HasValue && accessToken.ExpiresAtUtc.Value < DateTime.UtcNow)
+        {
+            return null;
+        }
+
+        return new AllianceAccessTokenDto()
+        {
+            Token = accessToken.Token,
+            IsActive = accessToken.IsActive,
+            AllianceId = accessToken.AllianceId,
+            CreatedAt = accessToken.CreatedAtUtc,
+            ExpiresAt = accessToken.ExpiresAtUtc,
+            FullShareUrl = "",
+            Id = accessToken.Id
+        };
     }
 
     public async Task<IEnumerable<AllianceAccessTokenDto>> GetTokensForAllianceAsync(Guid allianceId, string baseUrl, CancellationToken cancellationToken = default)
