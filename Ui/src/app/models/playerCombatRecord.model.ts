@@ -9,5 +9,6 @@ export interface PlayerCombatRecordModel {
   squad3: string;
   totalHeroPower: number;
   kills: number;
+  profession?: number;
   recordedAtUtc?: string;
 }

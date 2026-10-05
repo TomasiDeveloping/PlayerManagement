@@ -84,6 +84,7 @@ export class PowerTrackingEditDialogComponent implements OnInit {
         squad3Power: this.editData.squad3Power || 0,
         totalHeroPower: this.editData.totalHeroPower || 0,
         kills: this.editData.kills || 0,
+        profession: this.editData.profession !== undefined ? this.editData.profession : null,
         recordedAtUtc: recordDate
       });
     } else {
@@ -103,6 +104,7 @@ export class PowerTrackingEditDialogComponent implements OnInit {
       squad3Power: [0, [Validators.required, Validators.min(0)]],
       totalHeroPower: [0, [Validators.required, Validators.min(0)]],
       kills: [0, [Validators.required, Validators.min(0)]],
+      profession:[null],
       recordedAtUtc: [new Date().toISOString().substring(0, 10), Validators.required]
     });
   }

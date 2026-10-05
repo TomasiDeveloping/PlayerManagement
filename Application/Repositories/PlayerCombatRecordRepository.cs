@@ -66,6 +66,7 @@ public class PlayerCombatRecordRepository(ApplicationContext dbContext, ILogger<
                     Squad3Power = latestRecord?.Squad3Power ?? 0,
                     TotalHeroPower = latestRecord?.TotalHeroPower ?? 0,
                     Kills = latestRecord?.Kills ?? 0,
+                    Profession = (int?)latestRecord?.Profession,
                     Squad1 = latestRecord != null ? (int?)latestRecord.Squad1 : null,
                     Squad2 = latestRecord != null ? (int?)latestRecord.Squad2 : null,
                     Squad3 = latestRecord != null ? (int?)latestRecord.Squad3 : null,
@@ -94,6 +95,7 @@ public class PlayerCombatRecordRepository(ApplicationContext dbContext, ILogger<
         recordToUpdate.TotalHeroPower = record.TotalHeroPower;
         recordToUpdate.Kills = record.Kills;
         recordToUpdate.RecordedAtUtc = record.RecordedAtUtc;
+        recordToUpdate.Profession = record.Profession;
 
         await dbContext.SaveChangesAsync(cancellationToken);
         return recordToUpdate;

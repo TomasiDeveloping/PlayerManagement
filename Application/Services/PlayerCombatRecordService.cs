@@ -21,6 +21,7 @@ public class PlayerCombatRecordService(IPlayerCombatRecordRepository repository)
             Squad3Power = dto.Squad3Power,
             TotalHeroPower = dto.TotalHeroPower,
             Kills = dto.Kills,
+            Profession = dto.Profession.HasValue ? (Profession)dto.Profession.Value : null,
             RecordedAtUtc = dto.RecordedAtUtc ?? DateTime.UtcNow
         };
         await repository.AddAsync(record, cancellationToken);
@@ -49,6 +50,7 @@ public class PlayerCombatRecordService(IPlayerCombatRecordRepository repository)
             Squad3Power = r.Squad3Power,
             TotalHeroPower = r.TotalHeroPower,
             Kills = r.Kills,
+            Profession = (int?)r.Profession,
             RecordedAtUtc = r.RecordedAtUtc
         }).ToList();
     }
@@ -67,6 +69,7 @@ public class PlayerCombatRecordService(IPlayerCombatRecordRepository repository)
             Squad3Power = dto.Squad3Power,
             TotalHeroPower = dto.TotalHeroPower,
             Kills = dto.Kills,
+            Profession = dto.Profession.HasValue ? (Profession)dto.Profession.Value : null,
             RecordedAtUtc = dto.RecordedAtUtc
         };
         var updatedRecord = await repository.UpdateAsync(record, cancellationToken);
@@ -82,6 +85,7 @@ public class PlayerCombatRecordService(IPlayerCombatRecordRepository repository)
             Squad3Power = updatedRecord.Squad3Power,
             TotalHeroPower = updatedRecord.TotalHeroPower,
             Kills = updatedRecord.Kills,
+            Profession = (int?)updatedRecord.Profession,
             RecordedAtUtc = updatedRecord.RecordedAtUtc
         };
     }

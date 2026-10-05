@@ -25,6 +25,14 @@ All beta versions (0.x.x) can be found here →
 
 ---
 
+### **[1.4.0]** – *2026-10-05* 🚀  
+#### ✨ Added & 🛠 Changed  
+- **Commander Professions**  
+  Added support for tracking in-game professions for alliance members to improve strategic overview and management:  
+  - **Profession Selection**: Players and admins can now assign a profession (**Engineer** or **War Leader**) when submitting or editing power records (defaults to None).  
+  - **Visual Badges**: Professions are now displayed directly next to player names in the roster table, public portal, and growth history overview with custom color coding.  
+  - **Alliance Statistics**: Added a quick overview bar in the roster view showing the total count of War Leaders, Engineers, and undefined professions within the alliance.
+
 ### **[1.3.0]** – *2026-09-23* 🚀  
 #### ✨ Added  
 - **Power Tracking & Management**  

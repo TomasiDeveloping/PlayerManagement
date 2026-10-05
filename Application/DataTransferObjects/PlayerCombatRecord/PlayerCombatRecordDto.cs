@@ -19,5 +19,7 @@ public class PlayerCombatRecordDto
     public decimal TotalHeroPower { get; set; }
     public decimal Kills { get; set; }
 
+    public int? Profession { get; set; }
+
     public DateTime RecordedAtUtc { get; set; }
 }

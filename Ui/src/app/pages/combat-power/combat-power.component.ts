@@ -42,6 +42,7 @@ export class CombatPowerComponent implements OnInit {
   squad3Power: number | null = null;
   totalHeroPower: number | null = null;
   kills: number| null = null;
+  selectedProfession: number | null = null;
 
   isLoading: boolean = true;
   errorMessage: string | null = null;
@@ -164,6 +165,7 @@ export class CombatPowerComponent implements OnInit {
       squad3: this.squad3Type,
       squad3Power: this.squad3Power as number,
       totalHeroPower: this.totalHeroPower as number,
+      profession: this.selectedProfession as number,
       kills: this.kills as number
     };
     this._playerCombatService.addRecord(payload).subscribe({

@@ -9,5 +9,6 @@ export interface PlayerCombatRecordOverviewModel {
   squad3Power: number;
   totalHeroPower: number;
   kills: number;
+  profession?: number;
   recordedAtUtc?: Date;
 }

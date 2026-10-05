@@ -139,6 +139,15 @@
       </div>
     </div>
 
+    <div class="mb-4">
+      <label for="profession" class="form-label small text-uppercase fw-bold text-info">Profession</label>
+      <select id="profession" class="form-select shadow-none" formControlName="profession">
+        <option [ngValue]="null">-- No Profession (None) --</option>
+        <option [ngValue]="0">Engineer</option>
+        <option [ngValue]="1">War Leader</option>
+      </select>
+    </div>
+
   </div>
 
   <div class="modal-footer bg-dark text-light border-top border-secondary px-4 py-3">

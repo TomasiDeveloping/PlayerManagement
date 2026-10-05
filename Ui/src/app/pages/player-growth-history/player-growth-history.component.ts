@@ -27,6 +27,8 @@ export class PlayerGrowthHistoryComponent implements OnInit, OnChanges {
   isLoading: boolean = false;
   hasNoData: boolean = false;
 
+  profession: number | undefined = undefined;
+
   public lineChartOptions: ChartOptions<'line'> = {
     responsive: true,
     maintainAspectRatio: false,
@@ -43,7 +45,7 @@ export class PlayerGrowthHistoryComponent implements OnInit, OnChanges {
     squad2: { value: '0.00M', type: '', growth: '+0.00%', color: '#0dcaf0' },
     squad3: { value: '0.00M', type: '', growth: '+0.00%', color: '#ffc107' },
     thp:    { value: '0',     growth: '+0.00%', color: '#0dcaf0' },
-    kills:  { value: '0',     growth: '+0.00%', color: '#dc3545' }
+    kills:  { value: '0',     growth: '+0.00%', color: '#dc3545' },
   };
 
   public squad1ChartData: ChartConfiguration<'line'>['data'] = { labels: [], datasets: [{ data: [], borderColor: '#ffc107', backgroundColor: 'rgba(255, 193, 7, 0.1)', fill: true }] };
@@ -80,6 +82,7 @@ export class PlayerGrowthHistoryComponent implements OnInit, OnChanges {
           console.warn('Keine Daten gefunden für ID:', playerId);
           this.hasNoData = true;
         } else {
+          this.profession = result[0].profession;
           this.processRecordsForCharts(result);
         }
 

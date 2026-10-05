@@ -216,6 +216,22 @@
                                 <span class="small text-light">{{ t('hintText') }}</span>
                               </div>
 
+                              <!-- Profession Selection -->
+                              <div class="row g-4 mb-4">
+                                <div class="col-12">
+                                  <div class="squad-input-card p-3">
+                                    <label class="form-label text-uppercase fs-7 fw-bold text-info mb-2 d-block">
+                                      <i class="bi bi-person-workspace me-1"></i> {{t('profession')}}
+                                    </label>
+                                    <select class="form-select border-secondary bg-black text-light" [(ngModel)]="selectedProfession" name="profession">
+                                      <option [ngValue]="null">{{t('noProfession')}}</option>
+                                      <option [ngValue]="0">{{t('engineer')}}</option>
+                                      <option [ngValue]="1">{{t('warLeader')}}</option>
+                                    </select>
+                                  </div>
+                                </div>
+                              </div>
+
                               <div class="row g-4">
                                 <!-- Squad 1 -->
                                 <div class="col-12 col-md-4">

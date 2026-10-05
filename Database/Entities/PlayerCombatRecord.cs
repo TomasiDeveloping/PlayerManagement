@@ -17,5 +17,7 @@ public class PlayerCombatRecord : BaseEntity
     public decimal TotalHeroPower { get; set; }
     public decimal Kills { get; set; }
 
+    public Profession? Profession { get; set; }
+
     public DateTime RecordedAtUtc { get; set; }
 }

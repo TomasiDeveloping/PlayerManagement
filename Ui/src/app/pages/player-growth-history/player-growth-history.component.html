@@ -1,21 +1,32 @@
 <div class="growth-container py-3">
 
-  <!-- Sektion Header -->
-  <div class="d-flex align-items-center justify-content-between mb-4">
+  <div class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between mb-4 gap-2">
     <h5 class="text-white fw-bold m-0">
       <i class="bi bi-activity text-info me-2"></i> {{ t('growthOverview') }}
     </h5>
-    <span class="badge bg-secondary text-light px-3 py-2 border border-secondary">
-      @if (isLoading) {
-        <ng-container>{{ t('loading') }}</ng-container>
+
+    <div class="d-flex align-items-center gap-2">
+      @if (profession !== null && profession !== undefined) {
+        <span class="badge border fw-semibold px-2.5 py-1.5" [ngClass]="{
+          'border-info text-info': profession === 0,
+          'border-warning text-warning': profession === 1
+        }" style="font-size: 0.75rem; background-color: rgba(0,0,0,0.4);">
+          <i class="bi bi-person-workspace me-1"></i>
+          {{ profession === 0 ? 'Engineer' : 'War Leader' }}
+        </span>
       }
-      @if (!isLoading) {
-        <ng-container>{{ t('growthOverview') }}</ng-container>
-      }
-    </span>
+
+      <span class="badge bg-secondary text-light px-3 py-2 border border-secondary">
+        @if (isLoading) {
+          <ng-container>{{ t('loading') }}</ng-container>
+        }
+        @if (!isLoading) {
+          <ng-container>{{ t('growthOverview') }}</ng-container>
+        }
+      </span>
+    </div>
   </div>
 
-  <!-- Fall 1: Keine Daten vorhanden -->
   @if (hasNoData && !isLoading) {
     <div class="row">
       <div class="col-12">
@@ -32,7 +43,6 @@
     </div>
   }
 
-  <!-- Fall 2: Lade-Zustand -->
   @if (isLoading) {
     <div class="text-center py-5">
       <div class="spinner-border text-info" style="width: 3rem; height: 3rem;" role="status">
@@ -42,7 +52,6 @@
     </div>
   }
 
-  <!-- Fall 3: Daten sind da - Zeige die Cards -->
   @if (!hasNoData && !isLoading) {
     <div class="row g-4">
 
@@ -54,7 +63,6 @@
               <span class="card-label text-warning d-block mb-0">
                 <i class="bi bi-shield-fill-check me-1"></i> {{ t('squad1Title') }}
               </span>
-              <!-- Dezent als Text statt Badge/Icon -->
               @if (cardData.squad1.type !== undefined && cardData.squad1.type !== null) {
                 <span class="small text-uppercase tracking-wider fw-bold" style="font-size: 0.75rem;">
                   @if (cardData.squad1.type === '0') {

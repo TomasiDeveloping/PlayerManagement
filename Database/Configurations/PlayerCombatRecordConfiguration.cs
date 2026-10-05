@@ -43,6 +43,9 @@ public class PlayerCombatRecordConfiguration : IEntityTypeConfiguration<PlayerCo
             .IsRequired()
             .HasPrecision(18, 2);
 
+        builder.Property(cr => cr.Profession)
+            .IsRequired(false);
+
         builder.Property(cr => cr.RecordedAtUtc)
             .IsRequired();
     }

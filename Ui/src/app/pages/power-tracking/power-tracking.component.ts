@@ -59,6 +59,18 @@ export class PowerTrackingComponent implements OnInit {
 
   isLoading: boolean = false;
 
+  get totalWarLeaders(): number {
+    return this.filteredPlayers.filter(p => p.profession === 1).length;
+  }
+
+  get totalEngineers(): number {
+    return this.filteredPlayers.filter(p => p.profession === 0).length;
+  }
+
+  get totalUndefinedProfession(): number {
+    return this.filteredPlayers.filter(p => p.profession === null || p.profession === undefined).length;
+  }
+
   ngOnInit(): void {
     this.allianceId = this.tokenService.getAllianceId();
     if (this.allianceId == null) {

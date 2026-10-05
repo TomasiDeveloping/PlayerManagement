@@ -48,6 +48,10 @@ export const TRANSLATIONS: { [lang: string]: { [key: string]: string } } = {
     clearSearch: "Clear search",
     noRecordsTitle: "No Combat Records Found",
     noRecordsText: "Combat records must be submitted in order to display the growth history and charts.",
+    profession: "Profession",
+    noProfession: "-- No Profession (None) --",
+    warLeader: "War Leader",
+    engineer: "Engineer"
   },
   de: {
     title: "Allianz Macht-Portal",
@@ -95,7 +99,11 @@ export const TRANSLATIONS: { [lang: string]: { [key: string]: string } } = {
     accessDeniedSub: "Bitte überprüfe deinen sicheren Link.",
     errorLabel: "Fehler",
     loading: "Wachstumshistorie wird geladen...",
-    clearSearch: "Suche löschen"
+    clearSearch: "Suche löschen",
+    profession: "Beruf",
+    noProfession: "-- Kein Beruf (Keine) --",
+    warLeader: "Kriegsführer",
+    engineer: "Ingenieur"
   },
   fr: {
     title: "Portail de Puissance de l'Alliance",
@@ -143,7 +151,11 @@ export const TRANSLATIONS: { [lang: string]: { [key: string]: string } } = {
     accessDeniedSub: "Veuillez vérifier votre lien d'accès.",
     errorLabel: "Erreur",
     loading: "Loading growth history...",
-    clearSearch: "Effacer la recherche"
+    clearSearch: "Effacer la recherche",
+    profession: "Profession",
+    noProfession: "-- Aucune profession (Aucune) --",
+    warLeader: "Chef de guerre",
+    engineer: "Ingénieur"
   },
   es: {
     title: "Portal de Poder de la Alianza",
@@ -191,7 +203,11 @@ export const TRANSLATIONS: { [lang: string]: { [key: string]: string } } = {
     accessDeniedSub: "Verifica tu enlace de acceso.",
     errorLabel: "Error",
     loading: "Loading growth history...",
-    clearSearch: "Limpiar búsqueda"
+    clearSearch: "Limpiar búsqueda",
+    profession: "Profesión",
+    noProfession: "-- Sin profesión (Ninguna) --",
+    warLeader: "Líder de guerra",
+    engineer: "Ingeniero"
   },
   it: {
     title: "Portale di Potenza dell'Alleanza",
@@ -239,7 +255,11 @@ export const TRANSLATIONS: { [lang: string]: { [key: string]: string } } = {
     accessDeniedSub: "Verifica il link di accesso.",
     errorLabel: "Errore",
     loading: "Loading growth history...",
-    clearSearch: "Cancella ricerca"
+    clearSearch: "Cancella ricerca",
+    profession: "Professione",
+    noProfession: "-- Nessuna professione (Nessuna) --",
+    warLeader: "Condottiero",
+    engineer: "Ingegnere"
   },
   tr: {
     title: "İttifak Güç Portalı",
@@ -287,7 +307,11 @@ export const TRANSLATIONS: { [lang: string]: { [key: string]: string } } = {
     accessDeniedSub: "Lütfen erişim bağlantınızı kontrol edin.",
     errorLabel: "Hata",
     loading: "Loading growth history...",
-    clearSearch: "Aramayı temizle"
+    clearSearch: "Aramayı temizle",
+    profession: "Meslek",
+    noProfession: "-- Meslek Yok (Hiçbiri) --",
+    warLeader: "Savaş Lideri",
+    engineer: "Mühendis"
   },
   sv: {
     title: "Alliansens Styrkeportal",
@@ -335,7 +359,11 @@ export const TRANSLATIONS: { [lang: string]: { [key: string]: string } } = {
     accessDeniedSub: "Verifiera din åtkomstlänk.",
     errorLabel: "Fel",
     loading: "Loading growth history...",
-    clearSearch: "Rensa sökning"
+    clearSearch: "Rensa sökning",
+    profession: "Yrke",
+    noProfession: "-- Inget yrke (Ingen) --",
+    warLeader: "Krigsledare",
+    engineer: "Ingenjör"
   },
   no: {
     title: "Alliansens Styrkeportal",
@@ -383,7 +411,11 @@ export const TRANSLATIONS: { [lang: string]: { [key: string]: string } } = {
     accessDeniedSub: "Vennligst sjekk lenken din.",
     errorLabel: "Feil",
     loading: "Loading growth history...",
-    clearSearch: "Tøm søk"
+    clearSearch: "Tøm søk",
+    profession: "Yrke",
+    noProfession: "-- Ingen yrke --",
+    warLeader: "Krigsleder",
+    engineer: "Ingeniør"
   },
   fi: {
     title: "Allianssin Voimaportaali",
@@ -431,6 +463,10 @@ export const TRANSLATIONS: { [lang: string]: { [key: string]: string } } = {
     accessDeniedSub: "Tarkista suojattu linkkisi.",
     errorLabel: "Virhe",
     loading: "Loading growth history...",
-    clearSearch: "Tyhjennä haku"
+    clearSearch: "Tyhjennä haku",
+    profession: "Ammatti",
+    noProfession: "-- Ei ammattia --",
+    warLeader: "Sotapäällikkö",
+    engineer: "Insinööri"
   }
 };

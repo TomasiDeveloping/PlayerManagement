@@ -6,7 +6,8 @@
     <button type="button"
             class="btn btn-sm btn-outline-info rounded-circle d-flex align-items-center justify-content-center p-0"
             style="width: 28px; height: 28px;"
-            ngbTooltip="More info"
+            ngbTooltip="More info",
+            triggers="hover"
             placement="right"
             (click)="openInfoModal()">
       <i class="bi bi-info-lg"></i>
@@ -90,6 +91,14 @@
     </div>
     <!-- ENDE FILTER-LEISTE -->
 
+      <!-- Statistik-Leiste für Berufe -->
+    <div class="d-flex align-items-center gap-3 mb-2 small text-muted">
+      <span>Professions:</span>
+      <span class="text-warning">War Leader: <strong>{{ totalWarLeaders }}</strong></span>
+      <span class="text-info">Engineer: <strong>{{ totalEngineers }}</strong></span>
+      <span class="text-danger">Undefined: <strong>{{ totalUndefinedProfession }}</strong></span>
+    </div>
+
     @if (filteredPlayers.length > 0) {
       <div class="table-responsive">
         <table class="table table-striped table-bordered align-middle mb-3 text-nowrap">
@@ -147,6 +156,15 @@
                 <!-- Commander Name -->
                 <td>
                   <span class="fw-bold">{{ player.playerName }}</span>
+
+                  @if (player.profession !== null && player.profession !== undefined) {
+                    <span class="badge border ms-2 fw-semibold" [ngClass]="{
+      'border-info text-info': player.profession === 0,
+      'border-warning text-warning': player.profession === 1
+    }" style="font-size: 0.65rem; background-color: rgba(0,0,0,0.3);">
+      {{ player.profession === 0 ? 'Engineer' : 'War Leader' }}
+    </span>
+                  }
                 </td>
 
                 <!-- Squad 1 -->
@@ -231,10 +249,10 @@
                 <td class="text-center">
                   @if (player.recordedAtUtc) {
                     <div class="d-flex gap-2 justify-content-center">
-                      <button type="button" class="btn btn-sm btn-outline-info px-2 py-1" ngbTooltip="View growth history" placement="auto" (click)="openPlayerHistory(player)">
+                      <button type="button" class="btn btn-sm btn-outline-info px-2 py-1" ngbTooltip="View growth history" triggers="hover" placement="auto" (click)="openPlayerHistory(player)">
                         <i class="bi bi-graph-up"></i>
                       </button>
-                      <button type="button" class="btn btn-sm btn-outline-warning px-2 py-1" ngbTooltip="Correct values" placement="auto" (click)="openEditPlayer(player)">
+                      <button type="button" class="btn btn-sm btn-outline-warning px-2 py-1" ngbTooltip="Correct values" triggers="hover" placement="auto" (click)="openEditPlayer(player)">
                         <i class="bi bi-pencil-square"></i>
                       </button>
                     </div>
@@ -315,9 +333,9 @@
                 </td>
                 <td>
                   <div class="d-flex gap-3 justify-content-around">
-                    <i ngbTooltip="Copy Link" placement="auto" (click)="copyTokenLink(t.fullShareUrl)" class="bi custom-info-icon bi-clipboard" role="button"></i>
+                    <i ngbTooltip="Copy Link" triggers="hover" placement="auto" (click)="copyTokenLink(t.fullShareUrl)" class="bi custom-info-icon bi-clipboard" role="button"></i>
                     @if (t.isActive) {
-                      <i ngbTooltip="Revoke Token" placement="auto" (click)="revokeToken(t.id)" class="bi custom-delete-icon bi-lock-fill" role="button"></i>
+                      <i ngbTooltip="Revoke Token" triggers="hover" placement="auto" (click)="revokeToken(t.id)" class="bi custom-delete-icon bi-lock-fill" role="button"></i>
                     }
                   </div>
                 </td>
